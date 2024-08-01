@@ -3,6 +3,6 @@ package com.damoim.controller;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class UserInfoController {
+public class MemberController {
 
 }

@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.damoim.model.vo.UserInfo;
+import com.damoim.model.vo.Member;
 @Mapper
-public interface SignUpMapper {
+public interface MemberMapper {
 
 	// 회원가입에 필요한  Mapper
 	
