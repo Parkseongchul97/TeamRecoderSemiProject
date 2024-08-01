@@ -1,0 +1,17 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.MemberMapper">
+	
+	<resultMap id="videoMap" type="video">
+	<id column="id" />
+	<result column="pwd" />
+	<result column="addr" />
+	<result column="phone" />
+	<result column="email" />
+	<result column="name" />
+	<result column="age" />
+	<result column="gender"/>
+	<result column="status"/>
+	 
+	
+
+</mapper>

@@ -1,21 +1,27 @@
 package mapper;
 
-public interface Mapper {
+import java.util.List;
 
-//	signUp; // 회원가입
-//	
-//	typeCategoryLarge; // 유형 대분류
-//	
-//	typeCategorySmall; // 유형 소분류
-//	
+import org.apache.ibatis.annotations.Mapper;
+
+import com.damoim.model.vo.UserInfo;
+@Mapper
+public interface SignUpMapper {
+
+	// 회원가입에 필요한  Mapper
+	
+//	void register(SignUp signup);
+//	List<SignUp> allMember();
+//	SignUp login(SignUp signup);
+//	void update(SignUp signup);
+	
+	
+	
+
 //	locationCategoryLarg; // 위치 대분류
 //	
 //	locationCategorySmall; // 위치 소분류
-//	
-//	user; //유저
-//	
-//	membership; //클럽
-//	
+
 //	membershipType; // 클럽 유형 리스트
 //	
 //	membershipLocation; // 클럽 지역 리스트
@@ -33,7 +39,6 @@ public interface Mapper {
 //	main; // 클럽홍보게시판
 //	
 //	mainComment; // 매인 게시판에 댓글기능 추가
-//	
-//	image; //사진 테이블
+
 	
 }
