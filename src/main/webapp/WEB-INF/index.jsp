@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>테 스 트</h1>
+			<a href="/createclub">클럽생성</a>
+			
 </body>
 </html>
