@@ -1,5 +1,7 @@
 package mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.damoim.model.vo.Membership;
@@ -8,4 +10,5 @@ import com.damoim.model.vo.Membership;
 public interface MembershipMapper {
 
 	void createclub(Membership membership);
+	List<Membership> allClub();
 }

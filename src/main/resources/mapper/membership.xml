@@ -10,6 +10,13 @@
         <result column="membership_date" property="membershipDate"/>
         <result column="membership_grade" property="membershipGrade"/>
         <result column="membership_max" property="membershipMax"/>
+        <association property="membershipUserList" javaType="MembershipUserList">
+            <id column="list_code" property="listCode"/>
+            <result column="list_grade" property="listGrade"/>
+            <result column="user_code" property="userCode"/>
+            <result column="membership_code" property="membershipCode"/>
+        </association>
+        
         
     </resultMap>
 
@@ -18,7 +25,17 @@
         VALUES (#{membershipCode}, #{membershipName}, #{membershipImg}, #{membershipInfo}, #{membershipDate}, #{membershipGrade}, #{membershipMax})
     </insert>
 
+
+<insert id="createMembershipUserList" parameterType="MembershipUserList">
+        INSERT INTO membership_user_list (list_grade, user_code, membership_code)
+        VALUES (#{listGrade}, #{userCode}, #{membershipCode});
+    </insert>
     
+    <select id="allClub" resultType ="MemberShip" >
+
+	SELECT * FROM membership
+    
+    </select>
     
 
 </mapper>

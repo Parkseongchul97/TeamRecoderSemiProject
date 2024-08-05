@@ -2,6 +2,7 @@ package com.damoim.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -14,6 +15,14 @@ public class MembershipController {
 	@Autowired
 	private MembershipService membershipservice;
 
+	 @GetMapping("/")
+ 	public String index(Model model) {
+		model.addAttribute("allClub",membershipservice.allClub());
+		 return "index";
+ 		
+ 	
+ 	}
+	
 	@GetMapping("/createclub")
 	public String createclub(){
 		return "mypage/createclub";
@@ -24,5 +33,10 @@ public class MembershipController {
 	public String createclub(Membership membership) {
 		membershipservice.createclub(membership); // 클럽 생성 로직 호출
      return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
+     
+   
+    
+     
+     
 }	
 	}

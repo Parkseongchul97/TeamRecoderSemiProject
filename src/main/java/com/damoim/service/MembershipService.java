@@ -1,5 +1,7 @@
 package com.damoim.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class MembershipService {
 	
 	public void createclub(Membership membership) {
 		mapper.createclub(membership);
+	}
+
+	public List<Membership> allClub() {
+		
+		return mapper.allClub();
 	}
 	
 	
