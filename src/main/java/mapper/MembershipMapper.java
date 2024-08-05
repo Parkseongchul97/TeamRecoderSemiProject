@@ -11,4 +11,11 @@ public interface MembershipMapper {
 
 	void createclub(Membership membership);
 	List<Membership> allClub();
+import com.damoim.model.vo.MembershipUserList;
+
+@Mapper
+public interface MembershipMapper {
+	
+	List<MembershipUserList> allMembership();
+
 }

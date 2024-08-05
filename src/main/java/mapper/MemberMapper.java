@@ -41,4 +41,18 @@ public interface MemberMapper {
 //	mainComment; // 매인 게시판에 댓글기능 추가
 
 	
+import org.apache.ibatis.annotations.Mapper;
+
+import com.damoim.model.vo.Member;
+
+
+@Mapper
+public interface MemberMapper {
+	
+	Member login(Member member);
+	void signUp(Member member);
+	Member idCheck(Member member);
+	Member nicknameCheck(Member member);
+	Member pwdCheck(Member member);	
+	void update(Member member);
 }
