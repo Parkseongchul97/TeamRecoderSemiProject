@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.damoim.model.vo.Membership;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.damoim.model.dto.MemberListDTO;
 import com.damoim.service.MembershipService;
 
 @Controller
@@ -40,6 +43,11 @@ public class MembershipController {
      
 }	
 	}
+	@Autowired MembershipService service;
 	
-	
+	@PostMapping("/membershipApply")
+	public String membershipApply(MemberListDTO member) {
+		
+		return "redirect:/";	
+	}
 }
