@@ -71,6 +71,9 @@ pageEncoding="UTF-8"%>
           <div class="info">
             <div class="text">회원등급</div>
             <h1></h1>
+            <div >
+            <a href="/createclub" class="createclub">클럽생성</a>
+            </div>
           </div>
         </div>
       </div>

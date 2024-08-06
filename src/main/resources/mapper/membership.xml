@@ -1,41 +1,61 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="mapper.MembershipMapper">
 
-    <resultMap id="createclubMap" type="Membership">
-        <id column="membership_code" property="membershipCode"/>
-        <result column="membership_name" property="membershipName"/>
-        <result column="membership_img" property="membershipImg"/>
-        <result column="membership_info" property="membershipInfo"/>
-        <result column="membership_date" property="membershipDate"/>
-        <result column="membership_grade" property="membershipGrade"/>
-        <result column="membership_max" property="membershipMax"/>
-        <association property="membershipUserList" javaType="MembershipUserList">
-            <id column="list_code" property="listCode"/>
-            <result column="list_grade" property="listGrade"/>
-            <result column="user_code" property="userCode"/>
-            <result column="membership_code" property="membershipCode"/>
-        </association>
-        
-        
-    </resultMap>
-
-    <insert id="createclub" parameterType="Membership">
-        INSERT INTO membership (membership_code, membership_name, membership_img, membership_info, membership_date, membership_grade, membership_max)
-        VALUES (#{membershipCode}, #{membershipName}, #{membershipImg}, #{membershipInfo}, #{membershipDate}, #{membershipGrade}, #{membershipMax})
-    </insert>
 
 
-<insert id="createMembershipUserList" parameterType="MembershipUserList">
-        INSERT INTO membership_user_list (list_grade, user_code, membership_code)
-        VALUES (#{listGrade}, #{userCode}, #{membershipCode});
-    </insert>
-    
-    <select id="allClub" resultType ="MemberShip" >
+<resultMap type="MembershipUserList" id="membershipmap">
+<id column = "list_code" property="listCode"/>
+<result column="list_grade" property="listGrade"/>
+<association property="member" javaType="Member">
+<id column ="id" property="id"/>
+<result column="name" property="name"/>
+<result column="nickname" property="nickname"/>
+<result column="member_img" property="memberImg"/>
+</association>
+<association property="membership" javaType="Membership">
+<id column="membership_code" property="membershipCode"/>
+ <result column="Membership_name" property="membershipName"/>
+ <result column="Membership_img" property="membershipImg"/>
+ <result column="Membership_info" property="membershipInfo"/>
+ <result column="Mebership_date"  property="membershipDate"/>
+ <result column="Membership_grade" property="membershipGrade"/>
+ <result column="Membership_max" property="membershipMax"/>
+</association>
+</resultMap>
 
-	SELECT * FROM membership
-    
-    </select>
-    
 
-</mapper>
+
+<select id="allMembership" resultMap="membershipmap">
+SELECT *
+FROM membership_user_list
+JOIN membership USING (membership_code)
+JOIN member USING (id)
+WHERE list_grade = "host";
+</select>
+
+
+
+
+
+
+
+
+
+<select id="main" parameterType="Integer"  resultMap="membershipmap">
+SELECT *
+FROM membership_user_list
+JOIN membership USING (membership_code)
+JOIN member USING (id)
+WHERE membership_code = "${memebershipCode}" AND list_grade = "host";
+</select>
+
+<select id="membershipUserCount" parameterType="Integer"  resultType="Integer">
+	SELECT count(membership_code) as count
+	FROM membership_user_list
+	WHERE membership_code = #{membershipCode}
+	GROUP BY membership_code
+</select>
+
+
+
+ </mapper>

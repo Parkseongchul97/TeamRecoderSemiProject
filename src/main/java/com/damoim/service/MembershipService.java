@@ -30,7 +30,7 @@ public class MembershipService {
 		return Mapper.membershipUserCount(count);
  	}
    public void membershipApply() {
-	   
+	  
    }
 	
 	
