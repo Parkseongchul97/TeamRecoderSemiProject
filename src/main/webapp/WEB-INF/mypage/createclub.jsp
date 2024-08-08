@@ -13,9 +13,11 @@
         <!-- 클럽 이름 -->
         클럽이름: <input type="text" name="membershipName" required><br>
         <!-- 클럽 이미지만 업로드 -->
-        클럽이미지: <input type="file" name="membershipImg" accept="image/*" required><br>
+        클럽이미지: <input type="file" name="membershipImg" accept="image/*" ><br>
         <!-- 클럽 소개 -->
-        클럽소개: <textarea name="membershipIntroduction" rows="4" cols="50" required></textarea><br>
+        클럽소개한줄요약:<input type="text" name="membershipIntroductionShort" required><br>
+        클럽소개적당히: <textarea name="membershipIntroductionMedium" rows="4" cols="50" required></textarea><br>
+        클럽소개많이: <textarea name="membershipIntroductionLong" rows="8" cols="100" required></textarea><br>
         <!-- 클럽 최대 인원 -->
         클럽최대인원: <input type="number" name="membershipMax" required><br>
         <!-- 클럽 생성 -->

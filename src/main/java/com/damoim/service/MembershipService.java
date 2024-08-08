@@ -48,17 +48,12 @@ public class MembershipService {
 	}
 	
 
-	@Autowired
-	private MembershipMapper mapper;
 	
 	public void createclub(Membership membership) {
 		mapper.createclub(membership);
 	}
 
-	public List<Membership> allClub() {
-		
-		return mapper.allClub();
-	}
+
 	
 	
 }

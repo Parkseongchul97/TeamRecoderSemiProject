@@ -20,5 +20,8 @@ public interface MembershipMapper {
 	MemberListDTO checkMember(MemberListDTO member);
 	void makeMembership(Membership membership);
 	void host(MemberListDTO list);
+	void createclub(Membership membership);
+	void searchMembershipInfo(Membership membership );
+	
 
 }
