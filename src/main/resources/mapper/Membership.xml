@@ -89,33 +89,7 @@ VALUES (#{listGrade},#{id},#{membershipCode});
         VALUES (#{membershipCode}, #{membershipName}, #{membershipImg}, #{membershipInfo}, #{membershipDate}, #{membershipGrade}, #{membershipMax})
     </insert>
 
-<select id="searchMembershipInfo" parameterType="map" resultType="MembershipInfo">
-    SELECT *
-    FROM memberships
-    WHERE
-    <if test="keywordShort != null">
-        <!-- 클럽소개시 한 줄 요약이 존재할 경우 검색 조건 추가 -->
-        membership_info LIKE CONCAT('%', #{keywordShort}, '%')
-    </if>
-    
-    <if test="keywordMedium != null">
-        <!-- 클럽소개 적당히가 존재할 경우 검색 조건 추가 -->
-        <if test="keywordShort != null">
-            <!-- keywordShort이 존재할 경우 OR로 연결 -->
-            OR 
-        </if>
-        membership_info LIKE CONCAT('%', #{keywordMedium}, '%')
-    </if>
-    
-    <if test="keywordLong != null">
-        <!-- 클럽소개 많이가 존재할 경우 검색 조건 추가 -->
-        <if test="keywordShort != null or keywordMedium != null">
-            <!-- keywordShort 또는 keywordMedium이 존재할 경우 OR로 연결 -->
-            OR 
-        </if>
-        membership_info LIKE CONCAT('%', #{keywordLong}, '%')
-    </if>
-</select>
+
 
 
  </mapper>

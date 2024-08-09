@@ -16,8 +16,10 @@ import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 @Controller
 public class PageController {
 	
+	
 	@Autowired
 	private MembershipService service;
+	
 
 	
 	@GetMapping("/")

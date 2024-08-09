@@ -44,10 +44,15 @@ public class MembershipController {
 	
 	@PostMapping("/createclub")
 	public String createclub(Membership membership) {
+		System.out.println(membership);
+		membership.setMembershipInfo(null);
 		membershipservice.createclub(membership); // 클럽 생성 로직 호출
      return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
          
 }	
+	
+	
+	
 	
 	@Autowired
 	private MembershipService service;
