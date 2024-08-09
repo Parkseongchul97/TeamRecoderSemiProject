@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>로그인 페이지</title>
+        <title>Damoim 페이지</title>
         <link
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/reset.css"
@@ -15,6 +15,7 @@ pageEncoding="UTF-8"%>
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/index.css"
         />
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
        
       </head>
       <body>
@@ -30,55 +31,27 @@ pageEncoding="UTF-8"%>
           <c:if test="${empty mem}">
               <div class="header_right_menu">
                 <a href="/signUp">회원가입</a>
+                <a href="/loginPage">로그인</a>
               </div>
             
               </c:if>
               <c:if test="${not empty mem}">
               <div class="header_right_menu">
                 <a href="/mypage">마이페이지</a> 
+               
+              <a href="/myMembership?id=${mem.id}">나의 모임</a>  
+            
                 <a href="/logout">로그아웃</a>
               </div>
               </c:if>
             </div>
           </div>
         </div>
-        <c:if test="${empty mem}">
-        <div class="container">
-          <div class="login-box">
-            <h1>로그인</h1>
-            <form action="/login" method="post">
-              <div class="textbox">
-                <i class="fas fa-user"></i>
-                <input type="text" placeholder="아이디" name="id" required />
-              </div>
-              <div class="textbox">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="비밀번호" name="pwd" />
-              </div>
-            <input type="submit" class="btn" value="로그인" />
-            </form>
-            <div class="searchBox">
-              <div>
-                <a class="search" href="https://www.google.com/">아이디 / 비밀번호 찾기</a>
-              </div>
+     
               
-              <div>
-                <a class="search"  href="/signUp">회원가입</a>
-              </div>
-            </div>
-          </div>
-          </c:if>
-          <c:if test="${not empty mem }">
-          <div class="container">
-          <div class="login-box">
-            <h1>${mem.name}님 환영합니다~</h1>
-              <form action="/makeMembership">            
-              <input type="hidden" name=id value="${mem.id}">
-              <button type="submit" value="클럽생성">클럽 만들기 </button>
-              </form>
             </div>
           </div>      
-          </c:if>
+          
         </div>
         
         
@@ -120,8 +93,7 @@ pageEncoding="UTF-8"%>
         
          
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-        <script src="login.js"></script>
+
       </body>
     </html>
-  </body>
-</html>
+
