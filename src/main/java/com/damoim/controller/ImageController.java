@@ -1,6 +1,14 @@
 package com.damoim.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+
+
 
 import com.damoim.service.ImageService;
 
@@ -8,4 +16,7 @@ import com.damoim.service.ImageService;
 public class ImageController {
 
 	private ImageService service;
+	
+	
+	
 }
