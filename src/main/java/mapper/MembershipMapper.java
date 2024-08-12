@@ -29,8 +29,6 @@ public interface MembershipMapper {
 	List<MembershipUserList> grade(Member member);
 	List<MembershipUserList>allMembership();
 	ArrayList<Member> allMember();
-	
-	List<MembershipUserList> grade(Member member);
 
 	void agreeMemeber(MemberListDTO member);
 }

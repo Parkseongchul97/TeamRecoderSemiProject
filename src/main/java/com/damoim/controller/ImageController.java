@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 
-import com.damoim.service.ImageService;
+
 
 @Controller
 public class ImageController {
 
-	private ImageService service;
 	
 	
 	

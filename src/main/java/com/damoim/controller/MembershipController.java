@@ -36,6 +36,8 @@ public class MembershipController {
 	@Autowired
 	private MembershipService membershipservice;
 
+	@Autowired
+	private MembershipService service;
 //	 @GetMapping("/")
 // 	public String index(Model model) {
 //		model.addAttribute("allClub",membershipservice.allClub());
@@ -50,20 +52,24 @@ public class MembershipController {
 		
 	}
 	
-	@PostMapping("/createclub")
-	public String createclub(Membership membership) {
+	@PostMapping("/createclub")// 클럽 생성 메서드
+	public String createclub(Membership membership, String infoMedium, String infoLong) {
 		System.out.println(membership);
-		membership.setMembershipInfo(null);
+		Membership mship = membership;
+		String info = mship.getMembershipInfo();
+		info += "@"+ infoMedium + "@" + infoLong; // 두번째와 세번째 @로 나눠서 같이 저장
+		System.out.println(info);
+		mship.setMembershipInfo(info);
 		membershipservice.createclub(membership); // 클럽 생성 로직 호출
-     return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
+		System.out.println(membership);
+     return "mypage/makeMembership"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
          
 }	
 	
 	
 	
 	
-	@Autowired
-	private MembershipService service;
+	
 	
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model,

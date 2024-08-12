@@ -124,9 +124,9 @@
 	</insert>
 
  <insert id="createclub" parameterType="Membership">
- 		<!--  클럽생성시 정부 추가하기  -->
-        INSERT INTO membership (membership_code, membership_name, membership_img, membership_info, membership_date, membership_grade, membership_max)
-        VALUES (#{membershipCode}, #{membershipName}, #{membershipImg}, #{membershipInfo}, #{membershipDate}, #{membershipGrade}, #{membershipMax})
+ 		<!--  클럽생성시 정보 추가하기  -->
+        INSERT INTO membership (membership_name, membership_img, membership_info, membership_date, membership_grade, membership_max)
+        VALUES (#{membershipName}, #{membershipImg}, #{membershipInfo}, #{membershipDate}, #{membershipGrade}, #{membershipMax})
     </insert>
 
 
