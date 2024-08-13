@@ -31,6 +31,8 @@ public interface MembershipMapper {
 	ArrayList<Member> allMember();
 
 	void agreeMemeber(MemberListDTO member);
+	
+	void createclub2(Membership membership);
 }
 
 

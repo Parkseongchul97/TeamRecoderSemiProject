@@ -74,6 +74,9 @@ public class MembershipService {
 	public void createclub(Membership membership) {
 		mapper.createclub(membership);
 	}
+	public void createclub2(Membership membership) {
+		mapper.createclub2(membership);
+	}
 
 
 	

@@ -57,7 +57,7 @@ public class MembershipController {
 		System.out.println(membership);
 		Membership mship = membership;
 		String info = mship.getMembershipInfo();
-		info += "@"+ infoMedium + "@" + infoLong; // 두번째와 세번째 @로 나눠서 같이 저장
+		info += "#"+ infoMedium + "#" + infoLong; //첫번째와 두번째와 세번째 @로 나눠서 같이 저장
 		System.out.println(info);
 		mship.setMembershipInfo(info);
 		membershipservice.createclub(membership); // 클럽 생성 로직 호출
@@ -66,7 +66,25 @@ public class MembershipController {
          
 }	
 	
+	@GetMapping("/createclub2")
+	public String createclub2(){
+		return "mypage/createclub2";
+		
+	}
 	
+	@PostMapping("/createclub2")// 클럽 생성 메서드
+	public String createclub2(Membership membership, String infoMedium, String infoLong) {
+		System.out.println(membership);
+		Membership mship = membership;
+		String info = mship.getMembershipInfo();
+		info += "#"+ infoMedium + "#" + infoLong; //첫번째와 두번째와 세번째 @로 나눠서 같이 저장
+		System.out.println(info);
+		mship.setMembershipInfo(info);
+		membershipservice.createclub(membership); // 클럽 생성 로직 호출
+		System.out.println(membership);
+     return "mypage/makeMembership"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
+         
+}	
 	
 	
 	
