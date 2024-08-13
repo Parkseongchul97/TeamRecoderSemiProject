@@ -68,7 +68,7 @@
          
 	    <c:choose>
         <c:when test="${!hasHost}">
-            <form action="/mainCreate">            
+            <form action="/makeMembership">            
                 <input type="hidden" name="id" value="${mem.id}">
                 <button type="submit" value="클럽생성">클럽 만들기2</button>
             </form>

@@ -26,9 +26,6 @@ public class MembershipController {
 	@Autowired
 	private MembershipService membershipservice;
 
-	// 클럽 생성 관련 컨트롤
-	@Autowired
-	private MembershipService membershipservice;
 //	 @GetMapping("/")
 // 	public String index(Model model) {
 //		model.addAttribute("allClub",membershipservice.allClub());
@@ -37,22 +34,8 @@ public class MembershipController {
 // 	
 // 	}
 	
-	@GetMapping("/createclub")
-	public String createclub(){
-		return "mypage/createclub";
-		
-	}
 	
-	@PostMapping("/createclub")
-	public String createclub(Membership membership) {
-		System.out.println(membership);
-		membership.setMembershipInfo(null);
-     return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
-}	
-	
-	
-	
-	
+
 	@Autowired
 	private MembershipService service;
 //	 @GetMapping("/")
@@ -89,19 +72,25 @@ public class MembershipController {
 		
 	}
 	
-	@PostMapping("/createclub2")// 클럽 생성 메서드
-	public String createclub2(Membership membership, String infoMedium, String infoLong) {
-		System.out.println(membership);
-		Membership mship = membership;
-		String info = mship.getMembershipInfo();
-		info += "#"+ infoMedium + "#" + infoLong; //첫번째와 두번째와 세번째 @로 나눠서 같이 저장
-		System.out.println(info);
-		mship.setMembershipInfo(info);
-		membershipservice.createclub(membership); // 클럽 생성 로직 호출
-		System.out.println(membership);
-     return "mypage/makeMembership"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
-         
-}	
+//	@PostMapping("/createclub2") // 클럽 생성
+//	public String createclub2(MembershipDTO dto, String infoMedium, String infoLong ) {
+//		Membership membership = Membership.builder()
+//				.membershipName(dto.getMembershipName())
+//				.membershipInfo(dto.getMembershipInfo() + "#"+ infoMedium + "#" + infoLong)
+//				.membershipMax(Integer.parseInt(dto.getMembershipMax())
+//						).build();
+//		// 클럽생성?
+//		service.createclub2(membership);
+//		MemberListDTO list = new MemberListDTO();
+//				list.setId(dto.getId());
+//				list.setListGrade(dto.getListGrade());
+//				list.setMembershipCode(membership.getMembershipCode());
+//		// 호스트로 보유중인 클럽 유무 확인
+//		service.host(list);
+//		return "redirect:/";
+//	}
+
+	
 	
 	
 	
@@ -155,15 +144,33 @@ public class MembershipController {
 		return "/mypage/makeMembership";
 	}
 	
+//	@PostMapping("/makeMembership") // 클럽 생성
+//	public String makeMembership(MembershipDTO dto) {
+//		Membership membership = Membership.builder()
+//				.membershipName(dto.getMembershipName())
+//				.membershipInfo(dto.getMembershipInfo())
+//				.membershipMax(Integer.parseInt(dto.getMembershipMax())
+//						).build();
+//		// 클럽생성?
+//		service.makeMembership(membership);
+//		MemberListDTO list = new MemberListDTO();
+//				list.setId(dto.getId());
+//				list.setListGrade(dto.getListGrade());
+//				list.setMembershipCode(membership.getMembershipCode());
+//		// 호스트로 보유중인 클럽 유무 확인
+//		service.host(list);
+//		return "redirect:/";
+//	}
+	
 	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(MembershipDTO dto) {
+	public String createclub2(MembershipDTO dto, String infoMedium, String infoLong ) {
 		Membership membership = Membership.builder()
 				.membershipName(dto.getMembershipName())
-				.membershipInfo(dto.getMembershipInfo())
+				.membershipInfo(dto.getMembershipInfo() + "#"+ infoMedium + "#" + infoLong)
 				.membershipMax(Integer.parseInt(dto.getMembershipMax())
 						).build();
 		// 클럽생성?
-		service.makeMembership(membership);
+		service.createclub2(membership);
 		MemberListDTO list = new MemberListDTO();
 				list.setId(dto.getId());
 				list.setListGrade(dto.getListGrade());
@@ -172,6 +179,8 @@ public class MembershipController {
 		service.host(list);
 		return "redirect:/";
 	}
+	
+	
 	@PostMapping("/membershipApply") // 클럽 회원가입 신청
 	public String membershipApply(MemberListDTO member) {
 		// 클럽 가입 신청
@@ -183,4 +192,4 @@ public class MembershipController {
 	
 	
 
-	}
+	

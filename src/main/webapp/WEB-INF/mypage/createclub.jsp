@@ -16,7 +16,7 @@
     <form action="/createclub" method="post" >
         <!-- 클럽 이름 -->
         <div>
-        클럽이름: <input type="text" name="membershipName" required><br>
+        클럽이름: <input type="text" name="membershipName" value="${vo.mainName}" required><br>
        	</div>
         <!-- 클럽 이미지 업로드 -->
         <div>
