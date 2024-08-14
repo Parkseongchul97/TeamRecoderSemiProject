@@ -66,11 +66,11 @@ public class MembershipController {
          
 }	
 	
-	@GetMapping("/createclub2")
-	public String createclub2(){
-		return "mypage/createclub2";
-		
-	}
+//	@GetMapping("/createclub2")
+//	public String createclub2(){
+//		return "mypage/createclub2";
+//		
+//	}
 	
 //	@PostMapping("/createclub2") // 클럽 생성
 //	public String createclub2(MembershipDTO dto, String infoMedium, String infoLong ) {
@@ -144,6 +144,26 @@ public class MembershipController {
 		return "/mypage/makeMembership";
 	}
 	
+
+	
+	@PostMapping("/makeMembership") // 클럽 생성
+	public String makeMembership(MembershipDTO dto, String infoMedium, String infoLong ) {
+		Membership membership = Membership.builder()
+				.membershipName(dto.getMembershipName())
+				.membershipInfo(dto.getMembershipInfo() + "#"+ infoMedium + "#" + infoLong)
+				.membershipMax(Integer.parseInt(dto.getMembershipMax())
+						).build();
+		// 클럽생성?
+		service.makeMembership(membership);
+		MemberListDTO list = new MemberListDTO();
+				list.setId(dto.getId());
+				list.setListGrade(dto.getListGrade());
+				list.setMembershipCode(membership.getMembershipCode());
+		// 호스트로 보유중인 클럽 유무 확인
+		service.host(list);
+		return "redirect:/";
+	}
+	
 //	@PostMapping("/makeMembership") // 클럽 생성
 //	public String makeMembership(MembershipDTO dto) {
 //		Membership membership = Membership.builder()
@@ -161,24 +181,6 @@ public class MembershipController {
 //		service.host(list);
 //		return "redirect:/";
 //	}
-	
-	@PostMapping("/makeMembership") // 클럽 생성
-	public String createclub2(MembershipDTO dto, String infoMedium, String infoLong ) {
-		Membership membership = Membership.builder()
-				.membershipName(dto.getMembershipName())
-				.membershipInfo(dto.getMembershipInfo() + "#"+ infoMedium + "#" + infoLong)
-				.membershipMax(Integer.parseInt(dto.getMembershipMax())
-						).build();
-		// 클럽생성?
-		service.createclub2(membership);
-		MemberListDTO list = new MemberListDTO();
-				list.setId(dto.getId());
-				list.setListGrade(dto.getListGrade());
-				list.setMembershipCode(membership.getMembershipCode());
-		// 호스트로 보유중인 클럽 유무 확인
-		service.host(list);
-		return "redirect:/";
-	}
 	
 	
 	@PostMapping("/membershipApply") // 클럽 회원가입 신청
