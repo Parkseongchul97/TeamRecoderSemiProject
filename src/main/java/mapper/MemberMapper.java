@@ -21,7 +21,7 @@ import com.damoim.model.vo.Membership;
 @Mapper
 public interface MemberMapper {
 	
-	Member login(Member member);
+	Member login(String id);
 	ArrayList<MemberListDTO> loginMemberMembership(Member member);
 	void signUp(Member member);
 	Member idCheck(Member member);
@@ -34,6 +34,9 @@ public interface MemberMapper {
 	Member memberEmailIdcheck(Member member);
 	// 업데이트
 	void updatePassword(Member member);
+	
+	ArrayList<Member> dummyMember();
+	void dummyUpdate(Member member);
 
 }
 
