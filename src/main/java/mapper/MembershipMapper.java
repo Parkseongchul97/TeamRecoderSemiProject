@@ -33,6 +33,8 @@ public interface MembershipMapper {
 	void agreeMemeber(MemberListDTO member);
 	
 	void createclub2(Membership membership);
+	void agreeMemeber(MemberListDTO member);
+	void membershipImg(Membership membership);
 }
 
 
