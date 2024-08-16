@@ -54,7 +54,6 @@ public class MembershipController {
 // 	
 // 	}
 	
-	private MembershipService service;
 	/*
 	 * 
 	 * */
@@ -102,12 +101,16 @@ public class MembershipController {
 //		return "redirect:/";
 //	}
 	
-	
+	/*영민 클럽생성 1-1
+	 * 
+	 * 
+	 * 
+	 * */
 	@PostMapping("/createclub") // 클럽 생성
-	public String createclub(MembershipDTO dto, String infoMedium, String infoLong, Model model) {
+	public String createclub(MembershipDTO dto,String InfoCondition, String infoMedium, String infoLong, Model model) {
 	    Membership membership = Membership.builder()
 	            .membershipName(dto.getMembershipName())
-	            .membershipInfo(dto.getMembershipInfo() + "#" + infoMedium + "#" + infoLong)
+	            .membershipInfo(dto.getMembershipInfo() +"#"+ InfoCondition + "#" + infoMedium + "#" + infoLong)
 	            .membershipMax(Integer.parseInt(dto.getMembershipMax()))
 	            .build();
 
@@ -118,13 +121,13 @@ public class MembershipController {
 	    list.setId(dto.getId());
 	    list.setListGrade(dto.getListGrade());
 	    list.setMembershipCode(membership.getMembershipCode());
+	
 	    
-//	    
 //	 // 클럽 정보 조회
 //	    Membership createdMembership = service.getMembership(membership.getMembershipCode());
 //	    String[] infoParts = createdMembership.getMembershipInfo().split("#"); // 정보 분리
 //
-//	    // 모델에 정보 추가
+//	    // 모델에 정보 추가 클럽 가입조건, 클럽 홍보글에 들어가 글, 클럽 페이지에서 클럽 규칙등등 클럽원만 알수있는는 정보 , 간단한 설명
 //	    model.addAttribute("Info", infoParts[0]); // 한줄 설명
 //	    model.addAttribute("infoMedium", infoParts[1]); // 간단한 설명 
 //	    model.addAttribute("infoLong", infoParts[2]); // 상세 설명
@@ -133,15 +136,17 @@ public class MembershipController {
 
 	    return "redirect:/"; // 클럽 생성 후 홈으로 리다이렉트
 	}
-	/*
+	/*영민 클럽생성 1-2
+	 * 
+	 * 
 	 * 
 	 * */
-	@PostMapping("/createclub")
-	public String createclub(Membership membership) {
-		System.out.println(membership);
-		membership.setMembershipInfo(null);
-     return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
-}	
+//	@PostMapping("/createclub")
+//	public String createclub(Membership membership) {
+//		System.out.println(membership);
+//		membership.setMembershipInfo(null);
+//     return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
+//}	
 	
 	
 	
@@ -214,20 +219,21 @@ public class MembershipController {
 	
 
 	
-	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(MembershipDTO dto, String infoMedium, String infoLong ) {
-	/* ???
+	
+	/* ??? 
 	 * 
 	 * 
-	 * 
+	 * 영민
+	 *
+	 *
 	 * 성철
 	 * 만들어진거에 사진첨부만 추가
 	 * */
 	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(MembershipDTO dto, MultipartFile file) throws IOException {
+	public String makeMembership(MembershipDTO dto,String InfoCondition, String infoMedium, String infoLong, MultipartFile file) throws IOException {
 		Membership membership = Membership.builder()
 				.membershipName(dto.getMembershipName())
-				.membershipInfo(dto.getMembershipInfo() + "#"+ infoMedium + "#" + infoLong)
+				.membershipInfo(dto.getMembershipInfo()+ "#"+ InfoCondition + "#"+ infoMedium + "#" + infoLong)
 				.membershipMax(Integer.parseInt(dto.getMembershipMax())	
 						).build();
 		// 클럽생성?
@@ -263,7 +269,7 @@ public class MembershipController {
 		// 클럽 가입 신청
 		service.membershipApply(member);
 		return "redirect:/";
-	}
+	
 	}
 
 	
@@ -296,7 +302,7 @@ public class MembershipController {
 			return null;
 		}
 		UUID uuid = UUID.randomUUID(); // 랜덤 파일명 부여
-		String fileName = uuid.toString()+"_" + file.getOriginalFilename();
+		String fileName = uuid.toString()+ "_" + file.getOriginalFilename();
 		File copyFile = new File("\\\\192.168.10.51\\damoim\\membership\\"+ Integer.toString(code) + "\\" + fileName);
 		file.transferTo(copyFile);
 		System.out.println("파일1개 추가!");
