@@ -7,7 +7,8 @@
 <title>Insert title here</title>
   <link rel="stylesheet" href="/${pageContext.request.contextPath}/css/reset.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/makeMembership.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/js/makeMembership.js" />
+<script src="${pageContext.request.contextPath}/js/makeMembership.js"></script>
+
 </head>
 <body>
 <form action="/makeMembership" method="post" enctype="multipart/form-data">

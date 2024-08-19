@@ -4,7 +4,7 @@
  const membershipNameRegExp = /^.{1,50}$/; // 모든 단어 가능하게 50글자까지
  
  let membershipNameSubmit = false;
-	 
+ 
  membershipName.addEventListener('input', function() { // 클럽명 체크
    const membershipNameValue = $(this).val().trim();
    
