@@ -12,7 +12,10 @@
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/reset.css"
         />
-          
+          <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/css/membershipPage.css"
+    />
          <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
@@ -20,7 +23,7 @@
         <h1>${main.membership.membershipName}</h1>
         <a href="chatserver?membershipName=${main.membership.membershipName}">채팅서버가기</a>
         <img id="mainImg" src="${main.membership.membershipImg}" alt="클럽 이미지">
-        <h2>${main.membership.membershipInfo}</h2>
+        <h2>한줄 소개 : ${main.membership.splitInfo[1]}</h2>
         <p>인원 현황 : ${membershipUserCount}/${main.membership.membershipMax}</p>
         <h4>호스트 : ${main.member.nickname} 
             <img id="hostImg" src="${main.member.memberImg}" alt="호스트 이미지">

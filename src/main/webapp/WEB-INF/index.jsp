@@ -54,7 +54,7 @@ pageEncoding="UTF-8"%>
 				</div>
 				<div class="membership-info">
 					<h1 class="membership-name">${id.membership.membershipName}</h1>
-					<h2>${id.membership.membershipInfo}</h2>
+					<h2>클럽 홍보글 : ${id.membership.splitInfo[2]}</h2> <!-- 홍보글 -->
 					<h2>호스트 : ${id.member.nickname}</h2>
 					<input type="hidden" name="code"
 						value="${id.membership.membershipCode}">

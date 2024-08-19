@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipUserList;
 import com.damoim.service.MembershipService;
 
 
@@ -34,7 +36,18 @@ public class PageController {
 	public String index(Model model) {
 		
 		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열
-		model.addAttribute("list", service.allMembership()); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
+		List<MembershipUserList> all = service.allMembership();
+		for(MembershipUserList one : all) {
+			String data =one.getMembership().getMembershipInfo();
+			one.getMembership().setSplitInfo(null);
+			
+			if(data.contains("#")) {
+				String[] result =  data.split("#");
+				 one.getMembership().setSplitInfo(result);
+				
+			}
+		}
+		model.addAttribute("list", all); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
 		for(int i = 0; i < service.allMembership().size(); i++) {
 		int j = service.allMembership().get(i).getMembership().getMembershipCode();
 		countList.add(service.membershipUserCount(j)); // 각각 클럽의 인원수 (신청자는 제외)

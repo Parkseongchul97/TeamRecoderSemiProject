@@ -38,6 +38,12 @@
 	</association>
 </resultMap>
 	
+	<resultMap type="BasicRoomListVo" id="roomListmap">
+		<id column="membership_code" property="membershipCode" />
+		<result column="membership_name" property="membershipName" />
+	</resultMap>
+	
+	
 	<select id="allMembership" resultMap="membershipmap">
 		SELECT *
 		FROM
@@ -99,6 +105,8 @@
 		list_grade != "guest"
 		GROUP BY membership_code
 	</select>
+	
+	
 
 
 	<select id="count" parameterType="Integer" resultType="Integer">
@@ -116,6 +124,12 @@
 		VALUES(#{membershipName},#{membershipImg},#{membershipInfo},#{membershipMax})
 	</insert>
 
+	<update id="membershipImg" parameterType="Membership">
+		UPDATE membership
+		SET membership_img = #{membershipImg}
+		WHERE membership_code = #{membershipCode}
+	</update>
+	
 	<insert id="host" parameterType="MemberListDTO">
 		INSERT INTO membership_user_list
 		(list_grade,id,membership_code)
@@ -152,12 +166,32 @@
 		#{membershipCode}
 	</update>
 	
-	<insert id="membershipImg" parameterType="Membership">
-		INSERT INTO membership 
+	<!-- 멤버쉽 업데이트 -->
+	<update id="updateMembership" parameterType="Member" >
+		UPDATE membership
+			SET membership_name = #{membershipName} , 
+				membership_info = #{membershipInfo},
+				membership_max = #{membershipMax}
+			WHERE id = #{id} AND membership_code =
+		#{membershipCode}
+		
+	</update>
+	
+
+	<select id="membershipCodeList" parameterType="String"
+		resultType="Integer">
+		SELECT membership_code
+		FROM membership
+		JOIN membership_user_list USING (membership_code)
+		WHERE id = #{id}
+	</select>
+
+	<select id="roomlist" resultMap="roomListmap">
+		SELECT membership_name,membership_code FROM
+		membership
+	</select>
 	
 	
-	
-	</insert>
 
 
  </mapper>

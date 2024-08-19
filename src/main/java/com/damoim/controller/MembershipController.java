@@ -46,6 +46,8 @@ public class MembershipController {
 
 	@Autowired
 	private MembershipService service;
+	
+	
 //	 @GetMapping("/")
 // 	public String index(Model model) {
 //		model.addAttribute("allClub",membershipservice.allClub());
@@ -148,22 +150,37 @@ public class MembershipController {
 //     return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
 //}	
 	
-	
-	
-	
-	
+
 
 	/*
 	 * 성일
 	 * 
-	 * 
+	 * 영민 -- #으로 나눈 Info 정보 뿌리기 (스승님 정배님)
 	 * */
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model,
 			HttpServletRequest request) {
-		System.out.println(service.main(membershipCode).getListCode());
+		
+		
+		MembershipUserList MS = service.main(membershipCode);
+		
+//		String test = MS.getMembership().getMembershipInfo();
+//		String[] infotest = test.split("#");
+//		
+//		MS.getMembership().setSplitInfo(infotest);
+		
+		String test = MS.getMembership().getMembershipInfo();
+		if(test.contains("#")) {
+					
+			String[] infotest = test.split("#");
+			
+			MS.getMembership().setSplitInfo(infotest);
+			System.out.println(MS);
+
+		}
+		
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
-		model.addAttribute("main", service.main(membershipCode));
+		model.addAttribute("main", MS);
 		// 현재 가입된 인원수
 		model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
 		HttpSession session = request.getSession();
@@ -181,11 +198,25 @@ public class MembershipController {
 	/*
 	  * 성철
 	  * 해당 클럽에 가입된 회원이 그클럽에 정보와 클럽 가입 현황 볼수있는 페이지 이동
+	  * 
+	  * 영민 -- #으로 나눈 Info 정보 뿌리기 (스승님 정배님)
 	  * */
 	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model,HttpServletRequest request) {
 		 	// 클럽 페이지에 membership 관련 정보 + 호스트 정보
-		 	model.addAttribute("main",service.main(membershipCode));
+		 	MembershipUserList MS = service.main(membershipCode);
+		 	
+		 	String test = MS.getMembership().getMembershipInfo();
+			if(test.contains("#")) {
+						
+				String[] infotest = test.split("#");
+				
+				MS.getMembership().setSplitInfo(infotest);
+				System.out.println(MS);
+
+			}
+			
+		 	model.addAttribute("main", MS);
 		 	// 현재 가입된 인원수
 			model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
 			// 로그인된 회원 정보		
@@ -230,10 +261,10 @@ public class MembershipController {
 	 * 만들어진거에 사진첨부만 추가
 	 * */
 	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(MembershipDTO dto,String InfoCondition, String infoMedium, String infoLong, MultipartFile file) throws IOException {
+	public String makeMembership(MembershipDTO dto,String explanation, String infoMedium, String infoLong, MultipartFile file) throws IOException {
 		Membership membership = Membership.builder()
 				.membershipName(dto.getMembershipName())
-				.membershipInfo(dto.getMembershipInfo()+ "#"+ InfoCondition + "#"+ infoMedium + "#" + infoLong)
+				.membershipInfo(dto.getMembershipInfo()+ "#"+ explanation + "#"+ infoMedium + "#" + infoLong)
 				.membershipMax(Integer.parseInt(dto.getMembershipMax())	
 						).build();
 		// 클럽생성?

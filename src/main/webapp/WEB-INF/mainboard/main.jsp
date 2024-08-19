@@ -18,10 +18,12 @@
 <div id="container">
     <h1>${main.membership.membershipName }</h1>
     <img id="mainImg" src="${main.membership.membershipImg }" >
-    <h2>${main.membership.membershipInfo }</h2>
+
+	<h2>한줄 소개 : ${main.membership.splitInfo[1]}</h2>  <!-- 한줄소개 -->
     <p>인원 현황 :  ${membershipUserCount}/${main.membership.membershipMax}</p>
     <h2>호스트 : ${main.member.nickname}</h2>
-    <p>가입조건 : 사지멀쩡한 남녀노소 누구나!!</p>
+    <p>가입조건 : ${main.membership.splitInfo[0]}</p><!-- 가입조건 -->
+    <p>클럽 홍보글 : ${main.membership.splitInfo[2]}</p>
     <c:choose>
 
     <c:when test="${checkMember.listGrade == 'guest'}">
@@ -32,9 +34,9 @@
 				<a href="/club/${main.membership.membershipCode}">☞ 내 클럽 페이지로 이동하기</a>
 			</c:when>
     <c:when test="${membershipUserCount >= main.membership.membershipMax}">
-    <h2>최대 인원에 도달한 클럽입니다 신청할수 없습니다.</h2>
+    <h2>최대 인원에 도달한 클럽입니다 신청할 수 없습니다.</h2>
     </c:when>
-       <c:when test="${checkMember == null && mem != null}"> 
+    <c:when test="${checkMember == null && mem != null}"> 
     <form action="/membershipApply" method="post">
     <input type="submit" value="가입 신청하기">
     <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
@@ -42,7 +44,8 @@
     <input type="hidden" name="listGrade" value="guest">
     </form>
     </c:when>
-    </c:choose>
+    </c:choose><br>
+    <a href="/" id="toIndex">메인페이지로 가기</a>
 </div>
 </body>
 </html>

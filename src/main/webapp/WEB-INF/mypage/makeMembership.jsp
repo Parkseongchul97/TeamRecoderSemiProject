@@ -5,8 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+  <link rel="stylesheet" href="/${pageContext.request.contextPath}/css/reset.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/makeMembership.css" />
-    <link rel="stylesheet" href="/${pageContext.request.contextPath}/css/reset.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/js/makeMembership.js" />
 </head>
 <body>
 <form action="/makeMembership" method="post" enctype="multipart/form-data">
