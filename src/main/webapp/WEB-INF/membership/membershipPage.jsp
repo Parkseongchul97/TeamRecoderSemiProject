@@ -17,6 +17,7 @@
       href="${pageContext.request.contextPath}/css/membershipPage.css"
     />
          <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+         
 </head>
 <body>
     <main>
@@ -31,6 +32,23 @@
         <c:if test="${mem.id == main.member.id && membershipUserCount >= main.membership.membershipMax}">
                         	<div>최대 인원에 도달하였습니다. 최대인원을 다시 설정후 확인해줏비시오</div>
                         </c:if>
+
+ <!-- 지도 만들기(약속장소 보여주기용) -->
+                               <div id="map" style="width:500px;height:400px;"></div>
+                                <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=026b00a146f92fb6c993f2709b36eee0"></script>
+                                <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
+                                <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services"></script>
+                                <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
+                                
+                             <script>
+                               var container = document.getElementById('map'); <!-- //지도를 담을 영역의 DOM 레퍼런스 -->
+								var options = { <!--//지도를 생성할 때 필요한 기본 옵션  -->
+								center: new kakao.maps.LatLng(33.450701, 126.570667), <!--//지도의 중심좌표 -->
+								level: 3 <!--//지도의 레벨(확대, 축소 정도)  -->
+								};
+
+								var map = new kakao.maps.Map(container, options); <!--//지도 생성 및 객체 리턴  -->
+								</script>
 
         <c:forEach items="${allMember}" var="cMember">
             <div class="memberTable">
@@ -64,5 +82,6 @@
 
     </main>
     <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
+   
 </body>
 </html>
