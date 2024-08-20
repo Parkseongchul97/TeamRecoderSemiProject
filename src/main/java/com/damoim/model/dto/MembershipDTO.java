@@ -16,4 +16,5 @@ public class MembershipDTO {
 	private String id;
 	private String listGrade;
 	
+	
 }

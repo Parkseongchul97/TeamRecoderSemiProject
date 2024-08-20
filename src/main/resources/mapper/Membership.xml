@@ -1,12 +1,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MembershipMapper">
 
-	<resultMap type="MemberListDTO" id="memberListmap">
-		<result column="id" property="id"/>
-		<result column="list_grade" property="listGrade"/>
-		<result column="membership_code" property="membershipCode"/>
-		
+	<resultMap type="MemberListDTO" id="listDTOMap">
+		<result column="id" property="id" />
+		<result column="list_grade" property="listGrade" />
+		<result column="membership_code" property="membershipCode" />
+
 	</resultMap>
+	
 	<resultMap type="Membership" id="membershipMap">
 		<id property="membershipCode" column="membership_code" />
 		<result property="membershipName" column="membership_name" />
@@ -17,26 +18,26 @@
 		<result property="membershipMax" column="membership_max" />
 	</resultMap>
 
-<resultMap type="MembershipUserList" id="membershipmap">
-	<id column="list_code" property="listCode" />
-	<result column="list_grade" property="listGrade" />
-	<association property="member" javaType="Member">
-		<id column="id" property="id" />
-		<result column="name" property="name" />
-		<result column="nickname" property="nickname" />
-		<result column="member_img" property="memberImg" />
-	</association>
-	
-	<association property="membership" javaType="Membership">
-		<id column="membership_code" property="membershipCode" />
-		<result column="Membership_name" property="membershipName" />
-		<result column="Membership_img" property="membershipImg" />
-		<result column="Membership_info" property="membershipInfo" />
-		<result column="Mebership_date" property="membershipDate" />
-		<result column="Membership_grade" property="membershipGrade" />
-		<result column="Membership_max" property="membershipMax" />
-	</association>
-</resultMap>
+	<resultMap type="MembershipUserList" id="listMap">
+		<id column="list_code" property="listCode" />
+		<result column="list_grade" property="listGrade" />
+		<association property="member" javaType="Member">
+			<id column="id" property="id" />
+			<result column="name" property="name" />
+			<result column="nickname" property="nickname" />
+			<result column="member_img" property="memberImg" />
+		</association>
+
+		<association property="membership" javaType="Membership">
+			<id column="membership_code" property="membershipCode" />
+			<result column="Membership_name" property="membershipName" />
+			<result column="Membership_img" property="membershipImg" />
+			<result column="Membership_info" property="membershipInfo" />
+			<result column="Mebership_date" property="membershipDate" />
+			<result column="Membership_grade" property="membershipGrade" />
+			<result column="Membership_max" property="membershipMax" />
+		</association>
+	</resultMap>
 	
 	<resultMap type="BasicRoomListVo" id="roomListmap">
 		<id column="membership_code" property="membershipCode" />
@@ -44,18 +45,21 @@
 	</resultMap>
 	
 	
+	
 	<select id="allMembership" resultMap="membershipmap">
+	<select id="allMembership" parameterType="Paging" resultMap="listMap">
 		SELECT *
 		FROM
 		membership_user_list
 		JOIN membership USING (membership_code)
 		JOIN member
 		USING (id)
-		WHERE list_grade = "host";
+		WHERE list_grade = "host"
+		LIMIT #{offset}, #{limit}
 	</select>
 
 	<select id="MembershipAllInfo" parameterType="Integer"
-		resultMap="membershipmap">
+		resultMap="listMap">
 		SELECT *
 		FROM membership_user_list
 		JOIN membership USING
@@ -64,29 +68,31 @@
 		WHERE membership_code =
 		#{membership_code};
 	</select>
-	
+
 	<insert id="membershipApply" parameterType="MemberListDTO">
 		INSERT INTO
 		membership_user_list(membership_code , id,list_grade)
 		VALUES(#{membershipCode},#{id},#{listGrade})
 	</insert>
-
+	<!-- 1 -->
 	<select id="checkMember" parameterType="MemberListDTO"
-		resultMap="memberListmap">
+		resultMap="listDTOMap">
 		SELECT *
 		FROM membership_user_list
-		WHERE id = #{id} AND membership_code = #{membershipCode};
+		WHERE id = #{id} AND
+		membership_code = #{membershipCode};
 	</select>
 	<select id="myMembership" parameterType="Integer"
 		resultMap="membershipMap">
 		SELECT *
 		FROM membership
-		WHERE membership_code = #{membershipCode}
+		WHERE membership_code =
+		#{membershipCode}
 	</select>
 
 
 	<select id="main" parameterType="Integer"
-		resultMap="membershipmap">
+		resultMap="listMap">
 		SELECT *
 		FROM membership_user_list
 		JOIN membership USING
@@ -130,6 +136,8 @@
 		WHERE membership_code = #{membershipCode}
 	</update>
 	
+
+	<!--  클럽 생성시 리스트에 호스트로 바로 추가 -->
 	<insert id="host" parameterType="MemberListDTO">
 		INSERT INTO membership_user_list
 		(list_grade,id,membership_code)
@@ -149,8 +157,9 @@
         VALUES (#{membershipName}, #{membershipImg}, #{membershipInfo}, #{membershipDate}, #{membershipGrade}, #{membershipMax})
     </insert>
 
-
-	<select id="grade" parameterType="Member" resultMap="membershipmap">
+	<!-- 로그인시 member의 가입된 클럽 정보 -->
+	<select id="grade" parameterType="Member"
+		resultMap="listDTOMap">
 		SELECT *
 		FROM membership_user_list
 		JOIN membership USING
@@ -158,11 +167,23 @@
 		JOIN member USING (id)
 		WHERE id = #{id}
 	</select>
+	
+	<select id="listGrade" parameterType="Member" resultMap="listMap">
+			SELECT *
+		FROM membership_user_list
+		JOIN membership USING
+		(membership_code)
+		JOIN member USING (id)
+		WHERE id = #{id}
+
+	</select>
 
 	<update id="agreeMemeber" parameterType="MemberListDTO">
-		UPDATE membership_user_list
+		UPDATE
+		membership_user_list
 		SET list_grade = #{listGrade}
-		WHERE id = #{id} AND membership_code =
+		WHERE id = #{id} AND
+		membership_code =
 		#{membershipCode}
 	</update>
 	
@@ -193,7 +214,20 @@
 	
 	
 
+	<select id="membershipCodeList" parameterType="String"
+		resultType="Integer">
+		SELECT membership_code
+		FROM membership
+		JOIN membership_user_list USING (membership_code)
+		WHERE id = #{id}
+	</select>
 
- </mapper>
+	<select id="roomlist" resultMap="roomListmap">
+		SELECT membership_name,membership_code FROM
+		membership
+	</select>
+
+
+</mapper>
  
  

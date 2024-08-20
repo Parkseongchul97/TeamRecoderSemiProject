@@ -4,9 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.vo.BasicRoomListVo;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
+import com.damoim.model.vo.Paging;
+import com.damoim.model.vo.TypeCategory;
+
 import mapper.MembershipMapper;
 @Service
 public class MembershipService {
@@ -16,9 +21,9 @@ public class MembershipService {
 	
 	
 	
-	public List<MembershipUserList> allMembership(){
-		
-		return mapper.allMembership();
+	public List<MembershipUserList> allMembership(Paging paging){
+		paging.setOffset(paging.getLimit() * (paging.getPage() - 1));
+		return mapper.allMembership(paging);
 	}
 	public List<MembershipUserList> MembershipAllInfo(int membershipCode){
 		
@@ -54,8 +59,11 @@ public class MembershipService {
 		mapper.host(list);
 	}
 	
-	public List<MembershipUserList> grade(Member member){
+	public List<MemberListDTO> grade(Member member){
 		return mapper.grade(member);
+	}
+	public List<MembershipUserList> listGrade(Member member){
+		return mapper.listGrade(member);
 	}
 	
 	public void agreeMemeber(MemberListDTO member) {
@@ -69,13 +77,18 @@ public class MembershipService {
 	}
 
 
+	
 
-	
-	
+	public List<Integer> membershipCodeList(String id){
+		
+		return mapper.membershipCodeList(id);
+	}
+
+	public List<BasicRoomListVo> roomlist() {
+		return mapper.roomlist();
+	}
+	public List<MembershipUserList> list(Paging paging) {
+		
+		return mapper.allMembership(paging);
+	}
 }
-	
-	
-	
-
-	
-
