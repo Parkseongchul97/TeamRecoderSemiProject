@@ -44,6 +44,12 @@ public interface MembershipMapper {
 	List<BasicRoomListVo> roomlist();
 	
 	void membershipImg(Membership membership);
+	
+	
+	
+	void updateMembership(Membership membership);
+	
+	
 }
 
 
