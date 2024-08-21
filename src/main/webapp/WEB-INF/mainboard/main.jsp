@@ -30,7 +30,7 @@
     <h2>한줄 소개 : ${main.membership.memershipSimpleText}</h2>
     <p>인원 현황 :  ${main.count}/${main.membership.membershipMax}</p>
     <sec:authorize access="isAuthenticated()">
-        <p>호스트 : ${member.nickname}님!</p>
+        <p>호스트 : ${main.member.nickname}님!</p>
         </sec:authorize>
     <p>가입조건 : ${main.membership.memershipAccessionText}</p>
     	
@@ -71,9 +71,10 @@
     </form>
     </c:when>
    </c:choose>
+   <br>
     <a href="/" id="toIndex">메인페이지로 가기</a>
  
-   </sec:authorize>
+	<!--  -->
 </div>
 	<div id="comment-container">
     <form id="comment-frm">

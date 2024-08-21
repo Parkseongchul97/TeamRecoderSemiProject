@@ -49,6 +49,9 @@ public interface MembershipMapper {
 	
 	void updateMembership(Membership membership);
 	
+	Membership membershipNameCheck(Membership membership);
+		
+	Membership membershipMaxCheck(Membership membership);
 	
 }
 

@@ -100,6 +100,25 @@ public class MembershipService {
 		
 		return mapper.allMembership(paging);
 	}
+
+	public MemberListDTO checkMember(MemberListDTO memberListDTO) {
+	
+		return mapper.checkMember(memberListDTO);
+	}
+
+	public Membership membershipNameCheck(Membership membership) {
+		
+		return mapper.membershipNameCheck(membership);
+	}
+
+	public Membership membershipMaxCheck(Membership membership) {
+		
+		return mapper.membershipMaxCheck(membership);
+	}
+	
+	
+	
+	
 }
 
 

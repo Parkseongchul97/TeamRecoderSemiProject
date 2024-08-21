@@ -7,10 +7,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <head>
     <meta charset="UTF-8" />
     <title>클럽 생성</title>
-      <link rel="stylesheet" href="/${pageContext.request.contextPath}/css/reset.css" />
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/makeMembership.css" />
-    
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
+ 	  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/makeMembership.css" />
+	  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      
     <style>
       select {
         display: block;
@@ -30,7 +30,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
      
      
 <form action="/makeMembership" method="post" enctype="multipart/form-data">
- 클럽명 : <input type="text" name="membershipName" required><br>
+
+<label for ="membershipName"> 클럽명 :<span class="name" id="name"></span></label>
+  <input type="text" id="membershipName" name="membershipName" required><br>
+  
   사진첨부: <input type="file" name="file" accept="image/*"><br>
    클럽 가입조건 :<input type="text" name="memershipAccessionText"required><br>
    클럽 간단한 설명:<input type="text" name="memershipSimpleText"required><br>
@@ -42,7 +45,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
    
    클럽원간의 비밀 정보 :<textarea id="memershipSecretText" name="memershipSecretText" rows="8" cols="100" placeholder="될때까지 해 주세요" required></textarea><br>
-   최대 인원 : <input type="text" name="membershipMax" required><br>
+   최대 인원 : <input type="number" for="membershipMax" id="membershipMax" name="membershipMax"  required><br>
     <button type="submit">클럽생성</button>
     <div>
      <h2> ${mem.id}</h2>
@@ -104,6 +107,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         });
       });
     </script>-->
-    <script src="${pageContext.request.contextPath}/js/makeMembership.js"></script>
+  <script src="${pageContext.request.contextPath}/js/makeMembership.js"></script>
   </body>
 </html>

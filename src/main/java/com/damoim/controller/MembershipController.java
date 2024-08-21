@@ -69,7 +69,7 @@ public class MembershipController {
 			// 가입한 클럽 인지 확인을 위한 아이디 정보 가져오기
 			memberListDTO.setId(mem.getId());
 			// 해당클럽 안에서의 등급 가져오기
-			System.out.println("checkMember : " +service.checkMember(memberListDTO));
+			System.out.println("checkMember : " + service.checkMember(memberListDTO));
 			model.addAttribute("checkMember", service.checkMember(memberListDTO));
 
 		}
@@ -77,8 +77,7 @@ public class MembershipController {
 		return "mainboard/main";
 	}
 		
-	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model
-			) {
+	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model) {
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
 		model.addAttribute("main");
 		// 현재 가입된 인원수
@@ -96,6 +95,8 @@ public class MembershipController {
 		ArrayList<MainComment> commList = commentService.allMainComment(membershipCode);
 		System.out.println(commList);
 		model.addAttribute("comment", commList);
+		
+	}
 		return "mainboard/main";
 	}
 	/*
@@ -139,8 +140,6 @@ public class MembershipController {
 		return "mypage/makeMembership";
 	}
 	
-
-	
 	
 	/* ??? 
 	 * 
@@ -152,7 +151,7 @@ public class MembershipController {
 	 * 만들어진거에 사진첨부만 추가
 	 * */
 	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(MembershipDTO dto, MultipartFile file) throws IOException {
+	public String makeMembership(MembershipDTO dto, MultipartFile file) throws Exception {
 		Membership membership = Membership.builder()
 				.membershipName(dto.getMembershipName())
 				.membershipInfo(dto.getMembershipInfo())
@@ -264,4 +263,22 @@ public class MembershipController {
 		}
 	
 	}
+	
+	/*
+	 * 영민 클럽명 중복 체크
+	 * 
+	 * */
+	@ResponseBody
+	@PostMapping("/membershipNameCheck")
+	public boolean membershipNameCheck(Membership membership) {
+		Membership MS = service.membershipNameCheck(membership);
+		return MS == null;
 	}
+		@ResponseBody
+		@PostMapping("/membershipMaxCheck")
+		public boolean membershipMaxCheck(Membership membership) {
+			Membership MS = service.membershipMaxCheck(membership);
+			return MS == null;
+
+	
+	}}

@@ -136,7 +136,6 @@
 								
 								</script>
 
-        <c:forEach items="${allMember}" var="cMember">
 
   <!-- 멤버쉽 코드를 기반으로 멤버쉽 유저리스트 조회  
   

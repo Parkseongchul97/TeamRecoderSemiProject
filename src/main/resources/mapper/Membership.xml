@@ -211,6 +211,19 @@
 	</select>
 	
 	
+	
+	<select id="membershipNameCheck" parameterType="Membership" resultType="Membership">
+		SELECT *
+		FROM membership
+		WHERE membership_name = #{membershipName}
+	</select>
+	
+	<select id="membershipMaxCheck" parameterType="Membership" resultType="Integer">
+	
+	</select>
+	
+	
+	
 
 </mapper>
  
