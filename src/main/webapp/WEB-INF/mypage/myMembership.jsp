@@ -55,27 +55,11 @@
 
     <!-- Display the form to create a club only if no 'host' is present -->
 
-
- 
-	    <c:choose>
-        <c:when test="${!hasHost}">
-            <form action="/createclub">            
-                <input type="hidden" name="id" value="${mem.id}">
-                <button type="submit" value="클럽생성">클럽 만들기</button>
-            </form>
-        </c:when>
-        <c:otherwise>
-
-            <p>클럽 생성 기능이 활성화되지 않았습니다. 이미 보유중인 클럽이 있습니다.</p>
-        </c:otherwise>
-        </c:choose>
-        
-         
 	    <c:choose>
         <c:when test="${!hasHost}">
             <form action="/makeMembership">            
                 <input type="hidden" name="id" value="${mem.id}">
-                <button type="submit" value="클럽생성">클럽 만들기2</button>
+                <button type="submit" value="클럽생성">클럽 만들기</button>
             </form>
         </c:when>
         <c:otherwise>

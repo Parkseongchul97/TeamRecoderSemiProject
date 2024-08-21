@@ -22,6 +22,11 @@ public class Membership {
     private Date membershipDate; // 클럽생성날짜
     private double membershipGrade; // 클럽 별점
     private int membershipMax; // 클럽최대인원
+    
+    private String memershipAccessionText; //클럽 가입 조건
+    private String memershipSimpleText; // 간단한 소개글
+    private String memershipSecretText; // 클럽원들간 비밀글
+    
     private MultipartFile file; // 클럽메인사진(실저장)
     
     private String[] splitInfo;

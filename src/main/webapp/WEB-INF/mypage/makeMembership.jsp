@@ -4,40 +4,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-  <link rel="stylesheet" href="/${pageContext.request.contextPath}/css/reset.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/makeMembership.css" />
-
-
-</head>
-<body>
-  <h2> ${mem.id}</h2>
-     <input type="hidden" name="id" value="${mem.id}">
-     <input type="hidden" name="listGrade" value="host">
-     
-<form action="/makeMembership" method="post" enctype="multipart/form-data">
- 클럽명 : <input type="text" name="membershipName" required><br>
-  사진첨부: <input type="file" name="file" accept="image/*"><br>
-   클럽 가입조건 :<input type="text" name="membershipInfo"required><br>
-   클럽 간단한 설명:<input type="text" name="explanation"required><br>
-   클럽 홍보글 :<textarea id="infoMedium" name="infoMedium" rows="4" cols="100" placeholder="100자" required></textarea><br>
-   클럽원간의 비밀 정보 :<textarea id="infoLong" name="infoLong" rows="8" cols="100" placeholder="될때까지 해 주세요" required></textarea><br>
-   최대 인원 : <input type="text" name="membershipMax" required><br>
-
-  
-    <button type="submit">클럽생성</button>
-    <div>
-        <a href="/" id="toIndex">생성 취소</a>
-    </div>
-    </form>
-<script src="${pageContext.request.contextPath}/js/makeMembership.js"></script>
-</body>
-</html>
   <head>
     <meta charset="UTF-8" />
     <title>클럽 생성</title>
+      <link rel="stylesheet" href="/${pageContext.request.contextPath}/css/reset.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/makeMembership.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
       select {
@@ -55,17 +26,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   	<sec:authorize access="isAuthenticated()" var="principal">
 				<sec:authentication property="principal" var="member" />
 				
-    <form action="/makeMembership" method="post" enctype="multipart/form-data">
-      클럽명 : <input type="text" name="membershipName" /> 사진첨부:
-      <input type="file" name="file" accept="image/*" /> 클럽소개 :<input
-        type="text"
-        name="membershipInfo"
-      />
-      최대 인원 : <input type="text" name="membershipMax" />
-      <h2>${member.id}</h2>
-      <input type="hidden" name="id" value="${member.id}" />
-      <input type="hidden" name="listGrade" value="host" />
-      <button type="submit">클럽생성</button>
+     
+     
+<form action="/makeMembership" method="post" enctype="multipart/form-data">
+ 클럽명 : <input type="text" name="membershipName" required><br>
+  사진첨부: <input type="file" name="file" accept="image/*"><br>
+   클럽 가입조건 :<input type="text" name="memershipAccessionText"required><br>
+   클럽 간단한 설명:<input type="text" name="memershipSimpleText"required><br>
+   클럽 홍보글 :<textarea id="membershipInfo" name="membershipInfo" rows="4" cols="100" placeholder="100자" required></textarea><br>
+   클럽원간의 비밀 정보 :<textarea id="memershipSecretText" name="memershipSecretText" rows="8" cols="100" placeholder="될때까지 해 주세요" required></textarea><br>
+   최대 인원 : <input type="text" name="membershipMax" required><br>
+    <button type="submit">클럽생성</button>
+    <div>
+     <h2> ${mem.id}</h2>
+     <input type="hidden" name="id" value="${mem.id}">
+     <input type="hidden" name="listGrade" value="host">
+        <a href="/" id="toIndex">생성 취소</a>
+    </div>
     </form>
     </sec:authorize>
     <!-- 
@@ -120,5 +97,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         });
       });
     </script>-->
+    <script src="${pageContext.request.contextPath}/js/makeMembership.js"></script>
   </body>
 </html>

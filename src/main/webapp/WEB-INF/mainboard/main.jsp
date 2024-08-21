@@ -21,23 +21,18 @@
     <h1>${main.membership.membershipName }</h1>
     <img id="mainImg" src="${main.membership.membershipImg }" >
 
-	<h2>한줄 소개 : ${main.membership.splitInfo[1]}</h2>  <!-- 한줄소개 -->
+	<h2>한줄 소개 : ${main.membership.memershipSimpleText}</h2>  <!-- 한줄소개 -->
     <p>인원 현황 :  ${membershipUserCount}/${main.membership.membershipMax}</p>
     <h2>호스트 : ${main.member.nickname}</h2>
-    <p>가입조건 : ${main.membership.splitInfo[0]}</p><!-- 가입조건 -->
-    <p>클럽 홍보글 : ${main.membership.splitInfo[2]}</p>
+    <p>가입조건 : ${main.membership.memershipAccessionText}</p><!-- 가입조건 -->
+    <p>클럽 홍보글 : ${main.membership.membershipInfo}</p>
     <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" >
-    <h2>${main.membership.membershipInfo }</h2>
-    <p>인원 현황 :  ${membershipUserCount}/${main.membership.membershipMax}</p>
-    <h2>호스트 : ${main.member.nickname}</h2>
-    <p>가입조건 : 사지멀쩡한 남녀노소 누구나!!</p>
+		
+		<sec:authorize access="isAuthenticated()" var="principal">
+		<sec:authentication property="principal" var="member" />
     	
-			
-    	
-    	<sec:authorize access="isAuthenticated()" var="principal">
-<sec:authentication property="principal" var="member" />
     <c:choose>
-
+		
     <c:when test="${checkMember.listGrade == 'guest'}">
 				<p>가입 대기중인 클럽입니다</p>
 			</c:when>
@@ -48,7 +43,6 @@
     <c:when test="${membershipUserCount >= main.membership.membershipMax}">
     <h2>최대 인원에 도달한 클럽입니다 신청할 수 없습니다.</h2>
     </c:when>
-    <c:when test="${checkMember == null && mem != null}"> 
  
 	
        <c:when test="${checkMember == null && member != null}"> 
@@ -60,9 +54,9 @@
     <input type="hidden" name="listGrade" value="guest">
     </form>
     </c:when>
-    </c:choose><br>
+   </c:choose>
     <a href="/" id="toIndex">메인페이지로 가기</a>
-    </c:choose>
+ 
    </sec:authorize>
 </div>
 

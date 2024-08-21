@@ -38,7 +38,7 @@ public class PageController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("인증인가? : " + authentication.getPrincipal());
 		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열
-		List<MembershipUserList> all = service.allMembership();
+		List<MembershipUserList> all = service.allMembership(paging);
 		for(MembershipUserList one : all) {
 			String data =one.getMembership().getMembershipInfo();
 			one.getMembership().setSplitInfo(null);
@@ -49,9 +49,7 @@ public class PageController {
 				
 			}
 		}
-		model.addAttribute("list", all); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
-		for(int i = 0; i < service.allMembership().size(); i++) {
-		int j = service.allMembership().get(i).getMembership().getMembershipCode();
+		
 		model.addAttribute("list", service.allMembership(paging)); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
 		for(int i = 0; i < service.allMembership(paging).size(); i++) {
 		int j = service.allMembership(paging).get(i).getMembership().getMembershipCode();

@@ -13,6 +13,9 @@
 		<result property="membershipName" column="membership_name" />
 		<result property="membershipImg" column="membership_img" />
 		<result property="membershipInfo" column="membership_info" />
+		<result property="memershipAccessionText" column="memership_accession_text" />
+		<result property="memershipSimpleText" column="memership_simple_text" />
+		<result property="memershipSecretText" column="memership_secret_text" />
 		<result property="membershipDate" column="membership_date" />
 		<result property="membershipGrade" column="membership_grade" />
 		<result property="membershipMax" column="membership_max" />
@@ -33,6 +36,9 @@
 			<result column="Membership_name" property="membershipName" />
 			<result column="Membership_img" property="membershipImg" />
 			<result column="Membership_info" property="membershipInfo" />
+			<result column="memership_accession_text" property="memershipAccessionText"  />
+			<result column="memership_simple_text" property="memershipSimpleText"  />
+			<result column="memership_secret_text" property="memershipSecretText"  />
 			<result column="Mebership_date" property="membershipDate" />
 			<result column="Membership_grade" property="membershipGrade" />
 			<result column="Membership_max" property="membershipMax" />
@@ -46,7 +52,7 @@
 	
 	
 	
-	<select id="allMembership" resultMap="membershipmap">
+
 	<select id="allMembership" parameterType="Paging" resultMap="listMap">
 		SELECT *
 		FROM
@@ -71,7 +77,7 @@
 
 	<insert id="membershipApply" parameterType="MemberListDTO">
 		INSERT INTO
-		membership_user_list(membership_code , id,list_grade)
+		membership_user_list(membership_code , id, list_grade)
 		VALUES(#{membershipCode},#{id},#{listGrade})
 	</insert>
 	<!-- 1 -->
@@ -125,9 +131,10 @@
 
 	<insert id="makeMembership" parameterType="Membership"
 		useGeneratedKeys="true" keyProperty="membershipCode">
+
 		INSERT INTO
-		membership(membership_name,membership_img,membership_info,membership_max)
-		VALUES(#{membershipName},#{membershipImg},#{membershipInfo},#{membershipMax})
+		membership(membership_name,membership_img,membership_info,membership_max,memership_accession_text,memership_simple_text,memership_secret_text)
+		VALUES(#{membershipName},#{membershipImg},#{membershipInfo},#{membershipMax},#{memershipAccessionText},#{memershipSimpleText},#{memershipSecretText})
 	</insert>
 
 	<update id="membershipImg" parameterType="Membership">
@@ -192,6 +199,7 @@
 		UPDATE membership
 			SET membership_name = #{membershipName} , 
 				membership_info = #{membershipInfo},
+				
 				membership_max = #{membershipMax}
 			WHERE id = #{id} AND membership_code =
 		#{membershipCode}
@@ -213,20 +221,6 @@
 	</select>
 	
 	
-
-	<select id="membershipCodeList" parameterType="String"
-		resultType="Integer">
-		SELECT membership_code
-		FROM membership
-		JOIN membership_user_list USING (membership_code)
-		WHERE id = #{id}
-	</select>
-
-	<select id="roomlist" resultMap="roomListmap">
-		SELECT membership_name,membership_code FROM
-		membership
-	</select>
-
 
 </mapper>
  
