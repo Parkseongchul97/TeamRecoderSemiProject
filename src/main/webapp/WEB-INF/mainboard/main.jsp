@@ -17,29 +17,40 @@
 </head>
 <body>
 
+		<sec:authorize access="isAuthenticated()" var="principal">
+		<sec:authentication property="principal" var="member" />
+    	    
+    	    
+ 	
+
 <div id="container">
+
+	
     <h1>${main.membership.membershipName }</h1>
     <img id="mainImg" src="${main.membership.membershipImg }" >
 
 	<h2>한줄 소개 : ${main.membership.memershipSimpleText}</h2>  <!-- 한줄소개 -->
     <p>인원 현황 :  ${membershipUserCount}/${main.membership.membershipMax}</p>
-    <h2>호스트 : ${main.member.nickname}</h2>
+	<!-- 내용 뜨면 인증된 사용자인것 -->
+    <sec:authorize access="isAuthenticated()">
+    <p>호스트 : ${member.nickname}님!</p>
+	</sec:authorize>
     <p>가입조건 : ${main.membership.memershipAccessionText}</p><!-- 가입조건 -->
     <p>클럽 홍보글 : ${main.membership.membershipInfo}</p>
     <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" >
 		
-		<sec:authorize access="isAuthenticated()" var="principal">
-		<sec:authentication property="principal" var="member" />
+		
     	
     <c:choose>
 		
     <c:when test="${checkMember.listGrade == 'guest'}">
 				<p>가입 대기중인 클럽입니다</p>
-			</c:when>
-			<c:when
-				test="${(checkMember != null) && (checkMember.listGrade != 'guest')}">
-				<a href="/club/${main.membership.membershipCode}">☞ 내 클럽 페이지로 이동하기</a>
-			</c:when>
+	</c:when>
+	
+	<c:when test="${(checkMember != null) && (checkMember.listGrade != 'guest')}">
+		 <a href="/club/${main.membership.membershipCode}">☞ 내 클럽 페이지로 이동하기</a>
+	</c:when>
+	
     <c:when test="${membershipUserCount >= main.membership.membershipMax}">
     <h2>최대 인원에 도달한 클럽입니다 신청할 수 없습니다.</h2>
     </c:when>

@@ -8,8 +8,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <meta charset="UTF-8" />
     <title>클럽 생성</title>
       <link rel="stylesheet" href="/${pageContext.request.contextPath}/css/reset.css" />
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/makeMembership.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <style>
       select {
         display: block;
@@ -33,7 +34,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   사진첨부: <input type="file" name="file" accept="image/*"><br>
    클럽 가입조건 :<input type="text" name="memershipAccessionText"required><br>
    클럽 간단한 설명:<input type="text" name="memershipSimpleText"required><br>
-   클럽 홍보글 :<textarea id="membershipInfo" name="membershipInfo" rows="4" cols="100" placeholder="100자" required></textarea><br>
+   
+   	<div>
+      <p> 클럽 홍보글 :<span id="counter">0</span> / <span id="maxLength">100</span></p>
+    </div>
+  <textarea id="membershipInfo" name="membershipInfo" rows="4" cols="100" placeholder="100자" required></textarea><br>
+
+   
    클럽원간의 비밀 정보 :<textarea id="memershipSecretText" name="memershipSecretText" rows="8" cols="100" placeholder="될때까지 해 주세요" required></textarea><br>
    최대 인원 : <input type="text" name="membershipMax" required><br>
     <button type="submit">클럽생성</button>

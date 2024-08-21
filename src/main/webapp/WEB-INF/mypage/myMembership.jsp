@@ -129,7 +129,7 @@
   
    </c:forEach>
   </div>
-  
+  <a href="/" id="toIndex">메인페이지로 가기</a>
   </sec:authorize>
   
   <script src="${pageContext.request.contextPath}/js/myMembership.js">  
