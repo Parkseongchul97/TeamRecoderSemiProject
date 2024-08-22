@@ -1,3 +1,4 @@
+console.log() 
 let membershipNameCheck = false;
 membershipName.addEventListener('input', function() {
 	const membershipNameValue = $(this).val().trim();
@@ -69,3 +70,11 @@ function validate() { // 막아두기
 	
 	return membershipNameCheck && membershipMaxSubmit;
 }
+
+
+
+
+
+
+
+
