@@ -44,3 +44,12 @@ button:hover,
 input[type="submit"]:hover {
   background-color: #218838;
 }
+
+
+
+/*영민- 화살표 숨기기 */
+input[type="number"]::-webkit-inner-spin-button,  /*Chrome과 Safari에서 위쪽 화살표*/ 
+input[type="number"]::-webkit-outer-spin-button { /*Chrome과 Safari에서 아래쪽 화살표*/
+appearance: none; /* Chrome, Safari */ /*기본 스타일을 제거(화살표 버튼을 숨기고 기본적인 텍스트 입력 필드로 만들어 준다)*/
+margin: 0; /* 마진 제거 */
+}

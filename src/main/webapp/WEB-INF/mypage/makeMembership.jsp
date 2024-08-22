@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
+pageEncoding="UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
@@ -31,19 +31,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
      
 <form action="/makeMembership" method="post" enctype="multipart/form-data" onsubmit="return validate()">
 
-<label for ="membershipName"> 클럽명 : <span class="name" id="name"></span></label>
+<label for ="membershipName"> 클럽이름 : <span class="name" id="name"></span></label>
   <input type="text" id="membershipName" name="membershipName" maxlength="50"><br>
   
-  사진첨부: <input type="file" name="file" accept="image/*"><br>
+   사진첨부: <input type="file" name="file" accept="image/*"><br>
    클럽 가입조건 :<input type="text" name="memershipAccessionText" ><br>
    클럽 간단한 설명:<input type="text" name="memershipSimpleText" ><br>
-   
-   	<div>
-      <p> 클럽 홍보글 :<span id="counter">0</span> / <span id="maxLength">100</span></p>
-    </div>
-  <textarea id="membershipInfo" name="membershipInfo" rows="4" cols="100" placeholder="100자"></textarea><br>
-
-   
    클럽원간의 비밀 정보 :<textarea id="memershipSecretText" name="memershipSecretText" rows="8" cols="100" placeholder="될때까지 해 주세요"></textarea><br>
   
    최대 인원 : <span class="max" id="max"></span>

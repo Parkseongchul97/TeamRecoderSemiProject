@@ -47,40 +47,12 @@ public class MembershipController {
 	 * 카운트 관련  VO에 합쳐버림
 	 * 
 	 * */
-	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
-	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model,
-			HttpServletRequest request) {
 
-		System.out.println(service.main(membershipCode).getListCode());
-		// 홍보페이지에 membership 관련 정보 + 호스트 정보
-		model.addAttribute("main", service.main(membershipCode));
-		// 현재 가입된 인원수
-		model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
-		HttpSession session = request.getSession();
-		// 로그인한 회원의 id 정보 가져오기 위함
-		Member mem = (Member) session.getAttribute("mem");
-
-		if (mem != null) { // 로그인 유무 확인 . 널포인트 에러 방지
-			// 가입한 클럽 인지 확인을 위한 아이디 정보 가져오기
-			memberListDTO.setId(mem.getId());
-			// 해당클럽 안에서의 등급 가져오기
-			System.out.println("checkMember : " + service.checkMember(memberListDTO));
-			model.addAttribute("checkMember", service.checkMember(memberListDTO));
-
-		}
-
-		return "mainboard/main";
-	}
 		
-	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model) {
+	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
+	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model
+			) {
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
-		model.addAttribute("main");
-		// 현재 가입된 인원수
-		model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));	
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("클럽 홍보 페이지 컨트롤러 왔을때 " + authentication.getName().equals("anonymousUser"));
-	if(	!authentication.getName().equals("anonymousUser") ) {
-		Member mem = (Member) authentication.getPrincipal();
 		MembershipUserList list =  service.main(membershipCode);
 		list.setCount((service.membershipUserCount(membershipCode)));
 		
@@ -96,10 +68,10 @@ public class MembershipController {
 		            .mainCommentDate(commList.get(i).getMainCommentDate())
 		            .nickname(commList.get(i).getMember().getNickname())
 		            .memberImg(commList.get(i).getMember().getMemberImg())
-		            .membershipCode(commList.get(i).getMembershipCode()) 
-		            .recoment(new ArrayList<>()) 
+		            .membershipCode(commList.get(i).getMembershipCode())
+		            .recoment(new ArrayList<>())
 		            .build();
-		    
+		   
 		    dtoList.add(commentDTO);
 		    ArrayList<MainComment> recommList = commentService.mainReComment(membershipCode, commentDTO.getMainCommentCode());
 		    // 모든 댓글에 대댓글이 달리는 상황 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 수정요망
@@ -111,20 +83,20 @@ public class MembershipController {
 		                .mainCommentDate(recommList.get(j).getMainCommentDate())
 		                .nickname(recommList.get(j).getMember().getNickname())
 		                .memberImg(recommList.get(j).getMember().getMemberImg())
-		                .membershipCode(recommList.get(j).getMembershipCode()) 
+		                .membershipCode(recommList.get(j).getMembershipCode())
 		                .mainParentsCommentCode(commList.get(i).getMainCommentCode())
 		                .build();
-		        
-		     
+		       
+		    
 		        commentDTO.getRecoment().add(recommentDTO);
 		    }
 		}
-		
-
+		}
 		System.out.println(dtoList);
 		model.addAttribute("comment", dtoList);
 		return "mainboard/main";
 	}
+
 	/*
 	  * 성철
 	  * 해당 클럽에 가입된 회원이 그클럽에 정보와 클럽 가입 현황 볼수있는 페이지 이동
@@ -180,7 +152,6 @@ public class MembershipController {
 	public String makeMembership(MembershipDTO dto, MultipartFile file) throws Exception {
 		Membership membership = Membership.builder()
 				.membershipName(dto.getMembershipName())
-				.membershipInfo(dto.getMembershipInfo())
 				.memershipAccessionText(dto.getMemershipAccessionText())
 				.memershipSimpleText(dto.getMemershipSimpleText())
 				.memershipSecretText(dto.getMemershipSecretText())
@@ -197,17 +168,11 @@ public class MembershipController {
 					.membershipCode(membership.getMembershipCode())
 					.membershipImg(fileUpload(file, membership.getMembershipCode()))
 					.build();
-		System.out.println("해당 맴버쉽 코드 : " + m.getMembershipCode());
-		System.out.println("이미지 URL 테스트 " + m.getMembershipImg());
-		System.out.println("이미지단 이전?");
 		service.membershipImg(m);
-		System.out.println("이미지단 이후");
-		System.out.println(mem.getId());
 		MemberListDTO list = new MemberListDTO();
 				list.setId(mem.getId());
 				list.setListGrade(dto.getListGrade());
 				list.setMembershipCode(membership.getMembershipCode());
-				System.out.println("호스트 삽입전 터짐?" + list);
 		// 호스트로 보유중인 클럽 유무 확인
 		service.host(list);
 		return "redirect:/";
@@ -251,11 +216,7 @@ public class MembershipController {
 //		
 //	}
 	
-	
-	
-	
-	
-	
+
 	
 	/* 성철
 	 * 파일 삽입 메서드 해당맴버쉽 프로필사진 !!
@@ -299,5 +260,42 @@ public class MembershipController {
 	public boolean membershipNameCheck(Membership membership) {
 		return service.membershipNameCheck(membership) == null;
 	}
-		
+	/*
+	 * 영민 클럽 정보 업데이트 기능
+	 * 
+	 * 
+	 * 
+	 * 
+	 * */
+
+//	@PostMapping("/updateMembership")
+//		public String updateMembership(Membership membership,MembershipDTO dto) throws IOException {
+//		membership.getFile();
+//		membership.setMembershipImg(null);
+//		System.out.println(membership);
+//		service.updateMembership(membership);
+//		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\"+ Integer.toString(membership.getMembershipCode())+"\\");  
+//		Files.createDirectories(directoryPath);
+//		Membership m = Membership.builder()
+//					.membershipCode(membership.getMembershipCode())
+//					.membershipImg(fileUpload(membership.getFile(), membership.getMembershipCode()))
+//					.build();
+//		service.membershipImg(m);
+//		MemberListDTO list = new MemberListDTO();
+//				list.setId(dto.getId());
+//				list.setListGrade(dto.getListGrade());
+//				list.setMembershipCode(membership.getMembershipCode());
+//		// 호스트로 보유중인 클럽 유무 확인
+//		service.host(list);
+//		
+//		
+////	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+////	Membership membership = (Membership) authentication.getPrincipal();
+//		return "redirect:/myMembership";
+//		
+//	}
+	
+
+	
+	
 	}

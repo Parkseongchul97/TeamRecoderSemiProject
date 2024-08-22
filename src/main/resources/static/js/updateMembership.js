@@ -27,6 +27,8 @@ membershipName.addEventListener('input', function() {
 	});
 });
 
+
+
 const membershipMaxRegExp = /^[0-9]{2,100}$/;
 
 let membershipMaxSubmit = false; // 최대인원 설정 여부를 나타내는 변수 초기화
@@ -48,6 +50,22 @@ membershipMax.addEventListener('input', function() {
 });
 
 
+// 글자수세기
+// val().length <-- 글자수!
+// substr(시작인덱스, 길이) <-- 문자열 자르기
+$("#membershipInfo").keyup((e) => {
+	let target = $(e.target);
+	let length = target.val().length;
+
+	let maxLength = $("#maxLength").text();
+	if (length > maxLength) {
+		target.val(target.val().substr(0, maxLength));
+	} else {
+		$("#counter").text(length);
+	}
+});
+
 function validate() { // 막아두기
+	
 	return membershipNameCheck && membershipMaxSubmit;
 }

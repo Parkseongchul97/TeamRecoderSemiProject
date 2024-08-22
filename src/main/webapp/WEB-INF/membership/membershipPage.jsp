@@ -21,7 +21,7 @@
         <h1>${main.membership.membershipName}</h1>
         <!-- 멤버쉽 수정 -->
         <div>
-       	<h2><a href="/updateMembership">정보 수정하기</a></h2>
+       	<h2><a href="/updateMembership">클럽 정보 수정하기</a></h2>
         </div>
         
         <!-- 멤버쉽 채팅 서버 링크   -->
@@ -31,7 +31,7 @@
         <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" alt="클럽 이미지">
         
         <!-- 멤버쉽 소개  -->
-        <h2>${main.membership.membershipInfo}</h2>
+        <h2>한줄 소개 : ${main.membership.memershipSimpleText}</h2>
         
            <!-- 멤버쉽 최대 인원과 현재 인원 표기  -->
         <p>인원 현황 : ${main.count}/${main.membership.membershipMax}</p>
@@ -51,7 +51,7 @@
      
 				
         <c:if test="${member.id == main.member.id && main.count >= main.membership.membershipMax}">
-                        	<div>최대 인원에 도달하였습니다. 최대인원을 다시 설정후 확인해줏비시오</div>
+                        	<div>최대 인원에 도달하였습니다. 최대 인원을 다시 설정 후 확인해주세요</div>
                         </c:if>
 		
 

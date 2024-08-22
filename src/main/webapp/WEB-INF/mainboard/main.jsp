@@ -24,11 +24,11 @@
 		<h1>${main.membership.membershipName }</h1>
 		<img id="mainImg"
 			src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}">
-		<h2>${main.membership.membershipInfo }</h2>
+		<h2>한줄 소개 : ${main.membership.memershipSimpleText }</h2>
 		<p>인원 현황 : ${main.count}/${main.membership.membershipMax}</p>
 		<h2>호스트 : ${main.member.nickname}</h2>
-		<p>가입조건 : 사지멀쩡한 남녀노소 누구나!!</p>
-
+		<p>가입조건 : ${main.membership.memershipAccessionText}</p>
+		<p>클럽홍보글 : ${main.membership.membershipInfo} </p>
 
 
 		<sec:authorize access="isAuthenticated()" var="principal">

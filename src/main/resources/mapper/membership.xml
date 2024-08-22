@@ -183,12 +183,15 @@
 	</update>
 	
 	<!-- 멤버쉽 업데이트 -->
-	<update id="updateMembership" parameterType="Member" >
+	<update id="updateMembership" parameterType="Membership" >
 		UPDATE membership
 			SET membership_name = #{membershipName} , 
+				membership_img = #{membershipImg},
 				membership_info = #{membershipInfo},
-				
-				membership_max = #{membershipMax}
+				membership_max = #{membershipMax},
+				memership_accession_text = #{memershipAccessionText},
+				memership_simple_text = #{memershipSimpleText},
+				memership_secret_text = #{memershipSecretText}
 			WHERE id = #{id} AND membership_code =
 		#{membershipCode}
 		
@@ -217,7 +220,6 @@
 		FROM membership
 		WHERE membership_name = #{membershipName}
 	</select>
-	
 	
 	
 	

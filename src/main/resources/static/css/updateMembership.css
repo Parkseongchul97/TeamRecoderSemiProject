@@ -57,7 +57,7 @@ h1 {
 }
 
 /* 텍스트 영역 */
-.form-group textarea {
+.form-group {
   resize: vertical; /* 세로로 크기 조절 가능 */
 }
 
@@ -79,3 +79,22 @@ button {
 button:hover {
   background-color: #0056b3; /* 버튼 호버 시 배경색 변경 */
 }
+
+
+/* Textarea 고정 스타일 */
+textarea {
+width: 300px; /* 너비 고정 */
+height: 150px; /* 높이 고정 */
+resize: none; /* 크기 조절 비활성화 */
+border: 1px solid #ccc; /* 테두리 스타일 */
+padding: 10px; /* 내부 여백 */
+font-size: 16px; /* 글자 크기 */
+}
+
+/*영민- 화살표 숨기기 */
+input[type="number"]::-webkit-inner-spin-button,  /*Chrome과 Safari에서 위쪽 화살표*/ 
+input[type="number"]::-webkit-outer-spin-button { /*Chrome과 Safari에서 아래쪽 화살표*/
+appearance: none; /* Chrome, Safari */ /*기본 스타일을 제거(화살표 버튼을 숨기고 기본적인 텍스트 입력 필드로 만들어 준다)*/
+
+        }
+
