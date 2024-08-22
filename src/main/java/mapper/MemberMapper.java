@@ -1,30 +1,18 @@
 package mapper;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.util.List;
-
-
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
-import com.damoim.model.dto.SearchDTO;
-
-import org.apache.ibatis.annotations.Mapper;
-
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
-import com.damoim.model.vo.Membership;
-
-
-
 
 @Mapper
 public interface MemberMapper {
 	
 	Member login(String id);
 	
-	ArrayList<MemberListDTO> loginMemberMembership(Member member);
+	ArrayList<MemberListDTO> loginMemberMembership(Member member); 
+	
+	
 	
 	void signUp(Member member);
 	

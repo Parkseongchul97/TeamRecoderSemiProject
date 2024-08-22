@@ -51,7 +51,6 @@ public interface MembershipMapper {
 	
 	Membership membershipNameCheck(Membership membership);
 		
-	Membership membershipMaxCheck(Membership membership);
 	
 }
 

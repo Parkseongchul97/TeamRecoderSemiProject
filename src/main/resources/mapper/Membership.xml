@@ -212,15 +212,12 @@
 	
 	
 	
-	<select id="membershipNameCheck" parameterType="Membership" resultType="Membership">
+	<select id="membershipNameCheck" parameterType="Membership" resultMap="membershipMap">
 		SELECT *
 		FROM membership
 		WHERE membership_name = #{membershipName}
 	</select>
 	
-	<select id="membershipMaxCheck" parameterType="Membership" resultType="Integer">
-	
-	</select>
 	
 	
 	

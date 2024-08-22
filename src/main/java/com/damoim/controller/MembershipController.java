@@ -1,29 +1,23 @@
 package com.damoim.controller;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.damoim.model.vo.Membership;
-import org.springframework.web.bind.annotation.PostMapping;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MembershipDTO;
-import com.damoim.model.dto.MembershipTypeDTO;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MembershipService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,10 +27,9 @@ import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.RequestBody;
+
 @Controller
 public class MembershipController {
 	// 클럽 생성 관련 컨트롤 
@@ -271,14 +264,7 @@ public class MembershipController {
 	@ResponseBody
 	@PostMapping("/membershipNameCheck")
 	public boolean membershipNameCheck(Membership membership) {
-		Membership MS = service.membershipNameCheck(membership);
-		return MS == null;
+		return service.membershipNameCheck(membership) == null;
 	}
-		@ResponseBody
-		@PostMapping("/membershipMaxCheck")
-		public boolean membershipMaxCheck(Membership membership) {
-			Membership MS = service.membershipMaxCheck(membership);
-			return MS == null;
-
-	
-	}}
+		
+	}

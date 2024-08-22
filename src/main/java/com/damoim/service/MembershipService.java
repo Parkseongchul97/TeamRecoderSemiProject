@@ -107,14 +107,10 @@ public class MembershipService {
 	}
 
 	public Membership membershipNameCheck(Membership membership) {
-		
 		return mapper.membershipNameCheck(membership);
 	}
 
-	public Membership membershipMaxCheck(Membership membership) {
-		
-		return mapper.membershipMaxCheck(membership);
-	}
+
 	
 	
 	
