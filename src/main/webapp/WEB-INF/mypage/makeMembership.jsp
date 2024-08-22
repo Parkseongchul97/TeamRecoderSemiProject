@@ -35,8 +35,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <input type="text" id="membershipName" name="membershipName" maxlength="50"><br>
   
   사진첨부: <input type="file" name="file" accept="image/*"><br>
-   클럽 가입조건 :<input type="text" name="memershipAccessionText" Required><br>
-   클럽 간단한 설명:<input type="text" name="memershipSimpleText" Required><br>
+   클럽 가입조건 :<input type="text" name="memershipAccessionText" ><br>
+   클럽 간단한 설명:<input type="text" name="memershipSimpleText" ><br>
    
    	<div>
       <p> 클럽 홍보글 :<span id="counter">0</span> / <span id="maxLength">100</span></p>
