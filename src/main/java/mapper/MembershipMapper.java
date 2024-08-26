@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.vo.BasicRoomListVo;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
@@ -26,13 +27,14 @@ public interface MembershipMapper {
 	void membershipApply(MemberListDTO member);
 	List<MembershipUserList>allMembership(Paging paging);
 	MemberListDTO checkMember(MemberListDTO member);
+	List<MembershipUserList> allMembership();// 08-21 14:30 채승훈 지움 (Paging paging)
+	
 	void makeMembership(Membership membership);
 	void host(MemberListDTO list);
 //	void createclub(Membership membership);
 //	void searchMembershipInfo(Membership membership );
 	List<MembershipUserList> MembershipAllInfo(int membershipCode);
 	List<MemberListDTO> grade(Member member);
-	List<MembershipUserList>allMembership();
 	ArrayList<Member> allMember();
 //	void createclub2(Membership membership);
 	List<MembershipUserList> listGrade(Member member);
