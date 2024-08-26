@@ -73,12 +73,6 @@ public class MembershipService {
 	}
 
 	
-//	public void createclub(Membership membership) {
-//		mapper.createclub(membership);
-//	}
-
-
-	
 
 	public List<Integer> membershipCodeList(String id){
 		
@@ -94,8 +88,8 @@ public class MembershipService {
 	public void updateMembership(Membership membership) {
 		mapper.updateMembership(membership);
 	}
-	
-	
+
+
 	
 	
 	// public List<MembershipUserList> list(Paging paging) {
@@ -108,9 +102,9 @@ public class MembershipService {
 	// 	return mapper.checkMember(memberListDTO);
 	// }
 
-	// public Membership membershipNameCheck(Membership membership) {
-	// 	return mapper.membershipNameCheck(membership);
-	// }
+	 public Membership membershipNameCheck(Membership membership) {
+	 	return mapper.membershipNameCheck(membership);
+	 }
 
 
 	

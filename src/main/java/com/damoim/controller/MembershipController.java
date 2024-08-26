@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @Controller
 public class MembershipController {
 	// 클럽 생성 관련 컨트롤 
@@ -181,7 +182,16 @@ public class MembershipController {
 	 * 만들어진거에 사진첨부만 추가
 	 * */
 	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(MembershipDTO dto, MultipartFile file) throws Exception {
+	public String makeMembership(SearchDTO search , MembershipDTO dto, MultipartFile file, Model model) throws Exception {
+
+		model.addAttribute("locLaNameList", locationTypeService.locLaNameList());
+		model.addAttribute("locSNameList",locationTypeService.locSNameList(search.getLocationLaName()));
+		model.addAttribute("typeLaNameList", locationTypeService.typeLaNameList());
+		model.addAttribute("typeSNameList",locationTypeService.typeSNameList(search.getTypeLaName()));
+		
+		System.out.println(search);
+		System.out.println(locationTypeService.locLaNameList());
+		
 		Membership membership = Membership.builder()
 				.membershipName(dto.getMembershipName())
 				.memershipAccessionText(dto.getMemershipAccessionText())
@@ -207,9 +217,15 @@ public class MembershipController {
 				list.setMembershipCode(membership.getMembershipCode());
 		// 호스트로 보유중인 클럽 유무 확인
 		service.host(list);
+		
+		
+		
+		
 		return "redirect:/";
 	}
 
+	
+	
 	
 
 	
