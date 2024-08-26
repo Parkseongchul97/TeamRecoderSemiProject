@@ -146,17 +146,6 @@
 		(#{listGrade},#{id},#{membershipCode})
 	</insert>
 
- <insert id="createclub" parameterType="Membership">
- 		<!--  클럽생성시 정보 추가하기  -->
-        INSERT INTO membership (membership_name, membership_img, membership_info, membership_date, membership_grade, membership_max)
-        VALUES (#{membershipName}, #{membershipImg}, #{membershipInfo}, #{membershipDate}, #{membershipGrade}, #{membershipMax})
-    </insert>
-    
- <insert id="createclub2" parameterType="Membership">
- 		<!--  클럽생성시 정보 추가하기  -->
-        INSERT INTO membership (membership_name, membership_img, membership_info, membership_date, membership_grade, membership_max)
-        VALUES (#{membershipName}, #{membershipImg}, #{membershipInfo}, #{membershipDate}, #{membershipGrade}, #{membershipMax})
-    </insert>
 
 	<!-- 로그인시 member의 가입된 클럽 정보 -->
 	<select id="grade" parameterType="Member"
@@ -192,8 +181,7 @@
 				memership_accession_text = #{memershipAccessionText},
 				memership_simple_text = #{memershipSimpleText},
 				memership_secret_text = #{memershipSecretText}
-			WHERE id = #{id} AND membership_code =
-		#{membershipCode}
+			WHERE  membership_code = #{membershipCode}
 		
 	</update>
 	

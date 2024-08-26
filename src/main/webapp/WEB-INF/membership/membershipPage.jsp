@@ -21,7 +21,7 @@
         <h1>${main.membership.membershipName}</h1>
         <!-- 멤버쉽 수정 -->
         <div>
-       	<h2><a href="/updateMembership">클럽 정보 수정하기</a></h2>
+       	<h2><a href="/updateMembership?membershipCode=${main.membership.membershipCode}">클럽 정보 수정하기</a></h2>
         </div>
         
         <!-- 멤버쉽 채팅 서버 링크   -->
@@ -35,6 +35,9 @@
         
            <!-- 멤버쉽 최대 인원과 현재 인원 표기  -->
         <p>인원 현황 : ${main.count}/${main.membership.membershipMax}</p>
+        
+         <!-- 소개하고 싶은 글 -->
+        <p>클럽 소개글: ${main.membership.membershipInfo}</p>
         
          <!--  해당 멤버쉽 호스트 닉네임  -->
         <h4>호스트 : ${main.member.nickname} 

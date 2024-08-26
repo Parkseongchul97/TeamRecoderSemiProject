@@ -1,4 +1,3 @@
-console.log() 
 let membershipNameCheck = false;
 membershipName.addEventListener('input', function() {
 	const membershipNameValue = $(this).val().trim();

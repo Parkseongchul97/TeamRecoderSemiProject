@@ -22,8 +22,6 @@ import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MembershipDTO;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MembershipService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
@@ -47,7 +45,7 @@ public class MembershipController {
 	 * 카운트 관련  VO에 합쳐버림
 	 * 
 	 * */
-
+	
 		
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model
@@ -73,6 +71,7 @@ public class MembershipController {
 		            .build();
 		   
 		    dtoList.add(commentDTO);
+		    
 		    ArrayList<MainComment> recommList = commentService.mainReComment(membershipCode, commentDTO.getMainCommentCode());
 		    // 모든 댓글에 대댓글이 달리는 상황 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 수정요망
 		    if(recommList.size()> 0) {
@@ -155,8 +154,8 @@ public class MembershipController {
 				.memershipAccessionText(dto.getMemershipAccessionText())
 				.memershipSimpleText(dto.getMemershipSimpleText())
 				.memershipSecretText(dto.getMemershipSecretText())
-				.membershipMax(Integer.parseInt(dto.getMembershipMax())	
-						).build();
+				.membershipMax(Integer.parseInt(dto.getMembershipMax()))
+				.build();
 		// 클럽생성?
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		  Member mem = (Member) authentication.getPrincipal();
@@ -201,20 +200,6 @@ public class MembershipController {
 		
 		return "redirect:/" + member.getMembershipCode();
 	}
-	
-
-	
-//	@PostMapping("/updateMembership")
-//	public void updateMembership(HttpServletRequest request, Membership vo) {
-//		System.out.println(vo);
-//		
-//		
-//		
-//		
-//		
-//		
-//		
-//	}
 	
 
 	
@@ -264,38 +249,55 @@ public class MembershipController {
 	 * 영민 클럽 정보 업데이트 기능
 	 * 
 	 * 
-	 * 
-	 * 
 	 * */
 
-//	@PostMapping("/updateMembership")
-//		public String updateMembership(Membership membership,MembershipDTO dto) throws IOException {
-//		membership.getFile();
-//		membership.setMembershipImg(null);
-//		System.out.println(membership);
-//		service.updateMembership(membership);
-//		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\"+ Integer.toString(membership.getMembershipCode())+"\\");  
-//		Files.createDirectories(directoryPath);
-//		Membership m = Membership.builder()
-//					.membershipCode(membership.getMembershipCode())
-//					.membershipImg(fileUpload(membership.getFile(), membership.getMembershipCode()))
-//					.build();
-//		service.membershipImg(m);
-//		MemberListDTO list = new MemberListDTO();
-//				list.setId(dto.getId());
-//				list.setListGrade(dto.getListGrade());
-//				list.setMembershipCode(membership.getMembershipCode());
-//		// 호스트로 보유중인 클럽 유무 확인
-//		service.host(list);
-//		
-//		
-////	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-////	Membership membership = (Membership) authentication.getPrincipal();
-//		return "redirect:/myMembership";
-//		
-//	}
 	
+	@GetMapping("/updateMembership")
+	public String updateMembership(@PathVariable("membershipCode") int membershipCode, Model model) {
+		System.out.println(membershipCode);
+		MembershipUserList list =  service.main(membershipCode);
+		list.setCount((service.membershipUserCount(membershipCode)));
+//		model.addAttribute(null, model);
+		return "membership/updateMembership";
+	}
+	
+	
+	
+	@PostMapping("/updateMembership")
+		public String updateMembership(@PathVariable("membershipCode")Integer membershipCode, Membership membership,MembershipDTO dto, Model model) throws IOException {
+		// 홍보페이지에 membership 관련 정보 + 호스트 정보
+				MembershipUserList list =  service.main(membershipCode);
+				list.setCount((service.membershipUserCount(membershipCode)));
+				
+				model.addAttribute("updateMembership", list);	
+				
+		membership.getFile();
+		membership.setMembershipImg(null);
+		System.out.println(membership);
+		service.updateMembership(membership);
+		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\"+ Integer.toString(membership.getMembershipCode())+"\\");  
+		Files.createDirectories(directoryPath);
+		Membership m = Membership.builder()
+					.membershipCode(membership.getMembershipCode())
+					.membershipImg(fileUpload(membership.getFile(), membership.getMembershipCode()))
+					.membershipName(dto.getMembershipName())
+					.memershipAccessionText(dto.getMemershipAccessionText())
+					.memershipSimpleText(dto.getMemershipSimpleText())
+					.memershipSecretText(dto.getMemershipSecretText())
+					.membershipMax(Integer.parseInt(dto.getMembershipMax()))
+					.build();
+		service.membershipImg(m);
+		MemberListDTO dtolist = new MemberListDTO();
+		dtolist.setId(dto.getId());
+		dtolist.setListGrade(dto.getListGrade());
+		dtolist.setMembershipCode(membership.getMembershipCode());
+		// 호스트로 보유중인 클럽 유무 확인
+		service.host(dtolist);
+		System.out.println(dtolist);
 
-	
-	
+//	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//	Membership mship = (Membership) authentication.getPrincipal();
+	return "redirect:/myMembership";
+		
+	}
 	}

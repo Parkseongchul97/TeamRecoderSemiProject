@@ -10,15 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-import com.damoim.model.dto.MemberListDTO;
+
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipUserList;
-import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Paging;
 import com.damoim.service.MembershipService;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class PageController {
 	
@@ -42,17 +40,17 @@ public class PageController {
  		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("인증인가된 유저? : " + authentication.getPrincipal());
 		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열
-		List<MembershipUserList> all = service.allMembership(paging);
-		for(MembershipUserList one : all) {
-			String data =one.getMembership().getMembershipInfo();
-			one.getMembership().setSplitInfo(null);
-			
-			if(data.contains("#")) {
-				String[] result =  data.split("#");
-				 one.getMembership().setSplitInfo(result);
-				
-			}
-		}
+//		List<MembershipUserList> all = service.allMembership(paging);
+//		for(MembershipUserList one : all) {
+//			String data =one.getMembership().getMembershipInfo();
+//			one.getMembership().setSplitInfo(null);
+//			
+//			if(data.contains("#")) {
+//				String[] result =  data.split("#");
+//				 one.getMembership().setSplitInfo(result);
+//				
+//			}
+//		}
 		
 		model.addAttribute("list", service.allMembership(paging)); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
 		for(int i = 0; i < service.allMembership(paging).size(); i++) {
@@ -121,11 +119,11 @@ public class PageController {
 		return "mypage/updateMemberInfo";
 	}
 	
-	// 멤버쉽 정보 수정
-	@GetMapping("/updateMembership")
-	public String updateMembership() {
-		return "membership/updateMembership";
-	}
+//	// 멤버쉽 정보 수정
+//	@GetMapping("/updateMembership")
+//	public String updateMembership(Membership membership) {
+//		return "membership/updateMembership";
+//	}
 	
 
 	// 내가 가입한 맴버쉽 페이지 이동

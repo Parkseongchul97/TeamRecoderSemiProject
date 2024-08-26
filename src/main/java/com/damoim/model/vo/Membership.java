@@ -29,7 +29,7 @@ public class Membership {
     
     private MultipartFile file; // 클럽메인사진(실저장)
     
-    private String[] splitInfo;
+
 }
 
 
