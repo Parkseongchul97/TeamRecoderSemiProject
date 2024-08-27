@@ -50,7 +50,7 @@
         <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" alt="클럽 이미지">
         
         <!-- 멤버쉽 소개  -->
-        <h2>한줄 소개 : ${main.membership.memershipSimpleText}</h2>
+        <h2>한줄 소개 : ${main.membership.membershipSimpleText}</h2>
         
            <!-- 멤버쉽 최대 인원과 현재 인원 표기  -->
         <p>인원 현황 : ${main.count}/${main.membership.membershipMax}</p>

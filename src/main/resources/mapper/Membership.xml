@@ -13,9 +13,9 @@
 		<result property="membershipName" column="membership_name" />
 		<result property="membershipImg" column="membership_img" />
 		<result property="membershipInfo" column="membership_info" />
-		<result property="memershipAccessionText" column="memership_accession_text" />
-		<result property="memershipSimpleText" column="memership_simple_text" />
-		<result property="memershipSecretText" column="memership_secret_text" />
+		<result property="membershipAccessionText" column="membership_accession_text" />
+		<result property="membershipSimpleText" column="membership_simple_text" />
+		<result property="membershipSecretText" column="membership_secret_text" />
 		<result property="membershipDate" column="membership_date" />
 		<result property="membershipGrade" column="membership_grade" />
 		<result property="membershipMax" column="membership_max" />
@@ -36,10 +36,10 @@
 			<result column="Membership_name" property="membershipName" />
 			<result column="Membership_img" property="membershipImg" />
 			<result column="Membership_info" property="membershipInfo" />
-			<result column="memership_accession_text" property="memershipAccessionText"  />
-			<result column="memership_simple_text" property="memershipSimpleText"  />
-			<result column="memership_secret_text" property="memershipSecretText"  />
-			<result column="Mebership_date" property="membershipDate" />
+			<result column="membership_accession_text" property="membershipAccessionText"  />
+			<result column="membership_simple_text" property="membershipSimpleText"  />
+			<result column="membership_secret_text" property="membershipSecretText"  />
+			<result column="Membership_date" property="membershipDate" />
 			<result column="Membership_grade" property="membershipGrade" />
 			<result column="Membership_max" property="membershipMax" />
 		</association>
@@ -131,9 +131,48 @@
 		useGeneratedKeys="true" keyProperty="membershipCode">
 
 		INSERT INTO
-		membership(membership_name,membership_img,membership_info,membership_max,memership_accession_text,memership_simple_text,memership_secret_text)
-		VALUES(#{membershipName},#{membershipImg},#{membershipInfo},#{membershipMax},#{memershipAccessionText},#{memershipSimpleText},#{memershipSecretText})
+		membership(membership_name,membership_img,
+		membership_max,membership_accession_text,membership_simple_text)
+		VALUES(#{membershipName},#{membershipImg},
+		#{membershipMax},#{membershipAccessionText},#{membershipSimpleText})
+
 	</insert>
+	<select id="makeMembershipCode" parameterType="String" resultType="Integer">
+		select membership_code from membership where membership_name=#{membershipName}
+	</select>
+
+	
+	
+	
+ 
+<!-- 위치 부분 -->
+	<!--  지역 상위 카테고리  -->
+	<!-- 1.화면 옵션에 도시 이름 전체 리스트 보여주기 -->
+	<select id="locLaNameList" resultType="String">
+		SELECT DISTINCT loc_la_name 
+		FROM location_category
+	</select>
+	
+	<!-- 지역 하위 카테고리 뽑기 --> 
+	<select id="locSNameList" parameterType="String" resultType="String">
+		SELECT loc_s_name
+		FROM location_category
+		WHERE loc_la_name = #{laName}
+	</select>	
+
+	<!-- 타입부분 -->
+	<select id="typeLaNameList" resultType="String">
+		select distinct type_la_name
+		from type_category;
+	</select> 		
+		
+	<select id="typeSNameList" parameterType="String" resultType="String">
+		select type_s_name
+		from type_category
+		where type_la_name = #{typeLaName};
+	</select>
+
+
 
 	
 	<!--  클럽 생성시 코드가 없어서 폴더생성이 안대니까 업데이트로 이미지 추가 -->
@@ -214,8 +253,6 @@
 		FROM membership
 		WHERE membership_name = #{membershipName}
 	</select>
-	
-	
 	
 
 </mapper>

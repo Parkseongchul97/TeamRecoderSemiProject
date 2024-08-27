@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.damoim.model.vo.Membership;
-
+import com.damoim.model.vo.MembershipType;
 import com.damoim.model.dto.CommentDTO;
+import com.damoim.model.dto.MakeMembershipDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.MembershipDTO;
@@ -29,7 +30,7 @@ import com.damoim.model.dto.SearchDTO;
 import com.damoim.service.LocationTypeService;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MembershipService;
-
+import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
@@ -51,7 +52,7 @@ public class MembershipController {
 	
 	//08-22 채승훈 클럽메인페이지에 지역과 타입 추가
 	@Autowired
-	private LocationTypeService locationTypeService;
+	private LocationTypeService locationTypeservice;
 
 	@Autowired
 	private  MembershipMeetingService meetingService;
@@ -120,8 +121,8 @@ public class MembershipController {
 		System.out.println(dtoList);
 		model.addAttribute("comment", dtoList);
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
-		model.addAttribute("location", locationTypeService.locationList(membershipCode));
-		model.addAttribute("type", locationTypeService.typeList(membershipCode));
+		model.addAttribute("location", locationTypeservice.locationList(membershipCode));
+		model.addAttribute("type", locationTypeservice.typeList(membershipCode));
 		return "mainboard/main";
 	}
 
@@ -147,8 +148,8 @@ public class MembershipController {
 
 			model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
 			// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
-			model.addAttribute("location", locationTypeService.locationList(membershipCode));
-			model.addAttribute("type", locationTypeService.typeList(membershipCode));
+			model.addAttribute("location", locationTypeservice.locationList(membershipCode));
+			model.addAttribute("type", locationTypeservice.typeList(membershipCode));
 			
 			return "membership/membershipPage";
 		}
@@ -167,11 +168,23 @@ public class MembershipController {
 	 * 
 	 * */
 	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
-	public String makeMembership() {
+	public String makeMembership(SearchDTO search, Model model) {
+		model.addAttribute("locLaNameList", locationTypeservice.locLaNameList());
+		model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList());
 		return "mypage/makeMembership";
 	}
 	
+	@ResponseBody
+	@PostMapping("memLocation")
+	public void memLocation() {
+		System.out.println("gdgd");
+	}
 	
+	@ResponseBody
+	@PostMapping("memType")
+	public void memType() {
+		System.out.println("gggg");
+	}
 	/* ??? 
 	 * 
 	 * 
@@ -182,50 +195,90 @@ public class MembershipController {
 	 * 만들어진거에 사진첨부만 추가
 	 * */
 	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(SearchDTO search , MembershipDTO dto, MultipartFile file, Model model) throws Exception {
-
-		model.addAttribute("locLaNameList", locationTypeService.locLaNameList());
-		model.addAttribute("locSNameList",locationTypeService.locSNameList(search.getLocationLaName()));
-		model.addAttribute("typeLaNameList", locationTypeService.typeLaNameList());
-		model.addAttribute("typeSNameList",locationTypeService.typeSNameList(search.getTypeLaName()));
-		
-		System.out.println(search);
-		System.out.println(locationTypeService.locLaNameList());
-		
+	public String makeMembership(MembershipDTO dto, LocationCategory lc, MembershipType mt,MultipartFile file) throws Exception {
+//		System.out.println("2 : "+ lc);
+//		System.out.println("3 : " + mt);
+		System.out.println(file);
 		Membership membership = Membership.builder()
 				.membershipName(dto.getMembershipName())
-				.memershipAccessionText(dto.getMemershipAccessionText())
-				.memershipSimpleText(dto.getMemershipSimpleText())
-				.memershipSecretText(dto.getMemershipSecretText())
-				.membershipMax(Integer.parseInt(dto.getMembershipMax()))
+				.membershipAccessionText(dto.getMembershipAccessionText())
+				.membershipSimpleText(dto.getMembershipSimpleText())
+				.membershipSecretText(dto.getMembershipSecretText())
+				.membershipMax(Integer.parseInt((dto.getMembershipMax())))
 				.build();
-		// 클럽생성?
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		  Member mem = (Member) authentication.getPrincipal();
-		    System.out.println(mem);
 		service.makeMembership(membership);
-		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\"+ Integer.toString(membership.getMembershipCode())+"\\");  
-		Files.createDirectories(directoryPath);
-		Membership m = Membership.builder()
-					.membershipCode(membership.getMembershipCode())
-					.membershipImg(fileUpload(file, membership.getMembershipCode()))
-					.build();
-		service.membershipImg(m);
+		int a =service.makeMembershipCode(membership.getMembershipName());
+
+//		// 클럽생성?
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		 Member mem = (Member) authentication.getPrincipal();
+		Path directoryPath = Paths.get("\\\\192.168.10.51\\damoim\\membership\\"+ a+"\\");  
+		Files.createDirectories(directoryPath);	
+		membership = membership.builder()
+		 .membershipCode(membership.getMembershipCode()) // 생성된 클럽의 코드
+		 .membershipImg(fileUpload(file, a)) // 이미지 파일 업로드
+		.build();
+		service.membershipImg(membership);
+
 		MemberListDTO list = new MemberListDTO();
 				list.setId(mem.getId());
-				list.setListGrade(dto.getListGrade());
-				list.setMembershipCode(membership.getMembershipCode());
+				list.setListGrade("host");
+				list.setMembershipCode(a);
 		// 호스트로 보유중인 클럽 유무 확인
 		service.host(list);
-		
-		
-		
+
 		
 		return "redirect:/";
 	}
 
 	
 	
+//	@PostMapping("/") // 클럽 생성 및 위치 타입 리스트 가져오기
+//	public String createMembershipAndGetLocationType(SearchDTO search, MembershipDTO dto, MultipartFile file, Model model) throws Exception {
+//	    // 클럽 정보를 설정하여 Membership 객체 생성
+//	    Membership membership = Membership.builder()
+//	            .membershipName(dto.getMembershipName()) // 클럽 이름
+//	            .memershipAccessionText(dto.getMemershipAccessionText()) // 클럽 접근 텍스트
+//	            .memershipSimpleText(dto.getMemershipSimpleText()) // 클럽 간단 설명
+//	            .memershipSecretText(dto.getMemershipSecretText()) // 클럽 비밀 텍스트
+//	            .membershipMax(Integer.parseInt(dto.getMembershipMax())) // 최대 인원 수
+//	            .build();
+//
+//	    // 현재 인증된 사용자 정보를 가져오기
+//	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//	    Member mem = (Member) authentication.getPrincipal(); // 로그인한 회원 정보
+//
+//	    // 클럽을 데이터베이스에 저장
+//	    service.makeMembership(membership);
+//	    
+//	    // 클럽의 이미지 업로드를 위한 디렉토리 생성
+//	    Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\" + Integer.toString(membership.getMembershipCode()) + "\\");
+//	    Files.createDirectories(directoryPath); // 디렉토리 생성
+//
+//	    // 클럽 이미지 저장
+//	    Membership m = Membership.builder()
+//	            .membershipCode(membership.getMembershipCode()) // 생성된 클럽의 코드
+//	            .membershipImg(fileUpload(file, membership.getMembershipCode())) // 이미지 파일 업로드
+//	            .build();
+//	    service.membershipImg(m); // 이미지 정보를 데이터베이스에 저장
+//
+//	    // 호스트 정보 설정
+//	    MemberListDTO list = new MemberListDTO();
+//	    list.setId(mem.getId()); // 호스트의 ID 설정
+//	    list.setListGrade(dto.getListGrade()); // 호스트의 등급 설정
+//	    list.setMembershipCode(membership.getMembershipCode()); // 생성된 클럽 코드 설정
+//	    service.host(list); // 호스트 정보를 데이터베이스에 저장
+//
+//	    // 위치 타입 리스트 가져오기
+////	    model.addAttribute("list", locationTypeList(search)); // 위치 타입 리스트 추가
+//	    model.addAttribute("locLaNameList", locationTypeservice.locLaNameList()); // 대분류 지역 리스트 추가
+//	    model.addAttribute("locSNameList", locationTypeservice.locSNameList(search.getLocationLaName())); // 소분류 지역 리스트 추가
+//	    model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList()); // 대분류 타입 리스트 추가
+//	    model.addAttribute("typeSNameList", locationTypeservice.typeSNameList(search.getTypeLaName())); // 소분류 타입 리스트 추가
+//
+//	    // 최종적으로 "index" 뷰 반환
+//	    return "index";
+//	}
 	
 
 	
@@ -265,7 +318,7 @@ public class MembershipController {
 		String fileName = uuid.toString()+ "_" + file.getOriginalFilename();
 		File copyFile = new File("\\\\192.168.10.51\\damoim\\membership\\"+ Integer.toString(code) + "\\" + fileName);
 		file.transferTo(copyFile);
-		System.out.println("파일1개 추가!");
+		System.out.println("에 파일1개 추가!");
 		return fileName;
 	}
 	/* 성철
@@ -324,15 +377,15 @@ public class MembershipController {
 		membership.setMembershipImg(null);
 		System.out.println(membership);
 		service.updateMembership(membership);
-		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\"+ Integer.toString(membership.getMembershipCode())+"\\");  
+		Path directoryPath = Paths.get("\\\\192.168.10.51\\damoim\\membership\\"+ Integer.toString(membership.getMembershipCode())+"\\");  
 		Files.createDirectories(directoryPath);
 		Membership m = Membership.builder()
 					.membershipCode(membership.getMembershipCode())
 					.membershipImg(fileUpload(membership.getFile(), membership.getMembershipCode()))
 					.membershipName(dto.getMembershipName())
-					.memershipAccessionText(dto.getMemershipAccessionText())
-					.memershipSimpleText(dto.getMemershipSimpleText())
-					.memershipSecretText(dto.getMemershipSecretText())
+					.membershipAccessionText(dto.getMembershipAccessionText())
+					.membershipSimpleText(dto.getMembershipSimpleText())
+					.membershipSecretText(dto.getMembershipSecretText())
 					.membershipMax(Integer.parseInt(dto.getMembershipMax()))
 					.build();
 		service.membershipImg(m);

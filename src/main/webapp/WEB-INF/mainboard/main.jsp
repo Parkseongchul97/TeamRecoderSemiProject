@@ -28,7 +28,7 @@
 		<h1>${main.membership.membershipName }</h1>
 		<img id="mainImg"
 			src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}">
-		<h2>한줄 소개 : ${main.membership.memershipSimpleText }</h2>
+		<h2>한줄 소개 : ${main.membership.membershipSimpleText }</h2>
 		<p>인원 현황 : ${main.count}/${main.membership.membershipMax}</p>
 
 		<!-- 08-22 채승훈 로케이션타입 추가함 -->
@@ -53,7 +53,7 @@
 
 
 		<h2>호스트 : ${main.member.nickname}</h2>
-		<p>가입조건 : ${main.membership.memershipAccessionText}</p>
+		<p>가입조건 : ${main.membership.membershipAccessionText}</p>
 		<p>클럽홍보글 : ${main.membership.membershipInfo} </p>
 
 

@@ -2,26 +2,24 @@ package com.damoim.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.MergedAnnotations.Search;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.damoim.model.dto.LocationTypeDTO;
+
 import com.damoim.model.dto.MemberLocTypeDTO;
-import com.damoim.model.dto.MembershipDTO;
+
 import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Member;
-import com.damoim.model.vo.Membership;
+
 import com.damoim.model.vo.TypeCategory;
 import com.damoim.service.LocationTypeService;
 import com.damoim.service.MembershipService;
@@ -92,7 +90,6 @@ public class LocationTypeController {
 		model.addAttribute("locSNameList",locationTypeservice.locSNameList(search.getLocationLaName()));
 		model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList());
 		model.addAttribute("typeSNameList",locationTypeservice.typeSNameList(search.getTypeLaName()));
-		
 		return "index";
 	}
 	

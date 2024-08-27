@@ -48,6 +48,38 @@ membershipMax.addEventListener('input', function() {
 });
 
 
+// 지역
+$('#locationLaNameMem').change(function(){
+	let location = $(this).val()
+	console.log(location)
+	$.ajax({
+		type: 'post',
+		url: 'memLocation',
+		data: 'LocationSearch',
+		success : function(gd){
+			console.log(gd);
+		}
+		
+	})
+});
+
+// 유형
+$('#typeLaNameMem').change(function(){
+	let location = $(this).val()
+	console.log(location)
+	$.ajax({
+		type: 'post',
+		url: 'memType',
+		data: 'TypeSearch',
+		success : function(gg){
+			console.log(gg);
+		}
+		
+	})
+});
+
+
+
 function validate() { // 막아두기
 	return membershipNameCheck && membershipMaxSubmit;
 }

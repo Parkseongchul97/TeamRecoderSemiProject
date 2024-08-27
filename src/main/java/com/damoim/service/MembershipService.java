@@ -107,8 +107,10 @@ public class MembershipService {
 	 }
 
 
-	
-	
+	 public int makeMembershipCode(String membername){
+		 return mapper.makeMembershipCode(membername);
+	 }
+		
 	
 	
 //	public List<MembershipUserList> list(Paging paging) {

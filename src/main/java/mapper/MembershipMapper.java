@@ -48,8 +48,21 @@ public interface MembershipMapper {
 	void membershipImg(Membership membership);
 	
 	
+	int makeMembershipCode(String membername);
+	
+
+
+//<update id="updateMakeMembershipImg" parameterType="Membership">
+//	 update membership
+//        set membership_img= #{membershipImg}
+//        where membership_name= #{membershipName}
+//</update>
+	
+	
 	
 	void updateMembership(Membership membership);
+	
+
 	
 	Membership membershipNameCheck(Membership membership);
 		

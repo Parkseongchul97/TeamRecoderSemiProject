@@ -38,23 +38,23 @@
 					</label> <input type="number" id="membershipMax" name="membershipMax" min="1" placeholder="현재:${main.membership.membershipMax}">
 				</div>
 				<div class="form-group">
-					<label for="memershipAccessionText">클럽 가입 조건 : </label> <input
-						type="text" id="memershipAccessionText"
-						name="memershipAccessionText" placeholder="현재:${main.membership.memershipAccessionText}" required>
+					<label for="membershipAccessionText">클럽 가입 조건 : </label> <input
+						type="text" id="membershipAccessionText"
+						name="membershipAccessionText" placeholder="현재:${main.membership.membershipAccessionText}" required>
 				</div>
 				<div class="form-group">
-					<label for="memershipSimpleText">공개 정보 : </label> <input
-						type="text" id="memershipSimpleText"  name="memershipSimpleText" placeholder="현재:${main.membership.memershipSimpleText}"
+					<label for="membershipSimpleText">공개 정보 : </label> <input
+						type="text" id="membershipSimpleText"  name="membershipSimpleText" placeholder="현재:${main.membership.membershipSimpleText}"
 						>
 				</div>
 				<div class="form-group">
-					<label for="memershipSecretText">비밀 정보 : </label> <input
-						type="text" id="memershipSecretText" name="memershipSecretText"  placeholder="현재:${main.membership.memershipSecretText}"
+					<label for="membershipSecretText">비밀 정보 : </label> <input
+						type="text" id="membershipSecretText" name="membershipSecretText"  placeholder="현재:${main.membership.membershipSecretText}"
 						>
 				</div>
 				<div class="form-group">
-      				<label for="memershipSecretText"> 클럽 홍보글 :<span id="counter">0</span> / <span id="maxLength">100</span></label>
-      				<textarea id="membershipInfo" name="membershipInfo" rows="4" cols="100" placeholder="현재: ${main.membership.memershipSecretText}" ></textarea><br>
+      				<label for="membershipSecretText"> 클럽 홍보글 :<span id="counter">0</span> / <span id="maxLength">100</span></label>
+      				<textarea id="membershipInfo" name="membershipInfo" rows="4" cols="100" placeholder="현재: ${main.membership.membershipSecretText}" ></textarea><br>
     			</div>
   				
 				<button type="submit">수정하기</button>
