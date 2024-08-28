@@ -51,13 +51,22 @@ membershipMax.addEventListener('input', function() {
 // 지역
 $('#locationLaNameMem').change(function(){
 	let location = $(this).val()
-	console.log(location)
-	$.ajax({
+	let list = "";
+	let allList = `<option>전체보기</option>`;
+	$.ajax({	
 		type: 'post',
-		url: 'memLocation',
-		data: 'LocationSearch',
-		success : function(gd){
-			console.log(gd);
+		url: '/memLocation',
+		data: 'locationLaName=' + location,
+		success : function(locationS){
+			$.each(locationS , function(index,item){
+				list += `<option>${item}</option>`;
+			});
+			if(list !== ""){
+				$("#locationSNameMem").html(list);	
+			}else{
+				$("#locationSNameMem").html(allList);
+			}
+			
 		}
 		
 	})
@@ -65,21 +74,104 @@ $('#locationLaNameMem').change(function(){
 
 // 유형
 $('#typeLaNameMem').change(function(){
-	let location = $(this).val()
-	console.log(location)
+	let type = $(this).val()
+	let list = "";
+	let allList = `<option>전체보기</option>`;
+	console.log(type)
 	$.ajax({
 		type: 'post',
-		url: 'memType',
-		data: 'TypeSearch',
-		success : function(gg){
-			console.log(gg);
+		url: '/memType',
+		data: $.param({ typeLaName: type }), // & 문자가 URL 쿼리 문자열에서 파라미터 구분자로 사용됨 그래서 URL인코딩 처리를 해줘야 함
+		success : function(typeS){
+			$.each(typeS , function(index,item){
+				list += `<option>${item}</option>`;
+		});
+							if(list !== ""){
+								$("#typeSNameMem").html(list);	
+								console.log("if",type)
+							}else{
+								$("#typeSNameMem").html(allList);
+								console.log("else",type)
+							}
+			
 		}
 		
 	})
 });
 
 
+// 클릭이벤트 사용해서 클릭하면 선택한 정보가 따로 쌓이게
+let locationBtnCheck = false;
+let ST ="";
+locationBtn.addEventListener("click", function () {
+	let a = $("#locationLaNameMem option:selected").val();
+	let b = $("#locationSNameMem option:selected").val();
+	let data = {
+		 locationLaName: a,
+		 locationSName: b
+	}
+	ST+=a+" "+b+",";
+	$("#test1").html(ST);
+	$.ajax({
+		type: 'get',
+		url: '/addlocation',
+		data: ST,
+	});
+	
+ });
+
+ /* success:function(result){
+ 			if(result){
+ 				if (allviweValue === "전체보기") {
+ 									$('#all').text(" 지역 선택 부탁드립니다").css('color', 'red');
+ 									console.log("이거 나오나?");
+ 									locationBtnCheck = false;
+ 								} 
+ 									else {
+ 										console.log("이거 나오려나?");
+ 									$('#all').text( `<option>${item}</option>`).css('color', 'green');
+ 									if(list !== ""){
+ 									$("#typeSNameMem").html(list);	
+ 									console.log("if",type)
+ 									}else{
+ 									$("#typeSNameMem").html(allList);
+ 									console.log("else",type)
+ 																}
+ 									locationBtnCheck = true;
+ 								}
+
+ 							}
+ 			
+ 		}*/ 
+ 
+ 
+ typeBtn.addEventListener("click", function () {
+ 	let a = $("#typeLaNameMem option:selected").val();
+ 	let b = $("#typeSNameMem option:selected").val();
+ 	let data = {
+ 		 typeLaName: a,
+ 		 typeSName: b
+ 	}
+ 	$.ajax({
+ 		type: 'get',
+ 		url: '/addtype',
+ 		data: $.param(data)
+ 	});
+ 	
+  });
 
 function validate() { // 막아두기
-	return membershipNameCheck && membershipMaxSubmit;
+	//if(locationLaName != "전체보기" && typeLaName != "전체보기"){
+		let a = $("#locationLaNameMem option:selected").val();
+		let b = $("#typeLaNameMem option:selected").val();
+			console.log(a.includes("전체보기"));
+			console.log(b.includes("전체보기"));
+			if(a.includes("전체보기") && b.includes("전체보기")){
+				alert("전체보기 말고 다른 걸 선택해야 합니다 ");
+			}
+			return membershipNameCheck && membershipMaxSubmit && locationBtnCheck && typeBtn;
+	//}
+	
+	
+	
 }

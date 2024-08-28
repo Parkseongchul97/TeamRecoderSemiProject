@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
+import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.BasicRoomListVo;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
@@ -110,6 +111,8 @@ public class MembershipService {
 	 public int makeMembershipCode(String membername){
 		 return mapper.makeMembershipCode(membername);
 	 }
+
+
 		
 	
 	

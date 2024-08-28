@@ -175,16 +175,34 @@ public class MembershipController {
 	}
 	
 	@ResponseBody
-	@PostMapping("memLocation")
-	public void memLocation() {
-		System.out.println("gdgd");
+	@PostMapping("/memLocation")
+	public List<String> memLocation(String locationLaName) {
+		
+		System.out.println(locationTypeservice.locSNameList(locationLaName));
+		return locationTypeservice.locSNameList(locationLaName);
 	}
 	
 	@ResponseBody
-	@PostMapping("memType")
-	public void memType() {
-		System.out.println("gggg");
+	@PostMapping("/memType")
+	public List<String> memType(String typeLaName) {
+		//System.out.println(locationTypeservice.typeSNameList(typeLaName));
+		System.out.println(typeLaName);
+		return locationTypeservice.typeSNameList(typeLaName);
 	}
+	@ResponseBody
+	@GetMapping("/addlocation")
+	public boolean addlocation(SearchDTO dto) {
+		System.out.println("요청!:" + dto);
+		return locationTypeservice.addlocation(dto) == null;
+	
+	}
+	
+	@ResponseBody
+	@GetMapping("/addtype")
+	public void addtype(SearchDTO dto) {
+		System.out.println("요청!:" + dto);
+	}
+	
 	/* ??? 
 	 * 
 	 * 

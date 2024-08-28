@@ -159,7 +159,8 @@
 		FROM location_category
 		WHERE loc_la_name = #{laName}
 	</select>	
-
+	
+	
 	<!-- 타입부분 -->
 	<select id="typeLaNameList" resultType="String">
 		select distinct type_la_name

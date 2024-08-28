@@ -69,5 +69,8 @@ public class LocationTypeService {
 	public int allMemberShipUser(int code) {
 		return mapper.allMemberShipUser(code);
 	}
+	public SearchDTO addlocation(SearchDTO dto) {
+		return mapper.addlocation(dto);
+	}
 	
 }

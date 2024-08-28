@@ -55,6 +55,13 @@
 		WHERE loc_la_name = #{laName}
 	</select>	
 
+	<select id="addlocation" parameterType="SearchDTO" resultType="SearchDTO">
+		SELECT *
+		FROM membership
+		WHERE membership_name = #{membershipName}
+	</select>
+
+
 	<!-- 타입부분 -->
 	<select id="typeLaNameList" resultType="String">
 		select distinct type_la_name

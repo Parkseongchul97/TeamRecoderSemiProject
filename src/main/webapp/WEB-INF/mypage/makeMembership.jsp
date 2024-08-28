@@ -44,14 +44,15 @@ pageEncoding="UTF-8"%>
  
   	<!-- 08-20 채승훈 -->
 	<select id="locationLaNameMem">
-		<option>전체보기</option>
-		<c:forEach items="${locLaNameList}" var="typeLaName">
-			<option>${typeLaName}</option>
+		<option for ="allviwe">전체보기<span class="all" id="all"></span></option>
+		<c:forEach items="${locLaNameList}" var="locationLaName">
+			<option id="addlocation">${locationLaName}</option>
 		</c:forEach>
 	</select>
-	
+	<div id="test1"></div>
 	<select id="locationSNameMem">
 		<option>전체보기</option>
+			<input type="submit" value="선택" id="locationBtn">
 
 	</select>
 	
@@ -64,15 +65,14 @@ pageEncoding="UTF-8"%>
 	
 	<select id="typeSNameMem">
 		<option>전체보기</option>
-		<c:forEach items="${typeSNameList}" var="typeLaName">
-			<option>${typeLaName}</option>
-		</c:forEach>
+		
+		<input type="submit" value="선택" id="typeBtn">
 	</select>
-	
+	<br>
 	
 	
 
-    <button type="submit">클럽생성</button>
+    <button type="submit" >클럽생성</button>
     <div>
      <h2> ${mem.id}</h2>
      <input type="hidden" name="id" value="${mem.id}">
