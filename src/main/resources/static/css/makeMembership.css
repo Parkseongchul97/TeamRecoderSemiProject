@@ -53,3 +53,8 @@ input[type="number"]::-webkit-outer-spin-button { /*Chrome과 Safari에서 아�
 appearance: none; /* Chrome, Safari */ /*기본 스타일을 제거(화살표 버튼을 숨기고 기본적인 텍스트 입력 필드로 만들어 준다)*/
 margin: 0; /* 마진 제거 */
 }
+
+.select {
+	border: 1px solid;
+	padding: 30px;
+}

@@ -141,8 +141,14 @@
 		select membership_code from membership where membership_name=#{membershipName}
 	</select>
 
-	
-	
+<select id="">
+		SELECT *
+    FROM membership
+    join membership_location using(membership_code)
+    join location_category using(loc_code)
+    join membership_type using(membership_code)
+    join type_category using(type_code);
+</select>
 	
  
 <!-- 위치 부분 -->

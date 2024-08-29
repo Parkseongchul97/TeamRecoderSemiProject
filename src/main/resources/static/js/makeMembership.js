@@ -48,10 +48,10 @@ membershipMax.addEventListener('input', function() {
 });
 
 
-// 지역
+// 지역 선택 시 변경 이벤트
 $('#locationLaNameMem').change(function(){
-	let location = $(this).val()
-	let list = "";
+	let location = $(this).val()// 선택된 지역 값을 가져옴
+	let list = "";// 지역 하위 목록을 저장할 변수
 	let allList = `<option>전체보기</option>`;
 	$.ajax({	
 		type: 'post',
@@ -62,9 +62,9 @@ $('#locationLaNameMem').change(function(){
 				list += `<option>${item}</option>`;
 			});
 			if(list !== ""){
-				$("#locationSNameMem").html(list);	
+				$("#locationSNameMem").html(list);	// 하위 지역 목록을 업데이트
 			}else{
-				$("#locationSNameMem").html(allList);
+				$("#locationSNameMem").html(allList); // 하위 지역이 없으면 전체보기로 설정
 			}
 			
 		}
@@ -88,10 +88,10 @@ $('#typeLaNameMem').change(function(){
 		});
 							if(list !== ""){
 								$("#typeSNameMem").html(list);	
-								console.log("if",type)
+								console.log("if",type);
 							}else{
 								$("#typeSNameMem").html(allList);
-								console.log("else",type)
+								console.log("else",type);
 							}
 			
 		}
@@ -100,25 +100,66 @@ $('#typeLaNameMem').change(function(){
 });
 
 
+
 // 클릭이벤트 사용해서 클릭하면 선택한 정보가 따로 쌓이게
-let locationBtnCheck = false;
-let ST ="";
+let locationBtnCheck = false;// 클릭 상태를 나타내는 변수
+let ST ="";// 선택된 지역 정보를 저장할 변수
+let allList = `<option>전체보기</option>`;
 locationBtn.addEventListener("click", function () {
+	// 전체 보기일 경우 클릭 이벤트를 막기
+	if ($("#locationLaNameMem option:selected").val() === "전체보기") {
+	        return; // 클릭 이벤트를 막고 함수 종료
+	    }
 	let a = $("#locationLaNameMem option:selected").val();
 	let b = $("#locationSNameMem option:selected").val();
 	let data = {
 		 locationLaName: a,
 		 locationSName: b
 	}
-	ST+=a+" "+b+",";
+	ST+=a+" "+b+"/";
 	$("#test1").html(ST);
 	$.ajax({
 		type: 'get',
 		url: '/addlocation',
 		data: ST,
-	});
-	
- });
+		
+		 success:function(result){
+		 			if(result){
+		 				if ($("#locationLaNameMem option:selected").val() === "전체보기") {
+		 									$('#all').text(" 지역 선택 부탁드립니다").css('color', 'red');
+		 									console.log("이거 나오나?");
+		 									locationBtnCheck = false;
+		 								} 
+		 									else {
+		 										console.log("이거 나오려나?");
+		 									$('#all').text( `전체보기`).css('color', 'red');
+											
+											
+		 									if(list !== ""){
+		 									$("#typeSNameMem").html(list);	
+		 									console.log("if",type);
+		 									}else{
+		 									$("#typeSNameMem").html(allList);
+		 									console.log("else",type);
+		 																}
+		 									locationBtnCheck = true;
+		 								}
+
+		 							}
+		 			
+		 		}
+		
+});
+
+});
+					
+		/*success: function(response) {
+		            console.log("서버 응답:", response);
+		        },
+		        error: function(error) {
+		            console.error("에러 발생:", error);
+		        } // 전체 보기 일때 클릭 이벤트 막기*/
+
 
  /* success:function(result){
  			if(result){
@@ -160,18 +201,18 @@ locationBtn.addEventListener("click", function () {
  	
   });
 
-function validate() { // 막아두기
-	//if(locationLaName != "전체보기" && typeLaName != "전체보기"){
-		let a = $("#locationLaNameMem option:selected").val();
-		let b = $("#typeLaNameMem option:selected").val();
-			console.log(a.includes("전체보기"));
-			console.log(b.includes("전체보기"));
-			if(a.includes("전체보기") && b.includes("전체보기")){
-				alert("전체보기 말고 다른 걸 선택해야 합니다 ");
-			}
-			return membershipNameCheck && membershipMaxSubmit && locationBtnCheck && typeBtn;
-	//}
-	
-	
-	
-}
+  function validate() {
+      // 선택된 지역과 유형을 가져옴
+      let a = $("#locationLaNameMem option:selected").val();
+      let b = $("#typeLaNameMem option:selected").val();
+	 			 console.log(a.includes("전체보기"));
+	  			console.log(b.includes("전체보기"));
+      // "전체보기"가 선택되었는지 확인
+      if (a === "전체보기" || b === "전체보기") {
+          return false; // 유효성 검사 실패
+      }
+
+      // 모든 조건이 만족할 경우 true 반환
+      return membershipNameCheck && membershipMaxSubmit && locationBtnCheck && typeBtn;
+  }
+

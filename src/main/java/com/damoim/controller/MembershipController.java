@@ -10,12 +10,14 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipType;
@@ -189,12 +191,63 @@ public class MembershipController {
 		System.out.println(typeLaName);
 		return locationTypeservice.typeSNameList(typeLaName);
 	}
+	
+//	@ResponseBody
+//	@GetMapping("/addlocation")
+//	public String addlocation(SearchDTO dto, String ST) {
+//		System.out.println("요청!:" + dto);
+//
+//	
+//		String[] areaList = ST.split(",");
+//		for (String area : areaList) {
+//	        String trimmedArea = area.trim(); // 공백 제거
+//	        if (!trimmedArea.isEmpty()) {
+//	            System.out.println(trimmedArea); // 각 지역 출력
+//	            // 추가적인 처리 로직 (예: 데이터베이스 저장 등)
+//	            System.out.println("이거 나오지??!");
+//	           
+//	        }
+//	    }
+//		boolean return ResponseEntity.ok().build();
+//		
+//		return locationTypeservice.addlocation(dto) == null;
+//	
+//	}
+	
+	
 	@ResponseBody
 	@GetMapping("/addlocation")
-	public boolean addlocation(SearchDTO dto) {
-		System.out.println("요청!:" + dto);
-		return locationTypeservice.addlocation(dto) == null;
+	public String addlocation(SearchDTO dto, String ST) {
+	    System.out.println("요청!:" + dto);
+
+	    // ST가 null이거나 비어있을 경우 메시지 반환
+	    if (ST == null || ST.isEmpty()) {
+	    	System.out.println("이거 나오지!!!");
+	        return "ST가 비어있습니다."; // ST가 비어있을 경우 메시지 반환
+	    }
+
+	    String[] areaList = ST.split("/");
+	    for (String area : areaList) {
+	        String trimmedArea = area.trim(); // 공백 제거
+	        if (!trimmedArea.isEmpty()) {
+	            System.out.println(trimmedArea); // 각 지역 출력
+	            System.out.println("이거 나오지??!");
+	        }
+	    }
+
+	    return "위치 추가 완료"; // 성공 메시지 반환
+	}
 	
+	
+	
+	
+	
+	
+	
+	@ResponseBody
+	@PostMapping("/addlocation")
+	public boolean addlocation(SearchDTO dto) {
+		return locationTypeservice.addlocation(dto) == null;
 	}
 	
 	@ResponseBody
@@ -224,9 +277,12 @@ public class MembershipController {
 				.membershipSecretText(dto.getMembershipSecretText())
 				.membershipMax(Integer.parseInt((dto.getMembershipMax())))
 				.build();
-		service.makeMembership(membership);
+		service.makeMembership(membership);	
 		int a =service.makeMembershipCode(membership.getMembershipName());
-
+		
+		
+		
+		
 //		// 클럽생성?
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		 Member mem = (Member) authentication.getPrincipal();
