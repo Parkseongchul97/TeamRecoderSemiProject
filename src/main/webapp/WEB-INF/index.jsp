@@ -13,6 +13,8 @@
 	href="${pageContext.request.contextPath}/css/reset.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/index.css" />
+	<!--  --><link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/chattingIndex.css" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
@@ -22,32 +24,32 @@
 				<div class="LOGO">DAMOIM</div>
 			</a>
 			<div class="header_right">
-		
+
 				<sec:authorize access="!isAuthenticated()">
-              <div class="header_right_menu">
-                <a href="/signUp">회원가입</a>
-                <a href="/loginPage">로그인</a>
-              </div>
-              </sec:authorize>
-				<sec:authorize access="isAuthenticated()" var="principal">
-				<sec:authentication property="principal" var="member" />
-				<div> ${member.nickname}
-				<c:choose>
-						<c:when test="${member.memberImg != null}">
-								<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
-						</c:when>
-					
-						<c:otherwise>
-							<img class="user-img"
-								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
-						</c:otherwise>
-					</c:choose>
-					
-				
-				</div>
 					<div class="header_right_menu">
-					${member}
-						<a href="/update">마이페이지</a> <a href="/myMembership">나의
+						<a href="/signUp">회원가입</a> <a href="/loginPage">로그인</a>
+					</div>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()" var="principal">
+					<sec:authentication property="principal" var="member" />
+					<div>
+						${member.nickname}
+						<c:choose>
+							<c:when test="${member.memberImg != null}">
+								<img class="user-img"
+									src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
+							</c:when>
+
+							<c:otherwise>
+								<img class="user-img"
+									src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+							</c:otherwise>
+						</c:choose>
+
+
+					</div>
+					<div class="header_right_menu">
+						${member} <a href="/update">마이페이지</a> <a href="/myMembership">나의
 							모임</a> <a href="/logout">로그아웃</a>
 					</div>
 				</sec:authorize>
@@ -112,8 +114,7 @@
 				<div class="membership-info">
 					<h1 class="membership-name">${info.membershipName}</h1>
 					<h2>${info.membershipInfo}</h2>
-					<h3>멤버수 :
-						${info.count}/${info.membershipMax}</h3>
+					<h3>멤버수 : ${info.count}/${info.membershipMax}</h3>
 					<div id="host">
 						<c:choose>
 							<c:when test="${info.memberImg != null}">
@@ -129,31 +130,92 @@
 						<input type="hidden" name="code" value="${info.membershipCode}">
 						<br>
 					</div>
-						<div class="locationTypeBox">
-							<div class="location">
-								<c:forEach items="${info.locations}" var="location">
-										<div class="locationList"># ${location.locLaName} ${location.locSName}</div>
-								</c:forEach>
-							</div>
-							<br>
-							<div class="type">
-								<c:forEach items="${info.types}" var="type">
-									 	 <div class="typeList">${type.typeSName}</div>
-								</c:forEach>
-							</div>
+					<div class="locationTypeBox">
+						<div class="location">
+							<c:forEach items="${info.locations}" var="location">
+								<div class="locationList"># ${location.locLaName}
+									${location.locSName}</div>
+							</c:forEach>
 						</div>
+						<br>
+						<div class="type">
+							<c:forEach items="${info.types}" var="type">
+								<div class="typeList">${type.typeSName}</div>
+							</c:forEach>
+						</div>
+					</div>
 				</div>
 			</div>
 		</c:forEach>
 	</div>
+
+	<!--
+	  <div class="chat_box">
+		<main>
+			<h1>내가 가입한 클럽채팅방</h1>
+			<nav>
+				<span>방 제목</span> <span>인원</span>
+			</nav>
+			<hr>
+
+			<ul>
+				<li></li>
+			</ul>
+		</main>
+		<div class="chat">
+			<div>
+				<div class="chat_body">
+					<h2 class="chat_title">1번방</h2>
+					<button class="chat_back">◀</button>
+
+					<ul class="chat_list">
+						<li></li>
+					</ul>
+
+					<div class="chat_input">
+						<div class="chat_input_area">
+							<textarea placeholder="이미지를 드래그하세요.(한장만 첨부가능)"></textarea>
+						</div>
+
+						<div class="chat_button_area">
+							<button id="text">전송</button>
+							<button id="cancle">사진지우기</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="chat_users">
+					<h2>
+						참가인원 <span class="user"></span>
+					</h2>
+
+					<div class="chat_nickname">
+						<ul>
+							<li></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div> 
+ 	  -->
 	<!-- <a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a> -->
 	<!-- <div class="membership-list"> -->
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<!-- sock js -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+	<!-- STOMP -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/js/chattingIndex.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
-	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
 	
-	
-	
+
+
 </body>
 </html>

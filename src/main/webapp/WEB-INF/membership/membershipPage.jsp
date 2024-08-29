@@ -41,7 +41,7 @@
         </div>
         
         <!-- 멤버쉽 채팅 서버 링크   -->
-        <a href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a> 
+        <a href="/chatserver">채팅서버가기</a> 
         
         <a href="/write?membershipCode=${main.membership.membershipCode}">모임게시판작성하러가기</a>
           

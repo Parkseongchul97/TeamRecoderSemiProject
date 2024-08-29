@@ -79,7 +79,9 @@ public class MembershipService {
 	public List<BasicRoomListVo> roomlist() {
 		return mapper.roomlist();
 	}
-	
+	public List<Integer> enterChattingroomCode(String id){
+		return mapper.enterChattingroomCode(id);
+	}
 	
 	
 	public void updateMembership(Membership membership) {

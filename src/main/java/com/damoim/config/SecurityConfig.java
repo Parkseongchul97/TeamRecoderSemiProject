@@ -1,5 +1,7 @@
 package com.damoim.config;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,7 +12,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 @Configuration
@@ -34,11 +35,11 @@ public class SecurityConfig {
 						.logoutSuccessUrl("/") // 로그아웃 성공했을때
 						.permitAll())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)) // 세션방식으로하겠다
-				.authorizeHttpRequests(authorize -> authorize
-						.requestMatchers("/websocket/**", "/send/**", "/topic/**").permitAll()
-						// .requestMatchers("/like","/unlike").authenticated() // 권한이 ROLE_ADMIN인 경우만
-						// 접근이 가능
-						.anyRequest().permitAll())
+				.authorizeHttpRequests(
+						authorize -> authorize.requestMatchers("/websocket/**", "/send/**", "/topic/**").permitAll()
+								// .requestMatchers("/like","/unlike").authenticated() // 권한이 ROLE_ADMIN인 경우만
+								// 접근이 가능
+								.anyRequest().permitAll())
 				.build();
 	}
 
@@ -55,10 +56,11 @@ public class SecurityConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	 @Bean
-	    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-	        return authenticationConfiguration.getAuthenticationManager();
-	    }
-	
+
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+			throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
+	}
+
 }

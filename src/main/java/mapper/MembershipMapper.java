@@ -37,7 +37,9 @@ public interface MembershipMapper {
 	
 	 
 	List<Integer> membershipCodeList(String id);
+	
 	List<BasicRoomListVo> roomlist();
+	List<Integer> enterChattingroomCode(String id);
 	
 	void membershipImg(Membership membership);
 	

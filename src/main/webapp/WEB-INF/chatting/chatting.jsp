@@ -11,13 +11,10 @@
 
 </head>
 <body>
-	<form action="">
 		<a href="/">메인화면가기</a>
-	</form>
-	
 	<!-- 채팅방 목록 -->
 	<main>
-        <h1>채팅방</h1>
+        <h1>내가 가입한 클럽채팅방</h1>
            <!-- <button class="new_chat">채팅방만들기</button> -->
         <nav>
         	<span>방 제목</span>
@@ -30,42 +27,6 @@
             </li>
         </ul>
     </main>
-	 		<!--   <div id="ch1" class="character"></div>
-  				 <div id="ch2" class="character"></div>
-   				 <div id="ch3" class="character"></div>
-   				 <div id="ch4" class="character"></div>
-  				 <div id="ch5" class="character"></div>
-   				 <div id="ch6" class="character"></div>
-   				 <div id="ch7" class="character"></div>
-  				 <div id="ch8" class="character"></div>
-   				 <div id="ch9" class="character"></div>
-   				 <div id="ch10" class="character"></div>
-  				 <div id="ch11" class="character"></div>
-   				 <div id="ch12" class="character"></div>
-   				 <div id="ch13" class="character"></div>
-  				 <div id="ch14" class="character"></div>
-   				 <div id="ch15" class="character"></div>
-   				 <div id="ch16" class="character"></div>
-  				 <div id="ch17" class="character"></div>
-   				 <div id="ch18" class="character"></div>
-   				 <div id="ch1" class="character"></div>
-  				 <div id="ch2" class="character"></div>
-   				 <div id="ch3" class="character"></div>
-   				 <div id="ch4" class="character"></div>
-  				 <div id="ch5" class="character"></div>
-   				 <div id="ch6" class="character"></div>
-   				 <div id="ch7" class="character"></div>
-  				 <div id="ch8" class="character"></div>
-   				 <div id="ch9" class="character"></div>
-   				 <div id="ch10" class="character"></div>
-  				 <div id="ch11" class="character"></div>
-   				 <div id="ch12" class="character"></div>
-   				 <div id="ch13" class="character"></div>
-  				 <div id="ch14" class="character"></div>
-   				 <div id="ch15" class="character"></div>
-   				 <div id="ch16" class="character"></div>
-  				 <div id="ch17" class="character"></div>
-   				 <div id="ch18" class="character"></div>   -->	
 	<!-- 채팅방 입장 -->
     <div class="chat">
    		<div>
@@ -85,6 +46,7 @@
 
 		            <div class="chat_button_area">
 		                <button id="text">전송</button>
+		                <input type="text" hidden="" value="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}" id="imginput">
 		                <button id="cancle">사진지우기</button>
 		            </div>
 		        </div>

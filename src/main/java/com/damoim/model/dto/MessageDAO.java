@@ -9,6 +9,7 @@ public class MessageDAO {
 	private String img;
     private String message;
     private String nickname;
+    private String memimg;
     private Date date;
 
     MessageDAO(){ // 쓸 때마다 현재시각으로 변경

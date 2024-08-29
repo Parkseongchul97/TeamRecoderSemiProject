@@ -1,32 +1,6 @@
-@charset "UTF-8";
-
-* {
-	margin: 0;
-	padding: 0;
-}
 
 body {
-	margin: 0;
-	height: 100vh;
-	overflow: hidden; /* 스크롤바 제거 */
-	background: linear-gradient(45deg, #ff9a9e, #fecfef, #f6d365, #ffb6b9, #fad0c4,
-		#fbc2eb, #a1c4fd, #e6dee9);
-	background-size: 400% 400%;
-	animation: ani 10s ease infinite;
-}
 
-img {
-	border-radius: 50%;
-	width: 50px;
-	height: 50px;
-	background-position: center;
-}
-
-.character {
-	position: absolute;
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
 }
 
 .all {
@@ -38,10 +12,11 @@ img {
 li {
 	list-style: none;
 }
-
-html {
-	font-size: 62.5%;
+#chat_box {
+    position: absolute;
+    z-index: 101;  /* 다른 요소보다 위에 위치 */
 }
+
 
 .swal-footer {
 	text-align: center;
@@ -52,12 +27,12 @@ main {
 	background-color: rgb(188, 211, 208, 0.5);
 	width: 35vw;
 	min-width: 300px;
-	height: 90vh;
+	height: 30vh;
 	border: 1px solid #000;
-	position: absolute;
 	left: 50%;
 	top: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-100%, -150%);
+	position: fixed;
 	z-index: 10;
 }
 
@@ -69,7 +44,6 @@ main h1 {
 }
 
 main .new_chat {
-	position: absolute;
 	top: 10px;
 	right: 10px;
 	border-radius: 3px;
@@ -137,7 +111,6 @@ main .chat_count {
 	width: 50vw;
 	min-width: 300px;
 	height: 90vh;
-	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
@@ -300,9 +273,7 @@ main .chat_count {
 	border: 1px solid #ddd;
 	width: 30%;
 	height: 300px;
-	/* 	position: absolute;
-	right: 101%;
-	top: 0; */
+
 	margin-right: 3px;
 }
 
@@ -326,7 +297,7 @@ main .chat_count {
 }
 
 
-/* 채팅방 안 */
+/* 채팅방 안
 @media ( max-width : 1024px) {
 	html {
 		font-size: 60%;
@@ -337,4 +308,4 @@ main .chat_count {
 	.chat {
 		width: 99vw;
 	}
-}
+} */
