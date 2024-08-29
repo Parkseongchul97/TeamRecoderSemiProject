@@ -38,6 +38,7 @@
         <!-- 멤버쉽 수정 -->
         <div>
        	<h2><a href="/updateMembership">정보 수정하기</a></h2>
+       	<a href="/club/${main.membership.membershipCode}/membershipPromotionDetail">홍보글 작성</a>
         </div>
         
         <!-- 멤버쉽 채팅 서버 링크   -->
@@ -131,12 +132,12 @@
                               <%-- 현제 호스트만 수락버튼 보이게 해둬서 조건 이런데 나중에 바꿔야함 --%>
                             <c:if test="${main.member.id == member.id && !(membershipUserCount >= main.membership.membershipMax)}">
                         	
-                                <form id="agreefrm">
-                                    <input type="hidden" name="id" value="${listMember.member.id}">
-                                    <input type="hidden" name="listGrade" value="regular">
-                                    <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
-                                    <button id="agreeMember">가입 승인</button>
-                                </form>
+                                 <form id="agreefrm-${listMember.listCode}">
+                            <input type="hidden" name="id" value="${listMember.member.id}">
+                            <input type="hidden" name="listGrade" value="regular">
+                            <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
+                            <button type="button" id="agreeMember-${listMember.listCode}">가입 승인</button>
+                        </form>
                             </c:if>
                             
                             
@@ -165,7 +166,8 @@
     </main>
      <div id="calendar" style= "width: 60%"     ></div>
      </sec:authorize>
-    
+     
+    <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
     <script>
     const allDates = [];
     let allMeet = {};
@@ -178,10 +180,10 @@
     	allDates.push(allMeet);
     	allMeet = {};
     </c:forEach>
-    console.log(allDates);
+   
     </script>
     
-    <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
+    
     <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
    
 </body>

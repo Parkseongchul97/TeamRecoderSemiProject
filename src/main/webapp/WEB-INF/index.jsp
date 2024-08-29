@@ -18,82 +18,103 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
+
+
+	<jsp:include page="header/header.jsp" />
+	<div class="body_img_box_body">
+		<div class="body_img_box">
+			<img  class="body_img" src="http://192.168.10.51:8081/member/asd12300/bf611066-4b30-43a3-b6ef-538811e5dcb8_pizza.jpg"/>
+		</div>
+	</div>
+	<!--
+	다시 꺼내써야함 
+	
+	
+	
+	잠깐 거두기
 	<div class="header">
 		<div class="header_left">
 			<a href="/">
 				<div class="LOGO">DAMOIM</div>
 			</a>
 			<div class="header_right">
-
+				
 				<sec:authorize access="!isAuthenticated()">
-					<div class="header_right_menu">
-						<a href="/signUp">회원가입</a> <a href="/loginPage">로그인</a>
-					</div>
-				</sec:authorize>
+	             <div class="header_right_menu">
+	               <a href="/signUp">회원가입</a>
+	               <a href="/loginPage">로그인</a>
+	             </div>
+              </sec:authorize>
 				<sec:authorize access="isAuthenticated()" var="principal">
 					<sec:authentication property="principal" var="member" />
-					<div>
-						${member.nickname}
-						<c:choose>
-							<c:when test="${member.memberImg != null}">
-								<img class="user-img"
-									src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
-							</c:when>
-
-							<c:otherwise>
-								<img class="user-img"
-									src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
-							</c:otherwise>
-						</c:choose>
-
-
-					</div>
-					<div class="header_right_menu">
-						${member} <a href="/update">마이페이지</a> <a href="/myMembership">나의
-							모임</a> <a href="/logout">로그아웃</a>
-					</div>
+						<div> ${member.nickname}
+							<c:choose>
+								<c:when test="${member.memberImg != null}">
+										<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
+								</c:when>
+							
+								<c:otherwise>
+									<img class="user-img"
+										src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+								</c:otherwise>
+							</c:choose>	
+						</div>
+						<div class="header_right_menu">
+							<a href="/update">마이페이지</a> <a href="/myMembership">나의
+								모임</a> <a href="/logout">로그아웃</a>
+						</div>
 				</sec:authorize>
 			</div>
 		</div>
 	</div>
+	 -->
+	
+	
+
 	<!-- 08-20 채승훈 -->
-	<select id="locationLaNameSelect">
-		<option>전체보기</option>
-		<c:forEach items="${locLaNameList}" var="locLaName">
-			<option>${locLaName}</option>
-		</c:forEach>
-	</select>
-	<c:if test="${locSNameList.size()!=0}">
+<div class="locationTypeBody">
+	<div class="locationTypeBodyBox">
+		<form id="locationLaNameForm">
+			<input type="checkbox" value="전체보기" id="locLaNameAll" /> <label class="locLaNameLabel" for="locLaNameAll">전체보기</label>
+			<c:forEach items="${locLaNameList}" var="locLaName">
+				<input type="checkbox" value="${locLaName}" id="${locLaName}" name="locationLaName">
+				<label for="${locLaName}" class="locationLaCss">${locLaName}</label>
+			</c:forEach>
+		</form>
+		
+		
 		<form id="locationSNameForm">
-			<input type="checkbox" value="전체보기" id="locSNameAll" /> <label
-				for="locSNameAll">전체보기</label>
 			<c:forEach items="${locSNameList}" var="locSName">
 				<input type="checkbox" value="${locSName}" id="${locSName}"
 					name="locationSName">
-				<label for="${locSName}">${locSName}</label>
+				<label for="${locSName}" class="locationTypeCss">${locSName}</label>
 			</c:forEach>
-			<input type="submit" value="지역 검색" id="locSNameBtn">
 		</form>
-	</c:if>
-	<br>
-	<select id="typeLaNameSelect">
-		<option>전체보기</option>
-		<c:forEach items="${typeLaNameList}" var="typeLaName">
-			<option>${typeLaName}</option>
-		</c:forEach>
-	</select>
-	<c:if test="${typeSNameList.size()!=0}">
+		
+
+		<form id="typeLaNameSelect">
+			<input type="checkbox" value="전체보기" id="typeLaNameAll" /> <label for="typeLaNameAll">전체보기</label>
+			<c:forEach items="${typeLaNameList}" var="typeLaName">
+				<input type="checkbox" value="${typeLaName}" id="${typeLaName}" name="typeLaName">
+				<label for="${typeLaName}">${typeLaName}</label>
+			</c:forEach>
+		</form>
+		
+		
+		
 		<form id="typeSNameForm">
-			<input type="checkbox" value="지역 보기" id="typeSNameAll"><label
-				for="typeSNameAll">전체보기</label>
 			<c:forEach items="${typeSNameList}" var="typeSName">
 				<input type="checkbox" value="${typeSName}" id="${typeSName}"
 					name="typeSName">
 				<label for="${typeSName}">${typeSName}</label>
 			</c:forEach>
-			<input type="submit" value="타입 검색" id="typeSNameBtn">
 		</form>
-	</c:if>
+		
+	</div>
+</div>
+
+
+
 	<br>
 	<div class="membership-list">
 		<c:forEach items="${list}" var="info" varStatus="status">
@@ -101,12 +122,10 @@
 				<div class="membership-img">
 					<a href="/${info.membershipCode}"> <c:choose>
 							<c:when test="${info.membershipImg != null}">
-								<img
-									src="http://192.168.10.51:8081/membership/${info.membershipCode}/${info.membershipImg}">
+								<img src="http://192.168.10.51:8081/membership/${info.membershipCode}/${info.membershipImg}">
 							</c:when>
 							<c:otherwise>
-								<img
-									src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
+								<img src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 							</c:otherwise>
 						</c:choose>
 					</a>
@@ -118,12 +137,10 @@
 					<div id="host">
 						<c:choose>
 							<c:when test="${info.memberImg != null}">
-								<img class="user-img"
-									src="http://192.168.10.51:8081/member/${info.id}/${info.memberImg}">
+								<img class="user-img" src="http://192.168.10.51:8081/member/${info.id}/${info.memberImg}">
 							</c:when>
 							<c:otherwise>
-								<img class="user-img"
-									src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+								<img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 							</c:otherwise>
 						</c:choose>
 						<h2>호스트 : ${info.nickname}</h2>
@@ -148,58 +165,8 @@
 			</div>
 		</c:forEach>
 	</div>
-
-	<!--
-	  <div class="chat_box">
-		<main>
-			<h1>내가 가입한 클럽채팅방</h1>
-			<nav>
-				<span>방 제목</span> <span>인원</span>
-			</nav>
-			<hr>
-
-			<ul>
-				<li></li>
-			</ul>
-		</main>
-		<div class="chat">
-			<div>
-				<div class="chat_body">
-					<h2 class="chat_title">1번방</h2>
-					<button class="chat_back">◀</button>
-
-					<ul class="chat_list">
-						<li></li>
-					</ul>
-
-					<div class="chat_input">
-						<div class="chat_input_area">
-							<textarea placeholder="이미지를 드래그하세요.(한장만 첨부가능)"></textarea>
-						</div>
-
-						<div class="chat_button_area">
-							<button id="text">전송</button>
-							<button id="cancle">사진지우기</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="chat_users">
-					<h2>
-						참가인원 <span class="user"></span>
-					</h2>
-
-					<div class="chat_nickname">
-						<ul>
-							<li></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div> 
- 	  -->
+	<jsp:include page="footer/footer.jsp" />
+	
 	<!-- <a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a> -->
 	<!-- <div class="membership-list"> -->
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
