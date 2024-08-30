@@ -74,14 +74,7 @@ public class ChattingController {
 		Cookie[] cookies = request.getCookies();
 		String roomNumber = "";
 		String nickname = "";
-        roomCookie.setMaxAge(0);
-        nicknameCookie.setMaxAge(0);
-        
-        response.addCookie(nicknameCookie);
-        response.addCookie(roomCookie);
-    }
-
-		if (cookies != null) {
+        if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				if ("roomNumber".equals(cookie.getName())) {
 					roomNumber = cookie.getValue();
@@ -99,7 +92,7 @@ public class ChattingController {
 			}
 		}
 		return null;
-	}
+    }
 
 	// 방 입장하기
 	public boolean enterChattingRoom(ChattingRoomDAO chattingRoom, String nickname) {

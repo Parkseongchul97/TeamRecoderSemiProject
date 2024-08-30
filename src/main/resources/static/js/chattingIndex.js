@@ -257,12 +257,6 @@ $(document).ready(function() {
 
 	// 채팅방 나가기
 	$(".chat_back").click(function() {
-		swal({
-			text: "대화방에서 나갈까요?",
-			buttons: ["취소", "확인"]
-		})
-			.then(function(result) {
-				if (result) {
 					$.ajax({
 						url: "/chattingRoom-exit",
 						type: "PATCH",
@@ -291,8 +285,7 @@ $(document).ready(function() {
 						.fail(function() {
 							alert("방이 터진 것 같아요");
 						});
-				}
-			});
+
 	});
 	window.addEventListener('beforeunload', () => {
 		$.ajax({
