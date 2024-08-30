@@ -15,12 +15,6 @@ body {
 	animation: ani 10s ease infinite;
 }
 
-img {
-	border-radius: 50%;
-	width: 50px;
-	height: 50px;
-	background-position: center;
-}
 
 .character {
 	position: absolute;
@@ -31,6 +25,12 @@ img {
 
 .all {
 	display: flex;
+}
+.all > img {
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	background-position: center;
 }
 .nm {
 	padding-left: 8px;	
@@ -123,6 +123,10 @@ main .chat_title {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+.chat_content > img{
+	width: 100px;
+	height: 100px;
 }
 
 main .chat_count {
