@@ -74,6 +74,12 @@ public class ChattingController {
 		Cookie[] cookies = request.getCookies();
 		String roomNumber = "";
 		String nickname = "";
+        roomCookie.setMaxAge(0);
+        nicknameCookie.setMaxAge(0);
+        
+        response.addCookie(nicknameCookie);
+        response.addCookie(roomCookie);
+    }
 
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
