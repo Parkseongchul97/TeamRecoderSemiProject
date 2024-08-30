@@ -132,7 +132,7 @@ public class MembershipController {
 	  * 성철
 	  * 해당 클럽에 가입된 회원이 그클럽에 정보와 클럽 가입 현황 볼수있는 페이지 이동
 	  * 
-	  * 영민 -- #으로 나눈 Info 정보 뿌리기 (스승님 정배님)
+	  * 
 	  * */
 	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model) {
@@ -169,12 +169,7 @@ public class MembershipController {
 	/*
 	 * 
 	 * */
-	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
-	public String makeMembership(SearchDTO search, Model model) {
-		model.addAttribute("locLaNameList", locationTypeservice.locLaNameList());
-		model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList());
-		return "mypage/makeMembership";
-	}
+
 	
 	@ResponseBody
 	@PostMapping("/memLocation")
@@ -217,32 +212,30 @@ public class MembershipController {
 	
 	@ResponseBody
 	@GetMapping("/addlocation")
-	public String addlocation(SearchDTO dto, String ST) {
+	public String addlocation(SearchDTO dto, String LB, String aaaaa) {
 	    System.out.println("요청!:" + dto);
-
-	    // ST가 null이거나 비어있을 경우 메시지 반환
-	    if (ST == null || ST.isEmpty()) {
+	    System.out.println("비었나?" + LB);
+	    System.out.println("이것도 잘 받니?" + aaaaa);
+	    // LB가 null이거나 비어있을 경우 메시지 반환
+	    if (LB == null || LB.isEmpty()) {
 	    	System.out.println("이거 나오지!!!");
-	        return "ST가 비어있습니다."; // ST가 비어있을 경우 메시지 반환
+	        return "정보가 없습니다."; // LB가 비어있을 경우 메시지 반환
 	    }
 
-	    String[] areaList = ST.split("/");
+	    String[] areaList = LB.split("#");
 	    for (String area : areaList) {
 	        String trimmedArea = area.trim(); // 공백 제거
+	    
 	        if (!trimmedArea.isEmpty()) {
 	            System.out.println(trimmedArea); // 각 지역 출력
-	            System.out.println("이거 나오지??!");
+	            System.out.println("요청!:" + dto);
 	        }
 	    }
 
 	    return "위치 추가 완료"; // 성공 메시지 반환
 	}
 	
-	
-	
-	
-	
-	
+
 	
 	@ResponseBody
 	@PostMapping("/addlocation")
@@ -252,9 +245,37 @@ public class MembershipController {
 	
 	@ResponseBody
 	@GetMapping("/addtype")
-	public void addtype(SearchDTO dto) {
-		System.out.println("요청!:" + dto);
+	public String addtype(SearchDTO dto, String TB) {
+	    System.out.println("요청!:" + dto);
+	    System.out.println("비었나?" + TB);
+	    // TB가 null이거나 비어있을 경우 메시지 반환
+	    if (TB == null || TB.isEmpty()) {
+	    	System.out.println("이거 나오지!!!");
+	        return "정보가 없습니다."; // TB가 비어있을 경우 메시지 반환
+	    }
+
+	    String[] typeList = TB.split("#");
+	    for (String type : typeList) {
+	        String trimmedType = type.trim(); // 공백 제거
+	    
+	        if (!trimmedType.isEmpty()) {
+	            System.out.println(trimmedType); // 각 유형 출력
+	            System.out.println("요청!:" + dto);
+	        }
+	    }
+
+	    return "위치 추가 완료"; // 성공 메시지 반환
 	}
+	
+	
+	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
+	public String makeMembership(SearchDTO search, Model model) {
+		model.addAttribute("locLaNameList", locationTypeservice.locLaNameList());
+		model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList());
+		return "mypage/makeMembership";
+	}
+	
+
 	
 	/* ??? 
 	 * 
@@ -266,40 +287,40 @@ public class MembershipController {
 	 * 만들어진거에 사진첨부만 추가
 	 * */
 	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(MembershipDTO dto, LocationCategory lc, MembershipType mt,MultipartFile file) throws Exception {
+	public String makeMembership(MakeMembershipDTO Mdto,MultipartFile file, String aaaaa) throws Exception {
 //		System.out.println("2 : "+ lc);
 //		System.out.println("3 : " + mt);
-		System.out.println(file);
-		Membership membership = Membership.builder()
-				.membershipName(dto.getMembershipName())
-				.membershipAccessionText(dto.getMembershipAccessionText())
-				.membershipSimpleText(dto.getMembershipSimpleText())
-				.membershipSecretText(dto.getMembershipSecretText())
-				.membershipMax(Integer.parseInt((dto.getMembershipMax())))
-				.build();
-		service.makeMembership(membership);	
-		int a =service.makeMembershipCode(membership.getMembershipName());
-		
-		
-		
-		
-//		// 클럽생성?
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		 Member mem = (Member) authentication.getPrincipal();
-		Path directoryPath = Paths.get("\\\\192.168.10.51\\damoim\\membership\\"+ a+"\\");  
-		Files.createDirectories(directoryPath);	
-		membership = membership.builder()
-		 .membershipCode(membership.getMembershipCode()) // 생성된 클럽의 코드
-		 .membershipImg(fileUpload(file, a)) // 이미지 파일 업로드
-		.build();
-		service.membershipImg(membership);
-
-		MemberListDTO list = new MemberListDTO();
-				list.setId(mem.getId());
-				list.setListGrade("host");
-				list.setMembershipCode(a);
-		// 호스트로 보유중인 클럽 유무 확인
-		service.host(list);
+//		System.out.println(file);
+//		Membership membership = Membership.builder()
+//				.membershipName(Mdto.getMembership().getMembershipName())
+//				.membershipAccessionText(Mdto.getMembershipAccessionText())
+//				.membershipSimpleText(Mdto.getMembershipSimpleText())
+//				.membershipSecretText(Mdto.getMembershipSecretText())
+//				.membershipMax(Integer.parseInt((Mdto.getMembershipMax())))
+//				.build();
+//		service.makeMembership(membership);	
+//		int a =service.makeMembershipCode(membership.getMembershipName());
+//		//-----------------------------------
+//		
+//		
+//		
+////		// 클럽생성?
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		 Member mem = (Member) authentication.getPrincipal();
+//		Path directoryPath = Paths.get("\\\\192.168.10.51\\damoim\\membership\\"+ a+"\\");  
+//		Files.createDirectories(directoryPath);	
+//		membership = membership.builder()
+//		 .membershipCode(membership.getMembershipCode()) // 생성된 클럽의 코드
+//		 .membershipImg(fileUpload(file, a)) // 이미지 파일 업로드
+//		.build();
+//		service.membershipImg(membership);
+//
+//		MemberListDTO list = new MemberListDTO();
+//				list.setId(mem.getId());
+//				list.setListGrade("host");
+//				list.setMembershipCode(a);
+//		// 호스트로 보유중인 클럽 유무 확인
+//		service.host(list);
 
 		
 		return "redirect:/";

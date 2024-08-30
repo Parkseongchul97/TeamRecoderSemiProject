@@ -135,11 +135,22 @@
 		membership_max,membership_accession_text,membership_simple_text)
 		VALUES(#{membershipName},#{membershipImg},
 		#{membershipMax},#{membershipAccessionText},#{membershipSimpleText})
-
+		
+		
+	
 	</insert>
 	<select id="makeMembershipCode" parameterType="String" resultType="Integer">
 		select membership_code from membership where membership_name=#{membershipName}
 	</select>
+
+<!-- 
+	<select id="addlocation" parameterType="SearchDTO" resultMap="SearchDTOMap">
+		SELECT *
+		FROM membership
+		WHERE membership_name = #{membershipName}
+	</select>
+ -->
+
 
 <select id="">
 		SELECT *

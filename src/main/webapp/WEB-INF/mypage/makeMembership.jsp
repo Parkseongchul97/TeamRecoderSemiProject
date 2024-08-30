@@ -44,7 +44,7 @@ pageEncoding="UTF-8"%>
  
   	<!-- 08-20 채승훈 -->
 	<select id="locationLaNameMem">
-		<option for ="allviwe" class="all" id="all">전체보기</option>
+		<option for ="allviwe" class="all" id="all" name="all">전체보기</option>
 		<c:forEach items="${locLaNameList}" var="locationLaName">
 			<option id="addlocation">${locationLaName}</option>
 		</c:forEach>
@@ -67,6 +67,7 @@ pageEncoding="UTF-8"%>
 	<select id="typeSNameMem">
 		<option>전체보기</option>
 	</select>
+	<div id="test2" class="select"></div>
 	<input type="submit" value="선택" id="typeBtn">
 	<br>
 	
