@@ -19,7 +19,6 @@
 </head>
 <body>
 
-
 	<jsp:include page="header/header.jsp" />
 	<div class="body_img_box_body">
 		<div class="body_img_box">
@@ -165,24 +164,20 @@
 			</div>
 		</c:forEach>
 	</div>
+	
+	
+	
+	
+	 <!-- 채팅 -->
+	 <jsp:include page="chatting/chattingIndex.jsp" />
+		
 	<jsp:include page="footer/footer.jsp" />
 	
 	<!-- <a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a> -->
 	<!-- <div class="membership-list"> -->
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-	<!-- sock js -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
-	<!-- STOMP -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="/js/chattingIndex.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
-
-	
-
-
 </body>
 </html>

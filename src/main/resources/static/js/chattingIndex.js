@@ -91,6 +91,7 @@ $(document).ready(function() {
 
 	// 메세지 그리기
 	const chatting = function(messageInfo) {
+		console.log(messageInfo.img);
 		let nickname = messageInfo.nickname;
 		let message = messageInfo.message;
 		let a = `<img src="${messageInfo.memimg}" width="100px"/>`;
@@ -106,18 +107,18 @@ $(document).ready(function() {
 		let check = info.getNickname() === nickname;
 		let sender = check ? "chat_me" : "chat_other";
 		nickname = check ? "" : nickname;
-		let img = check ? "" : a;
+		let img = check ? "" : messageInfo.img;
 		const chatHtml = `
         <li>
             <div class=${sender}>
                 <div class="all">                    
-					${img}
+					${check ? "" : a}
 					<div class="nm">
 					<div class="nickname">${nickname}</div>
 					<div class="message">
                         <span class=chat_in_time>${time}</span>
                         <span class="chat_content">
-						${messageInfo.img != null ? a : ""}
+						${messageInfo.img != null ? `<img src='${messageInfo.img}'/>` : ""}
 						${message}</span>
 						</div>
                     </div>
@@ -177,9 +178,11 @@ $(document).ready(function() {
 
 	// 메세지 보내기
 	const sendMessage = function() {
-		const img = $(".chat_input img");
+		const img = $(".chat_body > img").first();
+		console.log(img.attr("src"));
+		const isImage = img.length > 0;
 		const message = $(".chat_input_area textarea");
-		if (message.val() === "" && $(".chat_input img").length == 0) {
+		if (message.val() === "" && img.length == 0) {
 			return;
 		}
 
@@ -194,17 +197,19 @@ $(document).ready(function() {
 		};
 		stomp.send("/socket/sendMessage/" + roomNumber, {}, JSON.stringify(data));
 		message.val("");
-		img.remove();
+		if (isImage) {
+		       img.remove();
+		   }
 	};
 
 	$("#text").click(function() {
 		sendMessage();
 		$(".chat_input_area textarea").focus();
 	});
-	$("#cancle").click(function() {
-		$(".chat_input img").remove();
-		$(".chat_input_area textarea").focus();
+	$(".chat_body").on("click", "img", function() {
+	    $(".chat_body > img").remove();
 	});
+		
 	// 채팅방 안에서 채팅 발송 로직
 	    $(".chat_input_area textarea").keydown(function(event) {
 	        if (event.keyCode === 13) { // Enter 키
@@ -320,15 +325,16 @@ $(document).ready(function() {
 
 	$(".chat_input_area textarea").on('drop', (e) => {
 		e.preventDefault();
-		$(".chat_input img").remove();
+		$(this).attr('placeholder', '');
 		const files = e.originalEvent.dataTransfer.files;
 
 		const reader = new FileReader();
 
 		reader.onload = function(event) {
+			$(".chat_body > img").remove();
 			const img = document.createElement("img");
 			img.setAttribute("src", event.target.result);
-			$(".chat_input_area").before(img);
+			$(".chat_body").children().first().before(img);
 		}
 		reader.readAsDataURL(files[0]);
 		$(".chat_input_area textarea").focus();

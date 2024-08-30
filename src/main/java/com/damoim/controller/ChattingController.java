@@ -128,7 +128,7 @@ public class ChattingController {
 			for (BasicRoomListVo vo : service.roomlist()) {
 				ChattingRoomDAO chattingRoom = ChattingRoomDAO.builder()
 						.roomNumber(String.valueOf(vo.getMembershipCode())).users(new LinkedList<>())
-						.roomName(vo.getMembershipName() + " (메인 채팅방)").build();
+						.roomName(vo.getMembershipName()).build();
 				chattingRoomList.add(chattingRoom);
 			}
 		}
@@ -138,8 +138,12 @@ public class ChattingController {
 	@GetMapping("/enterChattingroomCode")
 	@ResponseBody
 	public List<Integer> enterChattingroomCode() throws Exception {
-		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		List<Integer> a = service.enterChattingroomCode(mem.getId());
+		List<Integer> a = new ArrayList<Integer>();
+		Object p = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(!p.equals("anonymousUser")) {
+			Member mem = (Member) p;
+			 a = service.enterChattingroomCode(mem.getId());
+		}
 		return a;
 	}
 	
@@ -147,7 +151,6 @@ public class ChattingController {
 	@GetMapping("/nick1")
 	public ResponseEntity<Member> nick1() throws Exception {
 		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println("아아아앙아앙ㅇㄴㅇㅁ"+mem);
 		return new ResponseEntity<>(mem, HttpStatus.OK);
 	}
 
@@ -155,7 +158,6 @@ public class ChattingController {
 	@PostMapping("/chattingRoom")
 	public ResponseEntity<?> chattingRoom(@RequestParam("roomName") String roomName) throws Exception {
 		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(roomName + " : " + mem.getNickname());
 		String roomNumber = UUID.randomUUID().toString(); // UUID를 문자열로 사용
 		ChattingRoomDAO chattingRoom = ChattingRoomDAO.builder().roomNumber(roomNumber).users(new LinkedList<>())
 				.roomName(roomName).build();
