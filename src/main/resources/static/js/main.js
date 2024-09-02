@@ -17,6 +17,7 @@ function showReplyForm(commentCode) {
  		type: 'POST',
  		data: $("#comment-frm").serialize(),
  		success: function() {
+				console.log($("#comment-frm").serialize())
  				alert("댓글 등록 완료!");
 				location.reload();
  			}
@@ -32,6 +33,7 @@ function recomment(e, code) {
 	const membershipCode = inputs[0].value;
 	const id = inputs[1].value;
 	const text = inputs[2].value;
+
 
 	$.ajax({
 		url: '/mainComment', 

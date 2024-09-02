@@ -153,7 +153,7 @@
 
 
 <select id="">
-		SELECT *
+	SELECT *
     FROM membership
     join membership_location using(membership_code)
     join location_category using(loc_code)

@@ -1,5 +1,6 @@
 package com.damoim.controller;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -169,104 +170,6 @@ public class MembershipController {
 	/*
 	 * 
 	 * */
-
-	
-	@ResponseBody
-	@PostMapping("/memLocation")
-	public List<String> memLocation(String locationLaName) {
-		
-		System.out.println(locationTypeservice.locSNameList(locationLaName));
-		return locationTypeservice.locSNameList(locationLaName);
-	}
-	
-	@ResponseBody
-	@PostMapping("/memType")
-	public List<String> memType(String typeLaName) {
-		//System.out.println(locationTypeservice.typeSNameList(typeLaName));
-		System.out.println(typeLaName);
-		return locationTypeservice.typeSNameList(typeLaName);
-	}
-	
-//	@ResponseBody
-//	@GetMapping("/addlocation")
-//	public String addlocation(SearchDTO dto, String ST) {
-//		System.out.println("요청!:" + dto);
-//
-//	
-//		String[] areaList = ST.split(",");
-//		for (String area : areaList) {
-//	        String trimmedArea = area.trim(); // 공백 제거
-//	        if (!trimmedArea.isEmpty()) {
-//	            System.out.println(trimmedArea); // 각 지역 출력
-//	            // 추가적인 처리 로직 (예: 데이터베이스 저장 등)
-//	            System.out.println("이거 나오지??!");
-//	           
-//	        }
-//	    }
-//		boolean return ResponseEntity.ok().build();
-//		
-//		return locationTypeservice.addlocation(dto) == null;
-//	
-//	}
-	
-	
-	@ResponseBody
-	@GetMapping("/addlocation")
-	public String addlocation(SearchDTO dto, String LB, String aaaaa) {
-	    System.out.println("요청!:" + dto);
-	    System.out.println("비었나?" + LB);
-	    System.out.println("이것도 잘 받니?" + aaaaa);
-	    // LB가 null이거나 비어있을 경우 메시지 반환
-	    if (LB == null || LB.isEmpty()) {
-	    	System.out.println("이거 나오지!!!");
-	        return "정보가 없습니다."; // LB가 비어있을 경우 메시지 반환
-	    }
-
-	    String[] areaList = LB.split("#");
-	    for (String area : areaList) {
-	        String trimmedArea = area.trim(); // 공백 제거
-	    
-	        if (!trimmedArea.isEmpty()) {
-	            System.out.println(trimmedArea); // 각 지역 출력
-	            System.out.println("요청!:" + dto);
-	        }
-	    }
-
-	    return "위치 추가 완료"; // 성공 메시지 반환
-	}
-	
-
-	
-	@ResponseBody
-	@PostMapping("/addlocation")
-	public boolean addlocation(SearchDTO dto) {
-		return locationTypeservice.addlocation(dto) == null;
-	}
-	
-	@ResponseBody
-	@GetMapping("/addtype")
-	public String addtype(SearchDTO dto, String TB) {
-	    System.out.println("요청!:" + dto);
-	    System.out.println("비었나?" + TB);
-	    // TB가 null이거나 비어있을 경우 메시지 반환
-	    if (TB == null || TB.isEmpty()) {
-	    	System.out.println("이거 나오지!!!");
-	        return "정보가 없습니다."; // TB가 비어있을 경우 메시지 반환
-	    }
-
-	    String[] typeList = TB.split("#");
-	    for (String type : typeList) {
-	        String trimmedType = type.trim(); // 공백 제거
-	    
-	        if (!trimmedType.isEmpty()) {
-	            System.out.println(trimmedType); // 각 유형 출력
-	            System.out.println("요청!:" + dto);
-	        }
-	    }
-
-	    return "위치 추가 완료"; // 성공 메시지 반환
-	}
-	
 	
 	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
 	public String makeMembership(SearchDTO search, Model model) {
@@ -274,9 +177,8 @@ public class MembershipController {
 		model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList());
 		return "mypage/makeMembership";
 	}
-	
 
-	
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	/* ??? 
 	 * 
 	 * 
@@ -287,20 +189,33 @@ public class MembershipController {
 	 * 만들어진거에 사진첨부만 추가
 	 * */
 	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(MakeMembershipDTO Mdto,MultipartFile file, String aaaaa) throws Exception {
-//		System.out.println("2 : "+ lc);
-//		System.out.println("3 : " + mt);
-//		System.out.println(file);
+	public String makeMembership(MembershipDTO dto,MultipartFile file,
+		String LB, String TB) throws Exception {
+		System.out.println("클정" + dto);
+		System.out.println(file);
+		System.out.println("지역 확인 : "+LB);
+		System.out.println("유형 확인 : "+TB);
 //		Membership membership = Membership.builder()
 //				.membershipName(Mdto.getMembership().getMembershipName())
-//				.membershipAccessionText(Mdto.getMembershipAccessionText())
-//				.membershipSimpleText(Mdto.getMembershipSimpleText())
-//				.membershipSecretText(Mdto.getMembershipSecretText())
-//				.membershipMax(Integer.parseInt((Mdto.getMembershipMax())))
+//				.membershipAccessionText(Mdto.getMembership().getMembershipAccessionText())
+//				.membershipSimpleText(Mdto.getMembership().getMembershipSimpleText())
+//				.membershipSecretText(Mdto.getMembership().getMembershipSecretText())
+//				.membershipMax(Mdto.getMembership().getMembershipMax())
 //				.build();
 //		service.makeMembership(membership);	
 //		int a =service.makeMembershipCode(membership.getMembershipName());
 //		//-----------------------------------
+//		
+//		String[] areaList = locationcontain.split(",");
+//		for (String area : areaList) {
+//	        String trimmedArea = area.trim(); // 공백 제거
+//	        if (!trimmedArea.isEmpty()) {
+//	            System.out.println(trimmedArea); // 각 지역 출력
+//	            // 추가적인 처리 로직 (예: 데이터베이스 저장 등)
+//	            System.out.println("이거 나오지??!");
+//	           
+//	        }
+//	    }
 //		
 //		
 //		
@@ -327,56 +242,8 @@ public class MembershipController {
 	}
 
 	
-	
-//	@PostMapping("/") // 클럽 생성 및 위치 타입 리스트 가져오기
-//	public String createMembershipAndGetLocationType(SearchDTO search, MembershipDTO dto, MultipartFile file, Model model) throws Exception {
-//	    // 클럽 정보를 설정하여 Membership 객체 생성
-//	    Membership membership = Membership.builder()
-//	            .membershipName(dto.getMembershipName()) // 클럽 이름
-//	            .memershipAccessionText(dto.getMemershipAccessionText()) // 클럽 접근 텍스트
-//	            .memershipSimpleText(dto.getMemershipSimpleText()) // 클럽 간단 설명
-//	            .memershipSecretText(dto.getMemershipSecretText()) // 클럽 비밀 텍스트
-//	            .membershipMax(Integer.parseInt(dto.getMembershipMax())) // 최대 인원 수
-//	            .build();
-//
-//	    // 현재 인증된 사용자 정보를 가져오기
-//	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//	    Member mem = (Member) authentication.getPrincipal(); // 로그인한 회원 정보
-//
-//	    // 클럽을 데이터베이스에 저장
-//	    service.makeMembership(membership);
-//	    
-//	    // 클럽의 이미지 업로드를 위한 디렉토리 생성
-//	    Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\" + Integer.toString(membership.getMembershipCode()) + "\\");
-//	    Files.createDirectories(directoryPath); // 디렉토리 생성
-//
-//	    // 클럽 이미지 저장
-//	    Membership m = Membership.builder()
-//	            .membershipCode(membership.getMembershipCode()) // 생성된 클럽의 코드
-//	            .membershipImg(fileUpload(file, membership.getMembershipCode())) // 이미지 파일 업로드
-//	            .build();
-//	    service.membershipImg(m); // 이미지 정보를 데이터베이스에 저장
-//
-//	    // 호스트 정보 설정
-//	    MemberListDTO list = new MemberListDTO();
-//	    list.setId(mem.getId()); // 호스트의 ID 설정
-//	    list.setListGrade(dto.getListGrade()); // 호스트의 등급 설정
-//	    list.setMembershipCode(membership.getMembershipCode()); // 생성된 클럽 코드 설정
-//	    service.host(list); // 호스트 정보를 데이터베이스에 저장
-//
-//	    // 위치 타입 리스트 가져오기
-////	    model.addAttribute("list", locationTypeList(search)); // 위치 타입 리스트 추가
-//	    model.addAttribute("locLaNameList", locationTypeservice.locLaNameList()); // 대분류 지역 리스트 추가
-//	    model.addAttribute("locSNameList", locationTypeservice.locSNameList(search.getLocationLaName())); // 소분류 지역 리스트 추가
-//	    model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList()); // 대분류 타입 리스트 추가
-//	    model.addAttribute("typeSNameList", locationTypeservice.typeSNameList(search.getTypeLaName())); // 소분류 타입 리스트 추가
-//
-//	    // 최종적으로 "index" 뷰 반환
-//	    return "index";
-//	}
-	
 
-	
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	
 	 /*
 	  * 성철
