@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
 	// 채팅방 목록 불러오기
 	const chattingRoomList = function() {
 		enterChattingroomCode().then(function(codeList) {
@@ -48,9 +47,14 @@ $(document).ready(function() {
 		}
 	};
 
+
+
 	// 메인 화면
 	const main = function() {
+
+		$(".chat").hide();
 		$("main").show();
+
 		subscribeCancle();
 		const subscribeId = stomp.subscribe("/topic/roomList", function() {
 			chattingRoomList();
@@ -91,7 +95,6 @@ $(document).ready(function() {
 
 	// 메세지 그리기
 	const chatting = function(messageInfo) {
-		console.log(messageInfo.img);
 		let nickname = messageInfo.nickname;
 		let message = messageInfo.message;
 		let a = `<img src="${messageInfo.memimg}" width="100px"/>`;
@@ -162,14 +165,14 @@ $(document).ready(function() {
 	// 채팅방 세팅
 	const initRoom = function(room, nickname, img) {
 		stomp.send("/socket/roomList");
+
 		$("main").hide();
+		$(".chat").show();
 
 		info.setNickname(nickname);
 		info.setRoomNumber(room.roomNumber);
 		info.setImage(img);
-		$(".chat").show();
 		$(".chat .chat_title").text(room.roomName);
-
 		userList(room.users);
 		chattingConnect(room.roomNumber);
 
@@ -179,7 +182,6 @@ $(document).ready(function() {
 	// 메세지 보내기
 	const sendMessage = function() {
 		const img = $(".chat_body > img").first();
-		console.log(img.attr("src"));
 		const isImage = img.length > 0;
 		const message = $(".chat_input_area textarea");
 		if (message.val() === "" && img.length == 0) {
@@ -198,8 +200,8 @@ $(document).ready(function() {
 		stomp.send("/socket/sendMessage/" + roomNumber, {}, JSON.stringify(data));
 		message.val("");
 		if (isImage) {
-		       img.remove();
-		   }
+			img.remove();
+		}
 	};
 
 	$("#text").click(function() {
@@ -207,20 +209,20 @@ $(document).ready(function() {
 		$(".chat_input_area textarea").focus();
 	});
 	$(".chat_body").on("click", "img", function() {
-	    $(".chat_body > img").remove();
+		$(".chat_body > img").remove();
 	});
-		
+
 	// 채팅방 안에서 채팅 발송 로직
-	    $(".chat_input_area textarea").keydown(function(event) {
-	        if (event.keyCode === 13) { // Enter 키
-	            if (event.shiftKey) {
-	                event.preventDefault(); // 기본 줄바꿈 동작 방지
-	                return;
-	            }
-	            event.preventDefault(); // Enter 단독으로 기본 동작 방지
-	            sendMessage(); // 메시지 전송 함수 호출
-	        }
-	    });
+	$(".chat_input_area textarea").keydown(function(event) {
+		if (event.keyCode === 13) { // Enter 키
+			if (event.shiftKey) {
+				event.preventDefault(); // 기본 줄바꿈 동작 방지
+				return;
+			}
+			event.preventDefault(); // Enter 단독으로 기본 동작 방지
+			sendMessage(); // 메시지 전송 함수 호출
+		}
+	});
 
 	const enterChattingRoom = function(roomNumber) {
 		let id = "";
@@ -249,7 +251,6 @@ $(document).ready(function() {
 			});
 	};
 
-
 	$(document).on("click", "main li", function() {
 		const roomNumber = $(this).data("room_number");
 		enterChattingRoom(roomNumber);
@@ -257,37 +258,6 @@ $(document).ready(function() {
 
 	// 채팅방 나가기
 	$(".chat_back").click(function() {
-					$.ajax({
-						url: "/chattingRoom-exit",
-						type: "PATCH",
-					})
-						.then(function(room) {
-							const roomNumber = info.getRoomNumber();
-
-							if (room.users.length !== 0) {
-								// 채팅방 나가기 메세지
-								room.message = info.getNickname() + "님이 퇴장하셨습니다";
-								stomp.send(
-									"/socket/notification/" + roomNumber, {},
-									JSON.stringify(room));
-							}
-
-							// 채팅방 목록 업데이트
-							stomp.send("/socket/roomList");
-
-							main();
-							$(".chat").hide();
-							$(".chat ul.chat_list").html("");
-
-							info.setRoomNumber("");
-							info.setNickname("");
-						})
-						.fail(function() {
-							alert("방이 터진 것 같아요");
-						});
-
-	});
-	window.addEventListener('beforeunload', () => {
 		$.ajax({
 			url: "/chattingRoom-exit",
 			type: "PATCH",
@@ -313,6 +283,35 @@ $(document).ready(function() {
 				info.setRoomNumber("");
 				info.setNickname("");
 			})
+			.fail(function() {
+				alert("방이 터진 것 같아요");
+			});
+
+	});
+	window.addEventListener('beforeunload', () => {
+		$.ajax({
+			url: "/chattingRoom-exit",
+			type: "PATCH",
+		})
+			.then(function(room) {
+				const roomNumber = info.getRoomNumber();
+
+				if (room.users.length !== 0) {
+					// 채팅방 나가기 메세지
+					room.message = info.getNickname() + "님이 퇴장하셨습니다";
+					stomp.send(
+						"/socket/notification/" + roomNumber, {},
+						JSON.stringify(room));
+				}
+
+				// 채팅방 목록 업데이트
+				stomp.send("/socket/roomList");
+				main();
+				$(".chat ul.chat_list").html("");
+
+				info.setRoomNumber("");
+				info.setNickname("");
+			})
 
 	});
 
@@ -332,4 +331,74 @@ $(document).ready(function() {
 		reader.readAsDataURL(files[0]);
 		$(".chat_input_area textarea").focus();
 	});
+
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@
+	const makeDraggable = function(element) {
+		$(element).on('mousedown', function(event) {
+			event.preventDefault();
+
+			const $element = $(this);
+			const elementRect = $element[0].getBoundingClientRect();
+			const startX = event.clientX - elementRect.left;
+			const startY = event.clientY - elementRect.top;
+
+			const onMouseMove = function(event) {
+				const scrollLeft = $(window).scrollLeft();
+				const scrollTop = $(window).scrollTop();
+
+				// 드래그할 위치 계산
+				const newX = event.clientX - startX + scrollLeft;
+				const newY = event.clientY - startY + scrollTop;
+
+				// 요소의 크기와 뷰포트 경계를 고려하여 위치 조정
+				const elementWidth = $element.outerWidth();
+				const elementHeight = $element.outerHeight();
+				const viewportWidth = $(window).width();
+				const viewportHeight = $(window).height();
+
+				let finalX = newX;
+				let finalY = newY;
+
+				// 경계 검사 및 조정
+				if (finalX < 0) finalX = 0;
+				if (finalY < 0) finalY = 0;
+
+				// 요소가 뷰포트의 오른쪽 또는 아래쪽으로 벗어나지 않도록 조정
+				if (finalX + elementWidth > viewportWidth + scrollLeft) {
+					finalX = viewportWidth + scrollLeft - elementWidth;
+				}
+				if (finalY + elementHeight > viewportHeight + scrollTop) {
+					finalY = viewportHeight + scrollTop - elementHeight;
+				}
+
+				$("main").css({
+					left: finalX - scrollLeft + 'px',
+					top: finalY - scrollTop + 'px'
+				});
+				$(".chat").css({
+					left: finalX - scrollLeft + 'px',
+					top: finalY - scrollTop + 'px'
+				});
+			};
+
+			const onMouseUp = function() {
+				$(document).off('mousemove', onMouseMove);
+				$(document).off('mouseup', onMouseUp);
+			};
+
+			$(document).on('mousemove', onMouseMove);
+			$(document).on('mouseup', onMouseUp);
+		});
+
+		// 드래그 시작 시 기본 동작 방지
+		$(element).on('dragstart', function() {
+			return false;
+		});
+	};
+
+	// 드래그 가능한 요소에 함수 적용
+	makeDraggable('#chatMain');
+	makeDraggable('#chat');
+
+
 });
