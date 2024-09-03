@@ -8,18 +8,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- Do+Hyeon 폰트 -->
+<!-- font-family: "Do Hyeon", sans-serif; -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/header.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Pen+Script&family=New+Amsterdam&display=swap" rel="stylesheet">
+<!-- 로고 폰트 -->
+<!-- font-family: "Chewy", system-ui; -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Do+Hyeon&family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Jua&display=swap" rel="stylesheet">
 </head>
 <body>
 	<div class="main_header">
 		<div class="main_header_body">
+		
 			<div class="main_header_left">
 				<a  href="/">공지사항</a>
 				<a  href="/">이벤트</a>
+				<a href="/loginPage">로그인</a>
 			</div>
 			<div class="main_header_center">
-				<div class="main_header_center_text">DAMOIM</div>
+				<a href="/" class="main_header_center_text">DAMOIM</a>
 			</div>
 			<div class="main_header_right">
 					<sec:authorize access="!isAuthenticated()">
@@ -44,12 +56,12 @@
 							</div>
 							<div class="main_header_right_menu">
 								<a href="/mypage">마이페이지</a> 
-								<a href="/myMembership">나의모임</a> 
 								<a href="/logout">로그아웃</a>
 							</div>
 					</sec:authorize>
 			</div>		
 		</div>
 	</div>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
 </body>
 </html>

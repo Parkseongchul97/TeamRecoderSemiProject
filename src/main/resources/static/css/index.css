@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body {
-  background-color: #f4f4f4;
+  background-color: white;
 }
 .container {
   align-items: flex-start;
@@ -22,21 +22,25 @@ body {
 }
 .membership-card {
   display: flex;
-  background-color: white;
+  background-color: #e5e5e5;
   border-radius: 20px;
   margin: 20px;
-  width: 550px;
-  height: 300px;
+  width: 480px;
+  height: 250px;
 }
 .membership-img a img {
   border-radius: 15px;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   margin: 20px;
 }
 .membership-name {
-  font-weight: bolder;
+  color: #2a9d8f;
   font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 180px;
 }
 .membership-info {
   width: 250px;
@@ -59,6 +63,7 @@ body {
 .membership-info h2 {
   margin-left: 10px;
   width: 100%;
+  font-size: 13px;
 }
 .user-img {
   border-radius: 50%;
@@ -72,15 +77,17 @@ body {
 }
 .type {
   display: flex;
-  flex-wrap: wrap;
+  white-space: nowrap;
+  overflow: hidden;
+  background-color: red;
 }
 .typeList {
-  background-color: white;
+  background-color: #f4f4f4;
   width: fit-content; /*글자크기에 맞게 width값 주기*/
-  border: 1px solid grey;
   padding: 2.5px 5px;
   border-radius: 15px;
   margin: 1px;
+  color: #666060;
 }
 .typeText {
   padding: 1px;
@@ -100,71 +107,38 @@ body {
 .body_img {
   width: 100%;
   height: 100%;
+  filter: brightness(60%);
 }
-.locationTypeBody {
-  position: sticky;
-  top: 50px;
-}
-.locationTypeBodyBox {
-  background-color: rgb(255, 185, 100);
-  width: 100%;
-  height: auto;
+.body_text {
+  position: absolute;
+  width: 50%;
+  height: 500px;
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
-}
-/*중단 locationLa 이벤트 놈들*/
-#locationLaNameForm input[type="checkbox"] {
-  display: none;
-}
-#locationLaNameForm {
-  display: flex;
-  justify-content: space-around;
-  align-self: center;
-  width: 100%;
-  max-width: 1200px;
+  z-index: 10;
+  top: 200px;
+  left: 20%;
+  color: #ffffff;
   font-size: 20px;
-  padding: 10px;
   font-weight: bold;
-  height: 50px;
+  flex-direction: column;
+  line-height: 70px;
+  font-family: "Do Hyeon", sans-serif;
 }
-
-.locationLaCss {
-  padding: 8px 10px;
-  align-self: center;
-  cursor: pointer;
+.body_text p:nth-child(1) {
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 74px;
 }
-.locationLaCss:hover {
-  background-color: rgb(255, 142, 4);
-  border-radius: 20px;
+.body_text p:nth-child(2) {
+  font-size: 22px;
 }
-
-.locLaNameLabel {
-  padding: 8px 10px;
-  align-self: center;
-  cursor: pointer;
+.body_text p:nth-child(3) {
+  font-size: 22px;
 }
-.locLaNameLabel:hover {
-  background-color: rgb(255, 142, 4);
-  border-radius: 20px;
-}
-/*중단 locationLa 이벤트 놈들*/
-/*중단 locationType 이벤트 놈들*/
-#locationSNameForm input[type="checkbox"] {
-  display: none;
-}
-#locationSNameForm {
-  font-weight: bold;
-}
-.locationTypeCss {
-  padding: 10px 5px;
-}
-/*중단 locationType 이벤트 놈들*/
-
-#typeLaNameSelect input[type="checkbox"] {
-  display: none;
-}
-
-#typeSNameForm input[type="checkbox"] {
-  display: none;
+.body_text p:nth-child(4) {
+  line-height: 30px;
+  color: white;
+  opacity: 5;
+  font-size: 20px;
 }
