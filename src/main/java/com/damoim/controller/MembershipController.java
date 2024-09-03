@@ -190,36 +190,44 @@ public class MembershipController {
 	 * */
 	@PostMapping("/makeMembership") // 클럽 생성
 	public String makeMembership(MembershipDTO dto,MultipartFile file,
-		String LB, String TB) throws Exception {
-		System.out.println("클정" + dto);
+            String LB,String TB, String name,String membershipAccessionText,String membershipSimpleText, String membershipMax) throws Exception {
+		System.out.println("클정이름 : " +name);
+		System.out.println("클정조건 : " +dto.getMembershipAccessionText());
+		System.out.println("클정간단 : " +dto.getMembershipSimpleText());
+		System.out.println("클정인원 : " +dto.getMembershipMax());
 		System.out.println(file);
 		System.out.println("지역 확인 : "+LB);
 		System.out.println("유형 확인 : "+TB);
-//		Membership membership = Membership.builder()
-//				.membershipName(Mdto.getMembership().getMembershipName())
-//				.membershipAccessionText(Mdto.getMembership().getMembershipAccessionText())
-//				.membershipSimpleText(Mdto.getMembership().getMembershipSimpleText())
-//				.membershipSecretText(Mdto.getMembership().getMembershipSecretText())
-//				.membershipMax(Mdto.getMembership().getMembershipMax())
-//				.build();
-//		service.makeMembership(membership);	
-//		int a =service.makeMembershipCode(membership.getMembershipName());
-//		//-----------------------------------
-//		
-//		String[] areaList = locationcontain.split(",");
-//		for (String area : areaList) {
-//	        String trimmedArea = area.trim(); // 공백 제거
-//	        if (!trimmedArea.isEmpty()) {
-//	            System.out.println(trimmedArea); // 각 지역 출력
-//	            // 추가적인 처리 로직 (예: 데이터베이스 저장 등)
-//	            System.out.println("이거 나오지??!");
-//	           
-//	        }
-//	    }
-//		
-//		
-//		
-////		// 클럽생성?
+		
+
+		//-----------------------------------
+		
+		
+		
+		String[] areaList = LB.split("#");
+		String[] areaList2 = TB.split("#");
+		for (String area : areaList) {
+	        String trimmedArea = area.trim(); // 공백 제거
+	        if (!trimmedArea.isEmpty()) {
+	            System.out.println(trimmedArea); // 각 지역 출력
+	            // 추가적인 처리 로직 (예: 데이터베이스 저장 등)
+	            System.out.println("이거 나오지??!");
+	           
+	        }
+	    }
+		for (String area2 : areaList2) {
+	        String trimmedArea2 = area2.trim(); // 공백 제거
+	        if (!trimmedArea2.isEmpty()) {
+	            System.out.println(trimmedArea2); // 각 지역 출력
+	            // 추가적인 처리 로직 (예: 데이터베이스 저장 등)
+	            System.out.println("이거 나오지??!");
+	           
+	        }
+	    }
+		
+		
+
+//		// 클럽생성?
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //		 Member mem = (Member) authentication.getPrincipal();
 //		Path directoryPath = Paths.get("\\\\192.168.10.51\\damoim\\membership\\"+ a+"\\");  
@@ -237,7 +245,15 @@ public class MembershipController {
 //		// 호스트로 보유중인 클럽 유무 확인
 //		service.host(list);
 
+//		Membership membership = Membership.builder()
+//		.membershipName(dto.getMembershipName())
+//		.membershipAccessionText(dto.getMembershipAccessionText())
+//		.membershipSimpleText(dto.getMembershipSimpleText())
+//		.membershipSecretText(dto.getMembershipSecretText())
+//		.membershipMax(Integer.parseInt(dto.getMembershipMax()))
+//		.build();
 		
+//service.makeMembership(membership);	
 		return "redirect:/";
 	}
 

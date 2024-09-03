@@ -57,7 +57,7 @@ select {
 			</select>
 			<div id="test1" class="select"></div>
 			<input type="button" value="추가" id="locationBtn">
-
+			<input type="button" value="취소" id="locationBtncancel"><br><br>
 			<p>유형</p>
 			<select id="typeLaNameMem">
 				<option>전체보기</option>
@@ -68,12 +68,13 @@ select {
 				<option>전체보기</option>
 			</select>
 			<div id="test2" class="select"></div>
-			<input type="button" value="추가" id="typeBtn"> <br>
+			<input type="button" value="추가" id="typeBtn"> 
+			<input type="button" value="취소" id="typeBtncancel"><br><br>
 			<button type="button" onclick="validate(event)">클럽생성</button>
 			<div>
 				<h2>${mem.id}</h2>
 				<input type="hidden" name="id" value="${mem.id}"> <input
-					type="hidden" name="listGrade" value="host"> <a href="/"
+					type="hidden" name="listGrade" value="host"><br> <a href="/"
 					id="toIndex">생성 취소</a>
 			</div>
 		</form>
@@ -87,6 +88,7 @@ select {
 	<script
 		src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 </html>

@@ -1,3 +1,7 @@
+
+
+
+//@@@@@@@@@@@@@@@@@@@@@@@@
 let membershipNameCheck = false;
 membershipName.addEventListener('input', function() {
 	const membershipNameValue = $(this).val().trim();
@@ -85,6 +89,8 @@ $('#typeLaNameMem').change(function() {
 		success: function(typeS) {
 			$.each(typeS, function(index, item) {
 				list += `<option>${item}</option>`;
+
+
 			});
 			if (list !== "") {
 				$("#typeSNameMem").html(list);
@@ -107,47 +113,40 @@ let LB = ""; // 선택된 지역 정보를 저장할 변수
 let list = "";
 let allList = `<option>전체보기</option>`; // 전체보기 옵션을 포함한 HTML 문자열
 let selectedAreas = []; // 선택된 지역 정보를 저장할 배열
+locationBtn.addEventListener("click", function(e) {
+	e.preventDefault();
+	let locationbool = true;
+	let locationbig = $("#locationLaNameMem option:selected").val();
+	let locationsmall = $("#locationSNameMem option:selected").val();
+	let string = "";
 
-// locationBtn 버튼에 클릭 이벤트 리스너 추가
-locationBtn.addEventListener("click", function() {
-	// 전체보기일 경우 클릭 이벤트를 막기
+	if ($("#test1").html().substr(0, 2) !== locationbig && $("#test1").html() !== "") {
+		alert("어허");
+		return;
+	}
+	if ($("#test1").html().includes(locationsmall) && $("#test1").html() !== "") {
+		alert("어허2");
+		return;
+	}
+	if ($("#test1").html() == "") {
+		string += $("#test1").html() + locationbig + " : " + locationsmall;
+	} else {
+		string += $("#test1").html() + " ," + locationsmall;
+	}
 	if ($("#locationLaNameMem option:selected").val() === "전체보기") {
+		locationBtnCheck = false;
+		alert("지역을 선택해 주세요")
 		return; // 클릭 이벤트를 막고 함수 종료
 	}
-
-	// 선택된 지역 정보를 변수에 저장
-	let a = $("#locationLaNameMem option:selected").val(); // 대분류 선택
-	let b = $("#locationSNameMem option:selected").val(); // 소분류 선택
-	locationLaName = a;
-	locationSName = b;
-	locationcontain = a + "," + b; // locationcontain에 대분류와 소분류를 담음
-
-	// 애초에 글씨를 넣을 때 리스트에 추가하는 방식으로 가서
-	// 해당 리스트에서 값이 있는지 체크! 없을 때만 추가하면 되겠죠!
-	let currentSelect = "#" + a + "!" + b; // 현재 선택된 지역 정보
-
-	// 중복 체크
-	if (!selectedAreas.includes(currentSelect)) {
-		selectedAreas.push(currentSelect); // 중복이 없으면 배열에 추가
-		//console.log(`추가된 지역: ${currentSelect}`);
-
-
-
-		// 선택된 정보를 LB 변수에 추가 (형식: #a!b)
-		if (LB) {
-			LB += " #" + a + "!" + b.trim(); // LB가 비어있지 않을 때 
-		} else {
-			LB += "#" + a + "!" + b.trim(); // LB가 비어있을 때
-		}
-
-		// LB에서 '!'를 공백으로 변환하여 화면에 표시
-		$("#test1").html(LB.replace(/!/g, ' '));
-
-		// AJAX 요청을 통해 서버에 선택된 지역 정보 전송
-
-	}
+	$("#test1").html(string);
 });
 
+locationBtncancel.addEventListener("click", function() {
+	$("#test1").empty();
+	LB = "";// LB 변수도 초기화
+	selectedAreas = [];
+
+});
 
 
 
@@ -156,72 +155,44 @@ let typeBtnCheck = false; // 클릭 상태를 나타내는 변수 (초기값은 
 let TB = ""; // 선택된 유형 정보를 저장할 변수
 let allList2 = `<option>전체보기</option>`; // 전체보기 옵션을 포함한 HTML 문자열
 let selectedtype = []; // 선택된 유형 정보를 저장할 배열(중복체크용)
-
+let typetext = "";
 // typeBtn 버튼에 클릭 이벤트 리스너 추가
-typeBtn.addEventListener("click", function() {
-	//console.log("타입추가");
-	// 전체보기일 경우 클릭 이벤트를 막기
+typeBtn.addEventListener("click", function(e) {
+	e.preventDefault();
+	let typebool = true;
+	let typebig = $("#typeLaNameMem option:selected").val();
+	let typesmall = $("#typeSNameMem option:selected").val();
+	let string = "";
+
+	if ($("#test2").html().substr(0, 2) !== typebig.substr(0, 2) && $("#test2").html() !== "") {
+		alert("어허");
+		return;
+	}
+	if ($("#test2").html().includes(typesmall) && $("#test2").html() !== "") {
+		alert("어허2");
+		return;
+	}
+	if ($("#test2").html() == "") {
+		string += $("#test2").html() + typebig + " = " + typesmall;
+	} else {
+		string += $("#test2").html() + " ," + typesmall;
+	}
 	if ($("#typeLaNameMem option:selected").val() === "전체보기") {
+		typeBtnCheck = false;
+		alert("유형을 선택해 주세요")
 		return; // 클릭 이벤트를 막고 함수 종료
 	}
+	$("#test2").html(string);
 
-	// 선택된 유형 정보를 변수에 저장
-	let c = $("#typeLaNameMem option:selected").val(); // 대분류 선택
-	let d = $("#typeSNameMem option:selected").val(); // 소분류 선택
-
-	typecontain = c + "," + d; // typecontain에 대분류와 소분류를 담음
-
-	// 애초에 글씨를 넣을 때 리스트에 추가하는 방식으로 가서
-	// 해당 리스트에서 값이 있는지 체크! 없을 때만 추가하면 되겠죠!
-	let currentSelect = "#" + c + "!" + d; // 현재 선택된 유형 정보
-
-	// 중복 체크
-	if (!selectedtype.includes(currentSelect)) {
-		selectedtype.push(currentSelect); // 중복이 없으면 배열에 추가
-		//console.log(`추가된 지역: ${currentSelect}`);
-
-
-		// 선택된 정보를 data 객체에 저장
-		let typedata = {
-			typeLaName: c,
-			typeSName: d
-		};
-
-		// 선택된 정보를 TB 변수에 추가 (형식: #a!b)
-		TB += "#" + c + "!" + d.trim();
-		if (TB) {
-			TB += "";
-		} else {
-			TB = " "+TB;
-		}
-		// TB에서 '!'를 공백으로 변환하여 화면에 표시
-		$("#test2").html(TB.replace(/!/g, ' '));
-
-
-
-		// AJAX 요청을 통해 서버에 선택된 유형 정보 전송
-		$.ajax({
-			type: 'get',
-			url: '/addtype',
-			data: $.param({ TB: TB, typedata: typedata, typecontain: typecontain }), // TB 변수를 서버에 전송
-
-			success: function(result) {
-				if (result) { // 서버 응답이 있는 경우
-					// 전체보기 선택 시 처리
-					if ($("#typeLaNameMem option:selected").val() === "전체보기") {
-						$('#all').text("지역 선택 부탁드립니다").css('color', 'red'); // 사용자에게 메시지 표시
-
-						typeBtnCheck = false; // 클릭 상태를 false로 설정
-					} else {
-						$('#all').text(`전체보기`).css('color', 'red'); // 전체보기 메시지 표시
-						typeBtnCheck = true; // 클릭 상태를 true로 설정
-					}
-				}
-			}
-		});
-	}
 });
 
+typeBtncancel.addEventListener("click", function() {
+	$("#test2").empty();
+	TB = "";// TB 변수도 초기화
+	selectedAreas = [];
+
+
+});
 
 function validate() {
 	let name = $("#membershipName").val();
@@ -239,19 +210,26 @@ function validate() {
 		membershipMax: membershipMax,
 	};
 	
+	
+
 	let formData = new FormData(); // FormData 객체를 사용하여 파일과 데이터를 함께 전송합니다.
-	formData.append('dto', JSON.stringify(data));
+	//formData.append('dto', JSON.stringify(data));
+	formData.append('name',name)
+	formData.append('membershipAccessionText',membershipAccessionText)
+	formData.append('membershipSimpleText',membershipSimpleText)
+	formData.append('membershipMax',membershipMax)
 	formData.append('file', file);
 	formData.append('LB', loc);
-	formData.append('TB',tp);
+	formData.append('TB', tp);
 	$.ajax({
 		type: 'post',
 		url: '/makeMembership',
 		data: formData,
-		processData: false, 
+		processData: false,
 		contentType: false,
 		success: function() {
 			console.log("와!!");
+			
 		}
 
 	});
