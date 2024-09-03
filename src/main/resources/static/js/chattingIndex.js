@@ -314,7 +314,7 @@ $(document).ready(function() {
 			})
 
 	});
-
+	
 	$(".chat_input_area textarea").on('drop', (e) => {
 		e.preventDefault();
 		$(this).attr('placeholder', '');
@@ -331,7 +331,11 @@ $(document).ready(function() {
 		reader.readAsDataURL(files[0]);
 		$(".chat_input_area textarea").focus();
 	});
-
+	
+	$(".chat_input_area textarea").on('click', (e) => {
+			e.preventDefault();
+			$(".chat_input_area textarea").focus();
+		});
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@
 	const makeDraggable = function(element) {
 		$(element).on('mousedown', function(event) {
