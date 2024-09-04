@@ -69,7 +69,7 @@ public class MembershipService {
 	public void host(MemberListDTO list) {
 		mapper.host(list);
 	}
-	
+	// 로그인 회원 가입한 클럽처리
 	public List<MemberListDTO> grade(Member member){
 		return mapper.grade(member);
 	}
@@ -153,10 +153,6 @@ public class MembershipService {
 		
 		
 	}
-	public List<Integer> membershipCodeList(String id){
-		
-		return mapper.membershipCodeList(id);
-	}
 
 	public List<BasicRoomListVo> roomlist() {
 		return mapper.roomlist();
@@ -168,10 +164,7 @@ public class MembershipService {
 	
 
 	
-	public ArrayList<MembershipUserList> selectName(String member) {
-		return mapper.selectName(member);
-	}
-	
+
 
 	
 	public void updateMembershipInfo(Membership membershipInfo) {
