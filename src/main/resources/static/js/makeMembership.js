@@ -129,9 +129,9 @@ locationBtn.addEventListener("click", function(e) {
 		return;
 	}
 	if ($("#test1").html() == "") {
-		string += $("#test1").html() + locationbig + " : " + locationsmall;
+		string += $("#test1").html() + locationbig + " = " + locationsmall;
 	} else {
-		string += $("#test1").html() + " ," + locationsmall;
+		string += $("#test1").html() + ", " + locationsmall;
 	}
 	if ($("#locationLaNameMem option:selected").val() === "전체보기") {
 		locationBtnCheck = false;
@@ -175,7 +175,7 @@ typeBtn.addEventListener("click", function(e) {
 	if ($("#test2").html() == "") {
 		string += $("#test2").html() + typebig + " = " + typesmall;
 	} else {
-		string += $("#test2").html() + " ," + typesmall;
+		string += $("#test2").html() + ", " + typesmall;
 	}
 	if ($("#typeLaNameMem option:selected").val() === "전체보기") {
 		typeBtnCheck = false;
@@ -194,8 +194,8 @@ typeBtncancel.addEventListener("click", function() {
 
 });
 
-function validate() {
-	let name = $("#membershipName").val();
+function validate() { // 생성버튼 눌렀을때 작동
+	let membershipName = $("#membershipName").val();
 	let f = document.getElementById('file');
 	let file = f.files[0];
 	let membershipAccessionText = $("#membershipAccessionText").val();
@@ -204,7 +204,7 @@ function validate() {
 	let loc = $("#test1").text();
 	let tp = $("#test2").text();
 	let data = {
-		membershipName: name,
+		membershipName: membershipName,
 		membershipAccessionText: membershipAccessionText,
 		membershipSimpleText: membershipSimpleText,
 		membershipMax: membershipMax,
@@ -214,7 +214,7 @@ function validate() {
 
 	let formData = new FormData(); // FormData 객체를 사용하여 파일과 데이터를 함께 전송합니다.
 	//formData.append('dto', JSON.stringify(data));
-	formData.append('name',name)
+	formData.append('membershipName',membershipName)
 	formData.append('membershipAccessionText',membershipAccessionText)
 	formData.append('membershipSimpleText',membershipSimpleText)
 	formData.append('membershipMax',membershipMax)
@@ -233,4 +233,8 @@ function validate() {
 		}
 
 	});
+	
+	
+	
+	
 }

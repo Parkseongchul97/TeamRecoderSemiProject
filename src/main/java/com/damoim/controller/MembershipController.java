@@ -190,8 +190,8 @@ public class MembershipController {
 	 * */
 	@PostMapping("/makeMembership") // 클럽 생성
 	public String makeMembership(MembershipDTO dto,MultipartFile file,
-            String LB,String TB, String name,String membershipAccessionText,String membershipSimpleText, String membershipMax) throws Exception {
-		System.out.println("클정이름 : " +name);
+            String LB,String TB) throws Exception {
+		System.out.println("클정이름 : " +dto.getMembershipName());
 		System.out.println("클정조건 : " +dto.getMembershipAccessionText());
 		System.out.println("클정간단 : " +dto.getMembershipSimpleText());
 		System.out.println("클정인원 : " +dto.getMembershipMax());

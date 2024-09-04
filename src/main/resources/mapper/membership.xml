@@ -49,7 +49,7 @@
 		<id column="membership_code" property="membershipCode" />
 		<result column="membership_name" property="membershipName" />
 	</resultMap>
-	
+
 	
 	
 
@@ -135,10 +135,18 @@
 		membership_max,membership_accession_text,membership_simple_text)
 		VALUES(#{membershipName},#{membershipImg},
 		#{membershipMax},#{membershipAccessionText},#{membershipSimpleText})
-		
-		
-	
+
 	</insert>
+	
+	
+	<!-- 
+	<insert id="makeMembership" parameterType="">
+
+
+
+	</insert>
+	-->
+	
 	<select id="makeMembershipCode" parameterType="String" resultType="Integer">
 		select membership_code from membership where membership_name=#{membershipName}
 	</select>
