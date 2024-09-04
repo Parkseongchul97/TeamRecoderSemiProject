@@ -167,3 +167,26 @@ public class ChattingController {
 		return new ResponseEntity<>(chattingRoom, HttpStatus.OK);
 	}
 }
+
+
+
+
+/*
+ * let q = Math.floor(Math.random() * 255);
+			let w = Math.floor(Math.random() * 255);
+			let e = Math.floor(Math.random() * 255);
+			a++;
+			const rect = trackArea.getBoundingClientRect();
+			const x = event.clientX - rect.left;
+			const y = event.clientY - rect.top;
+			const trail = document.createElement('div');
+			trail.className = `trail${a}`;
+			trail.style.position = "absolute";
+			trail.style.left = x + "px";
+			trail.style.top = y + "px";
+			trail.style.background = "black";
+			trail.style.width = "10px";
+			trail.style.height = "10px";
+			trail.style.background = "rgb("+q+", "+w+", "+e+")";
+			trackArea.appendChild(trail);
+ * */
