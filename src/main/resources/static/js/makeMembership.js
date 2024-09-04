@@ -1,5 +1,6 @@
-
-
+// 현재 페이지의 URL에서 쿼리 문자열과 해시(#)를 제거할때 사용 
+					//(현재 페이지,제목 문자열, 현재 페이지 경로를 포함된 URL )
+history.replaceState({}, null, location.pathname); // {}: 현재 페이지 상태 저장을 위한 빈칸 사용, 저장 필요 없으면 null 사용가능  
 
 //@@@@@@@@@@@@@@@@@@@@@@@@
 let membershipNameCheck = false;
@@ -229,11 +230,13 @@ function validate() { // 생성버튼 눌렀을때 작동
 		contentType: false,
 		success: function() {
 			
+			
 		}
-
+		
 	});
 	
 	
-	
+	// 다른 main 페이지로 이동
+	window.location.href = '/mypage';
 	
 }

@@ -207,7 +207,7 @@ public class MembershipController {
 	 * ???
 	 * 
 	 * 
-	 * 영민 Info등 생성 기능 추가
+	 * 영민 클럽 생성기능 추가
 	 *
 	 * 성철 만들어진거에 사진첨부만 추가
 	 */

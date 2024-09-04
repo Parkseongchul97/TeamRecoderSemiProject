@@ -70,7 +70,7 @@ select {
 			<div id="test2" class="select"></div>
 			<input type="button" value="추가" id="typeBtn"> 
 			<input type="button" value="취소" id="typeBtncancel"><br><br>
-			<button type="button" onclick="validate(event)" ><a href="/membershipPage">클럽생성</a></button>
+			<button type="button" onclick="validate(event)">클럽생성</button>
 			<div>
 				<h2>${mem.id}</h2>
 				<input type="hidden" name="id" value="${mem.id}"> <input
