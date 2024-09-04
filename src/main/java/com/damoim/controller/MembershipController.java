@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.jasper.tagplugins.jstl.core.Remove;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -62,7 +63,6 @@ public class MembershipController {
 	// 08-22 채승훈 클럽메인페이지에 지역과 타입 추가
 	@Autowired
 	private LocationTypeService locationTypeservice;
-	private LocationTypeService locationTypeService;
 
 	@Autowired
 	private MembershipMeetingService meetingService;
@@ -77,6 +77,13 @@ public class MembershipController {
 	 * 성일 카운트 관련 VO에 합쳐버림 성철 댓글 대댓글 글 관련 로직 추가
 	 */
 
+	}
+
+
+	/*
+	 * 성일 카운트 관련 VO에 합쳐버림 성철 댓글 대댓글 글 관련 로직 추가
+	 */
+
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO,
 			Model model) {
@@ -85,11 +92,12 @@ public class MembershipController {
 		MembershipUserList list = service.main(membershipCode);
 		list.setCount((service.membershipUserCount(membershipCode)));
 
-		model.addAttribute("main", list);
+		model.addAttribute("main", list);  
 		model.addAttribute("allMember", service.MembershipAllRegular(membershipCode));
 
 		ArrayList<MainComment> commList = commentService.allMainComment(membershipCode); // 일반댓글
 		ArrayList<CommentDTO> dtoList = new ArrayList<CommentDTO>(); // 합칠예정
+		
 
 		for (int i = 0; i < commList.size(); i++) {
 			CommentDTO commentDTO = new CommentDTO().builder().mainCommentCode(commList.get(i).getMainCommentCode())
@@ -100,7 +108,6 @@ public class MembershipController {
 					.membershipCode(commList.get(i).getMembershipCode()).recoment(new ArrayList<>()).build();
 
 			dtoList.add(commentDTO);
-
 			ArrayList<MainComment> recommList = commentService.mainReComment(membershipCode,
 					commentDTO.getMainCommentCode());
 			if (recommList.size() > 0) {
@@ -120,7 +127,6 @@ public class MembershipController {
 
 			}
 		}
-		System.out.println(dtoList);
 
 		model.addAttribute("comment", dtoList);
 		System.out.println("커맨트 dio " + dtoList);
@@ -139,11 +145,25 @@ public class MembershipController {
 	@GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 	public String membershipPage(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO,
 			Model model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		Member mem = (Member) authentication.getPrincipal();
+		
+		boolean ck = false;
+		
+		for(MemberListDTO dto: mem.getMemberListDTO()) {
+			if(dto.getMembershipCode() == membershipCode && !dto.getListGrade().equals("guest")) {
+				ck = true;
+			}
+		}
+		if(!ck) {
+			System.out.println("일단함 확인");
+			return "error";
+		}
 
-		model.addAttribute("main"/* ,MS */);
-		// 현재 가입된 인원수
-		model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
-		// 로그인된 회원 정보
+		
+		System.out.println("로그인 정보 " + mem);
 		// 해당클럽 정보 다담음
 		System.out.println(membershipCode);
 		MembershipUserList list = service.main(membershipCode);
@@ -152,18 +172,18 @@ public class MembershipController {
 		model.addAttribute("main", list);
 		// 해당클럽에 가입신청된 모든 유저정보
 
-		model.addAttribute("allMember", service.MembershipAllInfo(membershipCode));
-
+		// 0903 성일 어차피 승인은 멤버관리 페이지에서 하기 때문에 모든 인원을 알려주는거 보다 regular 이상 회원만 jsp로 전달
+		// model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
+		
+		model.addAttribute("allMember", service.MembershipAllRegular(membershipCode));
 		model.addAttribute("adminList", service.adminUser(membershipCode));
-
-		System.out.println(service.MembershipAllInfo(membershipCode).get(0).getMember().getGender());
 
 		model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
 		System.out.println(meetingService.allMeetings(membershipCode));
 
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
-		model.addAttribute("location", locationTypeservice.locationList(membershipCode));
-		model.addAttribute("type", locationTypeservice.typeList(membershipCode));
+		model.addAttribute("location", locationTypeService.locationList(membershipCode));
+		model.addAttribute("type", locationTypeService.typeList(membershipCode));
 
 		return "membership/membershipPage";
 	}
@@ -175,13 +195,13 @@ public class MembershipController {
 	@PostMapping("/agreeMember") // 클럽 회원가입 승인
 	public void agreeMemeber(MemberListDTO member) {
 		// 일단은 호스트일때만 클럽 회원 승인기능
+		System.out.println("어그리멤버");
 		service.agreeMemeber(member);
 	}
 
 	/*
 	 * 
 	 * */
-
 	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
 	public String makeMembership(SearchDTO search, Model model) {
 		model.addAttribute("locLaNameList", locationTypeservice.locLaNameList());
@@ -279,10 +299,46 @@ public class MembershipController {
 
 		return "redirect:/" + member.getMembershipCode();
 	}
+	
+	/*
+	 * 성철
+	 * 가입 탈퇴 , 신청취소
+	 * */
+	@ResponseBody
+	@PostMapping("/deleteList")
+	public void deleteList(int membershipCode) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		service.deleteList(new MemberListDTO().builder()
+				.id(mem.getId()).membershipCode(membershipCode).build());
+		
+		ArrayList<MemberListDTO> list = (ArrayList<MemberListDTO>) mem.getMemberListDTO();
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getMembershipCode() == membershipCode) {
+				System.out.println("삭제될 DTO : " + list.get(i));
+				list.remove(i);
+				break;
+				
+			}
+		}
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		System.out.println("세션변경도 완료");
+	}
 
 	/*
 	 * 성철 : 클럽 홍보글 작성 페이지
 	 */
+
+	@GetMapping("/club/{membershipCode}/membershipPromotionDetail")
+	public String membershipPromotionDetail(@PathVariable("membershipCode") Integer membershipCode, Model model) {
+		System.out.println(membershipCode);
+		System.out.println("맴버쉽" + service.selectMembership(membershipCode));
+		model.addAttribute("memInfo", service.selectMembership(membershipCode));
+		model.addAttribute("code", membershipCode);
+		return "membership/membershipPromotionDetail";
+	}
+
+
 
 	/*
 	 * 성철 파일 삽입 메서드 해당맴버쉽 프로필사진 !!
@@ -308,19 +364,6 @@ public class MembershipController {
 		model.addAttribute("memInfo", service.selectMembership(membershipCode));
 		model.addAttribute("code", membershipCode);
 		return "membership/membershipPromotionDetail";
-	}
-
-	/*
-	 * 성철 : 클럽 홍보글 작성 페이지
-	 */
-	@ResponseBody
-	@PostMapping("/membershipInfoUpdate")
-	public void test(int membershipCode, String test) {
-		System.out.println("맴버쉽 코드 : " + membershipCode);
-		System.out.println("테스트 : " + test);
-		Membership membership = new Membership().builder().membershipCode(membershipCode).membershipInfo(test).build();
-		service.updateMembershipInfo(membership);
-		System.out.println("DB 통과");
 	}
 
 	/*
@@ -401,16 +444,41 @@ public class MembershipController {
 		}
 
 	}
+	
+	
+	/* 성일
+	 * 어드민이나 호스트이냐 따라서 서로다른 맴버쉽 관리 페이지 이동처리
+	 * */
 
 	/*
-	 * 성일 어드민이나 호스트이냐 따라서 서로다른 맴버쉽 관리 페이지 이동처리
+	 * 멤버관리 페이지 호스트와 관리자만 접속 가능 등급 설정 및 회원 강퇴 기능 구현
+	 * 
 	 */
 	@GetMapping("/management")
 	public String management(Integer membershipCode, Model model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		
+		
+	boolean check = false;
+		
+		for (int i=0; i<mem.getMemberListDTO().size(); i++) {
+			if(mem.getMemberListDTO().get(i).getMembershipCode() == membershipCode && !(mem.getMemberListDTO().get(i).getListGrade().equals("guest") || mem.getMemberListDTO().get(i).getListGrade().equals("regular")) ) {
+				check = true;
+				
+			}
+			
+		}
+
+		if (!check) {
+			
+			return "error";
+		}
 
 		model.addAttribute("allMember", service.MembershipAllInfo(membershipCode));
 		model.addAttribute("host", service.main(membershipCode));
-		model.addAttribute("adminList", service.adminUser(membershipCode));
+
 
 		List<String> hosts = new ArrayList<String>();
 
