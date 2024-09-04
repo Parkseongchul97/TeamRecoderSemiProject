@@ -115,7 +115,14 @@
 		(membership_code)
 		JOIN member USING (id)
 		WHERE membership_code =
-		#{embership_cmode} AND list_grade != "guest";
+		#{membership_cmode} AND list_grade != "guest"
+				ORDER BY 
+    CASE list_grade
+        WHEN 'host' THEN 1
+        WHEN 'admin' THEN 2
+        WHEN 'regular' THEN 3
+        ELSE 4
+    END;
 	</select>
 	<!-- 해당 맴버쉽의 코드와 유저 ID (로그인) 정보 받아서 맴버쉽에 가입 신청 하는 기능 -->
 	<insert id="membershipApply" parameterType="MemberListDTO">
@@ -234,8 +241,6 @@
      WHERE list_grade ="host" AND id= #{id}    
      </select>
 
-	<!--  회원 탈퇴 관리시 쓰는데 용도 정확히 ?? <- 의미 없어보임? (동문님) -->
-
 	<!--  memberInfoDTO에 담을 수 있는 해당 맴버의 모임 참여 횟수 계산 -->
 	<select id="meetCount" parameterType="String" resultType="int">
 		SELECT
@@ -243,7 +248,7 @@
 		FROM meetings_agree
 		JOIN membership_meetings USING (meet_code)
 		WHERE meetings_agree.id = #{id}
-		AND meet_date_end
+		AND meet_date_start
 		&lt; now() 
 	</select>
 
@@ -255,6 +260,12 @@
 		JOIN membership USING(membership_code)
 		WHERE id = #{id}
 	</select>
+	
+	<delete id="deleteList" parameterType="MemberListDTO">
+	DELETE FROM membership_user_list
+	WHERE membership_code = #{membershipCode} 
+	AND id = #{id};
+	</delete>
 	
 		<!-- 모든 채팅방리스트 불러옴 -->
 	<select id="roomlist" resultMap="roomListmap">
