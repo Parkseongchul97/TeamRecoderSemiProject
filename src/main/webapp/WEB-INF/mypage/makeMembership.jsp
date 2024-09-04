@@ -34,13 +34,13 @@ select {
 
 		<form enctype="multipart/form-data">
 
-			<label for="membershipName"> 클럽이름 : <span class="name"
-				id="name"></span></label> <input type="text" id="membershipName"
-				name="membershipName" maxlength="50"><br> 사진첨부: <input
-				type="file" name="file" id="file" accept="image/*"><br> 클럽 가입조건 :
-			<input type="text" id="membershipAccessionText" name="membershipAccessionText"><br>
-			클럽 간단한 설명:<input type="text" id="membershipSimpleText" name="membershipSimpleText"><br>
-			최대 인원 : <span class="max" id="max"></span> <input type="number"
+			<label for="membershipName"> 클럽이름 : <span class="name" id="name"></span></label> 
+				<input type="text" id="membershipName"
+				name="membershipName" maxlength="50"><br> 
+				사진첨부: <input type="file" name="file" id="file" accept="image/*"><br>
+				클럽 가입조건 : <input type="text" id="membershipAccessionText" name="membershipAccessionText"><br>
+				클럽 간단한 설명:<input type="text" id="membershipSimpleText" name="membershipSimpleText"><br>
+				최대 인원 : <span class="max" id="max"></span> <input type="number"
 				for="membershipMax" id="membershipMax" name="membershipMax"><br>
 
 

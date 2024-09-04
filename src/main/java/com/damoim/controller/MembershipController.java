@@ -70,14 +70,7 @@ public class MembershipController {
 	 * 
 	 * */
 
-	/*
-	 * 
-	 * */
-	/*
-	 * 성일 카운트 관련 VO에 합쳐버림 성철 댓글 대댓글 글 관련 로직 추가
-	 */
-
-	}
+	
 
 
 	/*
@@ -182,8 +175,8 @@ public class MembershipController {
 		System.out.println(meetingService.allMeetings(membershipCode));
 
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
-		model.addAttribute("location", locationTypeService.locationList(membershipCode));
-		model.addAttribute("type", locationTypeService.typeList(membershipCode));
+		model.addAttribute("location", locationTypeservice.locationList(membershipCode));
+		model.addAttribute("type", locationTypeservice.typeList(membershipCode));
 
 		return "membership/membershipPage";
 	}
@@ -222,6 +215,7 @@ public class MembershipController {
 	public String makeMembership(MembershipDTO dto, MultipartFile file, String LB, String TB) throws Exception {
 		System.out.println("지역 확인 : " + LB); // 인천 = 중구, 미추홀구, 남동구
 		System.out.println("유형 확인 : " + TB); // 스터디 = 코딩, 자격증, 토론
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("-----------------------------------");
 
@@ -277,7 +271,9 @@ public class MembershipController {
 		// 호스트로 보유중인 클럽 유무 확인
 		System.out.println("등급 확인 : " + list);
 		service.host(list);
-
+		ArrayList<MemberListDTO> dtolist =	(ArrayList<MemberListDTO>) mem.getMemberListDTO();
+		dtolist.add(list);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return "redirect:/";
 	}
 
@@ -357,14 +353,6 @@ public class MembershipController {
 		return fileName;
 	}
 
-	@GetMapping("/club/{membershipCode}/membershipPromotionDetail")
-	public String membershipPromotionDetail(@PathVariable("membershipCode") Integer membershipCode, Model model) {
-		System.out.println(membershipCode);
-		System.out.println("맴버쉽" + service.selectMembership(membershipCode));
-		model.addAttribute("memInfo", service.selectMembership(membershipCode));
-		model.addAttribute("code", membershipCode);
-		return "membership/membershipPromotionDetail";
-	}
 
 	/*
 	 * 영민 클럽명 중복 체크

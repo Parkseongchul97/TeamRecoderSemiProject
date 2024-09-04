@@ -23,7 +23,7 @@ $(document).ready(function() {
 });
 
 // 토글 버튼
-const toggleIcon = document.querySelector(".toggle__icon");
+const toggleIcon = document.querySelector(".toggle_icon");
 const membershipCreate = document.querySelector(".membership-create");
 
 toggleIcon.addEventListener("click", () => {
