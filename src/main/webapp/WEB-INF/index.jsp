@@ -13,91 +13,97 @@
 	href="${pageContext.request.contextPath}/css/reset.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/index.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/locationType.css" />
+	<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+	
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-	<div class="header">
-		<div class="header_left">
-			<a href="/">
-				<div class="LOGO">DAMOIM</div>
-			</a>
-			<div class="header_right">
-		
-				<sec:authorize access="!isAuthenticated()">
-              <div class="header_right_menu">
-                <a href="/signUp">회원가입</a>
-                <a href="/loginPage">로그인</a>
-              </div>
-              </sec:authorize>
-				<sec:authorize access="isAuthenticated()" var="principal">
-				<sec:authentication property="principal" var="member" />
-				<div> ${member.nickname}
-				<c:choose>
-						<c:when test="${member.memberImg != null}">
-								<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
-						</c:when>
-					
-						<c:otherwise>
-							<img class="user-img"
-								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
-						</c:otherwise>
-					</c:choose>
-					
-				
-				</div>
-					<div class="header_right_menu">
-					${member}
-						<a href="/update">마이페이지</a> <a href="/myMembership">나의
-							모임</a> <a href="/logout">로그아웃</a>
-					</div>
-				</sec:authorize>
+
+	<!-- 인덱스 헤드만 헤더1 -->
+	<jsp:include page="header/headerIndex.jsp" />
+	<div class="body_img_box_body">
+		<div class="body_img_box">
+			<img class="body_img" src="http://192.168.10.51:8081/mainImg2.jpg" />
+			<div class=body_text>
+				<p class="text_event1">다모임</p>
+				<p class="text_event2">우리들의 만남은 지금부터 시작입니다.</p>
+				<p class="text_event3">사랑하는 사람들과 함께 좋은 추억을 만들어봐요.</p>
+				<p class="text_event4">"별이 총총한 밤, 바람이 속삭이는 순간, 우리의 눈이 마주치고 두 손이
+					살짝 맞닿을 때, 마치 운명처럼 모든 것이 정해진 듯한 따뜻한 감동이 퍼진다. 그 만남이 만들어내는 작은 기적, 우리만의
+					특별한 순간."</p>
 			</div>
 		</div>
 	</div>
+
+
 	<!-- 08-20 채승훈 -->
-	<select id="locationLaNameSelect">
-		<option>전체보기</option>
-		<c:forEach items="${locLaNameList}" var="locLaName">
-			<option>${locLaName}</option>
-		</c:forEach>
-	</select>
-	<c:if test="${locSNameList.size()!=0}">
-		<form id="locationSNameForm">
-			<input type="checkbox" value="전체보기" id="locSNameAll" /> <label
-				for="locSNameAll">전체보기</label>
-			<c:forEach items="${locSNameList}" var="locSName">
-				<input type="checkbox" value="${locSName}" id="${locSName}"
-					name="locationSName">
-				<label for="${locSName}">${locSName}</label>
+	<div class="locationTypeBody">
+		<div class="locationTypeBodyBox">
+			<form id="locationLaNameForm">
+					<div class="locationBoxHead">
+						<div class="locationLaStar">도시별</div>
+							<input type="checkbox" value="초기화" id="locLaNameAll" /> 
+							<label class="locLaNameLabel" for="locLaNameAll">초기화</label>
+					</div>
+						<div class="locationLaDiv">
+							<c:forEach items="${locLaNameList}" var="locLaName">
+								<input type="checkbox" value="${locLaName}" id="${locLaName}"
+									name="locationLaName">
+								<label for="${locLaName}" class="locationLaCss">${locLaName}</label>
+							</c:forEach>
+						</div>
+			</form>
+			<div class="line"></div>
+	
+			<form id="locationSNameForm">
+				<div class="locationSStar">지역별</div>
+				<div class="locationSDiv">
+				<div class="classiFication">지역을 선택해주세요</div>
+					<c:forEach items="${locSNameList}" var="locSName">
+						<input type="checkbox" value="${locSName}" id="${locSName}"
+							name="locationSName">
+						<label for="${locSName}" class="locationTypeCss">${locSName}</label>
+					</c:forEach>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div id="typeStickyBox">
+		<form id="typeLaNameSelect">
+			<input type="checkbox" value="전체보기" id="typeLaNameAll" /> <label
+				class="typeLaNameLabel" for="typeLaNameAll">전체보기</label>
+			<c:forEach items="${typeLaNameList}" var="typeLaName">
+				<input type="checkbox" value="${typeLaName}" id="${typeLaName}"
+					name="typeLaName">
+				<label for="${typeLaName}" class="typeLaCss">${typeLaName}</label>
 			</c:forEach>
-			<input type="submit" value="지역 검색" id="locSNameBtn">
 		</form>
-	</c:if>
-	<br>
-	<select id="typeLaNameSelect">
-		<option>전체보기</option>
-		<c:forEach items="${typeLaNameList}" var="typeLaName">
-			<option>${typeLaName}</option>
-		</c:forEach>
-	</select>
-	<c:if test="${typeSNameList.size()!=0}">
+
+
+
 		<form id="typeSNameForm">
-			<input type="checkbox" value="지역 보기" id="typeSNameAll"><label
-				for="typeSNameAll">전체보기</label>
 			<c:forEach items="${typeSNameList}" var="typeSName">
 				<input type="checkbox" value="${typeSName}" id="${typeSName}"
 					name="typeSName">
-				<label for="${typeSName}">${typeSName}</label>
+				<label for="${typeSName}" id="typeSCss">${typeSName}</label>
 			</c:forEach>
-			<input type="submit" value="타입 검색" id="typeSNameBtn">
 		</form>
-	</c:if>
+	</div>
+
+
+
 	<br>
 	<div class="membership-list">
 		<c:forEach items="${list}" var="info" varStatus="status">
 			<div class="membership-card">
 				<div class="membership-img">
-					<a href="/${info.membershipCode}"> <c:choose>
+					<a href="/${info.membershipCode}">
+					 <c:choose>
 							<c:when test="${info.membershipImg != null}">
 								<img
 									src="http://192.168.10.51:8081/membership/${info.membershipCode}/${info.membershipImg}">
@@ -111,44 +117,49 @@
 				</div>
 				<div class="membership-info">
 					<h1 class="membership-name">${info.membershipName}</h1>
-					<h2>${info.membershipInfo}</h2>
-					<h3>멤버수 :
-						${info.count}/${info.membershipMax}</h3>
-					<div id="host">
-						<c:choose>
-							<c:when test="${info.memberImg != null}">
-								<img class="user-img"
-									src="http://192.168.10.51:8081/member/${info.id}/${info.memberImg}">
-							</c:when>
-							<c:otherwise>
-								<img class="user-img"
-									src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
-							</c:otherwise>
-						</c:choose>
-						<h2>호스트 : ${info.nickname}</h2>
-						<input type="hidden" name="code" value="${info.membershipCode}">
-						<br>
-					</div>
-						<div class="locationTypeBox">
-							<div class="location">
-								<c:forEach items="${info.locations}" var="location">
-										<div class="locationList"># ${location.locLaName} ${location.locSName}</div>
-								</c:forEach>
-							</div>
-							<br>
-							<div class="type">
-								<c:forEach items="${info.types}" var="type">
-									 	 <div class="typeList">${type.typeSName}</div>
-								</c:forEach>
-							</div>
+					
+					<h2>${info.membershipSimpleText}</h2>
+					<h3><i class="fa-solid fa-users"></i> : ${info.count}/${info.membershipMax}</h3>
+					<a href="/userInfo/${info.nickname}">
+						<div class="host">
+							<c:choose>
+								<c:when test="${info.memberImg != null}">
+									<img class="user-img"
+										src="http://192.168.10.51:8081/member/${info.id}/${info.memberImg}">
+								</c:when>
+								<c:otherwise>
+									<img class="user-img"
+										src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+								</c:otherwise>
+							</c:choose>
+							<h2>호스트 : ${info.nickname}</h2>
+							<input type="hidden" name="code" value="${info.membershipCode}">
 						</div>
+					</a>
+					<div class="locationTypeBox">
+						<div class="location">
+							<c:forEach items="${info.locations}" var="location">
+								<div class="locationList"># ${location.locLaName}
+									${location.locSName}</div>
+							</c:forEach>
+						</div>
+						<br>
+						<div class="type">
+							<c:forEach items="${info.types}" var="type">
+								<div class="typeList">${type.typeSName}</div>
+							</c:forEach>
+						</div>
+					</div>
 				</div>
 			</div>
 		</c:forEach>
 	</div>
+	<jsp:include page="footer/footer.jsp" />
+
 	<!-- <a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a> -->
 	<!-- <div class="membership-list"> -->
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<script src="${pageContext.request.contextPath}/js/index.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>

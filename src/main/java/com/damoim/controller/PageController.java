@@ -1,5 +1,6 @@
 package com.damoim.controller;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -7,11 +8,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
-import com.damoim.model.vo.Membership;
+import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MembershipDTO;
+import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
 import com.damoim.service.MembershipService;
@@ -20,33 +22,15 @@ import com.damoim.service.MembershipService;
 @Controller
 public class PageController {
 	
-	
 
 	@Autowired
-	private MembershipService service;
-	
-
+	private MembershipService infoService; // 맴버쉽 서비스
 	/*
 	 * 성일
 	 * 인덱스에 현재 호스트가 존재하는 모든 클럽들 모두 출력
 	 * */
 	// 08-20 이식을 위한 잠금
-//	@GetMapping("/")
-//	public String index(Model model) {
-//		
-//		
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		System.out.println("인증인가? : " + authentication.getPrincipal());
-//		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열
-//		model.addAttribute("list", service.allMembership()); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
-//		for(int i = 0; i < service.allMembership().size(); i++) {
-//		int j = service.allMembership().get(i).getMembership().getMembershipCode();
-//		countList.add(service.membershipUserCount(j)); // 각각 클럽의 인원수 (신청자는 제외)
-//		}	
-//		model.addAttribute("countList", countList); // 카운트 정보 출력용
-//		
-//		return "index";
-//	}
+
 	/*
 	 * 성철
 	 * 회원가입 페이지 이동 
@@ -58,10 +42,35 @@ public class PageController {
 	}
 
 	
+	/*
+	 * 성철 내가 가입한 클럽을 가입된, 관리자or호스트, 가입대기중 클럽 조회가능한 페이지이동
+	 */
+	
     // 기본 정보 수정
-	@GetMapping("/update")
+	@GetMapping("/mypage")
 	public String mypage(Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member = (Member) authentication.getPrincipal();
+		
+		ArrayList<MembershipUserList> membershipList = (ArrayList<MembershipUserList>) infoService.selectMemberUserList(member.getId());
+		model.addAttribute("list", membershipList);
+		
+		List<MembershipUserList> list = new ArrayList<MembershipUserList>();
+		for (MemberListDTO m : member.getMemberListDTO()) {
+			list.add((MembershipUserList) infoService.main(m.getMembershipCode()));
+		}
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).setCount(list.get(i).getListCode());
+		}
+		// 내 등급별 클럽
+		model.addAttribute("membership", list);
 		return "mypage/mypage";
+	}
+	
+	// 개인 유저 페이지
+	@GetMapping("/user")
+	public String user() {
+		return "member/user";
 	}
 	
 	// 내 정보 열람 비밀번호 체크
@@ -69,6 +78,12 @@ public class PageController {
 	public String updateCheck() {
 		return "mypage/updateCheck";
 	}
+	// 회원탈퇴 비밀번호 체크
+	@GetMapping("/resignPage")
+	public String resignPage() {
+		return "mypage/resignPage";
+	}
+	
 	
 	// 중요 회원정보 수정
 	@GetMapping("/updateMemberInfo")
@@ -76,21 +91,25 @@ public class PageController {
 		return "mypage/updateMemberInfo";
 	}
 	
-//	// 멤버쉽 정보 수정
-//	@GetMapping("/updateMembership")
-//	public String updateMembership(Membership membership) {
-//		return "membership/updateMembership";
-//	}
+	// 멤버쉽 정보 수정
+	@GetMapping("/updateMembership")
+	public String updateMembership() {
+		return "membership/updateMembership";
+	}
 	
-	// // 멤버쉽 정보 수정
-	// @GetMapping("/updateMembership")
-	// public String updateMembership() {
-	// 	return "membership/updateMembership";
-	// }
-	// 홍보글 작성페이지 테스트
-	@GetMapping("/membershipPromotionDetail")
-	public String membershipPromotionDetail(){
-		return "membership/membershipPromotionDetail";
+	// 회원탈퇴
+	@GetMapping("/memberDelete")
+	public String memberDelete(Model model){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		int num = 0;
+		for(MemberListDTO m : mem.getMemberListDTO()) {
+			if(m.getListGrade().equals("host"))
+				num = m.getMembershipCode();
+		}
+		// 호스트인 클럽을 담음 호스트인게 없으면 null담김
+		model.addAttribute("list", infoService.selectMembership(num));
+		return "mypage/memberDelete";
 	}
 
 	// 내가 가입한 맴버쉽 페이지 이동
@@ -107,9 +126,14 @@ public class PageController {
 	  * 아이디 찾기 미구현
 	  * 비밀번호는 이메일로 임시비밀번호 발송
 	  * */
-	 @GetMapping("/findMember")
-	 public String findMember() {
-	 	return "login/findMember";
+	 @GetMapping("/findPassword")
+	 public String findPassword() {
+	 	return "login/findPassword";
+	 }
+	 
+	 @GetMapping("/findId")
+	 public String findId() {
+	 	return "login/findId";
 	 }
 	 
   // 카카오맵 이동

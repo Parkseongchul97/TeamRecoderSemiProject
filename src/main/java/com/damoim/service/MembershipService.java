@@ -1,8 +1,11 @@
 package com.damoim.service;
+import java.util.ArrayList;
 import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.damoim.model.dto.MemberListDTO;
@@ -15,6 +18,7 @@ import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
 import com.damoim.model.vo.TypeCategory;
+import com.damoim.model.vo.UserInfoPaging;
 
 import mapper.MembershipMapper;
 @Service
@@ -22,7 +26,6 @@ public class MembershipService {
 	
 	@Autowired
 	private MembershipMapper mapper;
-	
 	
 	
 	public List<MembershipUserList> allMembership(){
@@ -34,7 +37,11 @@ public class MembershipService {
 	public List<MembershipUserList> MembershipAllInfo(int membershipCode){
 		
 		return mapper.MembershipAllInfo(membershipCode);
+	}
+	
+	public List<MembershipUserList> MembershipAllRegular(int membershipCode){
 		
+		return mapper.MembershipAllRegular(membershipCode);
 	}
 
 	
@@ -42,6 +49,7 @@ public class MembershipService {
 		
 		return mapper.main(membershipCode);
 	}
+   
    public int membershipUserCount(int count){
 		return mapper.membershipUserCount(count);
  	}
@@ -62,22 +70,95 @@ public class MembershipService {
 	public void host(MemberListDTO list) {
 		mapper.host(list);
 	}
-	
+	// 로그인 회원 가입한 클럽처리
 	public List<MemberListDTO> grade(Member member){
 		return mapper.grade(member);
 	}
 
 	
 	public void agreeMemeber(MemberListDTO member) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem =  (Member)authentication.getPrincipal();
+		
+		ArrayList<MemberListDTO> list =  (ArrayList<MemberListDTO>) mem.getMemberListDTO();
+		
+		
+		
+		if(member.getListGrade().equals("delete")) {
+			mapper.expelMember(member);
+			
+			for(int i =0; i<list.size(); i++) {
+				if(list.get(i).getMembershipCode() == member.getMembershipCode()) {
+					list.remove(i);
+				}
+				
+			}
+			
+		} else if (member.getListGrade().equals("host")) {
+			
+			mapper.hostChange(member.getMembershipCode());
+			mapper.agreeMemeber(member);
+			
+			for(int i = 0; i < list.size(); i++) {
+				if(list.get(i).getMembershipCode() == member.getMembershipCode() ) {
+					list.get(i).setListGrade("admin"); 
+					
+				}
+				
+			}
+			
+		}		
+		 else if(member.getListGrade().equals("admin")){
 		mapper.agreeMemeber(member);
 		
 	}
 
 	
-
+	// 영민님 다룬 거 있음?
+	//
 	public List<Integer> membershipCodeList(String id){
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getMembershipCode() == member.getMembershipCode() ) {
+				list.get(i).setListGrade("admin"); 
+				
+			}
+			
+		}
 		
-		return mapper.membershipCodeList(id);
+		
+		
+		}	 else if(member.getListGrade().equals("regular")){
+			mapper.agreeMemeber(member);
+			
+			for(int i = 0; i < list.size(); i++) {
+				if(list.get(i).getMembershipCode() == member.getMembershipCode() ) {
+					list.get(i).setListGrade("regular"); 
+					
+				}
+				
+			}
+			
+			
+			
+			} else {
+				
+				mapper.agreeMemeber(member);
+				
+				list.add(member);
+				
+			}
+		
+
+		
+		
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		
+		
+		
+		
+		
 	}
 
 	public List<BasicRoomListVo> roomlist() {
@@ -86,12 +167,20 @@ public class MembershipService {
 	
 	
 	
-	public void updateMembership(Membership membership) {
-		mapper.updateMembership(membership);
+
+	
+
+
+	
+	public void updateMembershipInfo(Membership membershipInfo) {
+		mapper.updateMembershipInfo(membershipInfo);
 	}
 
 
 	
+	public Membership selectMembership(int membershipCode) {
+		return	mapper.selectMembership(membershipCode);
+	}
 	
 	// public List<MembershipUserList> list(Paging paging) {
 		
@@ -114,12 +203,32 @@ public class MembershipService {
 
 
 		
+	public int meetCount(String id) {
+		return mapper.meetCount(id);
+	}
 	
+	public List<MembershipUserList> selectMemberUserList(String id){
+		
+		return mapper.selectMemberUserList(id);
+	}
 	
 //	public List<MembershipUserList> list(Paging paging) {
 //		
 //		return mapper.allMembership(paging);
 //	}
+	
+	public List<MemberListDTO> adminUser(int membershipCode){
+		
+		return mapper.adminUser(membershipCode);
+	}
+	
+	public MemberListDTO ifHost(String id) {
+		
+		return mapper.ifHost(id);
+		
+		}
+	
+	
 }
 
 

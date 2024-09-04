@@ -1,4 +1,5 @@
 
+select * from membership_user_list;
 
 SELECT *
 FROM type_category;
@@ -9,21 +10,105 @@ FROM membership_location;
 SELECT *
 FROM location_category;
 
-SELECT *
-FROM member;
+select * 
+from membership_meetings;
+SELECT id, member_manner, last_recommendation_time
+FROM member
+WHERE id IN('user010', 'user006');
+UPDATE member 
+	SET member_manner = member_manner - 0.5
+	WHERE id = user006;
+    
+select * from membership_user_list 
+where id = 'user037';
+
+delete from membership_user_list
+where list_code = 37;
 
 select *
-from member ;
+from member 
+where id = 'user037';
 
+select * 
+from member
+where status = 0;
+-- 5
+select * 
+from meetings_agree
+where id = 'user010';
+/*
+select * 
+from meetings_agree
+join member using(id)
+join membership_user_list using(id)
+where meet_code  = #{meetCode}
+and meet_agree_yn = 1;
+*/
 		SELECT list_grade, id, membership_code 
 		FROM membership_user_list
 		WHERE id = 'asd123';
 select* 
 FROM main_comment;
-insert into main_comment(main_comment_text, id, membership_code, main_parents_comment_code)
+select * from membership;
+		SELECT
+		count(*)
+		FROM meetings_agree
+		JOIN membership_meetings USING (meet_code)
+		WHERE meetings_agree.id = 'user077'
+		AND meet_agree_yn = 1
+		AND meet_date_end
+		> now(); 
+select *from member 
 
-select *
-from membership ;
+where id = 'user087';
+select meet_title, meet_date_start, meet_creat_date, membership_name
+from meetings_agree
+join membership_meetings using(meet_code)
+join membership using(membership_code)
+where meetings_agree.id = 'user077' and meet_agree_yn = 1;
+
+select * from meetings_agree
+where id = 'user077';
+
+
+ALTER TABLE membership
+DROP COLUMN memership_secret_text;
+
+ALTER TABLE membership
+CHANGE COLUMN memership_accession_text membership_accession_text text;
+
+create table test_col(
+	info text
+);
+select * from test_col;
+drop table test_col;
+
+INSERT INTO test_col(info)
+SELECT
+    membership_info
+FROM
+    membership
+WHERE
+    membership_info != 0;
+    
+UPDATE membership
+SET membership_simple_text = membership_info; 
+
+update membership 
+set membership_info = null
+where membership_code in (6,7,10,20,64);
+
+insert into membership_type(type_code, membership_code)
+values(65,135);
+
+select * from membership_location;
+select * from membership_type;
+select * from location_category;
+select * from type_category;
+select * from membership;
+
+
+SHOW COLUMNS FROM membership;
 
 SELECT *
 FROM membership_user_list
@@ -36,8 +121,7 @@ SELECT * FROM membership_user_list;
 SELECT count(membership_code) as count
 FROM membership_user_list
 WHERE membership_code = 1
-GROUP BY membership_code
-;
+GROUP BY membership_code;
 
 insert into member (id, pwd, addr, phone, email, name, age, gender, nickname, member_img, member_hobby, member_info, member_location, member_type)
 values ('asd123', '123' , '감자왕국',"010-0000-1234",'감자',5,'M','감자대마왕', '');

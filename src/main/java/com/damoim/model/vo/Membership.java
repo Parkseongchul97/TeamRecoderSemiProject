@@ -22,14 +22,9 @@ public class Membership {
     private Date membershipDate; // 클럽생성날짜
     private double membershipGrade; // 클럽 별점
     private int membershipMax; // 클럽최대인원
-    
-    private String membershipAccessionText; //클럽 가입 조건
-    private String membershipSimpleText; // 간단한 소개글
-    private String membershipSecretText; // 클럽원들간 비밀글
-    
+    private String membershipSimpleText; // 클럽 대문정보
     private MultipartFile file; // 클럽메인사진(실저장)
-    
-
+    private String membershipAccessionText;// 가입조건
 }
 
 
