@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -112,8 +113,8 @@ public class ChattingController {
 	// 컨트롤러
 
 	// 메인화면
-	@GetMapping("/chatserver")
-	public String chatServer(Model model) {
+	@GetMapping("/chatserver/{code}")
+	public String chatServer(Model model, @PathVariable(name="code") int code) {
 		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("member",mem);
 		return "chatting/chatting";

@@ -10,15 +10,17 @@
 	href="${pageContext.request.contextPath}/css/chattingIndex.css" />
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 	<sec:authorize access="isAuthenticated()">
 		<main id="chatMain">
 			<!-- <div id="moveMain">이동하기</div> -->
 			<nav>
-				<span>드래그 시 이동</span>
+			 	DAMOIM Talk
 			</nav>
-			<hr />
 			<ul>
 				<li></li>
 			</ul>

@@ -1,5 +1,9 @@
 $(document).ready(function() {
 	// 채팅방 목록 불러오기
+	const link = document.createElement('link');
+	link.rel = 'stylesheet';
+	link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
+	document.head.appendChild(link);
 	const chattingRoomList = function() {
 		enterChattingroomCode().then(function(codeList) {
 			$.ajax({
@@ -13,7 +17,7 @@ $(document).ready(function() {
 							listHtml += `
 	   			<li data-room_number=${roomList[i].roomNumber}>
 					<span class="chat_title">${roomList[i].roomName}</span>
-					<span class="chat_count">${roomList[i].users.length}명</span>
+					<span class="chat_count">${roomList[i].users.length} <i class="fa-solid fa-user"></i></span>
 				</li>`;
 						}
 					}
@@ -401,7 +405,7 @@ $(document).ready(function() {
 	};
 
 	// 드래그 가능한 요소에 함수 적용
-	makeDraggable('#chatMain');
+	makeDraggable('#chatMain nav');
 	makeDraggable('#chat');
 
 

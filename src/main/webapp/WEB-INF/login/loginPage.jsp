@@ -50,7 +50,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <div id="pwdCheck" class="form-text"></div>
         </div>
         <div id="result"></div>
-        <button type="submit" class="btn btn-dark">로그인</button>
+        <button type="submit" class="btn">로그인</button>
       </form>
        	<div id="a-link">
         <a class="link" class="link" href="/loginPage">로그인 페이지</a>

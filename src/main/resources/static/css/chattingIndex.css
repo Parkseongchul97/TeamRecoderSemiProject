@@ -1,53 +1,69 @@
-
-body {
-
-}
-
 .all {
 	display: flex;
 }
+
 .all .nickname img {
 	border-radius: 50%;
 	width: 50px;
 	height: 50px;
 	background-position: center;
 }
-.all > img {
+
+.all>img {
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
 }
+
 .nm {
-	padding-left: 8px;	
+	padding-left: 8px;
 }
+
 li {
 	list-style: none;
 }
-#chat_box {
-    position: absolute;
-    z-index: 1000;  /* 다른 요소보다 위에 위치 */
-}
 
+#chat_box {
+	position: absolute;
+	z-index: 1000; /* 다른 요소보다 위에 위치 */
+}
 
 .swal-footer {
 	text-align: center;
 }
 /* 채팅방 목록 */
 #chatMain {
-	/*background: linear-gradient(90deg, white, skyblue)*/
-	background-color: rgb(190, 179, 207, 0.5);
+	background-color: white;
 	width: 180px;
-	height: 30vh;
-	border: 1px solid #000;	
+	height: 20vh;
+	border: 1px solid #80808047;
 	position: fixed;
 	z-index: 1000;
 	bottom: 15px;
 	right: 5px;
+	border-radius: 10px;
+}
+ul li{
+	z-index: 124109;
 }
 #chatMain * {
 	font-size: 15px
 }
-.chat_content > img{
+
+#chatMain::after {
+	content: "";
+	position: absolute;
+	bottom: -10px;
+	left: -5px;
+	width: 0;
+	height: 0;
+	border-left: 3px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 15px solid white;
+	transform: rotate(30deg);
+}
+
+.chat_content>img {
 	width: 100px;
 	height: 100px;
 }
@@ -72,10 +88,16 @@ li {
 }
 
 #chatMain nav {
-	font-size: 1.6rem;
-	text-align: center;
-	margin-bottom: 5px;
-	padding: 0 7px;
+	font-size: 1.4rem;
+	background-color: #ADD8E6;
+	padding-bottom: 6px;
+	border-bottom: 1px solid #80808047;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	padding: 5px;
+	font-family: "Chewy", system-ui;
+	color: #FCA35B;
+	text-shadow: 2px 3px black;
 }
 
 #chatMain nav>span:first-child {
@@ -88,17 +110,17 @@ li {
 
 #chatMain ul {
 	overflow-y: auto;
-	max-height: calc(100% - 50px);
+	max-height: calc(100% - 40px);
 }
 
 #chatMain li {
 	font-size: 1.6rem;
 	width: 100%;
-	height: 70px;
+	height: 40px;
 	padding: 7px;
 	box-sizing: border-box;
 	display: flex;
-	justify-content: space-between;
+	align-items: center;
 }
 
 #chatMain li:hover {
@@ -106,16 +128,18 @@ li {
 }
 
 #chatMain .chat_title {
-	font-weight: bold;
-	width: 80%;
+	width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	font-size: 16px;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
 #chatMain .chat_count {
 	width: 20%;
-	text-align: center;
+	font-size: 16px;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
 /* 채팅방 목록 */
@@ -126,30 +150,33 @@ li {
 	display: none;
 	position: fixed;
 	width: 400px;
-	height: 400px;	
+	height: 400px;
 	position: fixed;
 	z-index: 1000;
 	bottom: 50px;
 	right: 5px;
 	position: fixed;
 }
+
 .chat * {
 	font-size: 17px
 }
-.chat > div{
-	font-size: 2em; 
+
+.chat>div {
+	font-size: 2em;
 }
+
 .chat>div {
 	height: 100%;
 	display: flex;
 }
 
 .chat .chat_body {
-	background: rgb(195, 204, 221);
+	background: #9fadc8;
 	height: 100%;
 	width: 100%;
 	order: 1;
-	border: 1px solid #000;
+	border: 1px solid #9d9d9d;
 	position: relative;
 }
 
@@ -161,12 +188,15 @@ li {
 	text-align: center;
 	background: #eee;
 }
+
 #chatMain ul::-webkit-scrollbar {
-    display: none; /* 스크롤바를 숨깁니다 */
+	display: none; /* 스크롤바를 숨깁니다 */
 }
+
 .chat ul.chat_list::-webkit-scrollbar {
-    display: none; /* 스크롤바를 숨깁니다 */
+	display: none; /* 스크롤바를 숨깁니다 */
 }
+
 .chat .chat_back {
 	width: 20px;
 	height: 20px;
@@ -177,7 +207,7 @@ li {
 	border: none;
 	cursor: pointer;
 	position: absolute;
-	background: rgb(195, 204, 221);
+	background: #9fadc8;
 }
 
 .chat ul.chat_list {
@@ -207,10 +237,11 @@ li {
 	background: #ae9191;
 	color: #fff;
 	font-size: 13px;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
 .chat li>div .nickname {
-	 padding-bottom: 2px;  
+	padding-bottom: 2px;
 }
 
 .chat li>div .message {
@@ -240,7 +271,7 @@ li {
 	padding: 5px;
 	border-radius: 3px;
 	box-shadow: 0px 2px 3px 0px rgb(0 0 0/ 25%);
-	/*display: inline-block;*/ 
+	/*display: inline-block;*/
 	display: flex;
 	flex-direction: column;
 	max-width: 250px;
@@ -283,24 +314,29 @@ li {
 .chat_input .chat_input_area textarea:focus {
 	outline: none;
 }
+
 .chat_input_area textarea::placeholder {
-  font-size: 15px;
-  font-style: italic;
+	font-size: 15px;
+	font-style: italic;
+	font-family: "Noto Sans KR", sans-serif;
 }
-.chat_body li .nickname img{
-	width:100px;
+
+.chat_body li .nickname img {
+	width: 100px;
 	height: 100px;
 	position: absolute;
-	bottom:70px;
+	bottom: 70px;
 	left: 10px;
 }
-.chat_body > img{
-	width:100px;
+
+.chat_body>img {
+	width: 100px;
 	height: 100px;
 	position: absolute;
-	bottom:70px;
+	bottom: 70px;
 	left: 10px;
 }
+
 .chat_input .chat_button_area {
 	width: 13%;
 	display: flex;
@@ -309,20 +345,22 @@ li {
 }
 
 .chat_input .chat_button_area button {
-	background: yellow;
+	font-family: "Noto Sans KR", sans-serif;
+	background-color: #FCA35B;
+	color: white;
 	border: 1px solid #ddd;
-	border-radius: 3px;
+	border-radius: 10px;
 	padding: 5px;
 	width: 90%;
 	cursor: pointer;
 	margin-right: 5px;
+	font-weight: bold;
 }
 
 .chat .chat_users {
 	border: 1px solid #ddd;
 	width: 30%;
 	height: 300px;
-
 	margin-right: 3px;
 }
 
