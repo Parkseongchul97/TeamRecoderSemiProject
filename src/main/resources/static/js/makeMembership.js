@@ -228,7 +228,6 @@ function validate() { // 생성버튼 눌렀을때 작동
 		processData: false,
 		contentType: false,
 		success: function() {
-			console.log("와!!");
 			
 		}
 

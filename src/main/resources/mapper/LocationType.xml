@@ -74,26 +74,8 @@
 		from type_category
 		where type_la_name = #{typeLaName};
 	</select>
+	
 
-	<!-- MakeMemberShip에서 클럽 생성할때 사용 -->
-<!-- 	<insert id="locSName" parameterType="">
-		SELECT *
-		FROM location_category
-		WHERE (loc_la_name,loc_s_name)	  
-		VALUES  (#{locLaName}, #{locSName}) 
-	</insert>
-
-	<insert id="typeSName" parameterType="">
-		SELECT *
-		FROM type_category
-		WHERE (type_la_name, type_s_name) 
-		VALUES(#{typeLaName},#{typeSName})	
-	</insert>
-	
-	 -->
-	
-	
-	
 	<!-- 지역 상위 선택에 따른 멤버십 코드 뽑기 -->
 	<!-- 3. jsp에서 받아온 파라미터 ex>부산 -->
 	<select id="searchList" parameterType="SearchDTO" resultType="Integer">		

@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
 
 import com.damoim.model.dto.MemberListDTO;
-import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.vo.BasicRoomListVo;
+import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
-
+import com.damoim.model.vo.MembershipLocation;
 import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
@@ -23,14 +22,14 @@ public interface MembershipMapper {
 	
 	
 
-	void membershipApply(MemberListDTO member);
+	
 	List<MembershipUserList>allMembership(Paging paging);
 	MemberListDTO checkMember(MemberListDTO member);
-	void host(MemberListDTO list);
+	
 //	void createclub(Membership membership);
 //	void searchMembershipInfo(Membership membership );
 	
-	List<MemberListDTO> grade(Member member);
+	
 	ArrayList<Member> allMember();
 //	void createclub2(Membership membership);
 	List<MembershipUserList> listGrade(Member member);
@@ -54,6 +53,21 @@ public interface MembershipMapper {
 	void membershipImg(Membership membership); // 클럽 창설때 IMG 추가 업데이트 형식으로 추가
 	void host(MemberListDTO list); // 클럽 생성시 해당 클럽 코드 + 호스트 추가
 	
+	// _클럽 생성 ===============================================
+		void makeMembership(Membership membership); // 클럽 만들기????
+		
+		// 지역 추가
+		void makeLocationMembership(MembershipLocation membershipLocation);
+
+		// 유형 추가
+		void makeTypeMembership(MembershipType membershipType);
+		
+		// 지역- 이름으로 찾기
+		int findLocationCode(LocationCategory locationCategory);
+		
+		// 유형- 이름으로 찾기
+		int findTypeCode(TypeCategory typeCategory);
+	
 	// 맴버쉽 관리 =========================================
 	void agreeMemeber(MemberListDTO member); // 해당 맴버쉽 코드 , 유저ID로 유저 등급 변경
 	List<MemberListDTO> adminUser(int membershipCode); // 해당 클럽의 관리자인 유저 반환
@@ -72,35 +86,17 @@ public interface MembershipMapper {
 	// 멤버쉽 업데이트 ============================	
 	void updateMembershipInfo(Membership membershipInfo);// 아마 맴버쉽 정보 업데이트
 	
-	// ??????????????????????????
-	void makeMembership(Membership membership); // 클럽 만들기????
+	
 	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	int makeMembershipCode(String membername);
-	
-
 
 //<update id="updateMakeMembershipImg" parameterType="Membership">
 //	 update membership
 //        set membership_img= #{membershipImg}
 //        where membership_name= #{membershipName}
 //</update>
-	
-	
-	
-	
 
-	
 	Membership membershipNameCheck(Membership membership);
 		
 	
