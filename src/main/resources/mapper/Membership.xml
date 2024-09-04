@@ -213,13 +213,6 @@
 		membership_code =
 		#{membershipCode}
 	</delete>
-	 
-	<!-- 모든 채팅방리스트 불러옴 정배존 -->
-	<select id="roomlist" resultMap="roomListmap">
-		SELECT
-		membership_name,membership_code FROM
-		membership
-	</select>
 	
 	<select id="enterChattingroomCode" parameterType="String" resultType="Integer">
 		select membership_code from membership_user_list join member using (id) where id=#{id} AND list_grade !='guest'
