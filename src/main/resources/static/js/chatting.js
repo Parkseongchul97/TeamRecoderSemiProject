@@ -10,10 +10,6 @@ setInterval(() => {
 }, 60);
 
 $(document).ready(function() {
-	// 채팅방 목록 불러오기
-	const chattingRoomList = function() {
-		enterChattingRoom(code);
-	};
 	// 채팅방 세팅
 	const initRoom = function(room, nickname, img) {
 		stomp.send("/socket/roomList");
@@ -25,14 +21,6 @@ $(document).ready(function() {
 		$(".chat_input_area textarea").focus();
 	};
 
-	const enterChattingroomCode = function() {
-		return $.ajax({
-			url: "/enterChattingroomCode",
-			type: "GET",
-		}).then(function(response) {
-			return response;
-		});
-	};
 
 	const socket = new SockJS("http://localhost:8080/websocket");
 	const stomp = Stomp.over(socket);
@@ -191,7 +179,6 @@ $(document).ready(function() {
 	});
 
 	const enterChattingRoom = function(roomNumber) {
-		let id = "";
 		$.ajax({
 			url: "/nick1",
 			type: "GET",

@@ -114,7 +114,7 @@ public class ChattingController {
 
 	// 메인화면
 	@GetMapping("/chatserver/{code}")
-	public String chatServer(Model model, @PathVariable(name="code") int code) {
+	public String chatServer(Model model) {
 		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("member",mem);
 		return "chatting/chatting";
