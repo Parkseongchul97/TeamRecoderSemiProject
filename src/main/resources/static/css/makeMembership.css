@@ -61,19 +61,12 @@ select {
 
 }
 
-.page {
-  display: none; /* 처음에는 모든 페이지 숨김 */
-}
-
-.page h2 {
-  margin-top: 0;
-}
 
 input[type="text"],
 input[type="number"],
 input[type="file"],
 textarea {
-  width: 50%;
+  width: 80%;
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #ccc;
@@ -91,11 +84,33 @@ input[type="submit"], #toIndex {
   cursor: pointer;
 }
 
+.ltadd{
+	
+	background-color: orange;
+	display: flex;
+	
+}
+#test1{
+	border: 5px solid;
+	padding-right: 553%;
+}
 
-button:hover,
-input[type="submit"]:hover {
-	color: #C0C0FF;
-  background-color: #218838;
+
+.locationt1{
+	background-color: orange;
+	display: flex;
+}
+
+.insert:hover {
+	background-color: #218838;
+}
+
+.cancel:hover{
+	background-color: red;
+}
+
+#toIndex:hover {
+	background-color: red;
 }
 
 .select {

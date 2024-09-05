@@ -109,8 +109,9 @@ public class MembershipController {
 	 *
 	 * 성철 만들어진거에 사진첨부만 추가
 	 */
+	@ResponseBody
 	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
+	public int makeMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
 		System.out.println("지역 확인 : " + LB); // 인천 = 중구, 미추홀구, 남동구
 		System.out.println("유형 확인 : " + TB); // 스터디 = 코딩, 자격증, 토론
 		System.out.println("맴버쉽 정보 : " + vo);
@@ -168,8 +169,12 @@ public class MembershipController {
 		ArrayList<MemberListDTO> dtolist =	(ArrayList<MemberListDTO>) mem.getMemberListDTO();
 		dtolist.add(list);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return "redirect:/";
+		return  membership.getMembershipCode();
+		
 	}
+	
+	
+
 
 	/*
 	 * 영민 클럽명 중복 체크용 Ajax
@@ -178,9 +183,24 @@ public class MembershipController {
 	@ResponseBody
 	@PostMapping("/membershipNameCheck")
 	public boolean membershipNameCheck(Membership membership) {
-		return service.membershipNameCheck(membership) == null;
+		int code2 = membership.getMembershipCode(); // JSP에서 온코드 OR 0
+	 // 이름으로 멤버쉽을 조회 !
+	if(service.membershipNameCheck(membership) == null) { // 중복이 아닌 상황임  중복인데 0이 아님  make 중복인데 1 이 아님 update
+		return true;                    // 무조건 바로 그냥 트루
+	}else if(code2 != 0) {       // 중복이지만 업데이트 상황임
+		if(code2 == service.membershipNameCheck(membership).getMembershipCode()) {
+			return true;
+		}
+			
 	}
 	
+	return false;
+	
+		
+	}
+	
+
+
 	/*
 	 * 성철
 	 * 클럽 삭제 
@@ -277,8 +297,8 @@ public class MembershipController {
 
 		model.addAttribute("comment", dtoList);
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
-		model.addAttribute("location", locationTypeservice.locationList(membershipCode));
-		model.addAttribute("type", locationTypeservice.typeList(membershipCode));
+		model.addAttribute("location", locationTypeService.locationList(membershipCode));
+		model.addAttribute("type", locationTypeService.typeList(membershipCode));
 
 		return "mainboard/main";
 	}
@@ -328,8 +348,8 @@ public class MembershipController {
 		System.out.println(meetingService.allMeetings(membershipCode));
 
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
-		model.addAttribute("location", locationTypeservice.locationList(membershipCode));
-		model.addAttribute("type", locationTypeservice.typeList(membershipCode));
+		model.addAttribute("location", locationTypeService.locationList(membershipCode));
+		model.addAttribute("type", locationTypeService.typeList(membershipCode));
 
 		return "membership/membershipPage";
 	}
@@ -348,90 +368,10 @@ public class MembershipController {
 	/*
 	 * 
 	 * */
-	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
-	public String makeMembership(SearchDTO search, Model model) {
-		model.addAttribute("locLaNameList", locationTypeservice.locLaNameList());
-		model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList());
-		return "mypage/makeMembership";
-	}
 
-	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	/*
-	 * ???
-	 * 
-	 * 
-	 * 영민 클럽 생성기능 추가
-	 *
-	 * 성철 만들어진거에 사진첨부만 추가
-	 */
-	@ResponseBody
-	@PostMapping("/makeMembership") // 클럽 생성
-	public int makeMembership(MembershipDTO dto, MultipartFile file, String LB, String TB) throws Exception {
-		System.out.println("지역 확인 : " + LB); // 인천 = 중구, 미추홀구, 남동구
-		System.out.println("유형 확인 : " + TB); // 스터디 = 코딩, 자격증, 토론
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println("-----------------------------------");
 
-		// -- membership_name, membership_img, membership_info, membership_max,
-		// membership_accession_text, membership_simple_text
-		Membership membership = Membership.builder().membershipName(dto.getMembershipName())
-				.membershipMax(Integer.parseInt(dto.getMembershipMax()))
-				.membershipAccessionText(dto.getMembershipAccessionText())
-				.membershipSimpleText(dto.getMembershipSimpleText()).build();
+
 	
-		service.makeMembership(membership);
-
-		int code = service.makeMembershipCode(dto.getMembershipName());
-		Path directoryPath = Paths.get(
-				"\\\\192.168.10.51\\damoim\\membership\\" + code + "\\");
-		Files.createDirectories(directoryPath);
-		String fileName = fileUpload(file, code);
-		membership.setMembershipImg(fileName);
-
-		service.membershipImg(membership);
-		
-		String locLaName = LB.split(" = ")[0];
-		String[] locLaSName = LB.split(" = ")[1].split(", ");
-		LocationCategory lc = LocationCategory.builder().locLaName(locLaName).build();
-
-		for (String s : locLaSName) {
-			lc.setLocSName(s);
-			int locationCode = service.findLocationCode(lc);
-
-			MembershipLocation location = MembershipLocation.builder().locSmallCode(locationCode).membershipCode(code)
-					.build();
-			System.out.println("지역 확인 : " + location);
-			service.makeLocationMembership(location); // MembershipLocation
-		}
-
-		String typeLaName = TB.split(" = ")[0];
-		String[] typeSName = TB.split(" = ")[1].split(", ");
-		TypeCategory tc = TypeCategory.builder().typeLaName(typeLaName).build();
-
-		for (String s : typeSName) {
-			tc.setTypeSName(s);
-			int typeCode = service.findTypeCode(tc);
-
-			MembershipType type = MembershipType.builder().typeSmallCode(typeCode).membershipCode(code).build();
-			System.out.println("타입 확인 : " + type);
-			service.makeTypeMembership(type);
-		}
-		System.out.println(mem.getName());
-		MemberListDTO list = new MemberListDTO();
-				list.setId(mem.getId());
-				list.setListGrade("host");
-				list.setMembershipCode(membership.getMembershipCode());
-		// 호스트로 보유중인 클럽 유무 확인
-		System.out.println("등급 확인 : " + list);
-		service.host(list);
-		ArrayList<MemberListDTO> dtolist =	(ArrayList<MemberListDTO>) mem.getMemberListDTO();
-		dtolist.add(list);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-		return membership.getMembershipCode();
-	}
-
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -549,65 +489,7 @@ public class MembershipController {
 	}
 
 
-	/*
-	 * 영민 클럽명 중복 체크
-	 * 
-	 */
-	@ResponseBody
-	@PostMapping("/membershipNameCheck")
-	public boolean membershipNameCheck(Membership membership) {
-		return service.membershipNameCheck(membership) == null;
-	}
-	/*
-	 * 영민 클럽 정보 업데이트 기능
-	 * 
-	 * 
-	 */
-
-//	@GetMapping("/updateMembership")
-//	public String updateMembership(@PathVariable("membershipCode") int membershipCode, Model model) {
-//		System.out.println(membershipCode);
-//		MembershipUserList list =  service.main(membershipCode);
-//		list.setCount((service.membershipUserCount(membershipCode)));
-////		model.addAttribute(null, model);
-//		return "membership/updateMembership";
-//	}
-
-//	@PostMapping("/updateMembership")
-//		public String updateMembership(@PathVariable("membershipCode")Integer membershipCode, Membership membership,MembershipDTO dto, Model model) throws IOException {
-//		// 홍보페이지에 membership 관련 정보 + 호스트 정보
-//				MembershipUserList list =  service.main(membershipCode);
-//				list.setCount((service.membershipUserCount(membershipCode)));
-//				
-//				model.addAttribute("updateMembership", list);	
-//				
-//		membership.getFile();
-//		membership.setMembershipImg(null);
-//		System.out.println(membership);
-//		service.updateMembership(membership);
-//		Membership m = Membership.builder()
-//					.membershipCode(membership.getMembershipCode())
-//					.membershipImg(fileUpload(membership.getFile(), membership.getMembershipCode()))
-//					.membershipName(dto.getMembershipName())
-//					.membershipAccessionText(dto.getMembershipAccessionText())
-//					.membershipSimpleText(dto.getMembershipSimpleText())
-//					.membershipMax(Integer.parseInt(dto.getMembershipMax()))
-//					.build();
-//		service.membershipImg(m);
-//		MemberListDTO dtolist = new MemberListDTO();
-//		dtolist.setId(dto.getId());
-//		dtolist.setListGrade(dto.getListGrade());
-//		dtolist.setMembershipCode(membership.getMembershipCode());
-//		// 호스트로 보유중인 클럽 유무 확인
-//		service.host(dtolist);
-//		System.out.println(dtolist);
-//
-////	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-////	Membership mship = (Membership) authentication.getPrincipal();
-//	return "redirect:/myMembership";
-//		
-//	}
-//	}
+	
 	/*
 	 * 성철 파일 삽입 메서드 해당맴버쉽 프로필사진 !!
 	 * 

@@ -48,7 +48,7 @@
 				</div>
 			</div>
 		
-			
+			<div class = "ltadd">
 			<p class="pt" id="location">지역</p>
 			<select id="locationLaNameMem">
 
@@ -59,27 +59,32 @@
 			</select> <select id="locationSNameMem">
 				<option>전체보기</option>
 			</select>
-			<div id="test1" class="select"></div>
-			<input type="button" value="추가" id="locationBtn">
-			<input type="button" value="취소" id="locationBtncancel"><br><br>
+			<div = class="locationt1">
+			<div id="test1" class="select" placeholder="취소를 누르시면 전부 지워지니 신중히 사용하세요"></div>
+			<input class="insert" type="button" value="추가" id="locationBtn">
+			<input class="cancel" type="button" value="취소" id="locationBtncancel"><br><br>
+			</div>
+			</div>
 			<p class="pt" id="type">유형</p>
 			<select id="typeLaNameMem">
 				<option>전체보기</option>
 				<c:forEach items="${typeLaNameList}" var="typeLaName">
 					<option>${typeLaName}</option>
 				</c:forEach>
-			</select> <select id="typeSNameMem">
+			</select> 
+			<select id="typeSNameMem">
 				<option>전체보기</option>
 			</select>
-			<div id="test2" class="select"></div>
-			<input type="button" value="추가" id="typeBtn"> 
-			<input type="button" value="취소" id="typeBtncancel"><br><br>
-			<button type="button" onclick="validate(event)">클럽생성</button>
+			<div id="test2" class="select" placeholder="취소를 누르시면 전부 지워지니 신중히 사용하세요"></div>
+			<input class="insert" type="button" value="추가" id="typeBtn"> 
+			<input class="cancel" type="button" value="취소" id="typeBtncancel"><br><br>
+			
+			<button class="insert" type="button" onclick="validate(event)">클럽생성</button>
+			<a href="/" class="cancel" id="toIndex">생성 취소</a>
 			<div>
 				<h2>${mem.id}</h2>
-				<input type="hidden" name="id" value="${mem.id}"> <input
-					type="hidden" name="listGrade" value="host"><br> <a href="/"
-					id="toIndex">생성 취소</a>
+				<input type="hidden" name="id" value="${mem.id}"> 
+				<input type="hidden" name="listGrade" value="host"><br> 
 			</div>
 		</form>
 	</sec:authorize>
