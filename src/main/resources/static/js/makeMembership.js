@@ -229,14 +229,15 @@ function validate() { // 생성버튼 눌렀을때 작동
 		processData: false,
 		contentType: false,
 		success: function() {
+
 			
+			//  mypage 페이지로 이동
+			window.location.href = `/club/${membershipCode}`;
 			
 		}
 		
 	});
 	
 	
-	// 다른 main 페이지로 이동
-	window.location.href = '/mypage';
-	
+
 }

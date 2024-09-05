@@ -44,7 +44,7 @@ select {
 				for="membershipMax" id="membershipMax" name="membershipMax"><br>
 
 
-			<!-- 08-20 채승훈 -->
+			
 			<p>지역</p>
 			<select id="locationLaNameMem">
 

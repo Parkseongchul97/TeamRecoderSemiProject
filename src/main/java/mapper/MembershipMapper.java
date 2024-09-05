@@ -68,6 +68,8 @@ public interface MembershipMapper {
 		// 유형- 이름으로 찾기
 		int findTypeCode(TypeCategory typeCategory);
 	
+		// 클럽명 중복체크
+		Membership membershipNameCheck(Membership membership);
 	// 맴버쉽 관리 =========================================
 	void agreeMemeber(MemberListDTO member); // 해당 맴버쉽 코드 , 유저ID로 유저 등급 변경
 	List<MemberListDTO> adminUser(int membershipCode); // 해당 클럽의 관리자인 유저 반환
@@ -97,7 +99,7 @@ public interface MembershipMapper {
 //        where membership_name= #{membershipName}
 //</update>
 
-	Membership membershipNameCheck(Membership membership);
+	
 		
 	
 }
