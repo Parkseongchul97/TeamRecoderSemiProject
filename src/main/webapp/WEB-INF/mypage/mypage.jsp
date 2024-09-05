@@ -165,10 +165,16 @@
 									<c:if test="${adminClub != 'host'}">
 									<button  class="btn" onclick="deleteList('${adminClub}',${mem.membership.membershipCode})" >탈퇴</button>
 									</c:if>
+									
+									
+										
+									
 								</div>
 							</div>
 						</div>
 					</a>
+					비밀번호 확인<input type="password" name="pwdCheck" id="pwdCheck">
+										<button class="btn" onclick="allDeleteMembership()">클럽 삭제</button>
 				</c:if>
 			</c:forEach>
 		</div>
@@ -224,10 +230,7 @@
 						name="chevron-down-outline" id="arrow"></ion-icon>
 				</label>
 				<ul id="menu">
-					<form action="/makeMembership">
-						<input type="hidden" name="id" value="${mem.id}">
-						<button id="make-club" type="submit" value="클럽생성">클럽 만들기</button>
-					</form>
+					<a href="/makeMembership">클럽 만들기</a>
 					<form action="/updateMembership">
 						<button id="update-club" type="submit" value="클럽수정">클럽 정보
 							수정</button>

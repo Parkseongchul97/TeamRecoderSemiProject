@@ -3,6 +3,8 @@ package com.damoim.controller;
 import java.io.File;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -232,9 +234,9 @@ public class MemberController {
 		
 		if(!service.updateCheck(mem, beforePwd)) {
 			
-			System.out.println("실패함 ");
+			
 			model.addAttribute("text" , "변경 실패");
-			System.out.println("실패함1 ");
+		
 			return "mypage/updateMemberInfo";
 			
 		}
@@ -280,6 +282,7 @@ public class MemberController {
 	@PostMapping("/memberStatus")
 	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response ,String pwdCheck) {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    System.out.println("입력한 비번옴? : " + pwdCheck);
 	    Member mem = (Member) authentication.getPrincipal();
 	    boolean check = false;
 	    for(MemberListDTO dto : mem.getMemberListDTO()) {
@@ -290,6 +293,7 @@ public class MemberController {
 	        return false;
 	    	}
 	    if(!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
+	    	System.out.println("비번트림 ㅠ");
 	    	return false;
 	    }
 	    
@@ -299,6 +303,12 @@ public class MemberController {
 	    removeService.deleteAllMeeting(mem.getId());
 	    // membershipUserList 삭제
 	    
+	    try { // 이미지 파일 삭제
+			fileDelete(mem.getMemberImg(), mem.getId());
+		} catch (Exception e) {
+			System.out.println("!!!!!!!!!!!!!파일삭제 오류!!!!!!!!!!!");
+			return false;
+		}
 	    // 로그아웃 처리
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
@@ -346,7 +356,18 @@ public class MemberController {
 				.membershipUserList(infoService.selectMemberUserList(member.getId())).build();
 		System.out.println(mem);
 		model.addAttribute("mem", mem);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+		if(authentication.getPrincipal().equals("anonymousUser")) {
+				System.out.println("로그인 X ");
+				return "member/userInfo";
+		}
+			Member loginMember = (Member) authentication.getPrincipal();
+		if(loginMember.getNickname().equals(nickname)) {
+			System.out.println("본인 ");
+			return "mypage/mypage";			
+			}
+		System.out.println("그외 ");
 		return "member/userInfo";
 	}
 
@@ -392,11 +413,12 @@ public class MemberController {
 	// 성철 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!! 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
 	public void fileDelete(String fileName, String id) throws IllegalStateException, IOException {
 
-		if (fileName == null || fileName.isEmpty()) {
+		if (fileName == null) {
 			System.out.println("삭제할 파일이 없습니다");
 		} else {
+			String decodedString = URLDecoder.decode(fileName, StandardCharsets.UTF_8.name());
 			System.out.println("삭제될 URL : " + fileName);
-			File file = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + fileName);
+			File file = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + decodedString);
 			file.delete();
 		}
 		
