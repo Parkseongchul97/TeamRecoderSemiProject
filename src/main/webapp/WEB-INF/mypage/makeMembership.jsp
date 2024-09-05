@@ -14,38 +14,42 @@
 	href="${pageContext.request.contextPath}/css/makeMembership.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/locationType.css" />
+<link rel="stylesheet"
+    href="${pageContext.request.contextPath}/css/header.css" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<style>
-select {
-	display: block;
-	width: 200px;
-	padding: 10px;
-	margin: 10px 0;
-	border: 2px solid #333;
-	border-radius: 5px;
-	background-color: #f0f0f0;
-}
-</style>
 </head>
 <body>
+ <jsp:include page="/WEB-INF/header/headerIndex.jsp" />
+ <header>
+	<div class="container">
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
 
 		<form enctype="multipart/form-data">
-
+			<div id="div1">
+				<div class="bar">
 			<label for="membershipName"> 클럽이름 : <span class="name" id="name"></span></label> 
 				<input type="text" id="membershipName"
-				name="membershipName" maxlength="50"><br> 
+				name="membershipName" maxlength="50"><br>
+				</div> 
+				<div class="bar">
 				사진첨부: <input type="file" name="file" id="file" accept="image/*"><br>
+				</div>
+				<div class="bar">
 				클럽 가입조건 : <input type="text" id="membershipAccessionText" name="membershipAccessionText"><br>
+				</div>
+				<div class="bar">
 				클럽 간단한 설명:<input type="text" id="membershipSimpleText" name="membershipSimpleText"><br>
+				</div>
+				<div class="bar">
 				최대 인원 : <span class="max" id="max"></span> <input type="number"
-				for="membershipMax" id="membershipMax" name="membershipMax"><br>
-
-
+				for="membershipMax" id="membershipMax" name="membershipMax" placeholder="설정 가능한 최소 인원은 2명 &#13;&#10;최대 인원은 100명입니다"><br>
+				</div>
+			</div>
+		
 			
-			<p>지역</p>
+			<p class="pt" id="location">지역</p>
 			<select id="locationLaNameMem">
 
 				<option for="allviwe" class="all" id="all" name="all">전체보기</option>
@@ -58,7 +62,7 @@ select {
 			<div id="test1" class="select"></div>
 			<input type="button" value="추가" id="locationBtn">
 			<input type="button" value="취소" id="locationBtncancel"><br><br>
-			<p>유형</p>
+			<p class="pt" id="type">유형</p>
 			<select id="typeLaNameMem">
 				<option>전체보기</option>
 				<c:forEach items="${typeLaNameList}" var="typeLaName">
@@ -89,6 +93,8 @@ select {
 		src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+	</div>
+	</div>
+</header>
 </body>
 </html>

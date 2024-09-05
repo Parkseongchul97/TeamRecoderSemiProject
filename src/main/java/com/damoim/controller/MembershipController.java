@@ -211,8 +211,9 @@ public class MembershipController {
 	 *
 	 * 성철 만들어진거에 사진첨부만 추가
 	 */
+	@ResponseBody
 	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(MembershipDTO dto, MultipartFile file, String LB, String TB) throws Exception {
+	public int makeMembership(MembershipDTO dto, MultipartFile file, String LB, String TB) throws Exception {
 		System.out.println("지역 확인 : " + LB); // 인천 = 중구, 미추홀구, 남동구
 		System.out.println("유형 확인 : " + TB); // 스터디 = 코딩, 자격증, 토론
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -274,7 +275,8 @@ public class MembershipController {
 		ArrayList<MemberListDTO> dtolist =	(ArrayList<MemberListDTO>) mem.getMemberListDTO();
 		dtolist.add(list);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return "redirect:/";
+
+		return membership.getMembershipCode();
 	}
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

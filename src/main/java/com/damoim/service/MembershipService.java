@@ -59,6 +59,7 @@ public class MembershipService {
 		mapper.membershipApply(member);
 
 	}
+	// --------------------------------
 	// 클럽 생성
 	public void makeMembership(Membership membership) {
 		mapper.makeMembership(membership);
@@ -83,7 +84,10 @@ public class MembershipService {
 	public int findTypeCode(TypeCategory typeCategory) {
 		return mapper.findTypeCode(typeCategory);	
 	}
-	
+	// 클럽명 중복 체크
+	public Membership membershipNameCheck(Membership membership) {
+		return mapper.membershipNameCheck(membership);
+	}
 
 	public void membershipImg(Membership membership) {
 		mapper.membershipImg(membership);
@@ -189,9 +193,7 @@ public class MembershipService {
 	// return mapper.checkMember(memberListDTO);
 	// }
 
-	public Membership membershipNameCheck(Membership membership) {
-		return mapper.membershipNameCheck(membership);
-	}
+
 
 	public int makeMembershipCode(String membername) {
 		return mapper.makeMembershipCode(membername);

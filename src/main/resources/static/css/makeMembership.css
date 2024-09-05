@@ -1,6 +1,55 @@
+
 body {
+
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
+
+}
+
+/*지역 유형 창*/ 
+select { 
+	display: block;
+	width: 200px;
+	padding: 10px;
+	margin: 10px 0;
+	border: 2px solid #333;
+	border-radius: 5px;
+	background-color: #f0f0f0;
+
+}
+#div1{
+	display:flex;
+	text-align:center;
+	align-items:center;
+	justify-content:space-between;
+	background-color: silver;
+	
+}
+.bar{
+	margin-top:10%;
+	padding-right: 20px;
+	
+}
+
+.pt{
+	text-align: center;
+	background-color: blue;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#location{
+	margin-top: 2%;
+	background-color: olive;
+}
+
+
+.main_header {
+  background-color:#ADD8E6;
+  position: fixed;
+  width: 30%;
+  height: 80px;
+  z-index: 1000;
 }
 
 .container {
@@ -9,6 +58,7 @@ body {
   padding: 20px;
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .page {
@@ -23,16 +73,17 @@ input[type="text"],
 input[type="number"],
 input[type="file"],
 textarea {
-  width: 100%;
+  width: 50%;
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 
 button,
-input[type="submit"] {
+input[type="submit"], #toIndex {
   padding: 10px 15px;
+  
   background-color: white;
   color:  black;
   border: 1px solid;
@@ -40,11 +91,18 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+
 button:hover,
 input[type="submit"]:hover {
+	color: #C0C0FF;
   background-color: #218838;
 }
 
+.select {
+	border: 1px solid;
+	padding: 30px;
+	
+}
 
 
 /*영민- 화살표 숨기기 */
@@ -54,7 +112,3 @@ appearance: none; /* Chrome, Safari */ /*기본 스타일을 제거(화살표 �
 margin: 0; /* 마진 제거 */
 }
 
-.select {
-	border: 1px solid;
-	padding: 30px;
-}

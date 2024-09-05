@@ -196,6 +196,7 @@ typeBtncancel.addEventListener("click", function() {
 });
 
 function validate() { // 생성버튼 눌렀을때 작동
+	//let membershipCode = $("#membershipCode").val();
 	let membershipName = $("#membershipName").val();
 	let f = document.getElementById('file');
 	let file = f.files[0];
@@ -204,17 +205,10 @@ function validate() { // 생성버튼 눌렀을때 작동
 	let membershipMax = $("#membershipMax").val();
 	let loc = $("#test1").text();
 	let tp = $("#test2").text();
-	let data = {
-		membershipName: membershipName,
-		membershipAccessionText: membershipAccessionText,
-		membershipSimpleText: membershipSimpleText,
-		membershipMax: membershipMax,
-	};
 	
 	
 
 	let formData = new FormData(); // FormData 객체를 사용하여 파일과 데이터를 함께 전송합니다.
-	//formData.append('dto', JSON.stringify(data));
 	formData.append('membershipName',membershipName)
 	formData.append('membershipAccessionText',membershipAccessionText)
 	formData.append('membershipSimpleText',membershipSimpleText)
@@ -228,16 +222,19 @@ function validate() { // 생성버튼 눌렀을때 작동
 		data: formData,
 		processData: false,
 		contentType: false,
-		success: function() {
+		success: function(code) {
 
 			
 			//  mypage 페이지로 이동
-			window.location.href = `/club/${membershipCode}`;
+			//console.log("membershipCode:", membershipCode);
+
+			window.location.replace(`/club/${code}`);
+			//location.replace('/mypage');
 			
 		}
 		
 	});
-	
+
 	
 
 }
