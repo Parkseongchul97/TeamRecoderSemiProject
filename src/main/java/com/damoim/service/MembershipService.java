@@ -50,44 +50,14 @@ public class MembershipService {
 
 		return mapper.main(membershipCode);
 	}
-
-	public int membershipUserCount(int count) {
+   
+   public int membershipUserCount(int count){
 		return mapper.membershipUserCount(count);
-	}
-
-	public void membershipApply(MemberListDTO member) {
-		mapper.membershipApply(member);
-
-	}
-	// --------------------------------
-	// 클럽 생성
-	public void makeMembership(Membership membership) {
-		mapper.makeMembership(membership);
-	}
-	
-	// 지역 추가
-	public void makeLocationMembership(MembershipLocation membershipLocation) {
-		mapper.makeLocationMembership(membershipLocation);
-	}
-
-	// 유형 추가
-	public void makeTypeMembership(MembershipType membershipType) {
-		mapper.makeTypeMembership(membershipType);
-	}
-			
-	// 지역- 이름으로 찾기
-	public int findLocationCode(LocationCategory locationCategory) {
-		return mapper.findLocationCode(locationCategory);	
-	}
-			
-	// 유형- 이름으로 찾기
-	public int findTypeCode(TypeCategory typeCategory) {
-		return mapper.findTypeCode(typeCategory);	
-	}
-	// 클럽명 중복 체크
-	public Membership membershipNameCheck(Membership membership) {
-		return mapper.membershipNameCheck(membership);
-	}
+ 	}
+   public void membershipApply(MemberListDTO member) {
+	   mapper.membershipApply(member);
+	  
+   }
 
 	public void membershipImg(Membership membership) {
 		mapper.membershipImg(membership);
@@ -207,21 +177,51 @@ public class MembershipService {
 
 		return mapper.selectMemberUserList(id);
 	}
-
-//	public List<MembershipUserList> list(Paging paging) {
-//		
-//		return mapper.allMembership(paging);
-//	}
-
-	public List<MemberListDTO> adminUser(int membershipCode) {
-
+	
+	
+	public List<MemberListDTO> adminUser(int membershipCode){
+		
 		return mapper.adminUser(membershipCode);
 	}
 
 	public MemberListDTO ifHost(String id) {
 
 		return mapper.ifHost(id);
-
+		
+		}
+	
+	// 클럽 생성
+	public void makeMembership(Membership membership) {
+		mapper.makeMembership(membership);
+	}
+	
+	// 지역 추가
+	public void makeLocationMembership(MembershipLocation membershipLocation) {
+		mapper.makeLocationMembership(membershipLocation);
 	}
 
+	// 유형 추가
+	public void makeTypeMembership(MembershipType membershipType) {
+		mapper.makeTypeMembership(membershipType);
+	}
+			
+	// 지역- 이름으로 찾기
+	public int findLocationCode(LocationCategory locationCategory) {
+		return mapper.findLocationCode(locationCategory);	
+	}
+			
+	// 유형- 이름으로 찾기
+	public int findTypeCode(TypeCategory typeCategory) {
+		return mapper.findTypeCode(typeCategory);	
+	}
+	
+	// 클럽명 중복 체크
+	public Membership membershipNameCheck(Membership membership) {
+		return mapper.membershipNameCheck(membership);
+	}
+
+
+	
+	
+	
 }
