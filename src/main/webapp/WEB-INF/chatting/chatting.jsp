@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="/css/chatting.css" />
 </head>
 <body>
-	<a href="/">메인화면가기</a>
+<jsp:include page="../header/headerIndex.jsp" />
+<canvas id="can"></canvas>
 	<!-- 채팅방 입장 -->
 	<div class="chat">
 		<div>

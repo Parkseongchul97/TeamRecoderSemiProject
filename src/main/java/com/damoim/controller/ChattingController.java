@@ -75,7 +75,7 @@ public class ChattingController {
 		Cookie[] cookies = request.getCookies();
 		String roomNumber = "";
 		String nickname = "";
-        if (cookies != null) {
+		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				if ("roomNumber".equals(cookie.getName())) {
 					roomNumber = cookie.getValue();
@@ -93,7 +93,7 @@ public class ChattingController {
 			}
 		}
 		return null;
-    }
+	}
 
 	// 방 입장하기
 	public boolean enterChattingRoom(ChattingRoomDAO chattingRoom, String nickname) {
@@ -116,7 +116,7 @@ public class ChattingController {
 	@GetMapping("/chatserver/{code}")
 	public String chatServer(Model model) {
 		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		model.addAttribute("member",mem);
+		model.addAttribute("member", mem);
 		return "chatting/chatting";
 	}
 
@@ -140,13 +140,13 @@ public class ChattingController {
 	public List<Integer> enterChattingroomCode() throws Exception {
 		List<Integer> a = new ArrayList<Integer>();
 		Object p = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if(!p.equals("anonymousUser")) {
+		if (!p.equals("anonymousUser")) {
 			Member mem = (Member) p;
-			 a = service.enterChattingroomCode(mem.getId());
+			a = service.enterChattingroomCode(mem.getId());
 		}
 		return a;
 	}
-	
+
 	// 닉네임 조회
 	@GetMapping("/nick1")
 	public ResponseEntity<Member> nick1() throws Exception {
@@ -167,26 +167,3 @@ public class ChattingController {
 		return new ResponseEntity<>(chattingRoom, HttpStatus.OK);
 	}
 }
-
-
-
-
-/*
- * let q = Math.floor(Math.random() * 255);
-			let w = Math.floor(Math.random() * 255);
-			let e = Math.floor(Math.random() * 255);
-			a++;
-			const rect = trackArea.getBoundingClientRect();
-			const x = event.clientX - rect.left;
-			const y = event.clientY - rect.top;
-			const trail = document.createElement('div');
-			trail.className = `trail${a}`;
-			trail.style.position = "absolute";
-			trail.style.left = x + "px";
-			trail.style.top = y + "px";
-			trail.style.background = "black";
-			trail.style.width = "10px";
-			trail.style.height = "10px";
-			trail.style.background = "rgb("+q+", "+w+", "+e+")";
-			trackArea.appendChild(trail);
- * */

@@ -1,3 +1,17 @@
+#reduce {
+	width: 50px;
+	position: fixed;
+	height: 50px;
+	border-radius: 50%;
+	z-index: 100000;
+	bottom: 50px;
+	right: 50px;
+	background: rgb(173, 216, 230);
+	text-align: center;
+	color: #FCA35B;
+	align-content: center;
+}
+
 .all {
 	display: flex;
 }
@@ -31,23 +45,42 @@ li {
 .swal-footer {
 	text-align: center;
 }
+
 /* 채팅방 목록 */
 #chatMain {
 	background-color: white;
 	width: 180px;
-	height: 20vh;
+	height: 160px;
 	border: 1px solid #80808047;
 	position: fixed;
 	z-index: 1000;
-	bottom: 15px;
+	bottom: 100px;
 	right: 5px;
 	border-radius: 10px;
+	display: none;
 }
-ul li{
+
+ul li {
 	z-index: 124109;
 }
+
 #chatMain * {
 	font-size: 15px
+}
+
+
+#chatMain::before {
+	content: "";
+	position: absolute;
+	bottom: -9px;
+	left: -4px;
+	width: 0;
+	height: 0;
+	border-left: 3px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 15px solid white;
+	transform: rotate(30deg);
+	z-index: 1;
 }
 
 #chatMain::after {
@@ -59,8 +92,9 @@ ul li{
 	height: 0;
 	border-left: 3px solid transparent;
 	border-right: 15px solid transparent;
-	border-top: 15px solid white;
+	border-top: 15px solid #80808047;
 	transform: rotate(30deg);
+	z-index: 0;
 }
 
 .chat_content>img {
@@ -94,10 +128,19 @@ ul li{
 	border-bottom: 1px solid #80808047;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
-	padding: 5px;
 	font-family: "Chewy", system-ui;
 	color: #FCA35B;
 	text-shadow: 2px 3px black;
+	display: flex;
+	height: 40px;
+	justify-content: center;
+	align-items: center;
+}
+
+#can {
+	font-size: 23px;
+	padding-left: 22px;
+	color: #ef3c3c;
 }
 
 #chatMain nav>span:first-child {
@@ -110,7 +153,7 @@ ul li{
 
 #chatMain ul {
 	overflow-y: auto;
-	max-height: calc(100% - 40px);
+	max-height: calc(100% - 50px);
 }
 
 #chatMain li {

@@ -16,10 +16,10 @@
 </head>
 <body>
 	<sec:authorize access="isAuthenticated()">
+	<div id="reduce">채팅</div>
 		<main id="chatMain">
-			<!-- <div id="moveMain">이동하기</div> -->
 			<nav>
-			 	DAMOIM Talk
+			 	DAMOIM Talk <div id="can">X</div>
 			</nav>
 			<ul>
 				<li></li>

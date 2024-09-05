@@ -1,5 +1,15 @@
 $(document).ready(function() {
 	// 채팅방 목록 불러오기
+	$("#chatMain").hide();
+	$("#reduce").click(function() {
+		$("#reduce").hide();
+		main();
+	});
+	$("#can").click(function() {
+		$("#chatMain").hide();
+		$("#reduce").show();
+		console.log("축소버튼");
+	});
 	const link = document.createElement('link');
 	link.rel = 'stylesheet';
 	link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
@@ -69,7 +79,6 @@ $(document).ready(function() {
 	};
 
 	stomp.connect({}, function() {
-		main();
 	});
 	// 채팅방
 	const info = (function() {
@@ -318,7 +327,7 @@ $(document).ready(function() {
 			})
 
 	});
-	
+
 	$(".chat_input_area textarea").on('drop', (e) => {
 		e.preventDefault();
 		$(this).attr('placeholder', '');
@@ -335,11 +344,11 @@ $(document).ready(function() {
 		reader.readAsDataURL(files[0]);
 		$(".chat_input_area textarea").focus();
 	});
-	
+
 	$(".chat_input_area textarea").on('click', (e) => {
-			e.preventDefault();
-			$(".chat_input_area textarea").focus();
-		});
+		e.preventDefault();
+		$(".chat_input_area textarea").focus();
+	});
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@
 	const makeDraggable = function(element) {
 		$(element).on('mousedown', function(event) {
@@ -407,6 +416,5 @@ $(document).ready(function() {
 	// 드래그 가능한 요소에 함수 적용
 	makeDraggable('#chatMain nav');
 	makeDraggable('#chat');
-
 
 });

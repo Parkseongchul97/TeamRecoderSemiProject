@@ -411,6 +411,7 @@
 			</c:forEach>
 		</c:if>
 	</div>
+	<jsp:include page="../chatting/chattingIndex.jsp" />
 	<jsp:include page="../footer/footer.jsp" />
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 	
