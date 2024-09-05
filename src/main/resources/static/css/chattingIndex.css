@@ -10,6 +10,8 @@
 	text-align: center;
 	color: #FCA35B;
 	align-content: center;
+	cursor: pointer;
+	user-select: none;
 }
 
 .all {
@@ -135,6 +137,7 @@ ul li {
 	height: 40px;
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
 }
 
 #can {
