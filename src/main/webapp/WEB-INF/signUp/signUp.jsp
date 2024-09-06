@@ -28,7 +28,8 @@
 				<div id="page1" class="page visible">
 					<h2>*회원가입*</h2> <p id="focus"><span style="color: red">*</span>표시 된것은 필수 입력 사항입니다.</p>
 					<div class="formBox">
-						<label for="id"><span style="color: red">*</span> 아이디 <span class="result" id="idResult"></span></label>
+						<label for="id"><span style="color: red">*</span>
+						 아이디 <span class="result" id="idResult"></span></label>
 
 
 
