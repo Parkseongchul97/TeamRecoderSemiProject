@@ -119,11 +119,11 @@ locationBtn.addEventListener("click", function (e) {
     $("#test1").html().substr(0, 2) !== locationbig &&
     $("#test1").html() !== ""
   ) {
-    alert("어허");
+    alert("같은 시에서만 선택가능합니다 확인해 주시고 다시 선택해 주세요");
     return;
   }
   if ($("#test1").html().includes(locationsmall) && $("#test1").html() !== "") {
-    alert("어허2");
+    alert("같은 지역을 선택하였습니다 확인해 주시고 다시 선택해 주세요");
     return;
   }
   if ($("#test1").html() == "") {
@@ -162,11 +162,11 @@ typeBtn.addEventListener("click", function (e) {
     $("#test2").html().substr(0, 2) !== typebig.substr(0, 2) &&
     $("#test2").html() !== ""
   ) {
-    alert("어허");
+    alert("같은 취미 안에서만 선택가능합니다 확인해 주시고 다시 선택해 주세요");
     return;
   }
   if ($("#test2").html().includes(typesmall) && $("#test2").html() !== "") {
-    alert("어허2");
+    alert("같은 유형을 선택하였습니다 확인해 주시고 다시 선택해 주세요");
     return;
   }
   if ($("#test2").html() == "") {
