@@ -8,7 +8,6 @@ $(document).ready(function() {
 	$("#can").click(function() {
 		$("#chatMain").hide();
 		$("#reduce").show();
-		console.log("축소버튼");
 	});
 	const link = document.createElement('link');
 	link.rel = 'stylesheet';

@@ -1,7 +1,7 @@
 #reduce {
-	width: 50px;
+	width: 65px;
 	position: fixed;
-	height: 50px;
+	height: 65px;
 	border-radius: 50%;
 	z-index: 100000;
 	bottom: 50px;
@@ -12,8 +12,13 @@
 	align-content: center;
 	cursor: pointer;
 	user-select: none;
+	margin-top: 3px;
 }
-
+.arrow {
+	font-size: 12px;
+	color: #2f2424;
+	font-weight: 600;
+}
 .all {
 	display: flex;
 }
@@ -126,24 +131,28 @@ ul li {
 #chatMain nav {
 	font-size: 1.4rem;
 	background-color: #ADD8E6;
-	padding-bottom: 6px;
+	padding-bottom: 3px;
 	border-bottom: 1px solid #80808047;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
-	font-family: "Chewy", system-ui;
-	color: #FCA35B;
-	text-shadow: 2px 3px black;
+	color: #FCA35B;	 
 	display: flex;
 	height: 40px;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	cursor: pointer;
 }
-
+#na {
+	font-family: "Chewy", system-ui;
+	text-shadow: 2px 3px black;
+}
 #can {
-	font-size: 23px;
+	font-size: 25px;
 	padding-left: 22px;
-	color: #ef3c3c;
+	color: black;
+	text-shadow: none;
+	font-family: emoji;
+	padding-bottom: 4px;
 }
 
 #chatMain nav>span:first-child {
@@ -218,7 +227,7 @@ ul li {
 }
 
 .chat .chat_body {
-	background: #9fadc8;
+	background: #ADD8E6;
 	height: 100%;
 	width: 100%;
 	order: 1;
@@ -253,7 +262,7 @@ ul li {
 	border: none;
 	cursor: pointer;
 	position: absolute;
-	background: #9fadc8;
+	background: #ADD8E6;
 }
 
 .chat ul.chat_list {
@@ -317,7 +326,6 @@ ul li {
 	padding: 5px;
 	border-radius: 3px;
 	box-shadow: 0px 2px 3px 0px rgb(0 0 0/ 25%);
-	/*display: inline-block;*/
 	display: flex;
 	flex-direction: column;
 	max-width: 250px;
@@ -331,7 +339,7 @@ ul li {
 }
 
 .chat .chat_me .chat_content {
-	background: yellow;
+	background: #f8f8ed;
 }
 
 .chat .chat_other .chat_content {
