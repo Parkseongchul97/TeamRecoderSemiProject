@@ -30,7 +30,7 @@
 				<div id="can">∨</div>
 			</nav>
 			<ul>
-				<li></li>
+				<li class="chat_li"></li>
 			</ul>
 		</main>
 		<!-- 채팅방 입장 -->
@@ -40,7 +40,7 @@
 			<div>
 				<div class="chat_body">
 					<ul class="chat_list">
-						<li></li>
+						<li class="chat_li"></li>
 					</ul>
 					<div class="chat_input">
 						<div class="chat_input_area">
