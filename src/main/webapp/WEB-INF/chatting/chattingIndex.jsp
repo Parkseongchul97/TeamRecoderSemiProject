@@ -35,6 +35,7 @@
 		<!-- 채팅방 입장 -->
 		<div class="chat" id="chat">
 			<button class="chat_back">◀</button>
+		<!--   	<button class="chat_size">↕</button> -->
 			<div>
 				<div class="chat_body">
 					<ul class="chat_list">
