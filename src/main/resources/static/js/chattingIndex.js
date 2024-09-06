@@ -64,7 +64,6 @@ $(document).ready(function() {
 
 	// 메인 화면
 	const main = function() {
-
 		$(".chat").hide();
 		$("main").show();
 
@@ -110,6 +109,7 @@ $(document).ready(function() {
 		let nickname = messageInfo.nickname;
 		let message = messageInfo.message;
 		let a = `<img src="${messageInfo.memimg}" width="100px"/>`;
+
 		message = message.replaceAll("\n", "<br>").replaceAll(" ", "&nbsp")
 			.replaceAll("<", "&lt;")
 			.replaceAll(">", "&gt;");
@@ -177,10 +177,8 @@ $(document).ready(function() {
 	// 채팅방 세팅
 	const initRoom = function(room, nickname, img) {
 		stomp.send("/socket/roomList");
-
 		$("main").hide();
 		$(".chat").show();
-
 		info.setNickname(nickname);
 		info.setRoomNumber(room.roomNumber);
 		info.setImage(img);
@@ -237,7 +235,6 @@ $(document).ready(function() {
 	});
 
 	const enterChattingRoom = function(roomNumber) {
-		let id = "";
 		$.ajax({
 			url: "/nick1", type: "GET"
 		})

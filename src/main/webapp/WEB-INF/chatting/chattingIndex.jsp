@@ -17,6 +17,7 @@
 	rel="stylesheet">
 </head>
 <body>
+	<sec:authentication property="principal" var="member" />
 	<sec:authorize access="isAuthenticated()">
 		<div id="reduce">
 			<div class="arrow">∧</div>
