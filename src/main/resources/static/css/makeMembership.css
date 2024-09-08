@@ -87,6 +87,10 @@ button:hover, input[type="submit"]:hover, #toIndex:hover {
     background: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 /* 폼 및 입력 필드 스타일 */
@@ -106,13 +110,294 @@ input[type="text"], input[type="number"], input[type="file"], textarea {
     box-sizing: border-box;
 }
 
-#file {
-    background-color: #fff;
-}
-
-/* 기타 스타일 */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+/* 클럽 생성 및 선택 스타일 */
+.box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 120px;
+}
+
+/* 선택 그룹 */
+.select-group {
+    width: 80%;
+    height: 30vh;
+    background-color: #FFE8CF;
+}
+
+.select-title, .select-menu {
+    width: 100%;
+}
+
+.select-title {
+    display: flex;
+    justify-content: flex-start;
+    background-color: orange;
+    font-size: 2.5rem;
+    font-family: "Do Hyeon", sans-serif;
+}
+
+.select-menu {
+    display: flex;
+    justify-content: flex-start;
+    background-color: yellow;
+}
+
+.select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+
+.select-option {
+    width: 100%;
+}
+
+.select-input {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 40%;
+    height: 50px;
+    background-color: gray;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.button-group {
+    display: flex;
+}
+
+.select-btn {
+    background-color: #fca311;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    width: 40%;
+    height: 30px;
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+.select-btn:hover {
+    background-color: #e76f00;
+}
+
+.btn {
+    display: inline-block;
+    text-align: center;
+    background-color: #FFA500;
+    padding: 15px 25px;
+    width: 300px;
+}
+
+/* 로케이션 및 타입 리스트 */
+.locationTypeBody, .typeBody {
+    padding-top: 40px;
+    padding-bottom: 20px;
+    width: 100%;
+    margin: auto;
+}
+
+.locationTypeBodyBox, .typeBodyBox {
+    display: flex;
+    margin: auto;
+    max-width: 900px;
+    height: 250px;
+    background-color: white;
+    border-radius: 7px;
+    border: 1px solid #d5d5d5;
+}
+
+.line {
+    width: 1px;
+    height: 180px;
+    background-color: #d5d5d5;
+    margin: auto;
+}
+
+/* 공통 체크박스 숨기기 */
+input[type="checkbox"] {
+    display: none; /* 기본 체크박스 숨기기 */
+}
+
+/* 체크박스 레이블 스타일 */
+.locLNCss, .typeLNCss {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #293241;
+    background-color: #e0e0e0;
+    border: 2px solid #d5d5d5;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* 체크박스가 선택되었을 때의 스타일 */
+input[type="checkbox"]:checked + .locLNCss,
+input[type="checkbox"]:checked + .typeLNCss {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+/* 체크박스 호버 시 스타일 */
+.locLNCss:hover, .typeLNCss:hover {
+    background-color: #cce5ff;
+    border-color: #a6c1e8;
+}
+
+/* 체크박스 레이블 내 체크 아이콘 스타일 */
+.locLNCss::before, .typeLNCss::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #d5d5d5;
+    border-radius: 3px;
+    margin-right: 8px;
+    vertical-align: middle;
+    background-color: #fff;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* 체크박스가 선택되었을 때 체크 아이콘 표시 */
+input[type="checkbox"]:checked + .locLNCss::before,
+input[type="checkbox"]:checked + .typeLNCss::before {
+    background-color: #007bff;
+    border-color: #007bff;
+    content: "✓";
+    color: #fff;
+    text-align: center;
+    line-height: 18px;
+    font-size: 14px;
+}
+
+/* 로케이션 필터 스타일 */
+#locationLaNameForm {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+.locationBoxHead {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.locationLaStar, .locationSStar, .typeLaStar, .typeSStar {
+    padding: 5px 10px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.locationLaDiv, .locationSDiv, .typeLaDiv, .typeSDiv {
+    background-color: #efefef;
+    width: 100%;
+    height: 190px;
+    border-radius: 7px;
+    padding: 7px;
+}
+
+.locationLaCss, .locationTypeCss, .typeLaCss, .typeCss {
+    cursor: pointer;
+    display: inline-block;
+    width: 99px;
+    height: 31px;
+    margin: 2px 0;
+    background-color: white;
+    border-radius: 7px;
+    text-align: center;
+    line-height: 31px;
+    color: #293241;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.locationLaCss:hover, .typeLaCss:hover, .typeCss:hover {
+    background-color: rgb(253, 207, 170);
+    border-radius: 20px;
+}
+
+.locLaNameLabel, .typeLaNameLabel, .typeTLaNameLabel {
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    background-color: #457b9d;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.locLaNameLabel:hover, .typeLaNameLabel:hover, .typeTLaNameLabel:hover {
+    background-color: rgb(253, 207, 170);
+    border-radius: 20px;
+}
+
+/* 타입 필터 스타일 */
+#typeLaNameSelect {
+    width: 100%;
+    max-width: 1280px;
+    margin: auto;
+    font-size: 20px;
+    padding: 5px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2c2c2c;
+}
+
+.typeSCss {
+    padding: 4px 10px;
+    margin: 1px 1px;
+    cursor: pointer;
+}
+
+.typeSCss:hover {
+    background-color: rgb(253, 207, 170);
+    border-radius: 20px;
+}
+
+/* Sticky 박스 스타일 */
+#typeStickyBox {
+    position: sticky;
+    top: 80px;
+    background-color: #ffe5e5;
+    width: 100%;
+    height: auto;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+/* 공통 타입 필터 박스 */
+.typeClassiFication {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ADD8E6;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: "Do Hyeon", sans-serif;
 }
