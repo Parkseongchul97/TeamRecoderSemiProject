@@ -1,4 +1,7 @@
 package com.damoim.controller;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,16 +11,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MembershipDTO;
+import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Member;
+import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipLocation;
+import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
+import com.damoim.model.vo.TypeCategory;
 import com.damoim.service.LocationTypeService;
 import com.damoim.service.MembershipMeetingService;
 import com.damoim.service.MembershipService;
@@ -34,7 +44,10 @@ public class PageController {
 	private MembershipMeetingService meetService;
 	
 	@Autowired
-	private LocationTypeService locTypeService;
+	private LocationTypeService locationTypeService;
+	
+	@Autowired
+	private MembershipService service;
 	/*
 	 * 성일
 	 * 인덱스에 현재 호스트가 존재하는 모든 클럽들 모두 출력
@@ -109,50 +122,19 @@ public class PageController {
 		Member member = (Member) authentication.getPrincipal();
 	
 		
-		if(member == null) {
-			return "error";
-		};
-		
 		int code = -1;
 		for(int i=0; i<member.getMemberListDTO().size(); i++) {
 			if(member.getMemberListDTO().get(i).getListGrade().equals("host")) {
 				 code = member.getMemberListDTO().get(i).getMembershipCode();
+				 break;
 			}
-			
 		}
-		locTypeService.locationList(code);
-		locTypeService.typeList(code);
-		String loc = locTypeService.locationList(code).get(0).getLocLaName()+" =";
-		String type= locTypeService.typeList(code).get(0).getTypeLaName()+" ="; 
+		model.addAttribute("membership", infoService.selectMembership(code));
+		model.addAttribute("locLaNameList", locationTypeService.locLaNameList());
+		model.addAttribute("typeLaNameList", locationTypeService.typeLaNameList());
+		model.addAttribute("locButton", service.locButton(code));
+		model.addAttribute("typeButton", service.typeButton(code));
 		
-		
-		for(int i=0; i<locTypeService.locationList(code).size(); i++) {
-		    if(i != locTypeService.locationList(code).size() -1)
-			loc +=" "+locTypeService.locationList(code).get(i).getLocSName()+",";
-		    else {
-		    	loc +=" "+locTypeService.locationList(code).get(i).getLocSName();
-		    }
-			
-		}
-		
-		for(int i=0; i<locTypeService.typeList(code).size(); i++) {
-		    if(i != locTypeService.typeList(code).size() -1)
-			type +=" "+locTypeService.typeList(code).get(i).getTypeSName()+",";
-		    else {
-		    	type +=" "+locTypeService.typeList(code).get(i).getTypeSName();
-		    }
-			
-		}
-		
-		model.addAttribute("locLaNameList", locTypeService.locLaNameList());
-		model.addAttribute("typeLaNameList", locTypeService.typeLaNameList());
-		
-		model.addAttribute("type", type);
-		model.addAttribute("locList", loc);
-		System.out.println("이게멀까? " + locTypeService.locationList(code));
-		
-	   model.addAttribute("membership", infoService.selectMembership(code));
-	   //model.addAllAttributes("location",infoService.);
 		return "membership/updateMembership";
 	}
 	
@@ -212,12 +194,4 @@ public class PageController {
 	 }
 
 }
-
-
-
-
-
-
-
-
 

@@ -100,6 +100,11 @@ public interface MembershipMapper {
 //        set membership_img= #{membershipImg}
 //        where membership_name= #{membershipName}
 //</update>
+	
+	
+	// 클럽수정시 지역타입 버튼눌린 상태로 만들기
+	 List<LocationCategory> locButton(int membershipCode); // 지역버튼
+	 List<TypeCategory> typeButton(int membershipCode); // 유형버튼
 
 }
 

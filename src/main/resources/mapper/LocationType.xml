@@ -156,7 +156,7 @@
 	
 	
 	<select id="selectMemberNickName" parameterType="int" resultMap="MemberMap">
-		SELECT nickname, member_img ,id , member_location, member_type
+		SELECT *
 		FROM membership_user_list
 		JOIN member USING (id)
 		WHERE list_grade = 'host'
