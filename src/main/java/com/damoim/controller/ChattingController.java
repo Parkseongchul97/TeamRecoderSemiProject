@@ -143,6 +143,7 @@ public class ChattingController {
 		if (!p.equals("anonymousUser")) {
 			Member mem = (Member) p;
 			a = service.enterChattingroomCode(mem.getId());
+			System.out.println(a);
 		}
 		return a;
 	}

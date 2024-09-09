@@ -4,39 +4,7 @@ body {
   background-color: #f4f4f4;
 }
 
-/* 메인 헤더 스타일 */
-.main_header {
-  background-color: #add8e6;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 80px;
-  z-index: 1000;
-}
 
-.main_header_body {
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  box-sizing: border-box;
-}
-
-/* 헤더 중앙 텍스트 */
-.main_header_center {
-  display: flex;
-  align-items: center;
-  font-size: 36px;
-  font-weight: bold;
-  font-family: "Chewy", system-ui;
-  font-style: italic;
-  color: #fca35b;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-}
 
 /* 버튼 공통 스타일 */
 button,
@@ -88,8 +56,8 @@ input[type="submit"]:hover,
 /* 페이지 내용 */
 .container {
   width: 80%;
-  max-width: 1200px;
-  margin: 100px auto 0; /* 헤더를 고려하여 위쪽 여백 추가 */
+  max-width: 800px;
+  margin: auto; /* 헤더를 고려하여 위쪽 여백 추가 */
   padding: 20px;
   background: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -98,6 +66,7 @@ input[type="submit"]:hover,
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding-top: 90px;
 }
 
 /* 폼 및 입력 필드 스타일 */

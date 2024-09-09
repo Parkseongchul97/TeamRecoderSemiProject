@@ -74,17 +74,6 @@
 									placeholder="상세주소를 입력해주세요">
 							</div>
 
-
-						<div class="formBox">
-							<label for="pwd"><span style="color: red">*</span> 비밀번호 <span
-								class="result" id="pwdResult"></span></label> <input type="password"
-								id="pwd" name="pwd" placeholder="비밀번호를 입력하세요" />
-						</div>
-
-
-
-
-
 							<script
 								src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 							<script>
