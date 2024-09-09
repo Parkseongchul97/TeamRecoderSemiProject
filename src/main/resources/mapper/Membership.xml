@@ -86,6 +86,20 @@
 		<id column="membership_code" property="membershipCode" />
 		<result column="membership_name" property="membershipName" />
 	</resultMap>
+	
+	
+	<resultMap id="locbtn" type="LocationCategory">
+		<result property="locCode" column="loc_code" />
+		<result property="locLaName" column="loc_la_name" />
+		<result property="locSName" column="loc_s_name" />
+	</resultMap>
+<resultMap id="typebtn" type="TypeCategory">
+    <result property="typeCode" column="type_code"/>
+    <result property="typeLaName" column="type_la_name"/>
+    <result property="typeSName" column="type_s_name"/>
+</resultMap>
+	
+	
 
 	<!-- 인덱스에 클럽 띄울때 한번에 12개(Paging 메서드)씩 해당 클럽의 호스트와 클럽 모든정보 불러오는 쿼리 나중에 listMap에 
 		위치정보와 타입정보 추가 요망 -->
@@ -379,7 +393,29 @@
 		AND id =
 		#{id};
 	</delete>
+<<<<<<< HEAD
 
+=======
+	
+
+	
+	
+	
+	<!-- 멤버쉽 정보 수정  -->	
+	<update id="updateMembership" parameterType="Membership">
+	UPDATE  membership
+	SET membership_name =#{membershipName},
+	    membership_img = #{membershipImg},
+	    membership_max = #{membershipMax},
+	    membership_accession_text = #{membershipAccessionText},
+	    membership_simple_text = #{membershipSimpleText}
+	    WHERE membership_code = #{membershipCode}
+	    
+	
+	
+	</update>
+	
+>>>>>>> seongchul
 	<!-- 정배 클럽 수정 시 지역타입버튼 눌려있게 하는 쿼리 -->
 	<select id="locButton" parameterType="Integer"
 		resultMap="locbtn">
@@ -399,16 +435,25 @@
 		(type_code)
 		where membership_code = #{membershipCode};
 	</select>
+<<<<<<< HEAD
 
 
 	<!-- 모든 채팅방리스트 불러옴 -->
+=======
+	<!-- 모든 채팅방리스트 불러옴 -->
+	
+			<!-- 모든 채팅방리스트 불러옴 -->
+>>>>>>> seongchul
 	<select id="roomlist" resultMap="roomListmap">
 		SELECT
 		membership_name,membership_code FROM
 		membership
 	</select>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> seongchul
 	<select id="enterChattingroomCode" parameterType="String"
 		resultType="int">
 		select membership_code
@@ -416,6 +461,7 @@
 		where list_grade!= 'guest'
 		AND id = #{id};
 	</select>
+<<<<<<< HEAD
 
 
 
@@ -423,6 +469,12 @@
 
 
 
+=======
+	
+	
+	
+	
+>>>>>>> seongchul
 
 </mapper>
  

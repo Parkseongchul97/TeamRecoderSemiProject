@@ -86,9 +86,62 @@ public interface MembershipMapper {
 	
 	int makeMembershipCode(String membername);
 
+	int makeMembershipCode(String membername);
 	
 	// 클럽수정시 지역타입 버튼눌린 상태로 만들기
 	 List<LocationCategory> locButton(int membershipCode); // 지역버튼
 	 List<TypeCategory> typeButton(int membershipCode); // 유형버튼
+<<<<<<< HEAD
 	 
 }
+=======
+
+	
+	// _클럽 생성 ===============================================
+			void makeMembership(Membership membership); // 클럽 만들기????
+			
+			// 지역 추가
+			void makeLocationMembership(MembershipLocation membershipLocation);
+
+			// 유형 추가
+			void makeTypeMembership(MembershipType membershipType);
+			
+			// 지역- 이름으로 찾기
+			int findLocationCode(LocationCategory locationCategory);
+			
+			// 유형- 이름으로 찾기
+			int findTypeCode(TypeCategory typeCategory);
+			
+			// 클럽명 중복확인
+			Membership membershipNameCheck(Membership membership);
+			
+			// 체팅방
+			List<Integer> enterChattingroomCode(String id);
+			
+
+	
+			
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+>>>>>>> seongchul

@@ -25,13 +25,17 @@ public class PageController {
 	private MembershipService infoService; // 맴버쉽 서비스
 	
 	@Autowired
-	private MembershipMeetingService meetService;
+	private MembershipMeetingService meetService; // 미팅 관련 서비스
 	
 	@Autowired
+<<<<<<< HEAD
 	private LocationTypeService locationTypeService;
 	
 	@Autowired
 	private MembershipService service;
+=======
+	private LocationTypeService locTypeService; // 로케이션 타입
+>>>>>>> seongchul
 	/*
 	 * 성일
 	 * 인덱스에 현재 호스트가 존재하는 모든 클럽들 모두 출력
@@ -65,7 +69,7 @@ public class PageController {
 		
 		
 		
-		ArrayList<MembershipUserList> membershipList = (ArrayList<MembershipUserList>) infoService.selectMemberUserList(member.getId());
+		ArrayList<MembershipUserList> membershipList = (ArrayList<MembershipUserList>) infoService.selectMemberUserList(id);
 		for(MembershipUserList li : membershipList) {
 			 li.setCount(infoService.membershipUserCount(li.getMembership().getMembershipCode()));
 		}
@@ -105,6 +109,7 @@ public class PageController {
 			}
 		}
 		model.addAttribute("membership", infoService.selectMembership(code));
+<<<<<<< HEAD
 		model.addAttribute("locLaNameList", locationTypeService.locLaNameList());
 		model.addAttribute("typeLaNameList", locationTypeService.typeLaNameList());
 		model.addAttribute("locButton", service.locButton(code));
@@ -113,8 +118,16 @@ public class PageController {
 //		if(member == null) {
 //			return "error";
 //		};
+=======
+		model.addAttribute("count", infoService.membershipUserCount(code));
+		model.addAttribute("locLaNameList", locTypeService.locLaNameList());
+		model.addAttribute("typeLaNameList", locTypeService.typeLaNameList());
+		model.addAttribute("locButton", infoService.locButton(code));
+		model.addAttribute("typeButton", infoService.typeButton(code));
+>>>>>>> seongchul
 		return "membership/updateMembership";
 	}
+
 	
 	// 회원탈퇴 페이지 이동
 	@GetMapping("/memberDelete")
@@ -156,6 +169,7 @@ public class PageController {
 	 public String findId() {
 	 	return "login/findId";
 	 }
+<<<<<<< HEAD
 	
   // 카카오맵 이동
 	 @GetMapping("/kakaoMap")
@@ -169,3 +183,35 @@ public class PageController {
 		 return "login/loginFail";
 	 }
 }
+=======
+	 
+
+	 
+	 @GetMapping("/loginFail") 
+	 public String loginFail() {
+		 return "login/loginFail";
+	 }
+
+
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+}
+
+
+
+
+
+
+
+
+
+>>>>>>> seongchul
