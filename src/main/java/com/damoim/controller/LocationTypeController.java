@@ -84,7 +84,7 @@ public class LocationTypeController {
 			
 		}
 		
-		System.out.println(list);
+		System.out.println(list.size());
 		
 		return list;
 	}

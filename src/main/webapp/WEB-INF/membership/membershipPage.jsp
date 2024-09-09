@@ -315,7 +315,8 @@
 		crossorigin="anonymous"></script>
 		
 	<script>
-	$(".mainMenu").mouseenter((e) => {
+
+ 	$(".mainMenu").mouseenter((e) => {
 		  let contents = $(e.target).siblings(); // 형제들
 	
 		 
@@ -350,7 +351,8 @@
 	
 	$("#cancle").click(()=>{
 		$("#deleteMembership").hide();
-	})
+	}) 
+
 	
 	
 

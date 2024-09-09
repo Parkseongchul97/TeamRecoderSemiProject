@@ -232,6 +232,8 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 	}
 	history.pushState({}, null, url);
 	list(1);
+	console.log();
+	if($(".locationSDiv").html() == 0)console.log("123123");
 });
 
 // 상단 지역별 버튼 눌렀을 때
