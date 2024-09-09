@@ -301,11 +301,14 @@ h1 {
 	font-weight: bolder;
 }
 
+/* 2024 / 09 / 09 DM */
 .club_info p {
+	display: flex;
+	justify-content: center;
 	font-size: 0.8rem;
 	margin-top: 5px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	width: 80%;
+	width: 100px;
 }

@@ -531,7 +531,7 @@ public class MembershipController {
 			}
 
 		}
-	
+		
 		model.addAttribute("otherHost", hosts);
 	
 		System.out.println("접속");
@@ -588,19 +588,11 @@ public class MembershipController {
 			vo.setMembershipImg(fileUpload(vo.getFile(), vo.getMembershipCode())); // 파일 업로드 + DB에 URL추가
 		}
 		
-
-
-		
 		// 타입이랑 로케이션 삭제 
 		// 만들어놓은 membership update 돌리기 
 		
 		
 		service.updateMembership(vo);
-		
-		
-		
-		
-		
 		
 		// 로케이션
 		String locLaName = LB.split(" = ")[0]; // 대분류 이름 소분류 이름 분리 
@@ -625,9 +617,20 @@ public class MembershipController {
 			MembershipType type = MembershipType.builder().typeSmallCode(typeCode).membershipCode(code).build();
 			service.makeTypeMembership(type);
 		}
-		
 
 		return "redirect:/";
 	}
+	
+	
+	@GetMapping("/dummyMembership")
+	public String dummyMembership() {
+		service.dummyMembership();
+		return "/";
+		
+	}
+	
+	
+	
+	
 
 }

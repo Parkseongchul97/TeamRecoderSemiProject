@@ -1,48 +1,59 @@
-#box{
-  		padding-top: 100px;
-  		background-color: #e5e5e5;
-  		height: 100%;
+#box {
+	display : flex;
+	background-color: #e5e5e5;
+	height: 100%;
+	padding-top: 120px;
+	padding-bottom: 70px;
 }
-#container{
-	padding: 30px 310px;
-	
+/* 2024/09/09 DM CSS 작업 살짝 */
+#container {
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	height: 80vh;
+	max-width: 800px;
+	width: 100%;
 	
 }
-#container > h1{
+
+#container>h1 {
 	font-size: 2rem;
 	font-family: "Jua", sans-serif;
 	margin-bottom: 10px;
-	
 }
-#button-box{
+
+#button-box {
 	padding-top: 10px;
 	display: flex;
-	flex-direction: row-reverse;	
+	flex-direction: row-reverse;
 }
+
 .button {
-  background-color: #f88c1d;
-  color: #fff;
-  border: none;
-  font-size : 1.2rem;
-  padding: 8px 15px;
-  text-transform: uppercase;
-  
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  margin-left: 10px;
-  font-family: "Jua", sans-serif;
+	background-color: #f88c1d;
+	color: #fff;
+	border: none;
+	font-size: 1.2rem;
+	padding: 8px 15px;
+	text-transform: uppercase;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+	margin-left: 10px;
+	font-family: "Jua", sans-serif;
 }
+
 .button:hover {
-  background-color: #e76f00;
+	background-color: #e76f00;
 }
-#back-button{
-	 background-color: #555;
-	 color: white;
-	 display: flex;
-	 justify-content: center;
-	 align-items: center;
+
+#back-button {
+	background-color: #555;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
+
 #back-button:hover {
 	background-color: #000;
 }

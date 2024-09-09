@@ -227,7 +227,17 @@ public class MembershipService {
 	}
 
 	
-	
+	// 더미 멤버쉽 이미지 파일 업로드
+	public void dummyMembership() {
+		
+		for(int i= 1; i < 51; i ++) {
+			// i가 우리가 필요한 맴버쉽 코드( 바꿀예정인)
+			
+			mapper.dummyMembership(i);
+		}
+		
+		
+	}
 	
 	
 }

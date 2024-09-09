@@ -196,7 +196,7 @@
 	
 	 
 
-
+	<!-- <a href="/dummyMembership">더미돌리기</a>  -->
 	<!-- <a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a> -->
 	<!-- <div class="membership-list"> -->
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>

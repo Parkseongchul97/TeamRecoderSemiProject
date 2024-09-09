@@ -110,13 +110,12 @@
 				</div>
 			</div>
 
-			<c:set var="info" value="${mem}" />
-			<c:set var="myGrade" value="${mem.listGrade}" />
 			<div class="container">
 				<div class="club-button">
-					<a id="all-club-button">가입 한 클럽</a> <a id="manage-club-button">
-						관리중인 클럽</a> <a id="wait-club-button">가입 신청 목록</a> <a
-						id="all-meet-button">내 모임 정보</a>
+					<a id="all-club-button">가입 한 클럽</a> 
+					<a id="manage-club-button"> 관리중인 클럽</a> 
+					<a id="wait-club-button">가입 신청 목록</a> 
+					<a id="all-meet-button">내 모임 정보</a>
 				</div>
 
 				<!-- 가입 된 클럽 보기 -->
@@ -499,6 +498,8 @@
 				        img.setAttribute('src', event.target.result);
 				        /* 그리고 imageContainer 안에 appendChile로 img 넣음*/
 				        imageContainer.appendChild(img);
+				        console.log(event.target.result);
+				        console.log(imageContainer);
 						console.log(img);
 				    };
 				   

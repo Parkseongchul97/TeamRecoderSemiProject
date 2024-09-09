@@ -86,8 +86,8 @@ public interface MembershipMapper {
 			
 			
 			
-
-	
+	// 더미 멤버쉽 이미지 파일 업로드  =============================
+	void dummyMembership (int membershipCode);
 	
 	
 	

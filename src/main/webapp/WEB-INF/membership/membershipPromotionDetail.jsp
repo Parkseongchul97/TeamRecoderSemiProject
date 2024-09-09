@@ -31,7 +31,7 @@
   
   <div id="container">
   <h1>모임 홍보글 작성</h1>
-    <textarea id="editor" name="editor">${memInfo.membershipInfo}</textarea>
+    <textarea id="editor" name="editor" class="text-area">${memInfo.membershipInfo}</textarea>
     <div id="button-box">
     <button class="button" id="submit-button" type="button" onclick="getEditorContent()">제출</button>
     <a class="button" id="back-button" href="/club/${memInfo.membershipCode}">뒤로가기</a>

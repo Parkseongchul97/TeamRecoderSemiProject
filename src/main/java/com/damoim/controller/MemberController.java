@@ -443,9 +443,20 @@ public class MemberController {
 			String decodedString = URLDecoder.decode(file, StandardCharsets.UTF_8.name());
 			File f = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + decodedString);
 			f.delete();
-
+			
 		}
-
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
