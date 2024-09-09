@@ -248,6 +248,56 @@ public class MembershipController {
 			System.out.println("업데이트 완료");
 			return true;
 		}
+			
+
+	
+		
+	}
+	/*
+	 * 성철
+	 * 클럽 삭제 
+	 * */
+	@ResponseBody
+	@PostMapping("/allDeleteMembership")	
+	public boolean allDeleteMembership(String pwdCheck){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();	
+		Member mem = (Member) authentication.getPrincipal();
+		if(memberService.updateCheck(mem, pwdCheck)) {
+				// 삭제전 비밀번호 확인
+		int membershipCode = -1;
+		for(MemberListDTO dto: mem.getMemberListDTO()) {
+			if(dto.getListGrade().equals("host")) {
+				System.out.println("이사람이 삭제하려는 클럽 코드는 : "  + dto.getMembershipCode());
+				membershipCode = dto.getMembershipCode();
+			}
+		}
+		Membership membership = service.selectMembership(membershipCode);
+		boolean ck = removeService.allDeleteMembership(membershipCode);
+		if(ck && membership != null) {
+			// 파일도 삭제
+			try {
+//				fileDelete(membership.getMembershipImg(), membershipCode);
+				folderDelete(membershipCode);
+			} catch (Exception e) {
+				return false;
+			}
+			System.out.println("파일 삭제 완료");
+			ArrayList<MemberListDTO> list = (ArrayList<MemberListDTO>) mem.getMemberListDTO();
+			for(int i = 0; i < list.size(); i++) {
+				if(list.get(i).getMembershipCode() == membershipCode) {
+					System.out.println("삭제될 DTO : " + list.get(i));
+					list.remove(i);
+					break;
+					
+				}
+				
+		}
+			return true;
+		}
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		System.out.println("업데이트 완료");
+	 	return ck;
+		} 
 		return false;
 	}
 
@@ -347,7 +397,6 @@ public class MembershipController {
 		model.addAttribute("adminList", service.adminUser(membershipCode));
 
 		model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
-		System.out.println(meetingService.allMeetings(membershipCode));
 
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 		model.addAttribute("location", locationTypeService.locationList(membershipCode));
@@ -503,10 +552,37 @@ public class MembershipController {
 		}
 
 	}
-
 	/*
-	 * 성일 어드민이나 호스트이냐 따라서 서로다른 맴버쉽 관리 페이지 이동처리
-	 */
+	 * 성철
+	 * 폴더 내의 파일 삭제
+	 * */
+	public boolean folderDelete(int code) {
+		 String path = "\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\\\" + Integer.toString(code); 
+         File folder = new File(path); //
+         try {
+             while (folder.exists()) { // 폴더가 존재한다면
+                 File[] listFiles = folder.listFiles();
+
+                 for (File file : listFiles) { // 폴더 내 파일을 반복시켜서 삭제
+                     file.delete();
+                 }
+
+                 if (listFiles.length == 0 && folder.isDirectory()) { // 하위 파일이 없는지와 폴더인지 확인 후 폴더 삭제
+                     folder.delete();
+                 }
+             
+        
+             }
+         }
+        catch (Exception e) {
+        	return false;
+		}
+        return true;
+	}
+	
+	/* 성일
+	 * 어드민이나 호스트이냐 따라서 서로다른 맴버쉽 관리 페이지 이동처리
+	 * */
 
 	/*
 	 * 멤버관리 페이지 호스트와 관리자만 접속 가능 등급 설정 및 회원 강퇴 기능 구현
