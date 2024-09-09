@@ -138,7 +138,7 @@
 										</c:if>
 										<c:if test="${mem.membership.membershipImg == null}">
 											<img class="membership-img"
-												src="http://192.168.10.51:8081/imgBanner.png">
+												src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 										</c:if>
 									</div>
 									<div class="membership-String">
@@ -171,9 +171,12 @@
 													<button class="Management-button" id="update-club"
 														type="submit" value="클럽수정">클럽 정보 수정</button>
 												</form>
-												<button class="Management-button"
-													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+												
 											</c:if>
+											<c:if test="${myGrade != 'host'}">
+											<button class="Management-button"
+													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+													</c:if>
 										</div>
 									</div>
 								</div>
@@ -201,7 +204,7 @@
 										</c:if>
 										<c:if test="${mem.membership.membershipImg == null}">
 											<img class="membership-img"
-												src="http://192.168.10.51:8081/imgBanner.png">
+												src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 										</c:if>
 									</div>
 									<div class="membership-String">
@@ -234,10 +237,13 @@
 													<button class="Management-button" id="update-club"
 														type="submit" value="클럽수정">클럽 정보 수정</button>
 												</form>
-												<button class="Management-button"
-													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+												
 											</div>
 										</c:if>
+										<c:if test="${myGrade != 'host'}">
+											<button class="Management-button"
+													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+													</c:if>
 									</div>
 								</div>
 							</a>
@@ -264,8 +270,9 @@
 										</c:if>
 										<c:if test="${mem.membership.membershipImg == null}">
 											<img class="membership-img"
-												src="http://192.168.10.51:8081/imgBanner.png">
+												src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 										</c:if>
+										
 									</div>
 									<div class="membership-String">
 										<h4>${mem.membership.membershipName}</h4>
@@ -322,7 +329,7 @@
 												alt="Membership Image">
 										</c:if> <c:if test="${mem.membership.membershipImg == null}">
 											<img class="membership-img"
-												src="http://192.168.10.51:8081/imgBanner.png">
+												src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 										</c:if>
 									</a>
 								</c:if>
