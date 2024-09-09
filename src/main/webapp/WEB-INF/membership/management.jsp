@@ -31,8 +31,9 @@
 
   
 <div class="box">
+	
 <div class="box-container">
- 
+ 	<h1>관리 페이지</h1>
     <table>
     <thead>
     <tr>
@@ -260,7 +261,7 @@ $("button").click((e)=>{
  </script>
  
  
- 
+ <jsp:include page="../footer/footerIndex.jsp" />
 
 </body>
 </html>

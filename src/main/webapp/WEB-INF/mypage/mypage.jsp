@@ -353,6 +353,7 @@
 
 
 						</div>
+						
 						<div class="host-Management-deleteButton">
 							<!-- 클럽 삭제 -->
 
@@ -438,7 +439,7 @@
 	    	</c:if>
 	    	allMeet = {};
 	    </c:forEach>
-	    </script>
+	 </script>
 <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
 <script src="${pageContext.request.contextPath}/js/mypage.js"></script>
 <script
