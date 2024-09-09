@@ -66,17 +66,11 @@ public class PageController {
 		
 		
 		ArrayList<MembershipUserList> membershipList = (ArrayList<MembershipUserList>) infoService.selectMemberUserList(member.getId());
-		model.addAttribute("list", membershipList);
+		for(MembershipUserList li : membershipList) {
+			 li.setCount(infoService.membershipUserCount(li.getMembership().getMembershipCode()));
+		}
+		model.addAttribute("mypage", membershipList);
 		
-		List<MembershipUserList> list = new ArrayList<MembershipUserList>();
-		for (MemberListDTO m : member.getMemberListDTO()) {
-			list.add((MembershipUserList) infoService.main(m.getMembershipCode()));
-		}
-		for (int i = 0; i < list.size(); i++) {
-			list.get(i).setCount(list.get(i).getListCode());
-		}
-		// 내 등급별 클럽
-		model.addAttribute("membership", list);
 		return "mypage/mypage";
 	}
 	

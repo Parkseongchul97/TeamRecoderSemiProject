@@ -87,13 +87,6 @@ $(document).ready(function() {
 	    return input.replace(regex, '');
 	}
 
-	// 테스트
-	let a = $("#hiddenT").val();
-	console.log(a);
-	const inputString = $("#hiddenT").val();
-	const result = keepHangulAndAmpersand(inputString);
-	console.log(result);
-	   
 	   
 	   
 	   
@@ -167,6 +160,14 @@ $(document).ready(function() {
 
 	});
 
+	const imgElement = document.querySelector('#memberImg img');
+
+	// 'src' 속성 값을 가져옵니다.
+	const imgSrc = imgElement.src;
+
+	console.log(imgSrc);
+	
+	
 });
 
 

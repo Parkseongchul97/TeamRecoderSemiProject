@@ -164,16 +164,6 @@ public class MembershipService {
 		return mapper.selectMembership(membershipCode);
 	}
 
-	// public List<MembershipUserList> list(Paging paging) {
-
-	// return mapper.allMembership(paging);
-	// }
-
-	// public MemberListDTO checkMember(MemberListDTO memberListDTO) {
-
-	// return mapper.checkMember(memberListDTO);
-	// }
-
 
 
 	public int makeMembershipCode(String membername) {

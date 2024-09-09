@@ -248,58 +248,13 @@ public class MembershipController {
 			System.out.println("업데이트 완료");
 			return true;
 		}
+		return false;
+	}
 			
 
 	
-		
-	}
-	/*
-	 * 성철
-	 * 클럽 삭제 
-	 * */
-	@ResponseBody
-	@PostMapping("/allDeleteMembership")	
-	public boolean allDeleteMembership(String pwdCheck){
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();	
-		Member mem = (Member) authentication.getPrincipal();
-		if(memberService.updateCheck(mem, pwdCheck)) {
-				// 삭제전 비밀번호 확인
-		int membershipCode = -1;
-		for(MemberListDTO dto: mem.getMemberListDTO()) {
-			if(dto.getListGrade().equals("host")) {
-				System.out.println("이사람이 삭제하려는 클럽 코드는 : "  + dto.getMembershipCode());
-				membershipCode = dto.getMembershipCode();
-			}
-		}
-		Membership membership = service.selectMembership(membershipCode);
-		boolean ck = removeService.allDeleteMembership(membershipCode);
-		if(ck && membership != null) {
-			// 파일도 삭제
-			try {
-//				fileDelete(membership.getMembershipImg(), membershipCode);
-				folderDelete(membershipCode);
-			} catch (Exception e) {
-				return false;
-			}
-			System.out.println("파일 삭제 완료");
-			ArrayList<MemberListDTO> list = (ArrayList<MemberListDTO>) mem.getMemberListDTO();
-			for(int i = 0; i < list.size(); i++) {
-				if(list.get(i).getMembershipCode() == membershipCode) {
-					System.out.println("삭제될 DTO : " + list.get(i));
-					list.remove(i);
-					break;
-					
-				}
-				
-		}
-			return true;
-		}
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		System.out.println("업데이트 완료");
-	 	return ck;
-		} 
-		return false;
-	}
+	
+
 
 	/*
 	 * 성일 카운트 관련 VO에 합쳐버림 성철 댓글 대댓글 글 관련 로직 추가
