@@ -258,6 +258,7 @@ input[type="checkbox"]:checked + .typeLNCss {
     border-color: #007bff;
 }
 
+
 /* 체크박스 호버 시 스타일 */
 .locLNCss:hover, .typeLNCss:hover {
     background-color: #cce5ff;

@@ -128,28 +128,9 @@ public class MembershipController {
 		service.membershipImg(m);
 
 		// 로케이션
-		String locLaName = LB.split(" = ")[0]; // 대분류 이름 소분류 이름 분리
-		String[] locLaSName = LB.split(" = ")[1].split(", ");
-		LocationCategory lc = LocationCategory.builder().locLaName(locLaName).build();
 
-		for (String s : locLaSName) {
-			lc.setLocSName(s);
-			int locationCode = service.findLocationCode(lc);
-			MembershipLocation location = MembershipLocation.builder().locSmallCode(locationCode).membershipCode(code).build();
-			service.makeLocationMembership(location); // MembershipLocation
-		}
 		// 타입
-		String typeLaName = TB.split(" = ")[0];
-		String[] typeSName = TB.split(" = ")[1].split(", ");
-		TypeCategory tc = TypeCategory.builder().typeLaName(typeLaName).build();
 
-		for (String s : typeSName) {
-			tc.setTypeSName(s);
-			int typeCode = service.findTypeCode(tc);
-
-			MembershipType type = MembershipType.builder().typeSmallCode(typeCode).membershipCode(code).build();
-			service.makeTypeMembership(type);
-		}
 		// 호스트 담기용 DTO 생성
 		MemberListDTO list = new MemberListDTO();
 				list.setId(mem.getId());
