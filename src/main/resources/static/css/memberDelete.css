@@ -105,7 +105,9 @@ strong {
 	border-radius: 5px;
 }
 
+
 .details div>* {
+	line-height : 30px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
@@ -151,29 +153,37 @@ strong {
 .confirmation div {
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: space-between;
 }
 
 .confirmation p {
 	font-weight: bolder;
 	padding-top: 10px;
 	padding-bottom: 20px;
+	width: 100%;
 }
+
 .membership-img{
 	width: 100px;
 	height: 100px;
 	border-radius:15px;
 }
+#warning{
+	font-size: 1.3rem;
+	
+}
 
-
+#pwdCheck{
+	width: 200px;
+}
 #button {
 	background-color: #fca311;
 	color: white;
-	padding: 10px 15px;
+	padding: 20px 15px;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
-	width: 50%;
+	width: 40%;
 	font-size: 1rem;
 }
 

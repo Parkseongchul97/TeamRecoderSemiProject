@@ -101,16 +101,15 @@ uri="http://www.springframework.org/security/tags"%>
           </div>
         </section>
         <section class="confirmation">
-          <div>
             <label for="checkbox">
-              <p>
+              <p id="warning">
                 안내 사항을 모두 확인하였으며, 이에 동의합니다.
                 <input type="checkbox" id="checkbox" name="checkbox" />
               </p>
             </label>
-            <div>
-              <label
-                >비밀번호 확인<input
+            <div class="confirmation-group">
+              <label class="pwdLabel"
+                >비밀번호 확인 : <input
                   type="password"
                   id="pwdCheck"
                   name="pwdCheck" /></label
