@@ -269,7 +269,7 @@
 							
 							</div>
 							</div>
-	
+	<jsp:include page="../chatting/chattingIndex.jsp" />
 	<jsp:include page="../footer/footer.jsp" />
 	
 	

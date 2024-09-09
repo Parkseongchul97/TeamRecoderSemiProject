@@ -383,7 +383,7 @@ public class MembershipController {
 	 * 
 	 */
 	@GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
-	public String membershipPage(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO,
+	public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,
 			Model model) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
