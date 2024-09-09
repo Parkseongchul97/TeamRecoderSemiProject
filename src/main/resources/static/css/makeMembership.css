@@ -265,30 +265,10 @@ input[type="checkbox"]:checked + .typeLNCss {
 }
 
 /* 체크박스 레이블 내 체크 아이콘 스타일 */
-.locLNCss::before, .typeLNCss::before {
-    content: "";
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    border: 2px solid #d5d5d5;
-    border-radius: 3px;
-    margin-right: 8px;
-    vertical-align: middle;
-    background-color: #fff;
-    transition: background-color 0.3s, border-color 0.3s;
-}
+
 
 /* 체크박스가 선택되었을 때 체크 아이콘 표시 */
-input[type="checkbox"]:checked + .locLNCss::before,
-input[type="checkbox"]:checked + .typeLNCss::before {
-    background-color: #007bff;
-    border-color: #007bff;
-    content: "✓";
-    color: #fff;
-    text-align: center;
-    line-height: 18px;
-    font-size: 14px;
-}
+
 
 /* 로케이션 필터 스타일 */
 #locationLaNameForm {
