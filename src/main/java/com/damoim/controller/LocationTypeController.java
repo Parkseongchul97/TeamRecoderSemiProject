@@ -55,13 +55,13 @@ public class LocationTypeController {
 			search.setTypeSNameList(new ArrayList<>(Arrays.asList(search.getTypeSName().split(","))));
 		}
 		
-
+		
 		// Location type 확인후 MemberShipCode 뽑기
 		List<Integer> membershipCodes = locationTypeservice.searchList(search);		
 		
 		List<MemberLocTypeDTO> list = new ArrayList<MemberLocTypeDTO>();
 		
-
+		
 		// 모든 정보 합쳐서 리스트로 뿌리기
 		if(membershipCodes.size()!=0) {
 			// 위에서 뽑아온 코드를 다시 searchDTO에 저장

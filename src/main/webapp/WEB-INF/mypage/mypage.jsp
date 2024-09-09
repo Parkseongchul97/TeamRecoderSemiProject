@@ -320,7 +320,8 @@
 											<img class="membership-img"
 												src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
 												alt="Membership Image">
-										</c:if> <c:if test="${mem.membership.membershipImg == null}">
+										</c:if>
+										<c:if test="${mem.membership.membershipImg == null}">
 											<img class="membership-img"
 												src="http://192.168.10.51:8081/imgBanner.png">
 										</c:if>
@@ -340,16 +341,17 @@
 										<p>${mem.count}</p>
 										<p>/</p>
 										<p>${mem.membership.membershipMax}</p>
-										<c:set var="hostCount" value="${mem.count == 1}"/>
+										<c:set var="hostCount" value="${mem.count == 1}" />
 									</div>
 								</c:if>
 							</c:forEach>
 
-							<div class="host-Management-input">
-								<!-- 클럽 삭제 -->
-							
-								<button id="deleteButton">클럽삭제</button>
-							</div>
+
+						</div>
+						<div class="host-Management-deleteButton">
+							<!-- 클럽 삭제 -->
+
+							<button id="deleteButton">클럽삭제</button>
 						</div>
 					</div>
 				</c:if>
@@ -364,39 +366,41 @@
 				</c:if>
 
 			</div>
-				<div id="deleteMembership" style="display: none">
-		<div id="deleteContainer">
-			<div id="container-title">
-				<span id="title">클럽 삭제 창</span>
-			</div>
-			<div id="deleteCancle">
-				<button id="cancle">
-					<i class="fa-solid fa-x"></i>
-				</button>
-			</div>
-		</div>
-		<div id="container-main">
-			<div id="delete-text">
-				<span style="color : ${textColor}">클럽원이 본인만 남아있는 클럽만</span> 삭제할 수
-				있으며 해당 클럽에 대한 모든 데이터는 삭제 처리 됩니다 그래도 삭제하시겠습니까?
-			</div>
+			
+			
+			<div id="deleteMembership" style="display: none">
+				<div id="deleteContainer">
+					<div id="container-title">
+						<span id="title">클럽 삭제 창</span>
+					</div>
+					<div id="deleteCancle">
+						<button id="cancle">
+							<i class="fa-solid fa-x"></i>
+						</button>
+					</div>
+				</div>
+				<div id="container-main">
+					<div id="delete-text">
+						<span style="color : ${textColor}">클럽원이 본인만 남아있는 클럽만</span> 삭제할 수
+						있으며 해당 클럽에 대한 모든 데이터는 삭제 처리 됩니다 그래도 삭제하시겠습니까?
+					</div>
 
-			<div id="passwordCheck">
-				비밀번호 확인 : <input type="password" name="pwdCheck" id="pwdCheck">
-			</div>
-			<div id="container-button">
-				<c:if test="${hostCount}">
-					<button id="deleteBtn" class="btn" onclick="allDeleteMembership()">클럽
-						삭제</button>
-				</c:if>
-				<c:if test="${!hostCount}">
-					<button id="deleteBtn" class="btn">삭제 불가</button>
-				</c:if>
+					<div id="passwordCheck">
+						비밀번호 확인 : <input type="password" name="pwdCheck" id="pwdCheck">
+					</div>
+					<div id="container-button">
+						<c:if test="${hostCount}">
+							<button id="deleteBtn" class="btn"
+								onclick="allDeleteMembership()">클럽 삭제</button>
+						</c:if>
+						<c:if test="${!hostCount}">
+							<button id="deleteBtn" class="btn">삭제 불가</button>
+						</c:if>
 
-			</div>
+					</div>
 
-		</div>
-	</div>
+				</div>
+			</div>
 		</sec:authorize>
 	</div>
 
@@ -434,7 +438,7 @@
 <script src="${pageContext.request.contextPath}/js/mypage.js"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
+<script>
 	$(".mainMenu").mouseenter((e) => {
 		  let contents = $(e.target).siblings(); // 형제들
 	
@@ -475,7 +479,7 @@
 	
 
 	</script>
-	
+
 <script>
 			function imgShow(event) {
 				 var reader = new FileReader();

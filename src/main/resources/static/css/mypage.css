@@ -236,7 +236,7 @@ input[type=password] {
 	flex-direction: row;
 }
 
-#all-club, #manage-club, #wait-club ,#all-meet {
+#all-club, #manage-club, #wait-club, #all-meet {
 	display: flex;
 	flex-direction: column;
 }
@@ -501,6 +501,7 @@ input[type=password] {
 	padding-top: 50px;
 	font-size: 1.5rem;
 }
+
 /* ========== host-Management-section =========*/
 .host-Management-title {
 	display: flex;
@@ -531,6 +532,16 @@ input[type=password] {
 	padding-bottom: 20px;
 	font-size: 1.2rem;
 	font-weight: bolder;
+}
+
+.host-Management-text {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 200px;
+	max-width: 770px;
+	height: 150px;
 }
 
 .host-Management-text>* {
@@ -564,10 +575,20 @@ input[type=password] {
 	padding-bottom: 10px;
 }
 
-.host-management-input {
-	display: flex;
-	flex-direction: row;
-	width: 100%;
+#deleteButton {
+	background-color: #14213D;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	width: 150px;
+	height: 40px;
+	font-size: 1rem;
+	font-weight: bolder;
+	margin-right: 10px;
+}
+
+#deleteButton:hover {
+	background-color: #9a8c98;
 }
 
 #pwdCheck {
@@ -603,98 +624,92 @@ input[type=password] {
 	background-color: #E76F00;
 }
 
+/* 클럽 삭제 알림창 */
 #deleteMembership {
-  font-family: "Do Hyeon", sans-serif;
-  width: 600px;
-  height: 250px;
-  font-size: 20px;
-
-  background: gray;
-
-  position: fixed;
-  /*   position: absolute;*/
-  cursor: pointer;
-  top: 102px;
-  left: 658px;
-  z-index: 99;
-
-  background: white;
-  border: 0.5px solid black;
-  box-shadow: 5px 5px 5px #000;
+	font-family: "Do Hyeon", sans-serif;
+	width: 600px;
+	height: 250px;
+	font-size: 20px;
+	background: gray;
+	position: fixed;
+	/*   position: absolute;*/
+	cursor: pointer;
+	top: 102px;
+	left: 658px;
+	z-index: 99;
+	background: white;
+	border: 0.5px solid black;
+	box-shadow: 5px 5px 5px #000;
 }
 
 #container-title {
-  width: 100%;
-  text-align: center;
-  height: 40px;
-
-  background: #add8e6;
-  color: #fca35b;
-  font-family: "Do Hyeon", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	width: 100%;
+	text-align: center;
+	height: 40px;
+	background: #add8e6;
+	color: #fca35b;
+	font-family: "Do Hyeon", sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
+
 #container-main {
-  width: 100%;
-  height: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px;
-  background: white;
+	width: 100%;
+	height: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 20px;
+	background: white;
 }
-
 
 #deleteContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  height: 40px;
-  font-size: 32px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+	height: 40px;
+	font-size: 32px;
 }
+
 #deleteCancle {
-  background: red;
-  height: 40px;
-  color: white;
+	background: red;
+	height: 40px;
+	color: white;
 }
+
 #cancle {
-  color: white;
-  background: red;
-  border: none;
-  height: 40px;
-  border: 0.5px solid black;
-  border-top: none;
-  border-right: none;
+	color: white;
+	background: red;
+	border: none;
+	height: 40px;
+	border: 0.5px solid black;
+	border-top: none;
+	border-right: none;
 }
 
 #deleteBtn {
-  border: 1px solid black;
-  background: black;
-  color: white;
-  width: 115px;
-  height: 46px;
-  font-size: 20px;
-}
-#deleteBtn:hover {
-  border: 1px solid red;
-  background: red;
-  color: black;
+	border: 1px solid black;
+	background: black;
+	color: white;
+	width: 115px;
+	height: 46px;
+	font-size: 20px;
 }
 
-@keyframes blink {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+#deleteBtn:hover {
+	border: 1px solid red;
+	background: red;
+	color: black;
 }
+
+keyframes blink {
+	opacity: 1;
+}
+
+
 #title {
-  animation: blink 1s infinite; /* 1초 간격으로 무한 반복 */
+	animation: blink 1s infinite; /* 1초 간격으로 무한 반복 */
 }
