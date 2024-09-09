@@ -94,6 +94,9 @@ public interface MembershipMapper {
 			// 클럽명 중복확인
 			Membership membershipNameCheck(Membership membership);
 			
+			
+			
+			
 
 	
 	

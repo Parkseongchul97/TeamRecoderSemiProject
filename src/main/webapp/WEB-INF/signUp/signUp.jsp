@@ -75,6 +75,11 @@
 							</div>
 
 
+						<div class="formBox">
+							<label for="pwd"><span style="color: red">*</span> 비밀번호 <span
+								class="result" id="pwdResult"></span></label> <input type="password"
+								id="pwd" name="pwd" placeholder="비밀번호를 입력하세요" />
+						</div>
 
 
 

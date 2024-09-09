@@ -1,7 +1,12 @@
 package com.damoim.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,8 +45,7 @@ public class LocationTypeController {
 	private MembershipService memberService;
 	
 	public List<MemberLocTypeDTO> locationTypeList(SearchDTO search) {
-		
-		
+
 		
 		// '세종' 안에 null 이 아니면 '세종시' 넣고
 		if(search.getLocationSName()!=null) {
@@ -78,8 +82,12 @@ public class LocationTypeController {
 				dto.setMemberLocation(member.getMemberLocation());
 				dto.setMemberType(member.getMemberType());
 				dto.setCount(locationTypeservice.allMemberShipUser(dto.getMembershipCode()));
+				dto.setMemberManner(member.getMemberManner());
 			}
+			
 		}
+		
+		System.out.println(list);
 		
 		return list;
 	}
@@ -95,13 +103,48 @@ public class LocationTypeController {
 			model.addAttribute("member",mem);
 		}
 		
-		model.addAttribute("list", locationTypeList(search));
-		System.out.println(locationTypeList(search).get(1).getMemberImg());
+		
+	
+		 
+		
+	ArrayList<MemberLocTypeDTO>	 test = (ArrayList<MemberLocTypeDTO>) locationTypeList(search);
+	
+	
+
+		model.addAttribute("list", test);
+		
+	      Calendar calendar = Calendar.getInstance();
+	        
+	        // 오늘 날짜를 가져옵니다.
+	        Date today = calendar.getTime();
+	        
+	        // 30일 전 날짜를 계산합니다.
+	        calendar.add(Calendar.DAY_OF_MONTH, -30);
+	        Date thirtyDaysAgo = calendar.getTime();
+	        
+	        // SimpleDateFormat 객체를 생성하여 날짜 형식을 정의합니다.
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        
+	        // 날짜를 원하는 형식으로 변환합니다.
+	        String todayFormatted = sdf.format(today);
+	        String thirtyDaysAgoFormatted = sdf.format(thirtyDaysAgo);
+	        
+	        // 결과를 출력합니다.
+	        System.out.println("오늘 날짜: " + todayFormatted);
+	        System.out.println("30일 전 날짜: " + thirtyDaysAgoFormatted);
+	
+	model.addAttribute("today30", thirtyDaysAgoFormatted);
+	model.addAttribute("today", todayFormatted);
 		// 화면 상단바
 		model.addAttribute("locLaNameList", locationTypeservice.locLaNameList());
 		model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList());
+		model.addAttribute("locSNameList", locationTypeservice.locSNameList(search.getLocationLaName()));
+		model.addAttribute("typeSNameList", locationTypeservice.typeSNameList(search.getTypeLaName()));
+		
 		return "index";
 	}
+	
+
 	
 	@ResponseBody
 	@GetMapping("list")
@@ -111,7 +154,7 @@ public class LocationTypeController {
 	
 	@ResponseBody
 	@GetMapping("locationSList")
-	public List<String> locationSList(String laName,Model model) {
+	public List<String> locationSList(String laName) {
 		return locationTypeservice.locSNameList(laName);
 	}
 	
