@@ -222,6 +222,7 @@ public class MembershipService {
 	}
 
 	
+<<<<<<< HEAD
 	// 클럽수정시 지역타입 버튼눌린 상태로 만들기
 <<<<<<< HEAD
 		public List<LocationCategory> locButton(int membershipCode){
@@ -247,6 +248,9 @@ public class MembershipService {
 				return mapper.enterChattingroomCode(id);
 			}
 >>>>>>> seongchul
+=======
+	
+>>>>>>> parent of 0996c70 (123)
 	
 	
 }
