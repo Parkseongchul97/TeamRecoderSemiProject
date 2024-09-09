@@ -35,12 +35,14 @@ import com.damoim.model.dto.RecommendationDTO;
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipMeetings;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
 import com.damoim.model.vo.UserInfoPaging;
 import com.damoim.service.EmailService;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MemberService;
+import com.damoim.service.MembershipMeetingService;
 import com.damoim.service.MembershipService;
 import com.damoim.service.RemoveMemberService;
 
@@ -63,6 +65,9 @@ public class MemberController {
 	
 	@Autowired // 회원 탈퇴 댓글 삭제 서비스
 	private RemoveMemberService removeService;
+	
+	@Autowired
+	private MembershipMeetingService meetingService;
 
 
 	/*
@@ -177,10 +182,11 @@ public class MemberController {
 	 * 성철 단순히 더미데이터 비밀번호 처리
 	 */
 	@GetMapping("/dummyUpdate")
-	public String dummyUpdate() {
-		service.dummyUpdate();
+	public String dummyUpdate() throws IOException {
+		service.dummyUpdate();// 더미 비밀번호 업데이트 // 폴더생성
 		return "redirect:/";
 	}
+
 	/*
 	 * 성철
 	 * 업데이트시 본인꺼 OR 중복 X 확인
@@ -349,6 +355,9 @@ public class MemberController {
 	 */
 	@GetMapping("/userInfo/{nickname}")
 	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {
+		
+	
+		
 		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
 
 		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member)
@@ -411,18 +420,18 @@ public class MemberController {
 	}
 
 	// 성철 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!! 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
-	public void fileDelete(String fileName, String id) throws IllegalStateException, IOException {
-
-		if (fileName == null) {
+	public void fileDelete(String file,  String id) throws IllegalStateException, IOException {
+		
+		if (file == null) {
 			System.out.println("삭제할 파일이 없습니다");
 		} else {
-			String decodedString = URLDecoder.decode(fileName, StandardCharsets.UTF_8.name());
-			System.out.println("삭제될 URL : " + fileName);
-			File file = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + decodedString);
-			file.delete();
+			System.out.println("삭제될 URL : " + file);
+			String decodedString = URLDecoder.decode(file, StandardCharsets.UTF_8.name());
+			File f = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + decodedString);
+			f.delete();
+
 		}
-		
-		
+
 	}
 
 }

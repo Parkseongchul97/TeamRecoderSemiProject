@@ -35,7 +35,7 @@ membershipName.addEventListener("input", function () {
 });
 
 // 클럽 인원수 설정
-const membershipMaxRegExp = /^[0-9]{2,100}$/;
+const membershipMaxRegExp = /^[0-9]$/;
 
 let membershipMaxSubmit = false; // 최대인원 설정 여부를 나타내는 변수 초기화
 
@@ -43,18 +43,18 @@ let membershipMaxSubmit = false; // 최대인원 설정 여부를 나타내는 �
 membershipMax.addEventListener("input", function () {
   const membershipMaxValue = $(this).val().trim(); // jQuery를 사용하여 현재 값 가져오기
 
-  if (membershipMaxValue === "") {
-    $("#max").text(" 필수 입력사항입니다").css("color", "red");
-    membershipMaxSubmit = false; // 제출 불가 상태로
-  } else if (membershipMaxValue <= 1 || membershipMaxValue >= 101) {
-    $("#max")
-      .text("설정 가능한 최소 인원은 2명 최대 인원수는 100명입니다")
-      .css("color", "red");
-    membershipMaxSubmit = false;
-  } else {
-    $("#max").text("설정 가능한 인원수 입니다").css("color", "green");
-    membershipMaxSubmit = true;
-  }
+	if (membershipMaxValue === '') {
+		$('#max').text(" 필수 입력사항입니다").css('color', 'red');
+		membershipMaxSubmit = false; // 제출 불가 상태로 
+	}
+	else if (membershipMaxValue <= 1 || membershipMaxValue >= 101) {
+		$('#max').text("설정 가능한 최소 인원은 2명 최대 인원수는 100명입니다").css('color', 'red');
+		membershipMaxSubmit = false;
+	}
+	 else {
+		$('#max').text("설정 가능한 인원수 입니다").css('color', 'green');
+		membershipMaxSubmit = true;
+	}
 });
 
 // 지역 선택 시 변경 이벤트
@@ -109,34 +109,32 @@ let LB = ""; // 선택된 지역 정보를 저장할 변수
 let list = "";
 let allList = `<option>전체보기</option>`; // 전체보기 옵션을 포함한 HTML 문자열
 let selectedAreas = []; // 선택된 지역 정보를 저장할 배열
-locationBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-  let locationbig = $("#locationLaNameMem option:selected").val();
-  let locationsmall = $("#locationSNameMem option:selected").val();
-  let string = "";
+locationBtn.addEventListener("click", function(e) {
+	e.preventDefault();
+	let locationbig = $("#locationLaNameMem option:selected").val();
+	let locationsmall = $("#locationSNameMem option:selected").val();
+	let string = "";
+// 앞에 두글자가 선택된 이름의 값과 다르면서 공백이 아닐때 
 
-  if (
-    $("#test1").html().substr(0, 2) !== locationbig &&
-    $("#test1").html() !== ""
-  ) {
-    alert("같은 시에서만 선택가능합니다 확인해 주시고 다시 선택해 주세요");
-    return;
-  }
-  if ($("#test1").html().includes(locationsmall) && $("#test1").html() !== "") {
-    alert("같은 지역을 선택하였습니다 확인해 주시고 다시 선택해 주세요");
-    return;
-  }
-  if ($("#test1").html() == "") {
-    string += $("#test1").html() + locationbig + " = " + locationsmall;
-  } else {
-    string += $("#test1").html() + ", " + locationsmall;
-  }
-  if ($("#locationLaNameMem option:selected").val() === "전체보기") {
-    locationBtnCheck = false;
-    alert("지역을 선택해 주세요");
-    return; // 클릭 이벤트를 막고 함수 종료
-  }
-  $("#test1").html(string);
+	if ($("#test1").html().substr(0, 2) != locationbig && $("#test1").html() != "") {
+		alert("하나의 카태고리에서만 선택할수 있습니다!");
+		return;
+	}
+	if ($("#test1").html().includes(locationsmall) && $("#test1").html() !== "") {
+		alert("중복선택은 불가능합니다!");
+		return;
+	}
+	if ($("#test1").html() == "") {
+		string += $("#test1").html() + locationbig + " = " + locationsmall;
+	} else {
+		string += $("#test1").html() + ", " + locationsmall;
+	}
+	if ($("#locationLaNameMem option:selected").val() === "전체보기") {
+		locationBtnCheck = false;
+		alert("지역을 선택해 주세요")
+		return; // 클릭 이벤트를 막고 함수 종료
+	}
+	$("#test1").html(string);
 });
 
 locationBtncancel.addEventListener("click", function () {
@@ -152,11 +150,31 @@ let allList2 = `<option>전체보기</option>`; // 전체보기 옵션을 포함
 let selectedtype = []; // 선택된 유형 정보를 저장할 배열(중복체크용)
 let typetext = "";
 // typeBtn 버튼에 클릭 이벤트 리스너 추가
-typeBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-  let typebig = $("#typeLaNameMem option:selected").val();
-  let typesmall = $("#typeSNameMem option:selected").val();
-  let string = "";
+typeBtn.addEventListener("click", function(e) {
+	e.preventDefault();
+	let typebig = $("#typeLaNameMem option:selected").val();
+	let typesmall = $("#typeSNameMem option:selected").val();
+	let string = "";
+
+	if ($("#test2").html().substr(0, 2) !== typebig.substr(0, 2) && $("#test2").html() !== "") {
+		alert("하나의 카태고리에서만 선택할수 있습니다!");
+		return;
+	}
+	if ($("#test2").html().includes(typesmall) && $("#test2").html() !== "") {
+		alert("중복선택은 불가능합니다!");
+		return;
+	}
+	if ($("#test2").html() == "") {
+		string += $("#test2").html() + typebig + " = " + typesmall;
+	} else {
+		string += $("#test2").html() + ", " + typesmall;
+	}
+	if ($("#typeLaNameMem option:selected").val() === "전체보기") {
+		typeBtnCheck = false;
+		alert("유형을 선택해 주세요")
+		return; // 클릭 이벤트를 막고 함수 종료
+	}
+	$("#test2").html(string);
 
   if (
     $("#test2").html().substr(0, 2) !== typebig.substr(0, 2) &&
@@ -189,16 +207,17 @@ typeBtncancel.addEventListener("click", function () {
   selectedAreas = [];
 });
 
-function validate() {
-  // 생성버튼 눌렀을때 작동
-  let membershipName = $("#membershipName").val();
-  let f = document.getElementById("file");
-  let file = f.files[0];
-  let membershipAccessionText = $("#membershipAccessionText").val();
-  let membershipSimpleText = $("#membershipSimpleText").val();
-  let membershipMax = $("#membershipMax").val();
-  let loc = $("#test1").text();
-  let tp = $("#test2").text();
+function validate() { // 생성버튼 눌렀을때 작동
+	
+	let membershipName = $("#membershipName").val();
+	let f = document.getElementById('file');
+	let file = f.files[0];
+	
+	let membershipAccessionText = $("#membershipAccessionText").val();
+	let membershipSimpleText = $("#membershipSimpleText").val();
+	let membershipMax = $("#membershipMax").val();
+	let loc = $("#test1").text();
+	let tp = $("#test2").text();
 
   let formData = new FormData(); // FormData 객체를 사용하여 파일과 데이터를 함께 전송합니다.
   //formData.append('dto', JSON.stringify(data));
@@ -219,8 +238,49 @@ function validate() {
       //  mypage 페이지로 이동
       //console.log("membershipCode:", membershipCode);
 
-      window.location.replace(`/club/${code}`);
-      //location.replace('/mypage');
-    },
-  });
-}
+	let formData = new FormData(); // FormData 객체를 사용하여 파일과 데이터를 함께 전송합니다.
+	console.log("머고");
+	formData.append('membershipName',membershipName)
+	formData.append('membershipAccessionText',membershipAccessionText)
+	formData.append('membershipSimpleText',membershipSimpleText)
+	formData.append('membershipMax',membershipMax)
+	if(file !== undefined){
+	formData.append('file', file);
+	}
+	formData.append('LB', loc);
+	formData.append('TB', tp);
+	console.log(membershipName);
+	console.log(membershipAccessionText);
+	console.log(membershipSimpleText);
+	console.log(membershipMax);
+	console.log(loc);
+	console.log(tp);
+	console.log(file);
+	console.log([...formData.entries()]);
+	if(!membershipNameCheck){
+		alert("클럽명을 확인해주세요");
+	}else if(tp === ""){
+		alert("타입을 선택해 주세요");
+	}else if(loc === ""){
+		alert("지역을 선택해 주세요");
+	}else if(!membershipMaxSubmit){
+		alert("최대 인원 설정을 확인해 주세요");
+	}else{ 
+		$.ajax({
+		type: 'POST',
+		url: '/makeMembership',
+		data: formData,
+		processData: false,
+		contentType: false,
+		success: function(code) {
+			alert("클럽 생성 성공!");
+			window.location.replace("/club/" + code);
+			//  클럽 페이지로 이동
+			
+		}
+		
+	});
+	}
+	
+
+

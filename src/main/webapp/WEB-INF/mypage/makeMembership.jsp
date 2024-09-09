@@ -75,6 +75,50 @@
 							<input type="submit" value="지역 검색" id="locSNameBtn">
 						</form>
 					</c:if>
+	
+					
+
+			<!-- 08-20 채승훈 -->
+			<p>지역</p>
+			<select id="locationLaNameMem">
+
+				<option for="allviwe" class="all" id="all" name="all">전체보기</option>
+				<c:forEach items="${locLaNameList}" var="locationLaName">
+					<option id="addlocation">${locationLaName}</option>
+				</c:forEach>
+			</select> <select id="locationSNameMem">
+				<option>전체보기</option>
+			</select>
+			<div id="test1" class="select"></div>
+			<input type="button" value="추가" id="locationBtn">
+			<input type="button" value="취소" id="locationBtncancel">
+			<p>유형</p>
+			<select id="typeLaNameMem">
+				<option>전체보기</option>
+				<c:forEach items="${typeLaNameList}" var="typeLaName">
+					<option>${typeLaName}</option>
+				</c:forEach>
+			</select> <select id="typeSNameMem">
+				<option>전체보기</option>
+			</select>
+			<div id="test2" class="select"></div>
+			<input type="button" value="추가" id="typeBtn"> 
+			<input type="button" value="취소" id="typeBtncancel">
+			<button type="button" onclick="validate(event)">클럽생성</button>
+			<div>
+		
+				 <a href="/"
+					id="toIndex">생성 취소</a>
+			</div>
+		</form>
+	</sec:authorize>
+
+	<script src="${pageContext.request.contextPath}/js/makeMembership.js"></script>
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
+	<script src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 

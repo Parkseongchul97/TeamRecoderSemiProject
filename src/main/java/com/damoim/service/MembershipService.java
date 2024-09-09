@@ -23,14 +23,25 @@ import com.damoim.model.vo.TypeCategory;
 import com.damoim.model.vo.UserInfoPaging;
 
 import mapper.MembershipMapper;
-
+import mapper.RemoveMemberShipMapper;
 @Service
 public class MembershipService {
 
 	@Autowired
 	private MembershipMapper mapper;
-
-	public List<MembershipUserList> allMembership() {
+	
+	@Autowired
+	private RemoveMemberShipMapper removerMapper;
+	
+	public boolean updateMembership(Membership membership) {
+		removerMapper.deleteLocation(membership.getMembershipCode());// 지역 정보 삭제
+		removerMapper.deleteType(membership.getMembershipCode()); // 타입 정보 삭제
+		
+		mapper.updateMembership(membership); // 실제 업데이트 과정
+		return true;
+	}
+	
+	public List<MembershipUserList> allMembership(){
 		// 08-21 14:30 채승훈 지움 (Paging paging)
 		// paging.setOffset(paging.getLimit() * (paging.getPage() - 1));
 		return mapper.allMembership();

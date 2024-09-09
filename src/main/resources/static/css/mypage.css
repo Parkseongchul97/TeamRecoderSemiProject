@@ -158,13 +158,16 @@ input[type="text"] {
 
 #all-club,
 #manage-club,
-#wait-club {
+#wait-club,
+#all-meet {
   display: flex;
   flex-direction: column;
 }
 
 #manage-club,
-#wait-club {
+#wait-club,
+#all-club,
+#all-meet {
   display: none;
 }
 

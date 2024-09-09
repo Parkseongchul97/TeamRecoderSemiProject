@@ -87,6 +87,9 @@ public class MembershipController {
 	
 	@Autowired
 	private RemoveMembershipService removeService;
+	
+	@Autowired
+	private RemoveMembershipService removeMembership;
 	/*
 	 * 
 	 * */
@@ -112,9 +115,7 @@ public class MembershipController {
 	@ResponseBody
 	@PostMapping("/makeMembership") // 클럽 생성
 	public int makeMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
-		System.out.println("지역 확인 : " + LB); // 인천 = 중구, 미추홀구, 남동구
-		System.out.println("유형 확인 : " + TB); // 스터디 = 코딩, 자격증, 토론
-		System.out.println("맴버쉽 정보 : " + vo);
+		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
@@ -122,11 +123,11 @@ public class MembershipController {
 				.membershipMax((vo.getMembershipMax()))
 				.membershipAccessionText(vo.getMembershipAccessionText())
 				.membershipSimpleText(vo.getMembershipSimpleText()).build();
-	
+		
 		service.makeMembership(membership);
-		System.out.println("코드 : " + membership.getMembershipCode());
 		// 맴버쉽 코드 사용
 		int code = membership.getMembershipCode();
+		
 		// 폴더 생성
 		Path directoryPath = Paths.get( "\\\\192.168.10.51\\damoim\\membership\\" + code + "\\");
 		Files.createDirectories(directoryPath);
@@ -136,7 +137,7 @@ public class MembershipController {
 		service.membershipImg(m);
 
 		// 로케이션
-		String locLaName = LB.split(" = ")[0]; // 대분류 이름 소분류 이름 분리
+		String locLaName = LB.split(" = ")[0]; // 대분류 이름 소분류 이름 분리 
 		String[] locLaSName = LB.split(" = ")[1].split(", ");
 		LocationCategory lc = LocationCategory.builder().locLaName(locLaName).build();
 
@@ -165,12 +166,14 @@ public class MembershipController {
 				list.setMembershipCode(membership.getMembershipCode());
 		// 호스트로 추가
 		service.host(list);
+		System.out.println("호스트 DTO: " + list);
 		// 세션에 호스트 정보 추가
 		ArrayList<MemberListDTO> dtolist =	(ArrayList<MemberListDTO>) mem.getMemberListDTO();
 		dtolist.add(list);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return  membership.getMembershipCode();
-		
+		System.out.println("생성 및 호스트 추가 완료");
+
+		return code ;
 	}
 	
 	
@@ -178,6 +181,7 @@ public class MembershipController {
 
 	/*
 	 * 영민 클럽명 중복 체크용 Ajax
+	 * 성일 수정때도 체크 가능하게 변경
 	 * 
 	 */
 	@ResponseBody
@@ -198,9 +202,6 @@ public class MembershipController {
 	
 		
 	}
-	
-
-
 	/*
 	 * 성철
 	 * 클럽 삭제 
@@ -476,7 +477,7 @@ public class MembershipController {
 	 * 
 	 */
 	public String fileUpload(MultipartFile file, int code) throws IllegalStateException, IOException {
-		if (file.getOriginalFilename() == "") {
+		if (file == null || file.getOriginalFilename() == "") {
 			System.out.println("NULL 리턴");
 			return null;
 		}
@@ -586,6 +587,70 @@ public class MembershipController {
 
 		return code;
 
+	}
+	@PostMapping("/updateMembership") // 클럽 수정
+	public String updateMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
+		System.out.println("지역 확인 : " + LB); // 인천 = 중구, 미추홀구, 남동구
+		System.out.println("유형 확인 : " + TB); // 스터디 = 코딩, 자격증, 토론
+		System.out.println("맴버쉽 정보 : " + vo);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		// 맴버쉽 코드 사용
+		int code = vo.getMembershipCode();
+		Membership oldMembership = service.selectMembership(vo.getMembershipCode());
+		
+		String imgUrl = oldMembership.getMembershipImg(); // 기존 맴버쉽 정보의 이미지 URL
+		// 파일 업로드를 안했을 경우 ! >> 수정전 멤버쉽의 사진으로 
+		// 파일 업로드를 했을 경우 ! >> 기존 멤버쉽 폴더의 사진 삭제후 재 업로드 
+		System.out.println("보내는 정보에서 사진 정보 제외하고 + " + vo);
+		if(vo.getFile() == null) { // 사진 변경을 안함(기존 그대로인 imgURL을 사용해야함)
+				vo.setMembershipImg(imgUrl);
+		}else { // 사진이 바뀜 먼가 바낌
+			fileDelete(imgUrl, vo.getMembershipCode()); // 실 파일 삭제	
+			vo.setMembershipImg(fileUpload(vo.getFile(), vo.getMembershipCode())); // 파일 업로드 + DB에 URL추가
+		}
+		
+
+
+		
+		// 타입이랑 로케이션 삭제 
+		// 만들어놓은 membership update 돌리기 
+		
+		
+		service.updateMembership(vo);
+		
+		
+		
+		
+		
+		
+		// 로케이션
+		String locLaName = LB.split(" = ")[0]; // 대분류 이름 소분류 이름 분리 
+		String[] locLaSName = LB.split(" = ")[1].split(", ");
+		LocationCategory lc = LocationCategory.builder().locLaName(locLaName).build();
+
+		for (String s : locLaSName) {
+			lc.setLocSName(s);
+			int locationCode = service.findLocationCode(lc);
+			MembershipLocation location = MembershipLocation.builder().locSmallCode(locationCode).membershipCode(code).build();
+			service.makeLocationMembership(location); // MembershipLocation
+		}
+		// 타입
+		String typeLaName = TB.split(" = ")[0];
+		String[] typeSName = TB.split(" = ")[1].split(", ");
+		TypeCategory tc = TypeCategory.builder().typeLaName(typeLaName).build();
+
+		for (String s : typeSName) {
+			tc.setTypeSName(s);
+			int typeCode = service.findTypeCode(tc);
+
+			MembershipType type = MembershipType.builder().typeSmallCode(typeCode).membershipCode(code).build();
+			service.makeTypeMembership(type);
+		}
+		
+
+		return "redirect:/";
 	}
 
 }

@@ -86,8 +86,9 @@ public interface MembershipMapper {
 	List<BasicRoomListVo> roomlist(); // 체팅?
 	
 	// 멤버쉽 업데이트 ============================	
-	void updateMembershipInfo(Membership membershipInfo);// 아마 맴버쉽 정보 업데이트
+	void updateMembershipInfo(Membership membershipInfo);// 홍보글 수정,작성
 	
+	void updateMembership(Membership membership); // 맴버쉽 정보 업데이트
 	// ??????????????????????????
 
 	
@@ -100,10 +101,6 @@ public interface MembershipMapper {
 //        where membership_name= #{membershipName}
 //</update>
 
-
-	
-	
-	
 }
 
 
