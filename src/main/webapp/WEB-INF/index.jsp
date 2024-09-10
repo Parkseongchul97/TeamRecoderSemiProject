@@ -207,10 +207,8 @@
 				</div>
 			</div>
 		</c:forEach>
-			
-		</c:if>
-
-		</div>
+	</div>
+	<jsp:include page="chatting/chattingIndex.jsp" />
 	<jsp:include page="footer/footerIndex.jsp" />
 
 

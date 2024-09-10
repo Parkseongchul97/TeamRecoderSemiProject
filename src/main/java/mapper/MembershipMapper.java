@@ -55,6 +55,7 @@ public interface MembershipMapper {
 	
 	// 채팅 ===================================
 	List<BasicRoomListVo> roomlist(); // 체팅?
+	List<Integer> enterChattingroomCode(String id);
 	
 	// 멤버쉽 업데이트 ============================	
 	void updateMembershipInfo(Membership membershipInfo);// 홍보글 수정,작성
@@ -62,7 +63,11 @@ public interface MembershipMapper {
 	void updateMembership(Membership membership); // 맴버쉽 정보 업데이트
 	// ??????????????????????????
 
+	int makeMembershipCode(String membername);
 	
+	// 클럽수정시 지역타입 버튼눌린 상태로 만들기
+	 List<LocationCategory> locButton(int membershipCode); // 지역버튼
+	 List<TypeCategory> typeButton(int membershipCode); // 유형버튼
 
 	
 	// _클럽 생성 ===============================================
@@ -83,8 +88,10 @@ public interface MembershipMapper {
 			// 클럽명 중복확인
 			Membership membershipNameCheck(Membership membership);
 			
+
 			
-			
+
+	
 			
 
 	

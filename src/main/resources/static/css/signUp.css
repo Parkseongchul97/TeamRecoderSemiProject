@@ -1,15 +1,39 @@
-
 body {
-
-  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
 }
-#box{
-	padding-top: 80px;
+
+#box {
+  padding-top: 80px;
+  background-image: url(https://img.freepik.com/free-vector/flat-international-human-solidarity-day-background_23-2149877544.jpg?size=626&ext=jpg),
+    url(https://img.freepik.com/free-vector/flat-people-talking-illustration_52683-70831.jpg?size=626&ext=jpg),
+    url(https://img.freepik.com/free-vector/hand-drawn-diversity-illustration_52683-125683.jpg?size=626&ext=jpg),
+    url(https://img.freepik.com/free-vector/hand-drawn-working-environment-template_52683-149803.jpg?size=626&ext=jpg);
+  background-color: #f4f4f4;
+  background-position: left top, left bottom, right top, right bottom;
+  background-size: 50% 50%, /* 좌측 상단 이미지 크기 */ 50% 50%,
+    /* 좌측 하단 이미지 크기 */ 50% 50%, /* 우측 상단 이미지 크기 */ 50% 50%;
+  background-color: #f4f4f4;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+}
+#formBoxIn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #c5c5c5;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+#formBoxIn input {
+  border: none;
+}
+#formBoxIn i {
+  margin-left: 10px;
+  color: #c5c5c5;
 }
 main {
-padding : 20px;
+  width: 100%;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,18 +41,19 @@ padding : 20px;
 
 .container {
   height: 100%;
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.96);
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   width: 100%;
-  min-width: 530px;
-  padding: 40px 80px;
+  min-width: 500px;
+  padding: 20px 40px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
-#focus{
-	margin-bottom: 5px;
+
+#focus {
+  margin-bottom: 5px;
 }
 
 /* 페이지 스타일 */
@@ -64,6 +89,7 @@ padding : 20px;
   font-weight: bold;
   font-size: 1rem;
   color: #333;
+  display: flex;
 }
 
 .result {
@@ -74,44 +100,35 @@ padding : 20px;
 
 .formBox input {
   padding: 10px 15px;
-  margin-top: 5px;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
-
-
-
 #checkBox {
   align-self: flex-start;
   display: flex;
-  justify-content: space-between; 
-  flex-direction: row; 
+  justify-content: space-between;
+  flex-direction: row;
   width: 100%;
 }
 
-
 .genderBox {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   align-items: center;
-  margin-right: 10px; 
+  margin-right: 10px;
   justify-content: center;
 }
 
 /* 성별 선택 박스의 라벨 */
 .genderBox label {
-  margin-right: 5px; 
+  margin-right: 5px;
   font-size: 0.8rem;
   width: 80px;
   align-self: center;
 }
-
-
-
-
 
 #ageResult {
   display: flex;
@@ -129,7 +146,7 @@ padding : 20px;
   align-self: start;
   padding: 5px;
   width: 100px;
-  margin-right : 5px;
+  margin-right: 5px;
   margin-top: 5px;
 }
 
