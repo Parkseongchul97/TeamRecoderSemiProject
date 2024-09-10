@@ -180,8 +180,17 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 		
 		<div id="calendar-info">
 		
-		 <p>일정 한눈에 보기</p>
-		<div id="calendar"></div>
+		 <p>자세한 정보<p>
+		 
+		
+		</div>
+		
+		<div id="date">
+
+		</div>
+		<div id="count">
+		
+		참여인원 : ${count}명
 		</div>
 		
 		<div id="buttones">

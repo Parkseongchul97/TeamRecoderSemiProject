@@ -33,6 +33,31 @@
 <style>
 
 
+#menu li{
+text-align: center;
+}
+
+
+ .ifNew {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            animation: flashAnimation 1s infinite;
+           display: inline;
+ }
+
+ @keyframes flashAnimation {
+            0% {
+                color: #000;
+            }
+            50% {
+                color: #f00; /* Change to red or any other color */
+            }
+            100% {
+                color: #000;
+            }
+        }
+
 
 </style>
 <body>
@@ -185,10 +210,19 @@
 	<c:if test="${memberGrade == 'host' || memberGrade == 'admin'}">	
 		<div id="menu">
 		<ul>
-					<li class="mainMenu">클럽 관리</li>
+					<li class="mainMenu">클럽 관리 
+				
+					
+					
+					</li>
 					<li><a href="/club/${main.membership.membershipCode}/membershipPromotionDetail" >홍보글 작성</a></li>		
 					<li><a href="/write?membershipCode=${main.membership.membershipCode}">모임게시판작성하러가기</a></li>				
-					<li><a id="management"  class="dropdown-item" href="/management?membershipCode=${main.membership.membershipCode}"> 멤버관리페이지 </a></li>
+					<li><a id="management"  class="dropdown-item" href="/management?membershipCode=${main.membership.membershipCode}"> 멤버관리페이지	<c:if test="${newMember > 0}">
+					
+					<p class="ifNew">New</p>
+				
+					
+					 </c:if> </a></li>
 						<c:if test="${memberGrade == 'host'}">
 						<li><a href="/updateMembership">정보 수정하기</a></li>
 						<li><button id="deleteButton">클럽삭제 </button></li>

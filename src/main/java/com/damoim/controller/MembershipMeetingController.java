@@ -144,8 +144,7 @@ public class MembershipMeetingController {
 	//동의 명단을 구하는거 ok 얘네가 listgrade 없음 memebershipUserList로 가져와야함
 List<MembershipUserList> agree = new ArrayList<MembershipUserList>();
 
-System.out.println("미트 멤버 " + service.meetMember(meetCode));
-System.out.println("올레귤러 " + membershipService.MembershipAllRegular(membershipCode));
+
 for( int i=0; i<service.meetMember(meetCode).size(); i++) {
 	for(int j=0; j<membershipService.MembershipAllRegular(membershipCode).size(); j++) {
 		if(membershipService.MembershipAllRegular(membershipCode).get(j).getMember().getId().equals(service.meetMember(meetCode).get(i).getMember().getId())){
@@ -158,8 +157,10 @@ for( int i=0; i<service.meetMember(meetCode).size(); i++) {
 	
 }
 model.addAttribute("agree", agree);
+// 참여자 수 확보 
+model.addAttribute("count",agree.size());
 
-System.out.println("어그리 " + agree);
+
 	    model.addAttribute("regular", membershipService.MembershipAllRegular(membershipCode));
 		// 캘린더 추가 ? 
 		model.addAttribute("allmeet", service.allMeetings(membershipCode));
@@ -223,7 +224,7 @@ System.out.println("어그리 " + agree);
 		    
 		}
 		}
-		System.out.println("댓글  목록 " + dtoList);
+		
 
 		
 		model.addAttribute("comment", dtoList); 
@@ -323,7 +324,7 @@ System.out.println("어그리 " + agree);
 		
 		removeService.deleteMeeting(meetCode);
 		
-		System.out.println("미팅 테스트용 " + meetings);
+	
 		
 		return "redirect:/club/"+membershipCode;
 

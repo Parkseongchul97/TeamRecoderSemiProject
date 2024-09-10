@@ -344,6 +344,10 @@ public class MembershipController {
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 		model.addAttribute("location", locationTypeService.locationList(membershipCode));
 		model.addAttribute("type", locationTypeService.typeList(membershipCode));
+		
+		int guest = service.MembershipAllInfo(membershipCode).size()-service.MembershipAllRegular(membershipCode).size();
+		
+		model.addAttribute("newMember",guest);
 
 		return "membership/membershipPage";
 	}
@@ -431,6 +435,13 @@ public class MembershipController {
 
 		model.addAttribute("memInfo", service.selectMembership(membershipCode));
 		model.addAttribute("code", membershipCode);
+		
+	
+	
+
+		
+		
+		
 		return "membership/membershipPromotionDetail";
 	}
 

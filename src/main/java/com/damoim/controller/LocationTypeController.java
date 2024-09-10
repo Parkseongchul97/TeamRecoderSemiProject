@@ -84,7 +84,7 @@ public class LocationTypeController {
 			
 		}
 		
-		System.out.println(list);
+		
 		
 		return list;
 	}
@@ -121,8 +121,7 @@ public class LocationTypeController {
 	        String thirtyDaysAgoFormatted = sdf.format(thirtyDaysAgo);
 	        
 	        // 결과를 출력합니다.
-	        System.out.println("오늘 날짜: " + todayFormatted);
-	        System.out.println("30일 전 날짜: " + thirtyDaysAgoFormatted);
+	    
 	
 	model.addAttribute("today30", thirtyDaysAgoFormatted);
 	model.addAttribute("today", todayFormatted);

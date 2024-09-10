@@ -184,8 +184,7 @@ button > img {
   outline: none;
 }
 
-#textbox > button {
-}
+
 
 .comment > p {
   padding: 10px;
@@ -398,22 +397,22 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  border-top: 3px solid black;
+  border-bottom: 3px dashed black;
 }
 
 #calendar-info p {
   font-family: "Do Hyeon", sans-serif;
-  font-size: 60px;
+  font-size: 20px;
   font-weight: bold;
-  padding: 10px;
+  padding: 5px;
 }
 
-#calendar {
-  background: white;
-  width: 500px;
-  height: 600px;
+#date{
+	
+	font-family: "Do Hyeon", sans-serif;
+	margin-top:10px;
+	font-size: 32px
 }
-
 .allmemberImg {
   width: 50px;
   height: 50px;
@@ -544,4 +543,11 @@ body {
   color: white;
   border-radius: 5px;
   margin-left: 5px;
+}
+
+#count{
+	
+	    font-family: "Do Hyeon", sans-serif;
+    font-size: 32px;
+	
 }

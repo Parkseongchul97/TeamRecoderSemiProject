@@ -248,7 +248,7 @@
   background-color: #fca311;
 }
 
-ul li:not(:first-of-type) {
+#menu ul li:not(:first-of-type) {
   display: none;
 }
 
@@ -369,4 +369,10 @@ ul li:not(:first-of-type) {
 }
 #title {
   animation: blink 1s infinite; /* 1초 간격으로 무한 반복 */
+}
+.fc-day-sun .fc-daygrid-day-number{
+	color:red;
+}
+.fc-day-sat .fc-daygrid-day-number{
+	color:blue;
 }
