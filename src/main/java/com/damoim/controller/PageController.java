@@ -72,7 +72,6 @@ public class PageController {
 		
 		
 		
-		
 		ArrayList<MembershipUserList> membershipList = (ArrayList<MembershipUserList>) infoService.selectMemberUserList(member.getId());
 		for(MembershipUserList li : membershipList) {
 			 li.setCount(infoService.membershipUserCount(li.getMembership().getMembershipCode()));

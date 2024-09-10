@@ -317,9 +317,7 @@
 		membership_name,membership_code FROM
 		membership
 	</select>
-
-
-
+	
 	<!-- 멤버쉽 정보 수정 -->
 	<update id="updateMembership" parameterType="Membership">
 		UPDATE membership

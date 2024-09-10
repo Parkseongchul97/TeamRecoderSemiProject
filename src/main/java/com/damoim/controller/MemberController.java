@@ -293,7 +293,6 @@ public class MemberController {
 	    removeService.deleteAllComment(mem.getId());
 	    removeService.deleteMembershipUserList(mem.getId());
 	    removeService.deleteAllMeeting(mem.getId());
-	    // membershipUserList 삭제
 	    
 	    try { // 이미지 파일 삭제
 			fileDelete(mem.getMemberImg(), mem.getId());
@@ -317,6 +316,7 @@ public class MemberController {
 		mem.setMemberImg(null);
 		service.defualtFile(mem.getId());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+		/* getContext() => 현재 스레드와 관련된 SecurityContext 객체를 (반환) */
 		return true;
 	}
 
@@ -361,7 +361,7 @@ public class MemberController {
 
 		service.updateMember(mem);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
+		
 		return true;
 	}
 
@@ -398,6 +398,7 @@ public class MemberController {
 	/*
 	 * 성철 유저 1명당 24시간마다 다른 유저에게 추천, 비추천 기능(온도 0.5도씩 업다운)
 	 */
+	
 	@ResponseBody
 	@PostMapping("/recommendation")
 	public boolean recommendation(String targetMember, String loginMember, boolean plusMinus) {

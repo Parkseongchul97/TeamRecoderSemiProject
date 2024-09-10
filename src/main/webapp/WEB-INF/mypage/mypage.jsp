@@ -55,6 +55,7 @@
 								accept="image/*" id="file" onchange="imgShow(event)"> <label
 								for="file" class="profile_file_button">사진 선택</label>
 							<!-- 기본 사진으로 변경 -->
+							<!-- #defualt-file Ajax -->
 							<input type="submit" id="defualt-file" name="defualt-file"
 								class="form-control"> <label for="defualt-file"
 								class="profile_file_button">기본 사진으로 변경</label>
@@ -112,10 +113,9 @@
 
 			<div class="container">
 				<div class="club-button">
-					<a id="all-club-button">가입 한 클럽</a> 
-					<a id="manage-club-button"> 관리중인 클럽</a> 
-					<a id="wait-club-button">가입 신청 목록</a> 
-					<a id="all-meet-button">내 모임 정보</a>
+					<a id="all-club-button">가입 한 클럽</a> <a id="manage-club-button">
+						관리중인 클럽</a> <a id="wait-club-button">가입 신청 목록</a> <a
+						id="all-meet-button">내 모임 정보</a>
 				</div>
 
 				<!-- 가입 된 클럽 보기 -->
@@ -124,8 +124,12 @@
 						<h1>가입 된 클럽</h1>
 						<i class="fa-solid fa-users"></i>
 					</div>
+					<!-- 사용되는 변수가 2개 mem & myGrade -->
+					<!-- mem == id를 받아서 membership_user_list & membership 조회! -->
+					<!-- mem == mem.listGrade -->
 					<c:forEach items="${mypage}" var="mem">
-						<c:set var="myGrade" value="${mem.listGrade}" />
+						<c:set value="${mem.listGrade}" var="myGrade" />
+
 						<c:if test="${myGrade != 'guest'}">
 							<a href="/club/${mem.membership.membershipCode}">
 								<div class="membership-each">
@@ -170,12 +174,12 @@
 													<button class="Management-button" id="update-club"
 														type="submit" value="클럽수정">클럽 정보 수정</button>
 												</form>
-												
+
 											</c:if>
 											<c:if test="${myGrade != 'host'}">
-											<button class="Management-button"
+												<button class="Management-button"
 													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
-													</c:if>
+											</c:if>
 										</div>
 									</div>
 								</div>
@@ -236,13 +240,13 @@
 													<button class="Management-button" id="update-club"
 														type="submit" value="클럽수정">클럽 정보 수정</button>
 												</form>
-												
+
 											</div>
 										</c:if>
 										<c:if test="${myGrade != 'host'}">
 											<button class="Management-button"
-													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
-													</c:if>
+												onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+										</c:if>
 									</div>
 								</div>
 							</a>
@@ -303,7 +307,7 @@
 				<c:set var="host" value="${false}" />
 				<c:forEach items="${member.memberListDTO}" var="loginMemberGrade">
 					<c:if test="${loginMemberGrade.listGrade == 'host'}">
-						<!-- grade가 호스트이면 set 변경 -->
+						<!-- 로그인된 멤버 grade가 호스트이면 set 변경 -->
 						<c:set var="host" value="${true}" />
 					</c:if>
 				</c:forEach>
@@ -325,8 +329,7 @@
 											<img class="membership-img"
 												src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
 												alt="Membership Image">
-										</c:if>
-										<c:if test="${mem.membership.membershipImg == null}">
+										</c:if> <c:if test="${mem.membership.membershipImg == null}">
 											<img class="membership-img"
 												src="http://192.168.10.51:8081/imgBanner.png">
 										</c:if>
@@ -353,7 +356,7 @@
 
 
 						</div>
-						
+
 						<div class="host-Management-deleteButton">
 							<!-- 클럽 삭제 -->
 
@@ -361,19 +364,17 @@
 						</div>
 					</div>
 				</c:if>
-
+				<!-- 호스트 아닐때 클럽생성 -->
 				<c:if test="${!host}">
-					<!-- 호스트 아닐때 -->
 
 					<div id="create-menu">
 						<a href="/makeMembership" class="create-btn">클럽 만들기</a>
 					</div>
-
 				</c:if>
 
 			</div>
-			
-			
+
+
 			<div id="deleteMembership" style="display: none">
 				<div id="deleteContainer">
 					<div id="container-title">
@@ -509,6 +510,7 @@
 				    /* reader.onload 이벤트의 파일 길이가 0 이상이면 ??? */
 				    if (event.target.files.length > 0) {
 				        reader.readAsDataURL(event.target.files[0]);
+				    /* reader.readAsDataURL == 웹 브라우저에서 파일을 읽어와서 그 내용을 Data URL 형식으로 변환하는 역할 */
 				    }
 				    
 			}

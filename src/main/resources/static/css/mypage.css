@@ -81,6 +81,7 @@ input[type=password] {
 .container {
 	width: 100%;
 	max-width: 800px;
+	min-width: 800px;
 	margin: auto;
 	padding: 15px;
 	border-radius: 12px;
@@ -254,6 +255,7 @@ input[type=password] {
 	justify-content: space-around;
 	width: 100%;
 	max-width: 800px;
+	min-width: 680px;
 }
 
 .membership-card {
@@ -297,19 +299,22 @@ input[type=password] {
 	flex-direction: column;
 	max-width: 770px;
 	width: 400px;
-	height: 150px;
+	height: 40%;
 	justify-content: space-around;
+	line-height: 25px;
 }
 
 .membership-String h4 {
+	padding-bottom: 15px;
 	font-size: 1.2rem;
 	font-weight: bolder;
 	white-space: normal;
-/* 	line-height: 25px; */
+	line-height: 25px;
 }
 
 .membership-String p {
-	white-space: nowrap;
+	padding-bottom: 10px;
+	white-space: normal;
 }
 
 .member-grade {
@@ -317,6 +322,7 @@ input[type=password] {
 	align-items: center;
 	justify-content: flex-start;
 	font-weight: bolder;
+	padding-bottom: 15px;
 }
 
 .member-grade h4 {
@@ -534,6 +540,7 @@ input[type=password] {
 	padding-bottom: 20px;
 	font-size: 1.2rem;
 	font-weight: bolder;
+	line-height: 30px;
 }
 
 .host-Management-text {
@@ -541,7 +548,7 @@ input[type=password] {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	width: 200px;
+	width: 330px;
 	max-width: 770px;
 	height: 150px;
 }
@@ -710,7 +717,6 @@ input[type=password] {
 keyframes blink {
 	opacity: 1;
 }
-
 
 #title {
 	animation: blink 1s infinite; /* 1초 간격으로 무한 반복 */
