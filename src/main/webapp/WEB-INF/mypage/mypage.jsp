@@ -126,7 +126,6 @@
 					</div>
 					<!-- 사용되는 변수가 2개 mem & myGrade -->
 					<!-- mem == id를 받아서 membership_user_list & membership 조회! -->
-					<!-- mem == mem.listGrade -->
 					<c:forEach items="${mypage}" var="mem">
 						<c:set value="${mem.listGrade}" var="myGrade" />
 
@@ -494,7 +493,6 @@
 				 var imageContainer = document.querySelector("div.image_container");
 					 /* 미리보기 하면 원래 넣어놨던 이미지 없앤뒤 다시 미리보기 */
 				 	 imageContainer.innerHTML = '';
-				 	
 				    reader.onload = function(event) {
 				        var img = document.createElement('img');
 				        /* img객체 불러온후 reader.onload 이벤트 setAttribute로 넣음*/
@@ -505,10 +503,8 @@
 				        console.log(imageContainer);
 						console.log(img);
 				    };
-				   
 				    console.log("파일 길이" , event.target.files.length);
-				    
-				    /* reader.onload 이벤트의 파일 길이가 0 이상이면 ??? */
+				    /* reader.onload 이벤트의 파일 길이가 0 이상이면 */
 				    if (event.target.files.length > 0) {
 				        reader.readAsDataURL(event.target.files[0]);
 				    /* reader.readAsDataURL == 웹 브라우저에서 파일을 읽어와서 그 내용을 Data URL 형식으로 변환하는 역할 */

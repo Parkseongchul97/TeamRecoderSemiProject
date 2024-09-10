@@ -333,35 +333,23 @@ public class MemberController {
 	        	// 2. 멤버가 가지고있는 파일이미지가 null이 아닐경우 기존 파일 삭제
 	            fileDelete(mem.getMemberImg(), mem.getId());
 	        }
-	        
 	        // 3. 그 뒤에 url 파일 업로드 후 멤버의 이미지에 추가
 	        String url = fileUpload(file, mem.getId());
 	        mem.setMemberImg(url);
-	        
-	        
-	        
-	        
-	        
 	    } else if (file == null) {
-	    	
 	    	// 4. 추가한 파일이 없거나 기존 이미지로 유지할 경우 기존 이미지 유지
 	        mem.setMemberImg(mem.getMemberImg());
 	    }
-	    
 		if(memberHobby != null) {
 			// 5. 멤버 취미란에 수정사항이 있으면
 			mem.setMemberHobby(memberHobby);
 		}
-		
 		if(memberInfo != null) {
 			// 6. 멤버 소개란에 수정사항이 있으면
 			mem.setMemberInfo(memberInfo);
 		}
-		
-
 		service.updateMember(mem);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
 		return true;
 	}
 
