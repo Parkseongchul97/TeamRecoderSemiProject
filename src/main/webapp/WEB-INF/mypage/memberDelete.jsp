@@ -115,10 +115,9 @@ uri="http://www.springframework.org/security/tags"%>
                   name="pwdCheck" /></label
               ><input type="button" id="button" value="회원탈퇴" />
             </div>
-          </div>
         </section>
+        </div>
       </div>
-    </div>
     <script>
       $("#button").click(() => {
         console.log("머고");
