@@ -16,8 +16,6 @@ import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
 import com.damoim.service.MainCommentService;
 
-import com.damoim.service.MainCommentService;
-
 @Controller
 public class MainCommentController {
 

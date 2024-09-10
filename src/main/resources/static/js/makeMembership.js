@@ -3,7 +3,6 @@ $(document).ready(function() {
 	let membershipNameCheck = false;
 	membershipName.addEventListener('input', function() {
 		const membershipNameValue = $(this).val().trim();
-
 		$.ajax({
 			type: 'POST',
 			url: '/membershipNameCheck', // 컨트롤러 URL
@@ -20,7 +19,6 @@ $(document).ready(function() {
 						$('#name').text(" 사용 가능한 클럽명 입니다").css('color', 'green');
 						membershipNameCheck = true;
 					}
-
 				} else {
 					$('#name').text(" 중복된 클럽명입니다 다시 작성해 주세요").css('color', 'red');
 					membershipNameCheck = false;
@@ -28,18 +26,14 @@ $(document).ready(function() {
 			}
 		});
 	});
-
 	// 클럽 인원수 설정
-
 	let membershipMaxSubmit = false; // 최대인원 설정 여부를 나타내는 변수 초기화
-
 	// membershipMax 요소에 입력 이벤트 리스너 추가
 	membershipMax.addEventListener('input', function() {
 		const membershipMaxValue = $(this).val().trim(); // jQuery를 사용하여 현재 값 가져오기
-
 		if (membershipMaxValue === '') {
 			$('#max').text(" 필수 입력사항입니다").css('color', 'red');
-			membershipMaxSubmit = false; // 제출 불가 상태로 
+			membershipMaxSubmit = false; // 제출 불가 상태로
 		} else if (membershipMaxValue <= 1 || membershipMaxValue >= 101) {
 			$('#max').text("설정 가능한 최소 인원은 2명 최대 인원수는 100명입니다").css('color', 'red');
 			membershipMaxSubmit = false;
@@ -48,12 +42,8 @@ $(document).ready(function() {
 			membershipMaxSubmit = true;
 		}
 	});
-
-
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	// 이 밑에만 슥 가져가시면 돼요!
-
-
 	function locLaChoose() {
 		const locL = $(this);
 		$('input[name="locationLaName"]').not(locL).prop('checked', false);
@@ -70,15 +60,10 @@ $(document).ready(function() {
 				        <label for="${i}" class="locLNCss">${i}</label>
 				    `;
 				$(".locSbox").html(locS);
-
 			},
-
 		})
-
 	}
 	$('input[name="locationLaName"]').on('click', locLaChoose);
-
-
 	function typeLaChoose() {
 		const typeL = $(this);
 		$('input[name="typeLaName"]').not(typeL).prop('checked', false);
@@ -95,14 +80,10 @@ $(document).ready(function() {
 					        <label for="${i}" class="locLNCss">${i}</label>
 					    `;
 				$(".typeSbox").html(typeS);
-
 			},
-
 		})
-
 	}
 	$('input[name="typeLaName"]').on('click', typeLaChoose);
-
 	
 	
 	$("#createClub").on('click', function() {
@@ -116,7 +97,6 @@ $(document).ready(function() {
 		$('input[name="typeLN"]:checked').each(function() {
 			selType.push($(this).val());
 		});
-
 		
 		if(!membershipNameCheck){
 			alert("클럽명 확인해주세요")
@@ -126,7 +106,6 @@ $(document).ready(function() {
 			alert("최대인원을 확인해주세요")
 			return;
 		}
-
 		if(selType.length === 1){
 			alert("타입을 확인해주세요")
 			return;
@@ -141,7 +120,6 @@ $(document).ready(function() {
 		let membershipAccessionText = $("#membershipAccessionText").val();
 		let membershipSimpleText = $("#membershipSimpleText").val();
 		let membershipMax = $("#membershipMax").val();
-
 		let formData = new FormData();
 		formData.append('membershipName', membershipName)
 		formData.append('membershipAccessionText', membershipAccessionText)
@@ -162,11 +140,7 @@ $(document).ready(function() {
 			success: function(code) {
 				window.location.replace(`/club/${code}`);
 			}
-
-		}); 
+		});
 	}
 	});
-
 });
-
-

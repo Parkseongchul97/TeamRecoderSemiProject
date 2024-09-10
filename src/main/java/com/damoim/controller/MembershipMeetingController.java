@@ -36,11 +36,10 @@ import com.damoim.service.MembershipService;
 import com.damoim.service.RemoveMemberService;
 
 
-import com.damoim.service.MembershipMeetingService;
-
 @Controller
 public class MembershipMeetingController {
 
+	
 	@Autowired
 	private  MembershipMeetingService service;
 	@Autowired

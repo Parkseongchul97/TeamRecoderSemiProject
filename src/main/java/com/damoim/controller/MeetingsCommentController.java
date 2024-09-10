@@ -9,8 +9,6 @@ import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.MeetingsComment;
 import com.damoim.service.MeetingsCommentService;
 
-import com.damoim.service.MeetingsCommentService;
-
 @Controller
 public class MeetingsCommentController {
 
@@ -26,6 +24,7 @@ public class MeetingsCommentController {
 	@ResponseBody
 	@PostMapping("/meetingsComment")
 	public void insertComment (MeetingsComment meetingsComment) {
+		System.out.println("댓글정보 : " + meetingsComment);
 		service.insertComment(meetingsComment);
 		
 		

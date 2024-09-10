@@ -3,13 +3,30 @@ select * from membership_user_list;
 
 SELECT *
 FROM type_category;
-
+select * 
+from type_category;
 SELECT *
 FROM membership_location;
 
+select * from membership_user_list
+where membership_code = 52;
+
+update membership_user_list
+set id = 'user999'
+where list_code = 202;
+
+select * from membership;
+select *
+from member;
 SELECT *
 FROM location_category;
-
+select * from membership;
+select * from meetings_comment
+where meet_code = 0;
+select * from membership_user_list;
+insert into membership_user_list(list_grade, membership_code, id)
+values('host', 52, 'user998');
+select * from membership_meetings;
 select * 
 from membership_meetings;
 SELECT id, member_manner, last_recommendation_time
@@ -23,7 +40,10 @@ select * from membership_user_list
 where id = 'user037';
 
 delete from membership_user_list
-where list_code = 37;
+where list_grade = 'host';
+
+select * from main_comment
+where membership_code = 2;
 
 select *
 from member 
@@ -57,7 +77,8 @@ select *
 from meetings_comment;
 
 
-select * from membership;
+select * from membership
+join membership_user_list using(membership_code);
 
 select * from membership_user_list;
 delete from membership

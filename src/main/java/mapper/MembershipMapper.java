@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.vo.BasicRoomListVo;
 import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Member;
@@ -19,20 +21,6 @@ import com.damoim.model.vo.TypeCategory;
 
 @Mapper
 public interface MembershipMapper {
-	
-	
-
-	
-	List<MembershipUserList>allMembership(Paging paging);
-	MemberListDTO checkMember(MemberListDTO member);
-	
-//	void createclub(Membership membership);
-//	void searchMembershipInfo(Membership membership );
-	
-	
-	ArrayList<Member> allMember();
-//	void createclub2(Membership membership);
-	List<MembershipUserList> listGrade(Member member);
 	// 로그인 ==================
 	List<MemberListDTO> grade(Member member); // 로그인시 그 회원의 가입 클럽정보 전부 DTO로 담아서 넣어둠??
 	// 화면단 출력 용도 ===================
@@ -53,23 +41,6 @@ public interface MembershipMapper {
 	void membershipImg(Membership membership); // 클럽 창설때 IMG 추가 업데이트 형식으로 추가
 	void host(MemberListDTO list); // 클럽 생성시 해당 클럽 코드 + 호스트 추가
 	
-	// _클럽 생성 ===============================================
-		void makeMembership(Membership membership); // 클럽 만들기????
-		
-		// 지역 추가
-		void makeLocationMembership(MembershipLocation membershipLocation);
-
-		// 유형 추가
-		void makeTypeMembership(MembershipType membershipType);
-		
-		// 지역- 이름으로 찾기
-		int findLocationCode(LocationCategory locationCategory);
-		
-		// 유형- 이름으로 찾기
-		int findTypeCode(TypeCategory typeCategory);
-	
-		// 클럽명 중복체크
-		Membership membershipNameCheck(Membership membership);
 	// 맴버쉽 관리 =========================================
 	void agreeMemeber(MemberListDTO member); // 해당 맴버쉽 코드 , 유저ID로 유저 등급 변경
 	List<MemberListDTO> adminUser(int membershipCode); // 해당 클럽의 관리자인 유저 반환
@@ -80,10 +51,11 @@ public interface MembershipMapper {
 	// 회원 페이지 용도 ==============================
 	int meetCount (String string);// 해당 유저의 ID로  해당 맴버의 모임 참여 횟수
 	List<MembershipUserList> selectMemberUserList(String id);// 해당 맴버 ID로 그 회원의 모든 클럽(상세정보까지 반환)	
-		
-		
+	
+	
 	// 채팅 ===================================
 	List<BasicRoomListVo> roomlist(); // 체팅?
+	List<Integer> enterChattingroomCode(String id);
 	
 	// 멤버쉽 업데이트 ============================	
 	void updateMembershipInfo(Membership membershipInfo);// 홍보글 수정,작성
@@ -91,21 +63,48 @@ public interface MembershipMapper {
 	void updateMembership(Membership membership); // 맴버쉽 정보 업데이트
 	// ??????????????????????????
 
-	
-
 	int makeMembershipCode(String membername);
-
-//<update id="updateMakeMembershipImg" parameterType="Membership">
-//	 update membership
-//        set membership_img= #{membershipImg}
-//        where membership_name= #{membershipName}
-//</update>
-	
 	
 	// 클럽수정시 지역타입 버튼눌린 상태로 만들기
 	 List<LocationCategory> locButton(int membershipCode); // 지역버튼
 	 List<TypeCategory> typeButton(int membershipCode); // 유형버튼
 
+	
+	// _클럽 생성 ===============================================
+			void makeMembership(Membership membership); // 클럽 만들기????
+			
+			// 지역 추가
+			void makeLocationMembership(MembershipLocation membershipLocation);
+
+			// 유형 추가
+			void makeTypeMembership(MembershipType membershipType);
+			
+			// 지역- 이름으로 찾기
+			int findLocationCode(LocationCategory locationCategory);
+			
+			// 유형- 이름으로 찾기
+			int findTypeCode(TypeCategory typeCategory);
+			
+			// 클럽명 중복확인
+			Membership membershipNameCheck(Membership membership);
+			
+
+			
+
+	
+			
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
 
