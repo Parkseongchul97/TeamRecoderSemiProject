@@ -235,9 +235,9 @@ public class MemberController {
 	public String updateMemberInfo(Member vo, Model model, String addrDetail, String beforePwd) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-
+		// updateCheck => id로 * member 조회
 		if (!service.updateCheck(mem, beforePwd)) {
-
+			
 			model.addAttribute("text", "변경 실패");
 
 			return "mypage/updateMemberInfo";
@@ -319,7 +319,7 @@ public class MemberController {
 		/* getContext() => 현재 스레드와 관련된 SecurityContext 객체를 (반환) */
 		return true;
 	}
-
+	
 	// 프로필, info 업데이트
 	@ResponseBody
 	@PostMapping("/updateMember")

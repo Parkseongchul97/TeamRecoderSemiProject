@@ -240,7 +240,7 @@
 													<button class="Management-button" id="update-club"
 														type="submit" value="클럽수정">클럽 정보 수정</button>
 												</form>
-
+												<button id="deleteButton">클럽삭제</button>
 											</div>
 										</c:if>
 										<c:if test="${myGrade != 'host'}">
@@ -312,8 +312,9 @@
 					</c:if>
 				</c:forEach>
 				<!-- ======================================================= -->
+				
 				<!-- 호스트 일때 출력 -->
-				<c:if test="${host}">
+				<!-- <c:if test="${host}">
 					<div class="host-Management-section">
 
 						<div class="host-Management-img">
@@ -358,12 +359,12 @@
 						</div>
 
 						<div class="host-Management-deleteButton">
-							<!-- 클럽 삭제 -->
+
 
 							<button id="deleteButton">클럽삭제</button>
 						</div>
 					</div>
-				</c:if>
+				</c:if>  --> 
 				<!-- 호스트 아닐때 클럽생성 -->
 				<c:if test="${!host}">
 
