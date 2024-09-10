@@ -65,7 +65,6 @@ public class PageController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member member = (Member) authentication.getPrincipal();
 		
-		
 		String id = member.getId();
 		
 		model.addAttribute("meetings", meetService.allMeetings1(id));
