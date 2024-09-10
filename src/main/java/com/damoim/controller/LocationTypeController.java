@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -94,12 +93,6 @@ public class LocationTypeController {
 	// 화면단에 뿌리기
 	@GetMapping("/")
 	public String locationType(Model model, SearchDTO search) {
-		// 채팅용
-		Object p = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if(!p.equals("anonymousUser")) {
-			Member mem = (Member) p;
-			model.addAttribute("member",mem);
-		}
 		
 		
 	

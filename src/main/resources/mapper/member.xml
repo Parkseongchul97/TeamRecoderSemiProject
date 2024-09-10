@@ -1,0 +1,205 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.MemberMapper">
+	<!--(멤버 리스트 DTO) 변수명 컬럼명 일치시키는 리설트맵 -->
+	<resultMap type="MemberListDTO" id="memberListmap">
+		<result column="id" property="id" />
+		<result column="list_grade" property="listGrade" />
+		<result column="membership_code" property="membershipCode" />
+	</resultMap>
+	
+	<resultMap type="MembershipDTO" id="MembershipDTOmap">
+		<result column="membership_name" property="membershipName" />
+		<result column="membership_info" property="membershipInfo" />
+		<result column="membership_max" property="membershipMax" />
+		<result column="id" property="id" />
+		<result column="list_grade" property="listGrade" />
+	</resultMap>
+	
+	<resultMap id="MemberResultMap" type="Member">
+		<id property="id" column="id" />
+		<result property="pwd" column="pwd" />
+		<result property="addr" column="addr" />
+		<result property="phone" column="phone" />
+		<result property="email" column="email" />
+		<result property="name" column="name" />
+		<result property="age" column="age" />
+		<result property="gender" column="gender" />
+		<result property="status" column="status" />
+		<result property="memberManner" column="member_manner" />
+		<result property="nickname" column="nickname" />
+		<result property="memberImg" column="member_img" />
+		<result property="memberHobby" column="member_hobby" />
+		<result property="memberInfo" column="member_info" />
+		<result property="lastRecommendationTime"
+			column="last_recommendation_time" />
+	</resultMap>
+
+
+
+	<!-- 더미용 쿼리 2개 -->
+	<select id="dummyMember" resultType="Member">
+		SELECT id, pwd
+		FROM member
+	</select>
+	<!-- 더미용 쿼리 -->
+	<update id="dummyUpdate" parameterType="Member">
+		UPDATE member
+		SET pwd =
+		#{pwd}
+		WHERE id = #{id}
+	</update>
+
+
+	<!-- / updateMemberInfo (동문) ========================================= -->
+	<!-- 비밀번호 확인 -->
+	<select id="updateCheck" parameterType="Member"
+		resultType="Member">
+		SELECT *
+		FROM member
+		WHERE id = #{id}
+	</select>
+	<!-- 회원 상세 정보 업데이트 -->
+	<update id="updateMemberInfo" parameterType="Member">
+		UPDATE member
+		SET
+		pwd
+		= #{pwd} ,
+		addr = #{addr},
+		name = #{name},
+		phone = #{phone},
+		email =
+		#{email} ,
+		age = #{age} ,
+		nickname = #{nickname}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 회원 탈퇴시 status 조정 -->
+	<update id="memberStatus" parameterType="Member">
+		UPDATE member
+		SET
+		status = 0
+		WHERE id = #{id}
+	</update>
+
+	<!-- 기본정보 업데이트 -->
+	<update id="updateMember" parameterType="Member">
+		UPDATE member
+		SET
+		member_img = #{memberImg},
+		member_info = #{memberInfo},
+		member_hobby = #{memberHobby}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 로그인 ID로 맴버 -->
+	<select id="login" parameterType="String"
+		resultMap="MemberResultMap">
+		SELECT *
+		FROM member
+		WHERE id = #{id}
+	</select>
+	
+	<!-- 회원가입 아이디 중복 체크 + 여러모로 id로 값가져올때 -->
+	<select id="idCheck" parameterType="Member"
+		resultMap="MemberResultMap">
+		SELECT *
+		FROM member
+		WHERE id = #{id}
+	</select>
+	
+	<!-- 회원가입 닉네임 중복 체크 -->
+	<select id="nicknameCheck" parameterType="Member"
+		resultMap="MemberResultMap">
+		SELECT * FROM member
+		WHERE nickname = #{nickname}
+	</select>
+	
+	<!-- 회원가입 이메일 중복 체크 -->
+	<select id="emailCheck" parameterType="Member"
+		resultMap="MemberResultMap">
+		SELECT * FROM member
+		WHERE email = #{email}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="signUp" parameterType="Member"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO member(id, pwd,
+		addr,
+		phone, email, name, age, gender, nickname, member_img,
+		member_hobby,
+		member_info)
+		VALUES (#{id},
+		#{pwd},
+		#{addr}, #{phone}, #{email},#{name}, #{age},#{gender},
+		#{nickname},#{memberImg},#{memberHobby},#{memberInfo}
+		)
+	</insert>
+	
+	<!-- 이메일 아이디 확인 -->
+	<update id="updatePassword" parameterType="Member">
+		UPDATE member
+		SET pwd = #{pwd}
+		WHERE id = #{id}
+
+	</update>
+	<!-- 이메일 ID 비교해서 회원 찾기 (비밀번호 찾기용) -->
+	<select id="memberEmailIdcheck" parameterType="Member"
+		resultType="Member">
+		SELECT *
+		FROM member
+		WHERE id = #{id}
+		AND email = #{email}
+	</select>
+	<!-- 이메일 이름 비교해서 회원찾기 (아이디 찾기용) -->
+	<select id="findMemberId" parameterType="Member"
+		resultType="Member">
+		SELECT *
+		FROM member
+		WHERE name = #{name}
+		AND email = #{email}
+	</select>
+	<!-- 회원 매너점수 조정하는 쿼리 -->
+	<update id="memberManner" parameterType="MemberMannerDTO">
+		UPDATE member
+		SET member_manner = member_manner
+		<if test="!pulsMinus">
+			+ 0.5
+		</if>
+		<if test="pulsMinus">
+			- 0.5
+		</if>
+		WHERE id = #{member.id}
+	</update>
+	<!-- 회원 추천기능 쿨타임 용도 -->
+	<update id="updateLastRecommendationTime" parameterType="String">
+		UPDATE
+		member
+		SET last_recommendation_time = now()
+		WHERE id = #{id}
+	</update>
+	
+	<update id="defualtFile" parameterType="String">
+		UPDATE member
+		SET member_img =#{memberImg}
+		WHERE id=#{id}
+	</update>
+	
+	
+	
+	
+	
+</mapper>
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+

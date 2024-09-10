@@ -1,0 +1,182 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+}
+/*
+폰트 어썸 아이콘
+*/
+.fa-solid.fa-crown{
+	color:#fca311;
+	font-size: 1.9rem;
+}
+
+h1 {
+	font-size: 1.5rem;
+	font-weight: bolder;
+}
+
+h2 {
+	font-size: 1.2rem;
+	font-weight: bolder;
+	padding-left: 10px;
+}
+h3 {
+	font-size: 1rem;
+	font-weight: 700;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+p {
+	font-weight: bolder;
+}
+
+strong {
+	font-weight: bolder;
+	color : rgb(152, 78, 163);
+}
+
+.container>* {
+	margin-bottom: 20px;
+}
+
+.box{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+}
+.container {
+	width: 100%;
+	max-width: 800px;
+	padding: 20px;
+	margin-top: 120px;
+	background: honeydew;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.warning {
+	background: #fff3cd;
+	border-left: 5px solid #ffeeba;
+	padding: 15px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+}
+
+.warning div>* {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.warning ul li {
+	padding-top: 10px;
+}
+
+.warning_img{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100px;
+}
+.warning_info{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: 50px;
+	height: 100px;
+	padding-top: 80px;
+}
+.warning_text {
+	display: flex;
+	flex-direction: row;
+	padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.details {
+	background: #fff3cd;
+	border-left: 5px solid #ffeeba;
+	padding: 15px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+}
+
+.details div>* {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.details_ul li {
+	padding-top: 10px;
+}
+.details_ul li span{
+	font-weight: bolder;
+}
+.post-retention {
+	background: #fff3cd;
+	border-left: 5px solid #ffeeba;
+	padding: 15px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+}
+
+.post-retention div>* {
+	line-height: 1.7;
+}
+
+
+.post-retention ul li {
+	padding-top: 10px;
+}
+
+.details, .post-retention, .external-services {
+	background: #e9ecef;
+	border-left: 5px solid #ced4da;
+	padding: 15px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+}
+
+.confirmation {
+	background: #d4edda;
+	border-left: 5px solid #c3e6cb;
+	padding: 15px;
+	border-radius: 5px;
+}
+
+.confirmation div {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.confirmation p {
+	font-weight: bolder;
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+.membership-img{
+	width: 100px;
+	height: 100px;
+	border-radius:15px;
+}
+
+
+#button {
+	background-color: #fca311;
+	color: white;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	width: 50%;
+	font-size: 1rem;
+}
+
+#button:hover {
+	background-color: #e76f00;
+}

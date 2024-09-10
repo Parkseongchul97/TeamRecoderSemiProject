@@ -193,14 +193,11 @@
 			</div>
 		</c:forEach>
 	</div>
+	<jsp:include page="chatting/chattingIndex.jsp" />
+	<jsp:include page="footer/footerIndex.jsp" />
 	
-	
-	
-	
-	 <!-- 채팅 -->
-	 <jsp:include page="chatting/chattingIndex.jsp" />
-		
-	<jsp:include page="footer/footer.jsp" />
+	 
+
 
 	<!-- <a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a> -->
 	<!-- <div class="membership-list"> -->

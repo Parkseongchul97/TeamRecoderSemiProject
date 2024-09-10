@@ -40,15 +40,15 @@
  
 
 		<sec:authentication property="principal" var="member" />
-		<div id="main-container">
-
-			<div class="accordion" id="accordionExample">
+	<div id="main-container">
+	
+		<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
 					<h2 class="accordion-header">
 						<button class="accordion-button collapsed " type="button"
 							data-bs-toggle="collapse" data-bs-target="#collapseOne"
-							aria-expanded="true" aria-controls="collapseOne">함께하는
-							멤버들</button>
+							aria-expanded="true" aria-controls="collapseOne" >
+							함께하는 멤버들</button>
 					</h2>
 					<div id="collapseOne" class="accordion-collapse collapse "
 						data-bs-parent="#accordionExample">
@@ -119,7 +119,7 @@
 						</div> <!-- 여기까지가 아코디언 바디임  -->
 					</div>
 				</div>
-
+			
 			</div>
 
 	
@@ -146,44 +146,16 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-
-				<div id="option">
-
-
-					<div id="calendar" style="width: 60%"></div>
-					<div id="links">
-						<div class="dropdown">
-							<a class="btn btn-warning dropdown-toggle" href="#" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false"> <i
-								class="fa-solid fa-bars"></i>
-							</a>
-							<ul class="dropdown-menu">
-								<li><a
-									href="/club/${main.membership.membershipCode}/membershipPromotionDetail"
-									class="dropdown-item">홍보글 작성</a></li>
-								<li><a href="/updateMembership" class="dropdown-item">정보
-										수정하기</a></li>
-								<li><a
-									href="/write?membershipCode=${main.membership.membershipCode}"
-									class="dropdown-item">모임게시판작성하러가기</a></li>
-								<li><a id="management" class="dropdown-item"
-									href="/management?membershipCode=${main.membership.membershipCode}">
-										멤버관리페이지 </a></li>
-
-							</ul>
-						</div>
-
-						<div>
-							<a
-								href="/chatserver/${main.membership.membershipCode}">채팅서버가기</a>
-						</div>
-
-					</div>
-
-
+				<div id="hostName">
+					<h2>${main.member.nickname} </h2>
 				</div>
-
-
+				<div id="membershipTitle">
+					<h1>${main.membership.membershipName }</h1>
+				</div>
+				<div id="userCount">
+					<i class="fa-solid fa-user-group"></i>
+					${main.count}/${main.membership.membershipMax}
+				</div>
 			</div>
 			
 			
@@ -236,7 +208,6 @@
 		
 		
 		</div>
-	<jsp:include page="../chatting/chattingIndex.jsp" />
 		
 		<c:set var="textColor">
     <c:choose>
