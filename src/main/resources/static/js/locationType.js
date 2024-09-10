@@ -23,8 +23,9 @@ const searchDto = {
 	locationSName: urlParams.getAll("locationSName"), // 없으면 빈배열
 	typeLaName: urlParams.get("typeLaName"),
 	typeSName: urlParams.getAll("typeSName"),
-	keyword: null,
+	keyword: urlParams.get("keyword"), // 없으면 null
 };
+
 // 화면단 -> 네비게이션 바 스타일링만 (새로고침했을때 남아있게)
 if (searchDto.locationLaName !== null) {
 	const check = $(
@@ -109,6 +110,10 @@ if (searchDto.typeSName.length > 0) {
 			"</div>";
 	$(".typeSStar").append(typeSFriend);
 }
+// 새로고침했을때 정보 남아있게끔
+if(searchDto.keyword !== null){
+	$("#keyword").val(searchDto.keyword)
+}
 
 // 결과값에 대한 걸 먼저 생각!
 // locationSNameList, typeSNameList, list
@@ -153,7 +158,12 @@ const list = (page) => {
 		type: "get",
 		data: searchDto,
 		success: function(result) {
-			renderClubList(result);
+			if(result.length != 0){
+				renderClubList(result);	
+			}else{
+				renderClubList2();	
+			}			
+			
 		},
 	});
 };
@@ -232,8 +242,6 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 	}
 	history.pushState({}, null, url);
 	list(1);
-	console.log();
-	if($(".locationSDiv").html() == 0)console.log("123123");
 });
 
 // 상단 지역별 버튼 눌렀을 때
@@ -472,11 +480,14 @@ function search() {
 	history.pushState({}, null, url);
 	list(1);
 }
-
+function renderClubList2(){
+	let div = $(".membership-list");
+	div.empty();
+	div.append(`<div class="noMember">해당 정보가 없습니다.. 😥</div>`);
+}
 
 function renderClubList(clubList) {
 	let div = $(".membership-list");
-
 	div.empty();
 
 	$.each(clubList, function(index, club) {

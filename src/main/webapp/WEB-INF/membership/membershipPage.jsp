@@ -319,7 +319,6 @@
  	$(".mainMenu").mouseenter((e) => {
 		  let contents = $(e.target).siblings(); // 형제들
 	
-		 
 		  if (contents.css("display") === "none") {
 		    contents.slideDown();
 		  }
@@ -329,13 +328,8 @@
 	
 	$("#menu").mouseleave((e) => {
 		  let contents = $(".mainMenu").siblings(); // 본인 기준 바로 다음
-	
-		 
-		 
-			  contents.slideUp();
-			  
-		  
-		});
+			 contents.slideUp();
+	});
 	
 	
 	$("#deleteButton").click(()=>{

@@ -119,7 +119,7 @@
 	<div class="membership-list">
 
 		<c:if test="${list.size() == 0}">
-			<div class="noMember">정보가 없어용</div>
+			<div class="noMember">해당 정보가 없습니다.. 😥</div>
 		</c:if>
 		<c:if test="${list.size() != 0}">			
 				<c:forEach items="${list}" var="info" varStatus="status">
@@ -130,8 +130,6 @@
 						class="new">
 				</c:if>
 				<div class="membership-img">
-
-
 					<a href="/${info.membershipCode}"> <c:choose>
 							<c:when test="${info.membershipImg != null}">
 								<img
@@ -207,6 +205,7 @@
 				</div>
 			</div>
 		</c:forEach>
+		</c:if>
 	</div>
 	<jsp:include page="chatting/chattingIndex.jsp" />
 	<jsp:include page="footer/footerIndex.jsp" />

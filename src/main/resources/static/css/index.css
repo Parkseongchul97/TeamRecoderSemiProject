@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 body {
   background-color: #f9f7f3;
   font-family: "Noto Sans KR", sans-serif;
@@ -205,8 +204,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-.memberMannerIndex p {
-}
 .memberMannerIndex span {
   font-size: 9px;
   margin: 5px 5px 5px 20px;
@@ -215,4 +212,10 @@ body {
   position: absolute;
   width: 60px;
   height: 60px;
+}
+
+.noMember{
+	font-size : 50px ;
+	font-weight: bold;
+	padding: 200px;
 }

@@ -1,479 +1,456 @@
+/*캘린더*/
+.fc-toolbar-title {
+	padding: 10px;
+}
+.fc-toolbar-chunk{
+	padding: 10px;
+}
 
-
+/*캘린더*/
 #main-container {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 #container {
-  width: 100%;
-  max-width: 800px;
-  background: #ffe8cf;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 80px;
-      margin-bottom: 100px;
+	width: 100%;
+	max-width: 800px;
+	background: #ffe8cf;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 80px;
+	margin-bottom: 100px;
 }
 
 #container-top {
-display: flex;
-    flex-direction: column;
-    background-color: #d3c5b4;
-    border-radius: 16px;
-    align-items: center;
-    position: relative;
-    bottom: 60px;
-    width: 90%;
-    box-shadow: 0px 2px 4px #704708;
-    font-weight: bold;
-    padding: 10px;
+	display: flex;
+	flex-direction: column;
+	background-color: #d3c5b4;
+	border-radius: 16px;
+	align-items: center;
+	position: relative;
+	bottom: 60px;
+	width: 90%;
+	box-shadow: 0px 2px 4px #704708;
+	font-weight: bold;
+	padding: 10px;
 }
 
 #hostImg {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  bottom: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	bottom: 40px;
 }
 
 #hostName {
-  position: relative;
-  bottom: 40px;
+	position: relative;
+	bottom: 40px;
 }
 
 #membershipTitle {
-  position: relative;
-  bottom: 30px;
+	position: relative;
+	bottom: 30px;
 }
 
-#membershipTitle > h1 {
-  font-weight: bold;
-  font-size: 1.5rem;
+#membershipTitle>h1 {
+	font-weight: bold;
+	font-size: 1.5rem;
 }
 
 #info-container {
-  width: 100%;
-  padding: 20px;
+	width: 100%;
+	padding: 20px;
 }
 
 #mainImg {
-  width: 100%;
-  height: auto;
-  padding: 20px;
-  border-radius: 30px 30px 0px 0px;
+	width: 100%;
+	height: auto;
+	padding: 20px;
+	border-radius: 30px 30px 0px 0px;
 }
 
 #info-container {
-  line-height: 2;
+	line-height: 2;
 }
 
-#info-container > p > img {
-  max-width: 90%;
+#info-container>p>img {
+	max-width: 90%;
 }
 
 #hostInfo {
-  display: flex;
-  flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
 #hostInfo-img {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 #middle-container-top {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 #middle-container {
-  width: 100%;
-  padding: 20px;
+	width: 100%;
+	padding: 20px;
 }
 
 #name-and-info {
-  margin-left: 20px;
+	margin-left: 20px;
 }
 
 #hostInfo-name {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
-#together > p {
-  margin-top: 20px;
+#together>p {
+	margin-top: 20px;
 }
 
 #imageContainer {
-  margin-top: 20px;
+	margin-top: 20px;
 }
 
 .allmemberImg {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
 }
 
 .memberTable {
-  border: 1px solid #959595;
-  padding: 20px;
-  border-radius: 20px;
-  margin-bottom: 10px;
+	border: 1px solid #959595;
+	padding: 20px;
+	border-radius: 20px;
+	margin-bottom: 10px;
 }
 
 .memberTable ui {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .member-grade {
-  text-align: center;
-  font-weight: bold;
-  text-wrap: nowrap;
-  padding-bottom: 5px;
+	text-align: center;
+	font-weight: bold;
+	text-wrap: nowrap;
+	padding-bottom: 5px;
 }
 
 .member-grade span {
-  color: rgb(252, 177, 3);
-  font-size: 20px;
+	color: rgb(252, 177, 3);
+	font-size: 20px;
 }
 
 .member-img-icon-nickname-manner {
-  display: flex;
-  justify-content: space-evenly;
+	display: flex;
+	justify-content: space-evenly;
 }
 
 .member-img-icon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-  margin-top: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-right: 10px;
+	margin-top: 5px;
 }
 
 .nickname-manner {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  position: relative;
-  font-weight: bolder;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	position: relative;
+	font-weight: bolder;
 }
 
 .manner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .manner p {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 
 .nickname {
-  text-align: center;
+	text-align: center;
 }
 
 #accordionExample {
-  position: fixed;
-  left: 0px;
-  z-index: 99;
-  margin-top: 80px;
-  min-width: 16.55%;
+	position: fixed;
+	left: 0px;
+	z-index: 99;
+	margin-top: 80px;
+	min-width: 16.55%;
 }
 
 .accordion-button collapsed {
-  background-color: #14213d !important;
-  color: white !important;
-  font-weight: bold !important;
+	background-color: #14213d !important;
+	color: white !important;
+	font-weight: bold !important;
 }
 
 .accordion-header {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  word-break: break-all;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	word-break: break-all;
 }
 
 .accordion-collapse {
-  overflow: auto;
+	overflow: auto;
 }
 
 .accordion-collapse::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 .accordion-collapse.collapsing {
-  max-height: 700px !important;
+	max-height: 700px !important;
 }
 
 .accordion-body {
-  max-width: 310px;
-  max-height: 700px;
+	max-width: 310px;
+	max-height: 700px;
 }
 
 .accordion-button:not(.collapsed) {
-  background: #fca311; /* 펼쳐졌을 때 배경색 */
-  color: #ffffff; /* 텍스트 색상 */
+	background: #fca311; /* 펼쳐졌을 때 배경색 */
+	color: #ffffff; /* 텍스트 색상 */
 }
 
 .accordion-button.collapsed {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #14213d; /* 닫혔을 때 배경색 */
-  color: #ffffff; /* 텍스트 색상 */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #14213d; /* 닫혔을 때 배경색 */
+	color: #ffffff; /* 텍스트 색상 */
 }
 
-#menu {
-  width: 12.4%;
-  position: fixed;
-  right: 0px;
-  top: 0px;
-  /* 	z-index: 99; */
-  margin-top: 80px;
-  border-radius: 2px solid red;
-}
 
-.mainMenu {
-  font-weight: bold;
-  font-size: 32px;
-  cursor: pointer;
-}
-#menu li {
-  text-align: center;
-  border-bottom: 1px solid white;
-  background-color: #FCA35B;
-  font-size : 14px;
-}
-#menu li:nth-child(1){
-  font-size : 26px;
-  text-align: center;
-  border-bottom: 1px solid white;
-  background-color: #FCA35B;
-}
-#menu li:nth-child(n+2):nth-child(-n+6):hover{
-	background-color: #ffcaa0;
-}
-#deleteButton{
-    border: none;
-    width: 100%;
-    height: 100%;
-}
+
 ul li:not(:first-of-type) {
 	display: none;
 }
 
 #calendar-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding-bottom: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding-bottom: 50px;
 }
 
 #calendar-info p {
-  font-family: "Do Hyeon", sans-serif;
-  font-size: 60px;
-  font-weight: bold;
-  padding: 10px;
+	font-family: "Do Hyeon", sans-serif;
+	font-size: 60px;
+	font-weight: bold;
+	padding: 10px;
 }
 
 #calendar {
-  background: white;
-  width: 500px;
-  height: 600px;
+	background: white;
+	width: 700px;
 }
 
 #deleteMembership {
-  font-family: "Do Hyeon", sans-serif;
-  width: 600px;
-  height: 250px;
-  font-size: 20px;
-
-  background: gray;
-
-  position: fixed;
-  /*   position: absolute;*/
-  cursor: pointer;
-  top: 102px;
-  left: 658px;
-  z-index: 99;
-
-  background: white;
-  border: 0.5px solid black;
-  box-shadow: 5px 5px 5px #000;
+	font-family: "Do Hyeon", sans-serif;
+	width: 600px;
+	height: 250px;
+	font-size: 20px;
+	background: gray;
+	position: fixed;
+	/*   position: absolute;*/
+	cursor: pointer;
+	top: 102px;
+	left: 658px;
+	z-index: 99;
+	background: white;
+	border: 0.5px solid black;
+	box-shadow: 5px 5px 5px #000;
 }
 
 #container-title {
-  width: 100%;
-  text-align: center;
-  height: 40px;
-  background: #add8e6;
-  color: #fca35b;
-  font-family: "Do Hyeon", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#container-main {
-  width: 100%;
-  height: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px;
-  background: white;
+	width: 100%;
+	text-align: center;
+	height: 40px;
+	background: #add8e6;
+	color: #fca35b;
+	font-family: "Do Hyeon", sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-#container-main > * {
-  padding: 10px;
+#container-main {
+	width: 100%;
+	height: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 20px;
+	background: white;
 }
+
+#container-main>* {
+	padding: 10px;
+}
+
 #deleteContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  height: 40px;
-  font-size: 32px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+	height: 40px;
+	font-size: 32px;
 }
+
 #deleteCancle {
-  background: red;
-  height: 40px;
-  color: white;
+	background: red;
+	height: 40px;
+	color: white;
 }
+
 #cancle {
-  color: white;
-  background: red;
-  border: none;
-  height: 40px;
-  border: 0.5px solid black;
-  border-top: none;
-  border-right: none;
+	color: white;
+	background: red;
+	border: none;
+	height: 40px;
+	border: 0.5px solid black;
+	border-top: none;
+	border-right: none;
 }
 
 #deleteBtn {
-  border: 1px solid black;
-  background: black;
-  color: white;
-  width: 115px;
-  height: 46px;
-  font-size: 20px;
+	border: 1px solid black;
+	background: black;
+	color: white;
+	width: 115px;
+	height: 46px;
+	font-size: 20px;
 }
 
 #deleteBtn:hover {
-  border: 1px solid red;
-  background: red;
-  color: black;
+	border: 1px solid red;
+	background: red;
+	color: black;
 }
 
-@keyframes blink {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+@keyframes blink { 
+	0% {
+	opacity: 1;
+	}
+	50%{
+	opacity : 0;
+	}100%{
+	opacity:1;
+	}
 }
 #title {
-  animation: blink 1s infinite; /* 1초 간격으로 무한 반복 */
+	animation: blink 1s infinite; /* 1초 간격으로 무한 반복 */
 }
 
-
-
-
-
-
-/*집에서가서 중복빼기*/
-/* 메뉴 컨테이너 스타일링 */
 #menu {
-  width: 15%; /* 메뉴의 너비 조정 */
-  position: fixed; /* 화면에 고정 */
-  right: 0; /* 화면 오른쪽에 위치 */
-  top: 80px; /* 헤더 아래에 위치 (필요에 따라 조정) */
-  background-color: #FCA35B; /* 메뉴 배경색 */
-  border-radius: 8px 0 0 8px; /* 왼쪽 모서리 둥글게 */
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2); /* 오른쪽에 그림자 추가 */
-  z-index: 1000; /* 메뉴가 다른 요소들 위에 표시되도록 설정 */
+	width: 15%; /* 메뉴의 너비 조정 */
+	position: fixed; /* 화면에 고정 */
+	right: 0; /* 화면 오른쪽에 위치 */
+	bottom: 0px;
+	background-color: #FCA35B; /* 메뉴 배경색 */
+	margin-top: 80px;
+	border-radius: 2px solid red;
+	box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2); /* 오른쪽에 그림자 추가 */
+	z-index: 1000; /* 메뉴가 다른 요소들 위에 표시되도록 설정 */
 }
 
-/* 메인 메뉴 항목 스타일링 */
 .mainMenu {
-  font-weight: bold; /* 글씨를 굵게 */
-  font-size: 24px; /* 메인 메뉴 항목의 글씨 크기 */
-  text-align: center; /* 텍스트 중앙 정렬 */
-  background-color: #FCA35B; /* 메뉴와 동일한 배경색 */
-  color: #fff; /* 텍스트 색상 */
-  padding: 10px 0; /* 수직 패딩 */
-  cursor: pointer; /* 커서가 포인터로 변경되도록 설정 */
-}
-
-/* 리스트 항목 스타일링 */
-#menu ul {
-  list-style: none; /* 리스트 스타일 제거 */
-  padding: 0; /* 패딩 제거 */
-  margin: 0; /* 마진 제거 */
+	font-weight: bold;
+	font-size: 32px;
+	cursor: pointer;
+	text-align: center; /* 텍스트 중앙 정렬 */
+	background-color: #FCA35B; /* 메뉴와 동일한 배경색 */
+	color: #fff; /* 텍스트 색상 */
+	padding: 10px 0; /* 수직 패딩 */
 }
 
 #menu li {
-  text-align: center; /* 텍스트 중앙 정렬 */
-  border-bottom: 1px solid #fff; /* 항목 사이에 흰색 경계선 추가 */
-  background-color: #FCA35B; /* 항목 배경색 */
-}
-
-/* 리스트 항목 내 링크 스타일링 */
-#menu li a {
-  display: block; /* 링크를 블록으로 만들어 전체 너비 사용 */
-  padding: 10px; /* 패딩 추가 */
-  color: #fff; /* 텍스트 색상 */
-  text-decoration: none; /* 링크에 밑줄 제거 */
-  font-weight: bold; /* 글씨를 굵게 */
+	text-align: center;
+	border-bottom: 1px solid white;
+	background-color: #FCA35B;
+	font-size: 14px;
 }
 
 /* 링크 및 메인 메뉴 호버 시 배경색 변경 */
-#menu li a:hover,
-.mainMenu:hover {
-  background-color: #ffcaa0; /* 호버 시 배경색 변경 */
+#menu li a:hover, .mainMenu:hover {
+	background-color: #ffcaa0; /* 호버 시 배경색 변경 */
 }
 
 /* 드롭다운 항목을 호버 시 표시 */
 #menu li:hover ul {
-  display: block; /* 호버 시 항목 표시 */
+	display: block; /* 호버 시 항목 표시 */
+}
+
+/* 리스트 항목 스타일링 */
+#menu ul {
+	list-style: none; /* 리스트 스타일 제거 */
+	padding: 0; /* 패딩 제거 */
+	margin: 0; /* 마진 제거 */
+}
+
+/* 리스트 항목 내 링크 스타일링 */
+#menu li a {
+	display: block; /* 링크를 블록으로 만들어 전체 너비 사용 */
+	padding: 10px; /* 패딩 추가 */
+	color: #fff; /* 텍스트 색상 */
+	text-decoration: none; /* 링크에 밑줄 제거 */
+	font-weight: bold; /* 글씨를 굵게 */
 }
 
 /* 기본적으로 숨겨진 메뉴 항목 */
 #menu ul li:not(:first-of-type) {
-  display: none; /* 첫 번째 항목을 제외한 모든 항목 숨김 */
+	display: none; /* 첫 번째 항목을 제외한 모든 항목 숨김 */
 }
 
-/* 메뉴에 호버 시 모든 항목 표시 */
-#menu:hover ul li {
-  display: block; /* 호버 시 항목 표시 */
-}
 
-/* 버튼 스타일링 */
 #deleteButton {
-  width: 100%; /* 버튼 너비를 100%로 설정 */
-  background: #ff4d4d; /* 삭제 버튼의 배경색 */
-  color: #fff; /* 버튼 텍스트 색상 */
-  border: none; /* 경계선 제거 */
-  padding: 10px; /* 패딩 추가 */
-  font-size: 16px; /* 버튼 글씨 크기 */
-  cursor: pointer; /* 커서가 포인터로 변경되도록 설정 */
-  border-radius: 0 0 8px 8px; /* 버튼의 하단 모서리 둥글게 */
+	width: 100%; /* 버튼 너비를 100%로 설정 */
+	background: #ff4d4d; /* 삭제 버튼의 배경색 */
+	color: #fff; /* 버튼 텍스트 색상 */
+	border: none; /* 경계선 제거 */
+	padding: 10px; /* 패딩 추가 */
+	font-size: 16px; /* 버튼 글씨 크기 */
+	cursor: pointer; /* 커서가 포인터로 변경되도록 설정 */
+	border-radius: 0 0 8px 8px; /* 버튼의 하단 모서리 둥글게 */
 }
 
 /* 버튼 호버 시 배경색 변경 */
 #deleteButton:hover {
-  background: #e60000; /* 호버 시 배경색 변경 */
+	background: #e60000; /* 호버 시 배경색 변경 */
 }
 
+.fc .fc-daygrid-day-top{
+	flex-direction: inherit;
+}
+
+tr .fc-day fc-day-sun fc-day-past fc-daygrid-day div:nth-child(1){
+	color : red;
+}
+
+.fc-day-sun > div > a,.fc-day-sat > div > a {
+	color: red;
+}
+
+.fc-scrollgrid-sync-table tbody tr td:nth-child(1) a ,
+.fc-scrollgrid-sync-table tbody tr td:nth-child(7) a {
+	color: red;
+}
