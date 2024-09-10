@@ -59,6 +59,13 @@
 		SELECT DISTINCT loc_la_name 
 		FROM location_category
 	</select>
+	 	<!-- 타입부분 -->
+	<select id="typeLaNameList" resultType="String">
+		select distinct type_la_name
+		from type_category;
+	</select> 	
+	
+	
 	
 	<!-- 지역 하위 카테고리 뽑기 --> 
 	<select id="locSNameList" parameterType="String" resultType="String">
@@ -66,6 +73,14 @@
 		FROM location_category
 		WHERE loc_la_name = #{laName}
 	</select>	
+	
+	<select id="typeSNameList" parameterType="String" resultType="String">
+		select type_s_name
+		from type_category
+		where type_la_name = #{typeLaName};
+	</select>
+	
+
 
 
 	<!-- 지역 상위 선택에 따른 멤버십 코드 뽑기 -->
@@ -147,19 +162,7 @@
 	</select>
 	
 
-	
- 	<!-- 타입부분 -->
-	<select id="typeLaNameList" resultType="String">
-		select distinct type_la_name
-		from type_category;
-	</select> 		
-		
-	<select id="typeSNameList" parameterType="String" resultType="String">
-		select type_s_name
-		from type_category
-		where type_la_name = #{typeLaName};
-	</select>
-	
+
 	
 	<select id="selectMemberNickName" parameterType="int" resultMap="MemberMap">
 		SELECT *
@@ -169,8 +172,6 @@
 		AND membership_code = #{code}
 	</select>
 	
-	<!--  추가 -->
-	
-	
+
 		
 </mapper>

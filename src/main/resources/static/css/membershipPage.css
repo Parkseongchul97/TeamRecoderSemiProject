@@ -63,9 +63,10 @@
 }
 
 #info-container {
-	width: 100%;
-	padding: 20px;
+	line-height: 2;
 }
+
+
 
 #mainImg {
 	width: 100%;
@@ -74,9 +75,6 @@
 	border-radius: 30px 30px 0px 0px;
 }
 
-#info-container {
-	line-height: 2;
-}
 
 #info-container>p>img {
 	max-width: 90%;
@@ -210,9 +208,7 @@
 	overflow: auto;
 }
 
-.accordion-collapse::-webkit-scrollbar {
-	display: none;
-}
+
 
 .accordion-collapse.collapsing {
 	max-height: 700px !important;
@@ -238,9 +234,6 @@
 
 
 
-ul li:not(:first-of-type) {
-	display: none;
-}
 
 #calendar-info {
 	display: flex;
@@ -248,12 +241,11 @@ ul li:not(:first-of-type) {
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	padding-bottom: 50px;
 }
 
 #calendar-info p {
 	font-family: "Do Hyeon", sans-serif;
-	font-size: 60px;
+	font-size: 50px;
 	font-weight: bold;
 	padding: 10px;
 }
@@ -362,36 +354,36 @@ ul li:not(:first-of-type) {
 }
 
 #menu {
-	width: 15%; /* 메뉴의 너비 조정 */
-	position: fixed; /* 화면에 고정 */
-	right: 0; /* 화면 오른쪽에 위치 */
-	bottom: 0px;
-	background-color: #FCA35B; /* 메뉴 배경색 */
-	margin-top: 80px;
-	border-radius: 2px solid red;
-	box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2); /* 오른쪽에 그림자 추가 */
-	z-index: 1000; /* 메뉴가 다른 요소들 위에 표시되도록 설정 */
+    background-color: #ffb67b;
+    margin-top: 100px;
+    width: 100%;	
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
 }
 
 .mainMenu {
 	font-weight: bold;
-	font-size: 32px;
-	cursor: pointer;
+	font-size: 40px;
 	text-align: center; /* 텍스트 중앙 정렬 */
-	background-color: #FCA35B; /* 메뉴와 동일한 배경색 */
 	color: #fff; /* 텍스트 색상 */
 	padding: 10px 0; /* 수직 패딩 */
+	border-bottom: 1px solid white;
+}
+
+#menu ul {
+	border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
 }
 
 #menu li {
 	text-align: center;
 	border-bottom: 1px solid white;
-	background-color: #FCA35B;
 	font-size: 14px;
 }
 
+
 /* 링크 및 메인 메뉴 호버 시 배경색 변경 */
-#menu li a:hover, .mainMenu:hover {
+#menu li a:hover {
 	background-color: #ffcaa0; /* 호버 시 배경색 변경 */
 }
 
@@ -416,10 +408,7 @@ ul li:not(:first-of-type) {
 	font-weight: bold; /* 글씨를 굵게 */
 }
 
-/* 기본적으로 숨겨진 메뉴 항목 */
-#menu ul li:not(:first-of-type) {
-	display: none; /* 첫 번째 항목을 제외한 모든 항목 숨김 */
-}
+
 
 
 #deleteButton {
@@ -430,7 +419,7 @@ ul li:not(:first-of-type) {
 	padding: 10px; /* 패딩 추가 */
 	font-size: 16px; /* 버튼 글씨 크기 */
 	cursor: pointer; /* 커서가 포인터로 변경되도록 설정 */
-	border-radius: 0 0 8px 8px; /* 버튼의 하단 모서리 둥글게 */
+	border-radius: 0px 0px 10px 10px;
 }
 
 /* 버튼 호버 시 배경색 변경 */
@@ -438,19 +427,51 @@ ul li:not(:first-of-type) {
 	background: #e60000; /* 호버 시 배경색 변경 */
 }
 
+#calendar {
+	background: white;
+	width: 700px;
+	border-radius: 10px;
+}
+
 .fc .fc-daygrid-day-top{
 	flex-direction: inherit;
 }
 
-tr .fc-day fc-day-sun fc-day-past fc-daygrid-day div:nth-child(1){
-	color : red;
+.fc .fc-toolbar-title{
+	font-weight: bold;
 }
 
-.fc-day-sun > div > a,.fc-day-sat > div > a {
+.fc-day-sun > div > a{
 	color: red;
 }
+.fc-day-sat > div > a {
+	color : #7e7eff;	
+}
 
-.fc-scrollgrid-sync-table tbody tr td:nth-child(1) a ,
+
+.fc-scrollgrid-sync-table tbody tr td:nth-child(1) a {
+	color: red;
+}
 .fc-scrollgrid-sync-table tbody tr td:nth-child(7) a {
-	color: red;
+	color:#7e7eff;;
+}
+
+.lostDance{
+	display: flex;
+    flex-flow: column;
+}
+.lostBtn{
+    width: 725px;
+    border: none;
+    background-color: #ffc698;
+    padding: 5px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.lostBtn:hover{
+	background: #ffaa64;
+}
+.lostDiv{
+	display: none;
+	
 }

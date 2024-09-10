@@ -79,7 +79,7 @@
 						<div id="hostInfo-name">
 							<p>${main.member.nickname}</p>
 						</div>
-						<div idv="hostInfo-Info">
+						<div id="hostInfo-Info">
 							<p>${main.member.memberInfo}</p>
 						</div>
 

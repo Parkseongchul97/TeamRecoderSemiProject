@@ -40,6 +40,17 @@ $(".agreeMember").click((e) => {
     },
   });
 });
-
-
+let slideUpDown = 0;
+$(".lostBtn").click(function(){
+	if(slideUpDown == 0){
+		$(".lostBtn").html("숨기기")
+		$(".lostDiv").slideDown(500)
+		slideUpDown++;
+	}else{
+		$(".lostBtn").html("펼치기")
+		$(".lostDiv").slideUp(500)
+		slideUpDown--;
+	}
+	
+})
 
