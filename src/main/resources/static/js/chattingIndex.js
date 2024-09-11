@@ -1,14 +1,17 @@
 $(document).ready(function() {
 	// 채팅방 목록 불러오기
 	$("#chatMain").hide();
+	
 	$("#reduce").click(function() {
 		$("#reduce").hide();
 		main();
 	});
+	
 	$("#can").click(function() {
 		$("#chatMain").hide();
 		$("#reduce").show();
 	});
+	
 	const link = document.createElement('link');
 	link.rel = 'stylesheet';
 	link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
@@ -48,8 +51,7 @@ $(document).ready(function() {
 	const socket = new SockJS('http://localhost:8080/websocket');
 	const stomp = Stomp.over(socket);
 	stomp.debug = null; // stomp 콘솔출력 X
-	// 구독을 취소하기위해 구독 시 아이디 저장
-
+	stomp.connect({}, function() {});
 	const subscribe = [];
 	// 모든 구독 취소하기
 	const subscribeCancle = function() {
@@ -76,8 +78,7 @@ $(document).ready(function() {
 		chattingRoomList();
 	};
 
-	stomp.connect({}, function() {
-	});
+	 
 	// 채팅방
 	const info = (function() {
 		let nickname = "";
