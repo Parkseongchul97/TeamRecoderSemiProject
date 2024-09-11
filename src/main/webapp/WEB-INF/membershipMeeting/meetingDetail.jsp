@@ -415,7 +415,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 														</c:choose>
 														<div class = "text-update-box">
 															<label for="textbox-update-${recom.meetCommentCode}">
-																${member.nickname} : </label> <input
+																${member.nickname}</label> <input
 																id="textbox-update-${recom.meetCommentCode}" type="text"
 																name="mainCommentText" value="${recom.meetCommentText}"
 																onclick="updateKey(${recom.meetCommentCode})">

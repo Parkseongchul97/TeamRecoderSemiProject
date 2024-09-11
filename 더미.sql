@@ -7,6 +7,24 @@ FROM type_category;
 SELECT *
 FROM membership_location;
 
+select * from member;
+update member
+set member_manner = (member_manner + 5)
+where nickname != '와룡';
+select * from membership_user_list
+where membership_code = 52;
+
+update membership_user_list
+set id = 'user999'
+where list_code = 202;
+
+select  membership_code, loc_code
+from membership
+left join membership_location using(membership_code)
+where loc_code is null;
+
+select *
+from member;
 SELECT *
 FROM location_category;
 
