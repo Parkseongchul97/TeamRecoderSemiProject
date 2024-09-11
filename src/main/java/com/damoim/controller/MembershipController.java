@@ -474,54 +474,44 @@ public class MembershipController {
 	}
 	@ResponseBody
 	@PostMapping("/updateMembership") // 클럽 수정
-	public String updateMembership(Membership vo, MultipartFile file, String LB, String TB,int zIndex) throws Exception {
-		System.out.println("지역 확인 : " + LB); // 인천 = 중구, 미추홀구, 남동구
-		System.out.println("유형 확인 : " + TB); // 스터디 = 코딩, 자격증, 토론
-		System.out.println(zIndex);
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+	public Integer updateMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
 		// 맴버쉽 코드 사용
-		int code = vo.getMembershipCode();
 		Membership oldMembership = service.selectMembership(vo.getMembershipCode());
-		
-		Membership oldMembership = service.selectMembership(vo.getMembershipCode()); // 수정전 클럽 정보 객체 생성	
 		String imgUrl = oldMembership.getMembershipImg(); // 기존 맴버쉽 정보의 이미지 URL
-		
-		if(vo.getFile() == null  ) { // 사진 변경을 안함(기존 그대로인 imgURL을 사용해야함)
-			if( zIndex == -1) { // 프로필 사진을 변경하지 않음 < 기존 프로필 사진 사용
-				vo.setMembershipImg(imgUrl);
-			} else { // 프로필 사진을 변경하지 않음 < 기본 프로필로 변경 누름(기본 프로필 사진 사용)
-				vo.setMembershipImg(null);
-			}
-		}else { // 사진이 변경됨
-			fileDelete(imgUrl, vo.getMembershipCode()); // 수정 전 클럽 정보로 기존 파일 삭제
+		// 파일 업로드를 안했을 경우 ! >> 수정전 멤버쉽의 사진으로
+		// 파일 업로드를 했을 경우 ! >> 기존 멤버쉽 폴더의 사진 삭제후 재 업로드
+		if (vo.getFile() == null) { // 사진 변경을 안함(기존 그대로인 imgURL을 사용해야함)
+			vo.setMembershipImg(imgUrl);
+		} else { // 사진이 바뀜 먼가 바낌
+			fileDelete(imgUrl, vo.getMembershipCode()); // 실 파일 삭제
 			vo.setMembershipImg(fileUpload(vo.getFile(), vo.getMembershipCode())); // 파일 업로드 + DB에 URL추가
-		}		
-		// 만들어놓은 membership update 돌리기 타입이랑 로케이션 삭제
+		}
+		// 타입이랑 로케이션 삭제
+		// 만들어놓은 membership update 돌리기
 		service.updateMembership(vo);
-		
-		// 지역 추가
+		// 로케이션
 		String locAll = LB.substring(1, (LB.length() - 1));
 		String locAllstr = locAll.replaceAll("\"", "");
 		String[] locList = locAllstr.split(","); // 대분류 이름 소분류 이름 분리
 		String locLaName = locList[0];
 		LocationCategory lc = LocationCategory.builder().locLaName(locLaName).build();
-
-		for (String s : locLaSName) {
-			lc.setLocSName(s);
-			int locationCode = service.findLocationCode(lc);
-			MembershipLocation location = MembershipLocation.builder().locSmallCode(locationCode).membershipCode(code).build();
-			service.makeLocationMembership(location); // MembershipLocation
+		for (String s : locList) {
+			if (!s.equals(locLaName)) {
+				lc.setLocSName(s);
+				int locationCode = service.findLocationCode(lc);
+				MembershipLocation location = MembershipLocation.builder().locSmallCode(locationCode)
+						.membershipCode(vo.getMembershipCode()).build();
+				service.makeLocationMembership(location); // MembershipLocation
+			}
 		}
-		// 타입 추가
+		// 타입
 		String typeAll = TB.substring(1, (TB.length() - 1));
 		String typeAllstr = typeAll.replaceAll("\"", "");
 		String[] typeList = typeAllstr.split(","); // 대분류 이름 소분류 이름 분리
 		String typeLaName = typeList[0];
 		;
 		TypeCategory tc = TypeCategory.builder().typeLaName(typeLaName).build();
+		System.out.println(tc);
 		for (String ss : typeList) {
 			if (!ss.equals(typeLaName)) {
 				tc.setTypeSName(ss);
@@ -531,7 +521,7 @@ public class MembershipController {
 				 service.makeTypeMembership(type);
 			}
 		}
-		return vo.getMembershipCode(); // 수정후 코드 반환
+		return vo.getMembershipCode();
 	}
 	
 	

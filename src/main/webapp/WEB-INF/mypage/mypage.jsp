@@ -173,11 +173,12 @@
 													<button class="Management-button" id="update-club"
 														type="submit" value="클럽수정">클럽 정보 수정</button>
 												</form>
-
+												<button id="deleteButton">클럽삭제</button>
 											</c:if>
 											<c:if test="${myGrade != 'host'}">
 												<button class="Management-button"
 													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+
 											</c:if>
 										</div>
 									</div>
@@ -228,81 +229,85 @@
 											/
 											<p>${mem.membership.membershipMax}</p>
 										</div>
-							</a>
-							<c:if test="${mem.membership.membershipSimpleText == null}">
-								<p>클럽의 소개글이 없습니다</p>
-							</c:if>
 
-							<!-- 클럽 정보 수정 -->
-							<c:if test="${myGrade == 'host'}">
-								<div class="Management-button-group">
-									<form action="/updateMembership"
-										style="margin: 0px; padding: 0px">
-										<button class="Management-button" id="update-club"
-											type="submit" value="클럽수정">클럽 정보 수정</button>
-									</form>
-									<button id="deleteButton">클럽삭제</button>
+
+										<c:if test="${mem.membership.membershipSimpleText == null}">
+											<p>클럽의 소개글이 없습니다</p>
+										</c:if>
+										<!-- 클럽 정보 수정 -->
+										<div class="Management-button-group">
+											<c:if test="${myGrade == 'host'}">
+												<form action="/updateMembership"
+													style="margin: 0px; padding: 0px">
+													<button class="Management-button" id="update-club"
+														type="submit" value="클럽수정">클럽 정보 수정</button>
+													<button id="deleteButton">클럽삭제</button>
+												</form>
+											</c:if>
+											<c:if test="${myGrade != 'host'}">
+												<button class="Management-button"
+													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+											</c:if>
+										</div>
+									</div>
 								</div>
-							</c:if>
-							<c:if test="${myGrade != 'host'}">
-								<button class="Management-button"
-									onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
-							</c:if>
+							</a>
 						</c:if>
 					</c:forEach>
 				</div>
-			</div>
-	</div>
 
-	<!-- 가입 대기중인 클럽 -->
-	<div class="membership-card" id="wait-club">
-		<div class="list_grade_text">
-			<h1>가입 신청한 클럽</h1>
-			<i class=" fa-solid fa-user-plus"></i>
-		</div>
-		<c:forEach items="${mypage}" var="mem">
-			<c:set var="myGrade" value="${mem.listGrade}" />
-			<c:if test="${myGrade == 'guest'}">
-				<a href="/${mem.membership.membershipCode}">
-					<div class="membership-each">
-						<div>
-							<c:if test="${mem.membership.membershipImg != null}">
-								<img class="membership-img"
-									src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
-									alt="Membership Image">
-							</c:if>
-							<c:if test="${mem.membership.membershipImg == null}">
-								<img class="membership-img"
-									src="http://192.168.10.51:8081/imgBanner.png">
-							</c:if>
-						</div>
-						<div class="membership-String">
-							<h4>${mem.membership.membershipName}</h4>
-							<p>${mem.membership.membershipSimpleText}</p>
-							<div class="membership-count">
-								<i class="fa-solid fa-users"></i>
-								<p>${mem.count}</p>
-								/
-								<p>${mem.membership.membershipMax}</p>
-							</div>
-							<c:if test="${mem.membership.membershipSimpleText == null}">
-								<p>클럽의 소개글이 없습니다</p>
-							</c:if>
-							<button class="btn"
-								onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">신청
-								취소</button>
-						</div>
+
+				<!-- 가입 대기중인 클럽 -->
+				<div class="membership-card" id="wait-club">
+					<div class="list_grade_text">
+						<h1>가입 신청한 클럽</h1>
+						<i class=" fa-solid fa-user-plus"></i>
 					</div>
-				</a>
-			</c:if>
-		</c:forEach>
+					<c:forEach items="${mypage}" var="mem">
+						<c:set var="myGrade" value="${mem.listGrade}" />
+						<c:if test="${myGrade == 'guest'}">
+							<a href="/${mem.membership.membershipCode}">
+								<div class="membership-each">
+									<div>
+										<c:if test="${mem.membership.membershipImg != null}">
+											<img class="membership-img"
+												src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
+												alt="Membership Image">
+										</c:if>
+										<c:if test="${mem.membership.membershipImg == null}">
+											<img class="membership-img"
+												src="http://192.168.10.51:8081/imgBanner.png">
+										</c:if>
+									</div>
+									<div class="membership-String">
+										<h4>${mem.membership.membershipName}</h4>
+										<p>${mem.membership.membershipSimpleText}</p>
+										<div class="membership-count">
+											<i class="fa-solid fa-users"></i>
+											<p>${mem.count}</p>
+											/
+											<p>${mem.membership.membershipMax}</p>
+										</div>
+										<c:if test="${mem.membership.membershipSimpleText == null}">
+											<p>클럽의 소개글이 없습니다</p>
+										</c:if>
+										<button class="btn"
+											onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">신청
+											취소</button>
+									</div>
+								</div>
+							</a>
+						</c:if>
+					</c:forEach>
 
+				</div>
+				<!-- 내모임정보 (캘린더)  -->
+				<div class="membership-card" id="all-meet">
+					<div id="calendar"></div>
+				</div>
+			</div>
+		</sec:authorize>
 	</div>
-	<!-- 내모임정보 (캘린더)  -->
-	<div class="membership-card" id="all-meet">
-		<div id="calendar"></div>
-	</div>
-
 	<!-- boolean 선언후  ======================================== -->
 	<c:set var="host" value="${false}" />
 	<c:forEach items="${member.memberListDTO}" var="loginMemberGrade">
@@ -321,7 +326,7 @@
 		</div>
 	</c:if>
 
-	</div>
+
 
 
 	<div id="deleteMembership" style="display: none">
@@ -357,8 +362,8 @@
 
 		</div>
 	</div>
-	</sec:authorize>
-	</div>
+
+	
 
 
 

@@ -164,9 +164,7 @@ public class MemberService implements UserDetailsService {
 		} else {
 			System.out.println("로그인 성공! : " + username);
 			member.setMemberListDTO(infoService.grade(mapper.login(username)));
-
 		}
-		
 		return member;
 	}
 	

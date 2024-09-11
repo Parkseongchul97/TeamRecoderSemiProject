@@ -283,10 +283,8 @@ public class MemberController {
 	public boolean defualtFile() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		mem.setMemberImg(null);
 		service.defualtFile(mem.getId());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		/* getContext() => 현재 스레드와 관련된 SecurityContext 객체를 (반환) */
 		return true;
 	}
 	
