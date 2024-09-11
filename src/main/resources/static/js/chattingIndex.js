@@ -109,7 +109,6 @@ $(document).ready(function() {
 		let nickname = messageInfo.nickname;
 		let message = messageInfo.message;
 		let a = `<img src="${messageInfo.memimg}" width="100px"/>`;
-
 		message = message.replaceAll("\n", "<br>").replaceAll(" ", "&nbsp")
 			.replaceAll("<", "&lt;")
 			.replaceAll(">", "&gt;");

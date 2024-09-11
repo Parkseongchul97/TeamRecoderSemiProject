@@ -63,7 +63,7 @@
 			</div>
 
 			<div id="locLaText">지역을 선택해주세요</div>
-			
+			<div id="locAll"> 
 			<div class="locLabox">
 				<c:forEach items="${locLaNameList}" var="locLN">
 					<input type="checkbox" value="${locLN}" id="${locLN}"
@@ -72,6 +72,7 @@
 				</c:forEach>
 			</div>
 			<div class="locSbox"></div>
+			</div>
 			<div id="typeLaText">유형을 선택해주세요</div>
 			<div class="typeLabox">
 				<c:forEach items="${typeLaNameList}" var="typeLN">

@@ -11,5 +11,4 @@ public class TeamRecoderSemiProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TeamRecoderSemiProjectApplication.class, args);
 	}
-
 }

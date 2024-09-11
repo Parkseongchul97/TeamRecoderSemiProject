@@ -248,10 +248,6 @@
   background-color: #fca311;
 }
 
-ul li:not(:first-of-type) {
-  display: none;
-}
-
 #calendar-info {
   display: flex;
   flex-direction: column;
