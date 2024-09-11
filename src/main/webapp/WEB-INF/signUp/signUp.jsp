@@ -29,9 +29,7 @@
 					<!-- 페이지 1 -->
 					<div id="page1" class="page visible">
 						<h2>*회원가입*</h2>
-						<p id="focus">
-							<span style="color: red">*</span>표시 된것은 필수 입력 사항입니다.
-						</p>
+					
 						<div class="formBox">
 							<label for="id"><span style="color: red">*</span> 아이디 <span
 								class="result" id="idResult"></span></label>
@@ -118,27 +116,10 @@
 							</div>
 
 						</div>
-						<div class="formBox">
-							<label for="age"><span style="color: red">*</span>나이<span
-								class="result" id="ageResult"></span></label>
-							<div id="formBoxIn">
-								<i class="fa-solid fa-calendar-days"></i> <input type="text"
-									id="age" name="age" placeholder="나이를 입력하세요">
-							</div>
-						</div>
+
 						<div class="result"></div>
-						<div class="formBox" id="checkBox">
-							<label for="gender" id="genderLabel"><span
-								style="color: red">*</span>성별</label>
-							<div class="genderBox">
-								<label for="genderM">남성</label><input type="radio" id="genderM"
-									name="gender" value="M" />
-							</div>
-							<div class="genderBox">
-								<label for="genderF">여성</label> <input type="radio" id="genderF"
-									name="gender" value="F" />
-							</div>
-						</div>
+						
+						
 						<div class="pageButtons">
 							<button type="reset" onclick="location.href='/'">홈 화면으로</button>
 							<button type="button" onclick="showPage('page2')">다음 페이지</button>
@@ -153,6 +134,26 @@
 							<div id="formBoxIn">
 								<i class="fa-brands fa-odnoklassniki"></i> <input type="text"
 									id="nickname" name="nickname" placeholder="닉네임을 입력하세요" />
+							</div>
+						</div>
+												<div class="formBox">
+							<label for="age"><span style="color: red">*</span>나이<span
+								class="result" id="ageResult"></span></label>
+							<div id="formBoxIn">
+								<i class="fa-solid fa-calendar-days"></i> <input type="text"
+									id="age" name="age" placeholder="나이를 입력하세요">
+							</div>
+						</div>
+						<div class="formBox" id="checkBox">
+							<label for="gender" id="genderLabel"><span
+								style="color: red">*</span>성별</label>
+							<div class="genderBox">
+								<label for="genderM">남성</label><input type="radio" id="genderM"
+									name="gender" value="M" />
+							</div>
+							<div class="genderBox">
+								<label for="genderF">여성</label> <input type="radio" id="genderF"
+									name="gender" value="F" />
 							</div>
 						</div>
 						<div class="formBox">
@@ -174,23 +175,7 @@
 									id="memberInfo" name="memberInfo" placeholder="자기소개를 입력하세요"></input>
 							</div>
 						</div>
-						<div class="formBox">
-							<label for="memberLocation">유저 선호 지역</label>
-							<div id="formBoxIn">
-								<i class="fa-solid fa-location-dot"></i> 
-								<input type="text"
-									id="memberLocation" name="memberLocation"
-									placeholder="선호 지역을 입력하세요" />
-							</div>
-						</div>
-						<div class="formBox">
-							<label for="memberType">유저 선호 만남 유형</label>
-							<div id="formBoxIn">
-								<i class="fa-solid fa-thumbs-up"></i>
-								<input type="text"
-									id="memberType" name="memberType" placeholder="선호 만남 유형을 입력하세요" />
-							</div>
-						</div>
+
 						<div>
 							<div class="pageButtons">
 								<button type="button" onclick="showPage('page1')">이전

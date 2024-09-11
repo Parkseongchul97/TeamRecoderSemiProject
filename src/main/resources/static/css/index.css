@@ -4,6 +4,16 @@ body {
   background-color: #f9f7f3;
   font-family: "Noto Sans KR", sans-serif;
 }
+.body_img_box {
+  width: 100%;
+}
+
+.body_img {
+  width: 100%;
+}
+.locationTypeBody {
+  margin: 49px;
+}
 
 .container {
   align-items: flex-start;
@@ -57,6 +67,7 @@ body {
   justify-content: space-between;
   margin: 20px 20px 20px 0px;
   border-radius: 15px;
+  overflow: hidden;
 }
 
 .host {
@@ -89,6 +100,8 @@ body {
   padding: 5px;
   color: white;
   box-shadow: 0px 1px 2px gray;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .membership-info > h2 {
@@ -121,7 +134,9 @@ body {
   font-size: 12px;
   width: 100%;
 }
-
+.locationList {
+  padding: 0px 2px;
+}
 .type {
   display: flex;
   width: 100%;
