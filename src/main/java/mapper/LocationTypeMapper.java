@@ -40,5 +40,4 @@ public interface LocationTypeMapper {
 	//맴버 코드로 그룹에 게스트를 제외한 모든 인원
 	int allMemberShipUser(int code);
 	
-	
 }
