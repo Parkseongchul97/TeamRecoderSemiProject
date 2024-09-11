@@ -21,14 +21,14 @@ DELIMITER ;
 SHOW TRIGGERS; -- 트리거 확인
 
 -- 스케쥴러 ==================================================================================
-DROP event resigned_member_over30Day; -- 이벤트 스케쥴러 삭제
+-- DROP event resigned_member_over30Day; -- 이벤트 스케쥴러 삭제
 select * from information_schema.events; -- 이벤트 스케쥴러 확인
 -- SHOW VARIABLES LIKE 'event%'; -- 스케쥴러 on / off 체크
 -- SET GLOBAL event_scheduler = ON; -- off 상태면 on 으로
 
 
 CREATE EVENT resigned_member_over30Day
-ON SCHEDULE EVERY 1 minute
+ON SCHEDULE EVERY 1 day
 COMMENT '회원탈퇴'
 DO
 UPDATE member

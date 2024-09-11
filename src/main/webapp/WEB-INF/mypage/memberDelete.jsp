@@ -131,6 +131,7 @@ uri="http://www.springframework.org/security/tags"%>
           success: function (result) {
             if (result) {
               // true면 마지막 비밀번호 체크 페이지 이동
+              console.log(result);
               alert("회원탈퇴 완료되었습니다");
               window.location.href = "/";
             } else {
