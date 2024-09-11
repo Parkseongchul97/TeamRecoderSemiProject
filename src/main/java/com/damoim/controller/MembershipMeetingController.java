@@ -283,12 +283,34 @@ model.addAttribute("count",agree.size());
 		
   @GetMapping("/meetingUpdate")
 	public String update(MembershipMeetings meetings, Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		//로그인 정보 가져옴 
+		Member mem = (Member) authentication.getPrincipal();
+	
+		  int meetCode = meetings.getMeetCode();
+		System.out.println(meetCode);
 		
-	  int meetCode = meetings.getMeetCode();
+		String id = service.meetSelect(meetCode).getId();
+		System.out.println(id);
+		  model.addAttribute("meetingInfo" ,service.meetSelect(meetCode));
+		  
+		
+		
+		
+
+
+	boolean check =false;
+	
+		if (mem.getId().equals(id))
+			check = true;
+	
+	 
+	 
+	  if(!check) {
+		  return "error";
+	  }
 	  
-	  model.addAttribute("meetingInfo" ,service.meetSelect(meetCode));
-	  
-	  System.out.println(service.meetSelect(meetCode).getMeetInfo());
+	
 	 
 	  
 	  
@@ -301,12 +323,19 @@ model.addAttribute("count",agree.size());
   @PostMapping("/meetingUpdate")
 	public String updateSubmit(MembershipMeetings meetings, Model model) {
 		
-	  int meetCode = meetings.getMeetCode();
-	  
-	  int membershipCode = service.meetSelect(meetCode).getMembershipCode();
+	  System.out.println("????");
+	  System.out.println(meetings.getMeetCode());
 	  
 	 
+	  
+	  
+	  int membershipCode = meetings.getMembershipCode();
+	  
+	 
+	 
 	  service.meetingUpdate(meetings);
+	  
+	  System.out.println(meetings);
 	  
 	  
 		return "redirect:/club/"+membershipCode;

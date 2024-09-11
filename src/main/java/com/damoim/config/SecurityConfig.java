@@ -29,11 +29,10 @@ public class SecurityConfig {
 				).logout(logout -> logout.logoutUrl("/logout") // 로그아웃 요청 URL
 						.logoutSuccessUrl("/") // 로그아웃 성공했을때
 						.permitAll())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)) // 세션방식으로하겠다
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)) 
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers("/websocket/**", "/send/**", "/topic/**" ,"/ajax/**").permitAll()
-						// .requestMatchers("/like","/unlike").authenticated() // 권한이 ROLE_ADMIN인 경우만
-						// 접근이 가능
+						
 						.anyRequest().permitAll())
 				.build();
 	}

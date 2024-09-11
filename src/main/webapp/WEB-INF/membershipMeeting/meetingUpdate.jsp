@@ -38,7 +38,9 @@ uri="http://www.springframework.org/security/tags" %>
     <h2>달력 색상 선택 : </h2><input type="color" id="colors" name="color" value="${meetingInfo.color}" />  
     <h2>시작 날짜 : </h2><input class="day" type="date" id="start" name="meetDateStart" value="${meetingInfo.meetDateStart}"/>
     <h2>종료 날짜 : </h2><input class="day" type="date" id="end" name="meetDateEnd" value="${meetingInfo.meetDateEnd }" />
-    <input  type="hidden" id="code" name="membershipCode" value="${membershipCode}" />
+    <input  type="hidden" id="code" name="membershipCode" value="${meetingInfo.membershipCode}" />
+    <input type="hidden" id="meetCode" name="meetCode" value="${meetingInfo.meetCode}">
+    <input type="hidden" id="id" name="id" value="${meetingInfo.id}">
 	</div>
 	</div>
     <textarea id="editor" name="editor">${meetingInfo.meetInfo}</textarea>
@@ -93,6 +95,8 @@ uri="http://www.springframework.org/security/tags" %>
           const end = $("#end").val();
           const color = $("#colors").val();
           const code = $("#code").val();
+          const meetCode =$("#meetCode").val();
+          const id = $("#id").val()
     
           // 콘솔에 내용 출력 (테스트 용도)
           console.log(content);
@@ -121,6 +125,8 @@ uri="http://www.springframework.org/security/tags" %>
               meetDateEnd: end,
               color: color,
               membershipCode: code,
+              meetCode: meetCode,
+              id:id
             }, 
             success: function (response) {
               alert("수정 완료되었습니다 !!");
