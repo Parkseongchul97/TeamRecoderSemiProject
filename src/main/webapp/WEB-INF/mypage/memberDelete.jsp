@@ -120,7 +120,6 @@ uri="http://www.springframework.org/security/tags"%>
       </div>
     <script>
       $("#button").click(() => {
-        console.log("머고");
         if (!$("#checkbox").is(":checked")) {
           alert("동의란에 체크해주세요");
           return;

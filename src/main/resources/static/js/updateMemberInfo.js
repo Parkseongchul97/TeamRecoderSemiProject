@@ -59,7 +59,7 @@ pwdc.addEventListener("input", function () {
 nickname.addEventListener("input", function () {
   // 닉네임 체크
   const nicknameValue = $(this).val().trim();
-
+	
   if (nicknameValue === "") {
     $("#nicknameResult").text(" 필수 입력사항입니다").css("color", "red");
     nicknameSubmit = false;

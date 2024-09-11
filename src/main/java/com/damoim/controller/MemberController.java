@@ -237,13 +237,9 @@ public class MemberController {
 		Member mem = (Member) authentication.getPrincipal();
 		// updateCheck => id로 * member 조회
 		if (!service.updateCheck(mem, beforePwd)) {
-			
 			model.addAttribute("text", "변경 실패");
-
 			return "mypage/updateMemberInfo";
-
 		}
-		System.out.println("비번은 뚫음 ");
 		vo.setId(mem.getId());
 		String addr = vo.getAddr();
 		addr += "#" + addrDetail;
@@ -260,9 +256,7 @@ public class MemberController {
 		mem.setAge(vo.getAge());
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
 		model.addAttribute("text", "변경 성공");
-
 		return "mypage/mypage";
 	}
 
@@ -285,7 +279,7 @@ public class MemberController {
 	        return false;
 	    	}
 	    if(!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
-	    	System.out.println("비번트림 ㅠ");
+	    	System.out.println("비번틀림!");
 	    	return false;
 	    }
 	    

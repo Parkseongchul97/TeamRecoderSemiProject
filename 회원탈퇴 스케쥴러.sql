@@ -27,13 +27,13 @@ select * from information_schema.events; -- 이벤트 스케쥴러 확인
 -- SET GLOBAL event_scheduler = ON; -- off 상태면 on 으로
 
 
-CREATE EVENT resigned_member_over30Day -- 이벤트 이름
+CREATE EVENT resigned_member_over30Day
 ON SCHEDULE EVERY 1 minute
 COMMENT '회원탈퇴'
 DO
 UPDATE member
 SET pwd = 'Resigned', -- pwd는 not null 조건있어서 string으로 update 
-    addr = null,      -- 이메일은 null처리 안함
+    addr = null,
     phone = null,
     name = null,
     nickname = null,
@@ -47,6 +47,4 @@ SET pwd = 'Resigned', -- pwd는 not null 조건있어서 string으로 update
     member_type = null,
     last_recommendation_time = null
 WHERE status = 0  -- status가 false면
--- TIMESTAMPDIFF(시간단위, 시간 , 시간) <== 두 날짜 사이의 차이를 계산한다
-AND TIMESTAMPDIFF(minute, deleted_at , now()) > 1;
--- 편의상 1분당 삭제로 설정중
+AND TIMESTAMPDIFF(day, deleted_at , now()) > 30;
