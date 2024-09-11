@@ -55,7 +55,6 @@
 								accept="image/*" id="file" onchange="imgShow(event)"> <label
 								for="file" class="profile_file_button">사진 선택</label>
 							<!-- 기본 사진으로 변경 -->
-							<!-- #defualt-file Ajax -->
 							<input type="submit" id="defualt-file" name="defualt-file"
 								class="form-control"> <label for="defualt-file"
 								class="profile_file_button">기본 사진으로 변경</label>
@@ -111,28 +110,49 @@
 				</div>
 			</div>
 
+
+
 			<div class="container">
 				<div class="club-button">
 					<a id="all-club-button">가입 한 클럽</a> <a id="manage-club-button">
 						관리중인 클럽</a> <a id="wait-club-button">가입 신청 목록</a> <a
 						id="all-meet-button">내 모임 정보</a>
 				</div>
+				<c:set var="guestCount" value="0" />
+				<c:set var="allCount" value="0" />
+				<c:set var="manageCount" value="0" />
+				<c:forEach items="${member.memberListDTO}" var="loginMemberGrade">
+					<c:if test="${loginMemberGrade.listGrade == 'geust'}">
+						<c:set var="guestCount" value="${guestCount + 1}" />
+					</c:if>
+					<c:if test="${loginMemberGrade.listGrade != 'geust'}">
+						<c:set var="allCount" value="${allCount + 1}" />
+					</c:if>
+					<c:if
+						test="${loginMemberGrade.listGrade == 'host' || loginMemberGrade.listGrade == 'admin'}">
+						<c:set var="manageCount" value="${manageCount + 1}" />
+					</c:if>
+				</c:forEach>
 
 				<!-- 가입 된 클럽 보기 -->
 				<div class="membership-card" id="all-club" style="display: block;">
 					<div class="list_grade_text">
-						<h1>가입 된 클럽</h1>
-						<i class="fa-solid fa-users"></i>
-					</div>
-					<!-- 사용되는 변수가 2개 mem & myGrade -->
-					<!-- mem == id를 받아서 membership_user_list & membership 조회! -->
-					<c:forEach items="${mypage}" var="mem">
-						<c:set value="${mem.listGrade}" var="myGrade" />
+						<h1>
+							가입 된 클럽 <i class="fa-solid fa-users"></i>
+						</h1>
 
+						<c:if test="${allCount == 0}">
+							<p class="if-text">현재 가입된 클럽이 존재하지 않습니다.</p>
+						</c:if>
+
+					</div>
+					<c:forEach items="${mypage}" var="mem">
+						<c:set var="myGrade" value="${mem.listGrade}" />
 						<c:if test="${myGrade != 'guest'}">
-							<a href="/club/${mem.membership.membershipCode}">
+							
 								<div class="membership-each">
 									<div>
+									<a href="/club/${mem.membership.membershipCode}">
 										<c:if test="${mem.membership.membershipImg != null}">
 											<img class="membership-img"
 												src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
@@ -140,9 +160,10 @@
 										</c:if>
 										<c:if test="${mem.membership.membershipImg == null}">
 											<img class="membership-img"
-												src="http://192.168.10.51:8081/imgBanner.png">
+												src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 										</c:if>
 									</div>
+									</a>
 									<div class="membership-String">
 										<div class="member-grade">
 											<c:if test="${myGrade == 'host'}">
@@ -173,17 +194,16 @@
 													<button class="Management-button" id="update-club"
 														type="submit" value="클럽수정">클럽 정보 수정</button>
 												</form>
-												<button id="deleteButton">클럽삭제</button>
+												<button class="Management-button" id="deleteButton">클럽삭제</button>
 											</c:if>
 											<c:if test="${myGrade != 'host'}">
 												<button class="Management-button"
 													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
-
 											</c:if>
 										</div>
 									</div>
 								</div>
-							</a>
+							
 						</c:if>
 					</c:forEach>
 				</div>
@@ -191,14 +211,20 @@
 				<!-- 관리중인 클럽 보기 -->
 				<div class="membership-card" id="manage-club">
 					<div class="list_grade_text">
-						<h1>내가 관리중인 클럽</h1>
-						<i class="fa-solid fa-user-tie"></i>
+						<h1>
+							내가 관리중인 클럽 <i class="fa-solid fa-user-tie"></i>
+						</h1>
+
+						<c:if test="${manageCount == 0}">
+							<p class="if-text">현재 관리중인 클럽이 존재하지 않습니다.</p>
+						</c:if>
 					</div>
 					<c:forEach items="${mypage}" var="mem">
 						<c:set var="myGrade" value="${mem.listGrade}" />
 						<c:if test="${myGrade == 'host' || myGrade == 'admin'}">
-							<a href="/club/${mem.membership.membershipCode}">
+							
 								<div class="membership-each">
+								<a href="/club/${mem.membership.membershipCode}">
 									<div>
 										<c:if test="${mem.membership.membershipImg != null}">
 											<img class="membership-img"
@@ -207,9 +233,10 @@
 										</c:if>
 										<c:if test="${mem.membership.membershipImg == null}">
 											<img class="membership-img"
-												src="http://192.168.10.51:8081/imgBanner.png">
+												src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 										</c:if>
 									</div>
+									</a>
 									<div class="membership-String">
 										<div class="member-grade">
 											<c:if test="${myGrade == 'host'}">
@@ -230,19 +257,16 @@
 											<p>${mem.membership.membershipMax}</p>
 										</div>
 
-
-										<c:if test="${mem.membership.membershipSimpleText == null}">
-											<p>클럽의 소개글이 없습니다</p>
-										</c:if>
 										<!-- 클럽 정보 수정 -->
 										<div class="Management-button-group">
 											<c:if test="${myGrade == 'host'}">
+
 												<form action="/updateMembership"
 													style="margin: 0px; padding: 0px">
 													<button class="Management-button" id="update-club"
 														type="submit" value="클럽수정">클럽 정보 수정</button>
-													<button id="deleteButton">클럽삭제</button>
 												</form>
+												<button id="deleteButton" class="Management-button">클럽삭제</button>
 											</c:if>
 											<c:if test="${myGrade != 'host'}">
 												<button class="Management-button"
@@ -251,23 +275,28 @@
 										</div>
 									</div>
 								</div>
-							</a>
+							
 						</c:if>
 					</c:forEach>
 				</div>
 
-
 				<!-- 가입 대기중인 클럽 -->
 				<div class="membership-card" id="wait-club">
 					<div class="list_grade_text">
-						<h1>가입 신청한 클럽</h1>
-						<i class=" fa-solid fa-user-plus"></i>
+						<h1>
+							가입 신청한 클럽 <i class=" fa-solid fa-user-plus"></i>
+						</h1>
+
+						<c:if test="${guestCount == 0}">
+							<p class="if-text">현재 가입신청한 클럽이 존재하지 않습니다.</p>
+						</c:if>
 					</div>
 					<c:forEach items="${mypage}" var="mem">
 						<c:set var="myGrade" value="${mem.listGrade}" />
 						<c:if test="${myGrade == 'guest'}">
-							<a href="/${mem.membership.membershipCode}">
+							
 								<div class="membership-each">
+								<a href="/${mem.membership.membershipCode}">
 									<div>
 										<c:if test="${mem.membership.membershipImg != null}">
 											<img class="membership-img"
@@ -276,8 +305,9 @@
 										</c:if>
 										<c:if test="${mem.membership.membershipImg == null}">
 											<img class="membership-img"
-												src="http://192.168.10.51:8081/imgBanner.png">
+												src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 										</c:if>
+									</a>
 									</div>
 									<div class="membership-String">
 										<h4>${mem.membership.membershipName}</h4>
@@ -296,7 +326,7 @@
 											취소</button>
 									</div>
 								</div>
-							</a>
+							
 						</c:if>
 					</c:forEach>
 
@@ -305,65 +335,83 @@
 				<div class="membership-card" id="all-meet">
 					<div id="calendar"></div>
 				</div>
+
+				<!-- boolean 선언후  ======================================== -->
+				<c:set var="host" value="${false}" />
+				<c:forEach items="${member.memberListDTO}" var="loginMemberGrade">
+					<c:if test="${loginMemberGrade.listGrade == 'host'}">
+						<!-- grade가 호스트이면 set 변경 -->
+						<c:set var="host" value="${true}" />
+						<c:set var= "hostCode" value="${loginMemberGrade.membershipCode}"/>
+							<c:forEach items="${mypage}" var="mem">
+								<c:if test="${hostCode == mem.membership.membershipCode}">
+								<c:set var="hostCount" value="${mem.count == 1}" />
+								</c:if>
+							</c:forEach>
+					</c:if>
+				</c:forEach>
+
+
+
+				<c:if test="${!host}">
+					<!-- 호스트 아닐때 -->
+
+					<div id="create-menu">
+
+
+						<a href="/makeMembership" class="create-btn">클럽 만들기</a>
+					</div>
+
+				</c:if>
+
+			</div>
+			<c:set var="textColor">
+				<c:choose>
+					<c:when test="${!hostCount}">
+            red
+        </c:when>
+					<c:otherwise>
+            black
+        </c:otherwise>
+				</c:choose>
+			</c:set>
+			<div id="deleteMembership" style="display: none">
+				<div id="deleteContainer">
+					<div id="container-title">
+						<span id="title">클럽 삭제 창</span>
+					</div>
+					<div id="deleteCancle">
+						<button id="cancle">
+							<i class="fa-solid fa-x"></i>
+						</button>
+					</div>
+				</div>
+				<div id="container-main">
+					<div id="delete-text">
+						<span style="color : ${textColor}">클럽원이 본인만 남아있는 클럽만</span> 삭제할 수
+						있으며 해당 클럽에 대한 모든 데이터는 삭제 처리 됩니다 그래도 삭제하시겠습니까?
+					</div>
+
+					<div id="passwordCheck">
+						비밀번호 확인 : <input type="password" name="pwdCheck" id="pwdCheck">
+					</div>
+					<div id="container-button">
+						<c:if test="${hostCount}">.
+
+					<button id="deleteBtn" class="btn" onclick="allDeleteMembership()">클럽
+								삭제</button>
+
+						</c:if>
+						<c:if test="${!hostCount}">
+							<button id="deleteBtn" class="btn">삭제 불가</button>
+						</c:if>
+
+					</div>
+
+				</div>
 			</div>
 		</sec:authorize>
 	</div>
-	<!-- boolean 선언후  ======================================== -->
-	<c:set var="host" value="${false}" />
-	<c:forEach items="${member.memberListDTO}" var="loginMemberGrade">
-		<c:if test="${loginMemberGrade.listGrade == 'host'}">
-			<!-- 로그인된 멤버 grade가 호스트이면 set 변경 -->
-			<c:set var="host" value="${true}" />
-		</c:if>
-	</c:forEach>
-	<!-- ======================================================= -->
-
-	<!-- 호스트 아닐때 클럽생성 -->
-	<c:if test="${!host}">
-
-		<div id="create-menu">
-			<a href="/makeMembership" class="create-btn">클럽 만들기</a>
-		</div>
-	</c:if>
-
-
-
-
-	<div id="deleteMembership" style="display: none">
-		<div id="deleteContainer">
-			<div id="container-title">
-				<span id="title">클럽 삭제 창</span>
-			</div>
-			<div id="deleteCancle">
-				<button id="cancle">
-					<i class="fa-solid fa-x"></i>
-				</button>
-			</div>
-		</div>
-		<div id="container-main">
-			<div id="delete-text">
-				<span style="color : ${textColor}">클럽원이 본인만 남아있는 클럽만</span> 삭제할 수
-				있으며 해당 클럽에 대한 모든 데이터는 삭제 처리 됩니다 그래도 삭제하시겠습니까?
-			</div>
-
-			<div id="passwordCheck">
-				비밀번호 확인 : <input type="password" name="pwdCheck" id="pwdCheck">
-			</div>
-			<div id="container-button">
-				<c:if test="${hostCount}">
-					<button id="deleteBtn" class="btn" onclick="allDeleteMembership()">클럽
-						삭제</button>
-				</c:if>
-				<c:if test="${!hostCount}">
-					<button id="deleteBtn" class="btn">삭제 불가</button>
-				</c:if>
-
-			</div>
-
-		</div>
-	</div>
-
-	
 
 
 
@@ -394,10 +442,10 @@
 	    	</c:if>
 	    	allMeet = {};
 	    </c:forEach>
-	 </script>
+	    </script>
 <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
-<script src="${pageContext.request.contextPath}/js/mypage.js"></script>
 <script src="${pageContext.request.contextPath}/js/moving.js"></script>
+<script src="${pageContext.request.contextPath}/js/mypage.js"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -448,21 +496,21 @@
 				 var imageContainer = document.querySelector("div.image_container");
 					 /* 미리보기 하면 원래 넣어놨던 이미지 없앤뒤 다시 미리보기 */
 				 	 imageContainer.innerHTML = '';
+				 	
 				    reader.onload = function(event) {
 				        var img = document.createElement('img');
 				        /* img객체 불러온후 reader.onload 이벤트 setAttribute로 넣음*/
 				        img.setAttribute('src', event.target.result);
 				        /* 그리고 imageContainer 안에 appendChile로 img 넣음*/
 				        imageContainer.appendChild(img);
-				        console.log(event.target.result);
-				        console.log(imageContainer);
 						console.log(img);
 				    };
+				   
 				    console.log("파일 길이" , event.target.files.length);
-				    /* reader.onload 이벤트의 파일 길이가 0 이상이면 */
+				    
+				    /* reader.onload 이벤트의 파일 길이가 0 이상이면 ??? */
 				    if (event.target.files.length > 0) {
 				        reader.readAsDataURL(event.target.files[0]);
-				    /* reader.readAsDataURL == 웹 브라우저에서 파일을 읽어와서 그 내용을 Data URL 형식으로 변환하는 역할 */
 				    }
 				    
 			}
