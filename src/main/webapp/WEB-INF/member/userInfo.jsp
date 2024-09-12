@@ -59,7 +59,7 @@
 									class="fa-solid fa-face-grin fa-2x"></i></span>
 							</c:if>
 						</div>
-
+						
 					</div>
 					<div class="memberInfo_div">
 						<h1>
