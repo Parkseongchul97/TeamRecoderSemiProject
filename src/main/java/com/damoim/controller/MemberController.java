@@ -308,14 +308,8 @@ public class MemberController {
 	    	// 4. 추가한 파일이 없거나 기존 이미지로 유지할 경우 기존 이미지 유지
 	        mem.setMemberImg(mem.getMemberImg());
 	    }
-		if(memberHobby != null) {
-			// 5. 멤버 취미란에 수정사항이 있으면
-			mem.setMemberHobby(memberHobby);
-		}
-		if(memberInfo != null) {
-			// 6. 멤버 소개란에 수정사항이 있으면
-			mem.setMemberInfo(memberInfo);
-		}
+	    mem.setMemberHobby(memberHobby);
+		mem.setMemberInfo(memberInfo);
 		service.updateMember(mem);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return true;
