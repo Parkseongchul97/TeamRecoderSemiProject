@@ -86,6 +86,7 @@ public class MembershipController {
 	/*
 	 * 
 	 * */
+	
 	/*
 	 * 
 	 * */
@@ -112,30 +113,31 @@ public class MembershipController {
 		Membership membership = Membership.builder().membershipName(vo.getMembershipName())
 				.membershipMax((vo.getMembershipMax())).membershipAccessionText(vo.getMembershipAccessionText())
 				.membershipSimpleText(vo.getMembershipSimpleText()).build();
-		service.makeMembership(membership);
+		service.makeMembership(membership); // 클럽명,최대 인원수,한줄 소개,가입조건을 membership 서비스로 보내기
 		// 맴버쉽 코드 사용
-		int code = membership.getMembershipCode();
+		int code = membership.getMembershipCode(); // 클럽 생성 후, 생성된 클럽 코드.
 		// 폴더 생성
-		Path directoryPath = Paths.get("\\\\192.168.10.51\\damoim\\membership\\" + code + "\\");
-		Files.createDirectories(directoryPath);
+		Path directoryPath = Paths.get("\\\\192.168.10.51\\damoim\\membership\\" + code + "\\"); // 생성된 클럽의 코드 번호로 주소생성
+		Files.createDirectories(directoryPath); // 생성된 주소로 사진서버에 클럽 전용 폴더생성
 		// 파일 업로드
 		Membership m = Membership.builder().membershipCode(membership.getMembershipCode())
-				.membershipImg(fileUpload(file, code)).build();
-		service.membershipImg(m);
+											.membershipImg(fileUpload(file, code)).build(); // 위에 생성된 폴더에 클럽 생성시 삽입한 사진 업로드
+		service.membershipImg(m); //membership 서비스로 보내기
 		// 로케이션
-		String locAll = LB.substring(1, (LB.length() - 1));
-		String locAllStr = locAll.replaceAll("\"", "");
-		String[] locList = locAllStr.split(","); // 대분류 이름 소분류 이름 분리
-		String locLaName = locList[0];
-		LocationCategory lc = LocationCategory.builder().locLaName(locLaName).build();
+		String locAll = LB.substring(1, (LB.length() - 1)); // String로 AJAX처리로 받아온 LB를 단어를 확인해서 첫번쨰와 마지막 문자열을 제거 이로인해 "[" "]"가 사라짐
+		String locAllStr = locAll.replaceAll("\"", ""); //  문자열에서 모든 "를 지운다
+		String[] locList = locAllStr.split(","); // ,를 기준으로 분리후 배열로 변환
+		String locLaName = locList[0]; // 분리된 배열의 첫번째 요소를 가져와서 locLaName 변수에 저장
+		LocationCategory lc = LocationCategory.builder().locLaName(locLaName).build(); // 잘라낸 후 lc에 담음
 		
-		for (String s : locList) {
-			if (!s.equals(locLaName)) {
-				lc.setLocSName(s);
-				int locationCode = service.findLocationCode(lc);
-				MembershipLocation location = MembershipLocation.builder().locSmallCode(locationCode)
-						.membershipCode(code).build();
-				service.makeLocationMembership(location);
+		for (String s : locList) { //향상된 for문 사용해서 반복문을 돌려가지고 지역대분류안에 지역소분류를 펼침
+			if (!s.equals(locLaName)) { // s가 LocLaName이 같지 않다면 동작
+				lc.setLocSName(s); // lc 객체의 locSName을 s로 설정
+				int locationCode = service.findLocationCode(lc); // lc 객체를 통해 locationCode를 찾음
+				MembershipLocation location = MembershipLocation.builder()
+						.locSmallCode(locationCode)
+						.membershipCode(code).build(); // 객체생성 완료
+				service.makeLocationMembership(location); // 생성 완료한 객체를 담아서 보냄
 			}
 			
 		}
@@ -172,7 +174,6 @@ public class MembershipController {
 		System.out.println("생성 및 호스트 추가 완료");
 		return code;
 	}
-
 	/*
 	 * 영민 클럽명 중복 체크용 Ajax
 	 * 성일 수정때도 체크 가능하게 변경
@@ -182,20 +183,23 @@ public class MembershipController {
 	@PostMapping("/membershipNameCheck")
 	public boolean membershipNameCheck(Membership membership) {
 		int code2 = membership.getMembershipCode(); // JSP에서 온코드 OR 0
-	 // 이름으로 멤버쉽을 조회 !
-	if(service.membershipNameCheck(membership) == null) { // 중복이 아닌 상황임  중복인데 0이 아님  make 중복인데 1 이 아님 update
-		return true;                    // 무조건 바로 그냥 트루
-	}else if(code2 != 0) {       // 중복이지만 업데이트 상황임
-		if(code2 == service.membershipNameCheck(membership).getMembershipCode()) {
-			return true;
+		// 이름으로 멤버쉽을 조회 !
+		if (service.membershipNameCheck(membership) == null) { // 중복이 아닌 상황임 중복인데 0이 아님 make 중복인데 1 이 아님 update
+			return true; // 무조건 중복되지 않으면 바로 그냥 트루
+		} else if (code2 != 0) {  // 중복이지만 업데이트 상황임(기존의 클럽명과 코드가 일치하는지 확인)
+			if (code2 == service.membershipNameCheck(membership).getMembershipCode()) {
+				return true; // 중복이지만, 같은 코드이므로 수정 가능한 경우 true 반환
+			}
+
 		}
-			
+
+		return false; // 중복인 경우나 클럽수정시 본인을 제외한 중복이 있는지 확인하여 불가능한 경우 false 반환
+
 	}
 	
-	return false;
+
 	
-		
-	}
+	
 	/*
 	 * 성철
 	 * 클럽 삭제 

@@ -88,7 +88,7 @@ textarea {
   border-radius: 8px;
   box-sizing: border-box;
 }
-
+/*영민 위아래 화살표 제거*/
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -343,12 +343,14 @@ input[type="checkbox"]:checked + .typeLNCss {
   align-items: center;
   justify-content: center;
   color: #2c2c2c;
+  
 }
 
 .typeSCss {
   padding: 4px 10px;
   margin: 1px 1px;
   cursor: pointer;
+
 }
 
 .typeSCss:hover {
@@ -377,4 +379,5 @@ input[type="checkbox"]:checked + .typeLNCss {
   font-size: 30px;
   font-weight: bold;
   font-family: "Do Hyeon", sans-serif;
+  
 }

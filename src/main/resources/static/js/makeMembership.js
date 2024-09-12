@@ -33,10 +33,10 @@ $(document).ready(function() {
 		const membershipMaxValue = $(this).val().trim(); // jQuery를 사용하여 현재 값 가져오기
 		if (membershipMaxValue === '') {
 			$('#max').text(" 필수 입력사항입니다").css('color', 'red');
-			membershipMaxSubmit = false; // 제출 불가 상태로
+			membershipMaxSubmit = false; // 생성 불가 상태로
 		} else if (membershipMaxValue <= 1 || membershipMaxValue >= 101) {
 			$('#max').text("설정 가능한 최소 인원은 2명 최대 인원수는 100명입니다").css('color', 'red');
-			membershipMaxSubmit = false;
+			membershipMaxSubmit = false; // 생성 불가 상태로
 		} else {
 			$('#max').text("설정 가능한 인원수 입니다").css('color', 'green');
 			membershipMaxSubmit = true;
@@ -137,7 +137,7 @@ $(document).ready(function() {
 			data: formData,
 			processData: false,
 			contentType: false,
-			success: function(code) {
+			success: function(code) {	
 				window.location.replace(`/club/${code}`);
 			}
 		});
