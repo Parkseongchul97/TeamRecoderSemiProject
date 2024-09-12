@@ -54,16 +54,37 @@ $(".toggle-btn").click(()=>{
 	if($("#manner-rank").css("display") === "flex" ){
 		$("#manner-rank").css("display", "none")
 		$("#meet-rank").css("display","flex")
-		$(".rank-head").text("참여 랭킹")
+		$(".select").val("meet-rank");
+
+		$(".sort").html("참여 랭킹")
 	}else {
 		
 		$("#manner-rank").css("display", "flex")
 				$("#meet-rank").css("display","none")
-				$(".rank-head").text("온도 랭킹")
+				$(".select").val("manner-rank");
+				$(".sort").html("온도 랭킹")
+				
 		
 	}
 	
 })
 
+
+$(".select").click(()=>{
+	if($("#"+ $(".select").val()).css("display")==="flex"){
+		
+	$("#"+ $(".select").val()).css("display","none");
+	$(".select").html('<i class="fa-solid fa-chevron-down fa-2x"></i>')
+	
+	
+	} else {
+		
+		$("#"+ $(".select").val()).css("display","flex")
+		$(".select").html('<i class="fa-solid fa-chevron-up fa-2x"></i>')
+	}
+	
+	
+	
+})
 
 

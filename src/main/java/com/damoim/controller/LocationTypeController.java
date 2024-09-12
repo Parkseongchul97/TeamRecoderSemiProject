@@ -126,7 +126,7 @@ public class LocationTypeController {
 	        String thirtyDaysAgoFormatted = sdf.format(thirtyDaysAgo);
 	        
 	        // 결과를 출력합니다.
-	        List<Member> rank = mem.top5();
+	        
 	        
 	        List<RankDTO> mannerDto = new ArrayList<RankDTO>();
 	        List<RankDTO> meetDto = new ArrayList<RankDTO>();

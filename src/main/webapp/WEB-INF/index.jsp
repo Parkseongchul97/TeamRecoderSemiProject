@@ -22,56 +22,7 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-<style>
-.rank-box{
-width:100%;
-display:flex;
-justify-content: space-between;
-margin-top:10px;
-margin-bottom:10px;
-}
 
-.rank-container{
-
-font-family: "Do Hyeon", sans-serif;
-font-size: 20px;
-
-}
-
-.rank-head{
-background-color: #FCA35B;
-align-items: center;
-
-display: flex; 
-justify-content:center;
-
- color:white; 
- font-weight:bold;
-  width: 100%; 
-  height: 50px;
-  font-size: 32px;
- 
-}
-.toggle-btn{
-border: none;
-background-color: #F9F7F3;
-}
-.rank-body{
-line-height: 1.5;
-    width: 70%;
-
-}
-
-.rank-body > li:nth-child(1) {
-	font-size: 2rem;
-	text-align: center;
-}
-
-.rank-body ul{
-justify-content: space-between;
-}
-
-</style>
 
 <body>
 
@@ -91,10 +42,10 @@ justify-content: space-between;
 		</div>
 	</div>
 	
-	<div class= "rank-container" style="display: none;  flex-direction:column; align-items: center; border: 1px solid black; width:280px; top:91px; left: 15px; position:fixed;">
+	<div class= "rank-container" style="display: none;  flex-direction:column; align-items: center;  width:280px; top:91px; left: 15px; position:fixed;">
 	
 		<div class="rank-head" >	
-		온도 랭킹
+		<div class="sort">온도 랭킹</div> <button class="select" value="manner-rank"><i class="fa-solid fa-chevron-up fa-2x"></i></button>
 		</div>
 	<div id="manner-rank" class="rank-box" style="display: flex;"  >
 		<button class="toggle-btn"><i class="fa-solid fa-angle-left fa-2x"></i></button>
@@ -123,7 +74,7 @@ justify-content: space-between;
 			
 				
 				
-				<li><a href="/userInfo/${rank.nickname}">${rank.nickname}</a></li>
+				<li class="nickname"><a href="/userInfo/${rank.nickname}">${rank.nickname}</a></li>
 					<li class="score">${rank.memberManner}°C</li>
 					</ul>
 				</c:forEach>
@@ -156,7 +107,7 @@ justify-content: space-between;
 			
 				
 				
-					<li><a href="/userInfo/${rank.nickname}">${rank.nickname}</a></li>
+					<li class="nickname"><a href="/userInfo/${rank.nickname}">${rank.nickname}</a></li>
 					<li class="score">${rank.meetCount}회</li>
 					</ul>
 				</c:forEach>
