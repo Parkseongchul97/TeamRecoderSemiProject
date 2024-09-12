@@ -29,23 +29,23 @@
 					onsubmit="return validate()">
 					<div class="form-group">
 						<label for="nickname"><span
-							style="color: red">*</span>닉네임 <span class="result"
+							style="color: red">* </span>닉네임 <span class="result"
 							id="nicknameResult"></span></label> <input type="text" id="nickname"
 							name="nickname" placeholder="닉네임을 입력하십시오"
 							value="${member.nickname}" />
 					</div>
 					<div class="form-group">
-						<label for="pwd"><span style="color: red">*</span>
+						<label for="pwd"><span style="color: red">* </span>
 							비밀번호 <span class="result" id="pwdResult"></span></label> <input
 							type="password" id="pwd" name="pwd" placeholder="비밀번호를 입력하십시오." />
 					</div>
 					<div class="form-group">
-						<label for="pwdc"><span style="color: red">*</span>
+						<label for="pwdc"><span style="color: red">* </span>
 							비밀번호 <span class="result" id="pwdcResult"></span></label> <input
 							type="password" id="pwdc" placeholder="위와 같은 비밀번호를 입력하십시오." />
 					</div>
 					<div class="form-group">
-						<label for="name"><span style="color: red">*</span>이름<span
+						<label for="name"><span style="color: red">* </span>이름<span
 							class="result" id="nameResult"></span></label> <input
 							type="text" id="name" name="name" placeholder="이름을 입력하십시오."
 							value="${member.name}" required />
@@ -74,19 +74,19 @@
 					</div>
 					<div class="form-group">
 						<label for="email"><span
-							style="color: red">*</span>이메일 <span class="result"
+							style="color: red">* </span>이메일 <span class="result"
 							id="emailResult"></span></label> <input type="text" id="email"
 							name="email" placeholder="이메일을 입력해주십시오." value="${member.email}" />
 					</div>
 					<div class="form-group">
-						<label for="age"><span style="color: red">*</span>나이<span
+						<label for="age"><span style="color: red">* </span>나이<span
 							class="result" id="ageResult"></span></label> <input
 							type="text" id="age" name="age" placeholder="나이를 입력해 주십시오."
 							value="${member.age}" />
 					</div>
 					<div class="form-group">
 						<label for="beforePwd"><span
-							style="color: red">*</span>이전 비밀번호 <span style="color: red"
+							style="color: red">* </span>이전 비밀번호 <span style="color: red"
 							class="result" id="beforePwdResult">${text}</span></label>
 						<input type="password" id="beforePwd" name="beforePwd"
 							placeholder="이전 비밀번호를 입력하세요" />
