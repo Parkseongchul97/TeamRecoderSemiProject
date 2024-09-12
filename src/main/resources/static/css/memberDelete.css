@@ -133,7 +133,14 @@ strong {
 .post-retention ul li {
 	padding-top: 10px;
 }
-
+.member-grade{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100px;
+	height: 150px;
+}
 .details, .post-retention, .external-services {
 	background: #e9ecef;
 	border-left: 5px solid #ced4da;

@@ -162,7 +162,6 @@ public class PageController {
 	public String memberDelete(Model model){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-
 		if(mem == null) {
 			return "error";
 		}

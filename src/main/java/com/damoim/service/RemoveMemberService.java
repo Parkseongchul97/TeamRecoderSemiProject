@@ -60,7 +60,6 @@ public class RemoveMemberService {
 		}
 		
 	}
-	
 	// 회원 탈퇴시 
 	public void deleteAllMeeting(String id) {
 		mapper.deleteMemberMeetingsAgree(id); // 동의사항 날리기(조건 X)
