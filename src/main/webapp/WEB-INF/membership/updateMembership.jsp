@@ -61,7 +61,7 @@ background: white;
 			</div>
 			<div class="bar" id="bar2">
 			사진첨부: <input type="file" name="file" id="file" accept="image/*" onchange="imgShow(event)"><br>
-				<button type="button" id="deleteImg" onclick="asd()">기본 이미지로 바꾸기 </button>
+				<button type="button" id="deleteImg" onclick="view()">기본 이미지로 바꾸기 </button>
 				
 				</div>
 				
