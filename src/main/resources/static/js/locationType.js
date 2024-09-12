@@ -181,7 +181,6 @@ $("#locationLaNameForm").click(function() {
 $("#locationLaNameForm input[type=checkbox]").change(function() {
 	// 체크 눌렀을때 그쪽 방향으로 이동
 	window.scrollTo({ top: 900, left: 0, behavior: "smooth" });
-	urlParams.delete("locationSName");
 	searchDto.locationSName = [];
 	const laName = $(this).val();
 	$(".locationSDiv").empty();
@@ -194,8 +193,10 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 	let locationLaFriend = "<div class='locationLaFriend'>" + laName + "</div>";
 
 	if ($(this).prop("checked") && laName !== "") {
-		$("#locationLaNameForm input[type=checkbox]").prop("checked", false).next("label").css({background: "",});
-		$(this).prop("checked", true).next("label").css({background: "#dbdbdb",});
+		$("#locationLaNameForm input[type=checkbox]").prop("checked", false)
+				.next("label").css({background: "",});
+		$(this).prop("checked", true)
+				.next("label").css({background: "#dbdbdb",});
 
 		// 전체보기 제외 클릭이 이루어질때
 		searchDto.locationLaName = laName;
@@ -216,7 +217,8 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 	} else {
 		searchDto.locationLaName = null;
 		urlParams.delete("locationLaName");
-		$("#locationLaNameForm input[type=checkbox]").prop("checked", false).next("label").css({background: "",});
+		$("#locationLaNameForm input[type=checkbox]").prop("checked", false)
+													.next("label").css({background: "",});
 		$("#locationSNameForm").css({backgroundColor: "",color: "",cursor: "",});
 	}
 	history.pushState({}, null, url);
@@ -294,7 +296,6 @@ $("#typeLaNameSelect").click(function() {
 $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	// 체크 눌렀을때 그쪽 방향으로 이동
 	window.scrollTo({ top: 900, left: 0, behavior: "smooth" });
-	urlParams.delete("typeSName");
 	searchDto.typeSName = [];
 	const typeLa = $(this).val();
 	$(".typeSDiv").empty();

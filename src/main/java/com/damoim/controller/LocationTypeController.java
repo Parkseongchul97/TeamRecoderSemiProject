@@ -139,7 +139,9 @@ public class LocationTypeController {
 	
 	@ResponseBody
 	@GetMapping("list")
-	public List<MemberLocTypeDTO> list(SearchDTO search) {	
+	public List<MemberLocTypeDTO> list(SearchDTO search) {
+		System.out.println(search.getLocationLaName());
+		System.out.println(search.getLocationSName());
 		return locationTypeList(search);
 	}
 	

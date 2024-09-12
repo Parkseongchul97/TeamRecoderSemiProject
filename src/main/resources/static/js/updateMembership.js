@@ -84,7 +84,7 @@ $(document).ready(function() {
 				for (const i of re)
 					typeS += `
 					        <input type="checkbox" value="${i}" id="${i}" name="typeLN">
-					        <label for="${i}" class="locLNCss">${i}</label>
+					        <label for="${i}" class="typeLNCss">${i}</label>
 					    `;
 				$(".typeSbox").html(typeS);
 			},
