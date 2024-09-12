@@ -34,7 +34,7 @@ public class ChattingController {
 
 	// 채팅방 목록 : 모든 채팅관련 메서드와 접근할 수 있음
 	public static LinkedList<ChattingRoomDAO> chattingRoomList = new LinkedList<>();
-
+	
 	// 방 입출입 때 필요함!
 	public ChattingRoomDAO findRoom(String roomNumber) {
 		ChattingRoomDAO room = ChattingRoomDAO.builder().roomNumber(roomNumber).build();
@@ -71,7 +71,6 @@ public class ChattingController {
 	public Map<String, String> findCookie() {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 		HttpServletRequest request = attr.getRequest();
-
 		Cookie[] cookies = request.getCookies();
 		String roomNumber = "";
 		String nickname = "";
@@ -96,18 +95,13 @@ public class ChattingController {
 	}
 
 	// 방 입장하기
-	public boolean enterChattingRoom(ChattingRoomDAO chattingRoom, String nickname) {
-
-		if (chattingRoom == null) {
-			deleteCookie();
-			return false;
-		} else {
+	public boolean enterChattingRoom(ChattingRoomDAO chattingRoom, String nickname) {	
 			LinkedList<String> users = chattingRoom.getUsers();
 			users.add(nickname);
 			addCookie("nickname", nickname);
 			addCookie("roomNumber", chattingRoom.getRoomNumber());
-			return true;
-		}
+			return  !(chattingRoom == null);
+		
 	}
 
 	// 컨트롤러
@@ -139,12 +133,8 @@ public class ChattingController {
 	@ResponseBody
 	public List<Integer> enterChattingroomCode() throws Exception {
 		List<Integer> a = new ArrayList<Integer>();
-		Object p = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (!p.equals("anonymousUser")) {
-			Member mem = (Member) p;
+		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			a = service.enterChattingroomCode(mem.getId());
-			System.out.println(a);
-		}
 		return a;
 	}
 
@@ -155,16 +145,4 @@ public class ChattingController {
 		return new ResponseEntity<>(mem, HttpStatus.OK);
 	}
 
-	// 새 채팅방 만들기
-	@PostMapping("/chattingRoom")
-	public ResponseEntity<?> chattingRoom(@RequestParam("roomName") String roomName) throws Exception {
-		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String roomNumber = UUID.randomUUID().toString(); // UUID를 문자열로 사용
-		ChattingRoomDAO chattingRoom = ChattingRoomDAO.builder().roomNumber(roomNumber).users(new LinkedList<>())
-				.roomName(roomName).build();
-		chattingRoomList.add(chattingRoom);
-		// 방 입장하기
-		enterChattingRoom(chattingRoom, mem.getNickname());
-		return new ResponseEntity<>(chattingRoom, HttpStatus.OK);
-	}
 }

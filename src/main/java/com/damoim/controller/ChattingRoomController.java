@@ -1,5 +1,6 @@
 package com.damoim.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,6 @@ public class ChattingRoomController {
 	public ResponseEntity<?> EnterChattingRoom(String roomNumber, String nickname) {
 		// 방 번호로 방 찾기
 		ChattingRoomDAO chattingRoom = main.findRoom(roomNumber);
-
 		if (chattingRoom == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 없는 방이라고 클라이언트한테 알려줌
 		} else {
@@ -64,31 +64,4 @@ public class ChattingRoomController {
 		return new ResponseEntity<>(chattingRoom, HttpStatus.OK);
 	}
 
-	// 참가 중이었던 대화방
-	@GetMapping("/chattingRoom")
-	public ResponseEntity<?> chattingRoom() {
-		// 쿠키에 닉네임과 방번호가 있다면 대화중이던 방이 있던것
-		// 방 제대로 안 나가고 브라우저 종료 시에 채팅서버 접속 시 입장했었던 방으로 입장
-		Map<String, String> map = main.findCookie();
-
-		if (map == null) {
-			return new ResponseEntity<>(HttpStatus.OK);
-		}
-
-		String roomNumber = map.get("roomNumber");
-		String nickname = map.get("nickname");
-
-		ChattingRoomDAO chattingRoom = main.findRoom(roomNumber);
-
-		if (chattingRoom == null) {
-			main.deleteCookie();
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			Map<String, Object> map2 = new HashMap<>();
-			map2.put("chattingRoom", chattingRoom);
-			map2.put("myNickname", nickname);
-
-			return new ResponseEntity<>(map2, HttpStatus.OK);
-		}
-	}
 }

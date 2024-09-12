@@ -1,42 +1,27 @@
 $(document).ready(function() {
 	// 채팅방 목록 불러오기
 	$("#chatMain").hide();
-	
+
 	$("#reduce").click(function() {
 		$("#reduce").hide();
 		main();
 	});
-	
+
 	$("#can").click(function() {
 		$("#chatMain").hide();
 		$("#reduce").show();
 	});
-	
+
+	const socket = new SockJS('http://localhost:8080/websocket');
+	const stomp = Stomp.over(socket);
+	stomp.debug = null; // stomp 콘솔출력 X
+	stomp.connect({}, function() { });
+
 	const link = document.createElement('link');
 	link.rel = 'stylesheet';
 	link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
 	document.head.appendChild(link);
-	const chattingRoomList = function() {
-		enterChattingroomCode().then(function(codeList) {
-			$.ajax({
-				url: "/chattingRoomList", type: "GET"
-			})
-				.then(function(roomList) {
-					const codeSet = new Set(codeList.map(String));
-					let listHtml = "";
-					for (let i = 0; i < roomList.length; i++) {
-						if (codeSet.has(roomList[i].roomNumber)) {
-							listHtml += `
-	   			<li data-room_number=${roomList[i].roomNumber}>
-					<span class="chat_title">${roomList[i].roomName}</span>
-					<span class="chat_count">${roomList[i].users.length} <i class="fa-solid fa-user"></i></span>
-				</li>`;
-						}
-					}
-					$("main ul").html(listHtml);
-				});
-		});
-	};
+
 
 	const enterChattingroomCode = function() {
 		return $.ajax({
@@ -47,11 +32,37 @@ $(document).ready(function() {
 			});
 	};
 
+	const chattingRoomList = function() {
+		enterChattingroomCode().then(function(codeList) {
+			$.ajax({
+				url: "/chattingRoomList", type: "GET"
+			})
+				.then(function(roomList) {
+					const codeSet = new Set(codeList.map(String));
+					if (codeSet.size == 0) {
+						$("main ul").html("가입한 클럽이 없어용")
+						return;
+					}
+					let listHtml = "";
+					for (let i = 0; i < roomList.length; i++) {
+						if (codeSet.has(roomList[i].roomNumber)) {
+							listHtml += `
+	   			<li data-room_number=${roomList[i].roomNumber}>
+					<span class="chat_title">${roomList[i].roomName}</span>
+					<span class="chat_count">${roomList[i].users.length} 
+					<i class="fa-solid fa-user"></i></span>
+				</li>`;
+						}
+					}
+					$("main ul").html(listHtml);
+				});
+		});
+	};
 
-	const socket = new SockJS('http://localhost:8080/websocket');
-	const stomp = Stomp.over(socket);
-	stomp.debug = null; // stomp 콘솔출력 X
-	stomp.connect({}, function() {});
+
+
+
+
 	const subscribe = [];
 	// 모든 구독 취소하기
 	const subscribeCancle = function() {
@@ -78,7 +89,7 @@ $(document).ready(function() {
 		chattingRoomList();
 	};
 
-	 
+
 	// 채팅방
 	const info = (function() {
 		let nickname = "";
@@ -94,16 +105,6 @@ $(document).ready(function() {
 		};
 	})();
 	// 참가자 그리기
-	const userList = function(users) {
-		$(".chat .chat_users .user").text(users.length + "명");
-
-		let userHtml = "";
-		for (let i = 0; i < users.length; i++) {
-			userHtml += `<li>${users[i]}</li>`;
-		}
-
-		$(".chat .chat_nickname ul").html(userHtml);
-	};
 
 	// 메세지 그리기
 	const chatting = function(messageInfo) {
@@ -147,8 +148,7 @@ $(document).ready(function() {
 
 	// 채팅방 구독
 	const chattingConnect = function(roomNumber) {
-		subscribeCancle();
-
+		console.log(roomNumber)
 		const id1 = stomp.subscribe("/topic/message/" + roomNumber, function(result) {
 			const message = JSON.parse(result.body);
 			chatting(message);
@@ -157,7 +157,6 @@ $(document).ready(function() {
 		const id2 = stomp.subscribe("/topic/notification/" + roomNumber, function(result) {
 			const room = JSON.parse(result.body);
 			const message = room.message;
-			userList(room.users);
 
 			const chatHtml = `
             <li>
@@ -182,8 +181,6 @@ $(document).ready(function() {
 		info.setNickname(nickname);
 		info.setRoomNumber(room.roomNumber);
 		info.setImage(img);
-		$(".chat .chat_title").text(room.roomName);
-		userList(room.users);
 		chattingConnect(room.roomNumber);
 
 		$(".chat_input_area textarea").focus();
@@ -249,7 +246,6 @@ $(document).ready(function() {
 					data: data,
 					success: function(room) { // 성공 시 호출됨
 						initRoom(room, mem.nickname, mem.memberImg);
-
 						// 채팅방 참가 메세지
 						room.message = mem.nickname + "님이 참가하셨습니다";
 						stomp.send(
@@ -328,7 +324,10 @@ $(document).ready(function() {
 		e.preventDefault();
 		$(this).attr('placeholder', '');
 		const files = e.originalEvent.dataTransfer.files;
-
+		if (!isImageFile(files[0])) {
+			alert("이미지 파일만 첨부 가능합니다.");
+			return;
+		}
 		const reader = new FileReader();
 
 		reader.onload = function(event) {
@@ -341,10 +340,15 @@ $(document).ready(function() {
 		$(".chat_input_area textarea").focus();
 	});
 
+	const isImageFile = (file) => {
+		return file && file.type.startsWith('image/');
+	};
+
 	$(".chat_input_area textarea").on('click', (e) => {
 		e.preventDefault();
 		$(".chat_input_area textarea").focus();
 	});
+
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@
 	const makeDraggable = function(element) {
 		$(element).on('mousedown', function(event) {
