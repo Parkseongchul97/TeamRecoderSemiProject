@@ -34,7 +34,7 @@ pwd.addEventListener("input", function () {
   } else if (!pwdRegExp.test(pwdValue)) {
     $("#pwdResult")
       .text(
-        " 특수문자,대문자,소문자,숫자가 한개이상 무조건 포함되어야 합니다.(8~15자)"
+        " 특수문자,영문자,숫자가 한개이상 무조건 포함되어야 합니다.(8~15자)"
       )
       .css("color", "red");
     pwdSubmit = false;
