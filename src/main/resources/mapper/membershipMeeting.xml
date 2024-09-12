@@ -94,7 +94,7 @@
       UPDATE membership_meetings
       SET meet_title=#{meetTitle},
           meet_date_start =#{meetDateStart},
-          meet_date_end=#{meetDateStart},
+          meet_date_end=#{meetDateEnd},
           meet_info=#{meetInfo},
           color=#{color}
      WHERE meet_code =#{meetCode}     

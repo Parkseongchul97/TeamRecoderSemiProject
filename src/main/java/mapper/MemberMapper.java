@@ -16,6 +16,7 @@ import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberMannerDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.dto.RankDTO;
 
 
 
@@ -58,6 +59,11 @@ public interface MemberMapper {
 	// 아래 2개 더미 비밀번호 암호화용도 ========================
 	ArrayList<Member> dummyMember();
 	void dummyUpdate(Member member);
+	
+	
+	 List<Member> top5();
+	 
+	 List<RankDTO> veteran();
 
 
 	

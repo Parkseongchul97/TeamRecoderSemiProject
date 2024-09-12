@@ -11,7 +11,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
 	
 location.href="/meetingDetail?meetCode="+info.event.extendedProps.meetCode;
 		
-		//info.
+		
 	
 	},
 	dayCellContent: function (arg) {

@@ -2,50 +2,34 @@
 
 let zIndex = -1;
 function imgShow(event) {
-			 var reader = new FileReader();
-			   
-			    reader.onload = function(event) {
-			    	console.log(container)
-			        var container = document.getElementById('image_container');
-			     
-			       var img = document.createElement('img');
-				 
-		
-			       img.className = 'image'
-			        
-			        img.setAttribute('src', event.target.result);
-			    container.appendChild(img);
-			      
-			        
-			    };
-			   
-			   
-			    
-			    if (event.target.files.length > 0) {
-			    
-					$(".image").remove();
-				
-			        reader.readAsDataURL(event.target.files[0]);
-			     	zIndex = -1 ;
-			        $("#default").css('z-index', zIndex)
-					
-			        
-			    } else {
-			    	
-			    	zIndex = -1 ;
-			    	 $("#default").css('z-index', zIndex)
-			    	$(".image").remove();
-			    	
-			    }
-		}
+	var reader = new FileReader();
+	reader.onload = function(event) {
+		console.log(container)
+		var container = document.getElementById('image_container');
+		var img = document.createElement('img');
+		img.className = 'image'
+		img.setAttribute('src', event.target.result);
+		container.appendChild(img);
+	};
+	if (event.target.files.length > 0) {
 
+		$(".image").remove();
 
-		function asd() {
-		 
-		  document.getElementById('file').value = "";
-		 	 zIndex = 10 ;
-		     $('#default').css('z-index', zIndex); 
-		 };
+		reader.readAsDataURL(event.target.files[0]);
+		zIndex = -1;
+		$("#default").css('z-index', zIndex)
+	} else {
+		zIndex = -1;
+		$("#default").css('z-index', zIndex)
+		$(".image").remove();
+	}
+}
+function asd() {
+
+	document.getElementById('file').value = "";
+	zIndex = 10;
+	$('#default').css('z-index', zIndex);
+};
 
 
 

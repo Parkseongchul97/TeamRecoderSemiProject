@@ -5,7 +5,7 @@
 
 #container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 800px;
   background: #f4f4f4;
   border-radius: 12px;
   display: flex;
@@ -223,17 +223,6 @@
   padding-right: 5px;
 }
 
-#menu {
-  width: 16.4%;
-  position: fixed;
-  right: 0px;
-  /* 	z-index: 99; */
-  margin-top: 80px;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  background: white;
-}
 
 .mainMenu {
   font-weight: bold;
@@ -244,12 +233,50 @@
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px black solid;
-  background-color: #fca311;
+ 
+  
 }
 
-#menu ul li:not(:first-of-type) {
-  display: none;
+#menu ul li{
+	    align-items: center;
+    display: flex;
+    border-top: 2px dashed;
+    height: 50px;
+	
+  
+}
+
+
+ .ifNew {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #000;
+            animation: flashAnimation 1s infinite;
+           display: inline;
+ }
+
+ @keyframes flashAnimation {
+            0% {
+                color: #000;
+            }
+            50% {
+                color: #f00; /* Change to red or any other color */
+            }
+            100% {
+                color: #000;
+            }
+        }
+
+#management{
+	
+	margin-right: 30px;
+}
+
+#deleteButton{
+	border: none;
+	background: white;
+	padding:0px;
+	
 }
 
 #calendar-info {
@@ -258,6 +285,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-bottom:80px;
 }
 
 #calendar-info p {
@@ -272,6 +300,27 @@
   width: 500px;
   height: 600px;
 }
+.alink-container{
+	    width: 100%;
+    margin-bottom: 51px;
+}
+
+.main-link{
+	
+padding: 20px;
+    margin: 20px;
+    background: #FCA35B;
+    
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+}
+	
+.main-link:hover{
+	
+background: #E76F00;
+}
+
 
 #deleteMembership {
   font-family: "Do Hyeon", sans-serif;

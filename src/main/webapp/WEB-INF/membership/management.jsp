@@ -15,13 +15,37 @@
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous"> -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://kit.fontawesome.com/ef885bd654.js"
+	crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/reset.css" />
  	<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/management.css" />
 </head>
 
+<style>
 
+.ifNew{
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            animation: flashAnimation 1s infinite;
+           display: inline; }
+
+@keyframes flashAnimation {
+            0% {
+                color: #000;
+            }
+            50% {
+                color: #f00; /* Change to red or any other color */
+            }
+            100% {
+                color: #000;
+            }
+        }
+
+
+</style>
 
 <body>
  <jsp:include page="../header/header.jsp"></jsp:include>
@@ -73,11 +97,11 @@
                     <td class="grade">관리자</td>
                     </c:if>
                      <c:if test="${list.listGrade == 'guest' }">
-                    <td class="grade">가입대기중</td>
+                    <td class="grade"><p class="ifNew">가입대기중</p></td>
                     </c:if>
                 
                     <!--  관리자이면서 , 다른 멤버쉽의 호스트가 아닌경우  -->
-                       <c:if test="${list.listGrade == 'admin' && not fn:contains(otherHost, list.member.id)  }">
+                       <c:if test="${list.listGrade == 'admin' && not fn:contains(otherHost, list.member.id) }">
                        <!--  접속자가 호스트 인경우 -->
                         <c:if test="${memberGrade == 'host'}">
                   <form id="id${list.member.id}" class="fom">            
@@ -207,56 +231,27 @@
 $("button").click((e)=>{
 	  var buttonText = $(e.target).attr("data-value");
 	  var buttonValue = $(e.target).val();
-     
- 
-      var formData = $("#id"+buttonValue).serialize(); 
-      
-      var resultData = formData + '&listGrade=' +buttonText;
-      
-     
-      if(confirm('정말 변경하시겠습니까?'))  {
-    	  
+      var formData = $("#id"+buttonValue).serialize();    
+      var resultData = formData + '&listGrade=' +buttonText;  
+      if(confirm('정말 변경하시겠습니까?'))  { 
           $.ajax({
       		url: "/gradeUpdate",
       		type: 'post',
       		data: resultData,
-      		success: function(data) {
-      			
-              
+      		success: function(data) {     
       				location.href= "management?membershipCode=" +data;
       			   alert("변경이 완료되었습니다")
       			}
-      			
-      						
-      		
       	});	
-    	  
-    	  
-    	  
-    	  
-    	  
     	  return true;
       } else {
-    	  
-    	  
-    	  
-    	  
-    		return false;
+		return false;
       }
-    		
-     
-    	
-    
-      
-
-
-
 
 });
 
  })
  
-
  </script>
  
  

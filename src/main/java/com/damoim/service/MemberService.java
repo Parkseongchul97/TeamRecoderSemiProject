@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberMannerDTO;
+import com.damoim.model.dto.RankDTO;
 import com.damoim.model.dto.RecommendationDTO;
 import com.damoim.model.vo.Member;
 
@@ -170,6 +171,16 @@ public class MemberService implements UserDetailsService {
 		return member;
 	}
 	
+	
+	public List<Member> top5(){
+		
+		return mapper.top5();
+	}
+	
+	public List<RankDTO> veteran(){
+		
+		return mapper.veteran();
+	}
 	
 	
 }

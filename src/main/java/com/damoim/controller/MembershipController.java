@@ -252,6 +252,8 @@ public class MembershipController {
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO,
 			Model model) {
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
+	
+		
 		System.out.println(membershipCode);
 		MembershipUserList list = service.main(membershipCode);
 		list.setCount((service.membershipUserCount(membershipCode)));
@@ -319,7 +321,7 @@ public class MembershipController {
 			}
 		}
 		if(!ck) {
-			System.out.println("일단함 확인");
+			
 			return "error";
 		}
 
@@ -545,7 +547,9 @@ public class MembershipController {
 	boolean check = false;
 		
 		for (int i=0; i<mem.getMemberListDTO().size(); i++) {
-			if(mem.getMemberListDTO().get(i).getMembershipCode() == membershipCode && !(mem.getMemberListDTO().get(i).getListGrade().equals("guest") || mem.getMemberListDTO().get(i).getListGrade().equals("regular")) ) {
+			if(mem.getMemberListDTO().get(i).getMembershipCode() == membershipCode
+					&& !(mem.getMemberListDTO().get(i).getListGrade().equals("guest") 
+			|| mem.getMemberListDTO().get(i).getListGrade().equals("regular")) ) {
 				check = true;
 				
 			}
@@ -558,6 +562,7 @@ public class MembershipController {
 		}
 
 		model.addAttribute("allMember", service.MembershipAllInfo(membershipCode));
+		
 		model.addAttribute("host", service.main(membershipCode));
 
 
@@ -621,14 +626,14 @@ public class MembershipController {
 		System.out.println("보내는 정보에서 사진 정보 제외하고 + " + vo);
 		if(vo.getFile() == null  ) { // 사진 변경을 안함(기존 그대로인 imgURL을 사용해야함)
 			if( zIndex == -1) {
-				System.out.println("이사람 프사 고르다가 취소하고 원래 프사 쓰기로함 ");
+				
 				vo.setMembershipImg(imgUrl);
 			} else {
-				System.out.println("이사람 프사 고르다가 취소하고 사이트 기본 프사 쓰기로함  ");
+				
 				vo.setMembershipImg(null);
 			}
 		}else { // 사진이 바뀜 먼가 바낌
-			System.out.println("이사람 직접 사진을 골랐음");
+			
 			fileDelete(imgUrl, vo.getMembershipCode()); // 실 파일 삭제	
 			vo.setMembershipImg(fileUpload(vo.getFile(), vo.getMembershipCode())); // 파일 업로드 + DB에 URL추가
 		}

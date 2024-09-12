@@ -56,15 +56,15 @@ uri="http://www.springframework.org/security/tags" %>
     <!-- Jodit JS 라이브러리 -->
     <script src="https://cdn.jsdelivr.net/npm/jodit@3.6.9/build/jodit.min.js"></script>
     <script>
-      // Jodit 에디터 초기화
+
       const editor = new Jodit("#editor", {
         uploader: {
-          insertImageAsBase64URI: true, // 이미지 업로드 시 base64로 변환
-          // 업로드 핸들러 URL 설정 (서버 측에서 처리)
-          url: "upload_image.php", // 실제 파일 업로드를 처리할 서버 URL
+          insertImageAsBase64URI: true, 
+         
+          url: "upload_image.php",
         },
-        height: 500, // 에디터의 높이 설정
-        toolbar: true, // 툴바 표시
+        height: 500, 
+        toolbar: true, 
         buttons: [
         	"bold",
             "italic",
@@ -95,14 +95,7 @@ uri="http://www.springframework.org/security/tags" %>
           const end = $("#end").val();
           const color = $("#colors").val();
           const code = $("#code").val();
-         
-    
-          // 콘솔에 내용 출력 (테스트 용도)
-          console.log(content);
-          console.log(title == "");
-          console.log(start);
-          console.log(end);
-          console.log(color);
+            
        if(title == ""){
     	   alert("제목을 입력해주세요")
        }else if( start == ""){

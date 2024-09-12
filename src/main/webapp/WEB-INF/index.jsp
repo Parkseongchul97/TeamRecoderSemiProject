@@ -22,6 +22,56 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
+<style>
+.rank-box{
+width:100%;
+display:flex;
+justify-content: space-between;
+margin-top:10px;
+margin-bottom:10px;
+}
+
+.rank-container{
+
+font-family: "Do Hyeon", sans-serif;
+font-size: 20px;
+
+}
+
+.rank-head{
+background-color: #FCA35B;
+align-items: center;
+
+display: flex; 
+justify-content:center;
+
+ color:white; 
+ font-weight:bold;
+  width: 100%; 
+  height: 50px;
+  font-size: 32px;
+ 
+}
+.toggle-btn{
+border: none;
+background-color: #F9F7F3;
+}
+.rank-body{
+line-height: 1.5;
+    width: 70%;
+
+}
+
+.rank-body > li:nth-child(1) {
+	font-size: 2rem;
+	text-align: center;
+}
+
+.rank-body ul{
+justify-content: space-between;
+}
+
+</style>
 
 <body>
 
@@ -39,6 +89,80 @@
 					특별한 순간."</p>
 			</div>
 		</div>
+	</div>
+	
+	<div class= "rank-container" style="display: none;  flex-direction:column; align-items: center; border: 1px solid black; width:280px; top:91px; left: 15px; position:fixed;">
+	
+		<div class="rank-head" >	
+		온도 랭킹
+		</div>
+	<div id="manner-rank" class="rank-box" style="display: flex;"  >
+		<button class="toggle-btn"><i class="fa-solid fa-angle-left fa-2x"></i></button>
+			<ul class="rank-body" >
+				
+
+				<c:forEach items="${mannerRank}" var="rank">
+				<ul class="rankInfo" style="display:  flex;">
+				<c:if test="${rank.rank == 0}"> 
+					<li><i style="color: gold;" class="fa-solid fa-medal"></i></li> 
+				</c:if>
+				<c:if test="${rank.rank == 1}"> 
+					<li><i style="color: silver;" class="fa-solid fa-medal"></i></li> 
+				</c:if>
+				<c:if test="${rank.rank == 2}"> 
+					<li><i style="color: #EEB999;" class="fa-solid fa-medal"></i></li> 
+				</c:if>
+				<c:if test="${rank.rank == 3}"> 
+					<li>4등</li> 
+				</c:if>
+				<c:if test="${rank.rank == 4}"> 
+					<li>5등</li> 
+				</c:if>
+				
+				
+			
+				
+				
+				<li><a href="/userInfo/${rank.nickname}">${rank.nickname}</a></li>
+					<li class="score">${rank.memberManner}°C</li>
+					</ul>
+				</c:forEach>
+			</ul>
+			<button class="toggle-btn"><i class="fa-solid fa-angle-right fa-2x"></i></button>
+	</div>
+	<div id="meet-rank" class="rank-box" style="display: none; "  >
+		<button class="toggle-btn"><i class="fa-solid fa-angle-left fa-2x"></i></button>
+		<ul class="rank-body">
+		
+<c:forEach items="${meetRank}" var="rank">
+				<ul class="rankInfo" style="display:  flex;">
+				<c:if test="${rank.rank == 0}"> 
+					<li><i style="color: gold;" class="fa-solid fa-medal"></i></li> 
+				</c:if>
+				<c:if test="${rank.rank == 1}"> 
+					<li><i style="color: silver;" class="fa-solid fa-medal"></i></li> 
+				</c:if>
+				<c:if test="${rank.rank == 2}"> 
+					<li><i style="color: #EEB999;" class="fa-solid fa-medal"></i></li> 
+				</c:if>
+				<c:if test="${rank.rank == 3}"> 
+					<li>4등</li> 
+				</c:if>
+				<c:if test="${rank.rank == 4}"> 
+					<li>5등</li> 
+				</c:if>
+				
+				
+			
+				
+				
+					<li><a href="/userInfo/${rank.nickname}">${rank.nickname}</a></li>
+					<li class="score">${rank.meetCount}회</li>
+					</ul>
+				</c:forEach>
+		</ul>	
+		<button class="toggle-btn"><i class="fa-solid fa-angle-right fa-2x"></i></button>
+	</div>
 	</div>
 
 

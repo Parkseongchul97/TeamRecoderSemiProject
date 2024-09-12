@@ -113,16 +113,16 @@ public class MembershipMeetingController {
 		Member mem = (Member) authentication.getPrincipal();
 		
 		MembershipMeetings meet = service.meetSelect(meetCode);
-	
-	
 
-		// 멤버쉽 이미지가 필요해서 memebershipCode를 추출 
 		
-		int membershipCode = service.meetSelect(meetCode).getMembershipCode();
+		int membershipCode = meet.getMembershipCode();
 		
 		boolean check = false;
+		
 		for( int j=0; j<mem.getMemberListDTO().size(); j++) {
-			if(mem.getMemberListDTO().get(j).getMembershipCode() == membershipCode && !mem.getMemberListDTO().get(j).getListGrade().equals("guest") ) {
+			if(mem.getMemberListDTO().get(j).getMembershipCode() 
+					== membershipCode 
+					&& !mem.getMemberListDTO().get(j).getListGrade().equals("guest") ) {
 				
 				check = true;
 				
@@ -133,7 +133,7 @@ public class MembershipMeetingController {
 		
 		
 		if(meet.getMeetInfo()==null || !check) {
-			System.out.println("97 : ");
+			
 			return "error";
 		}
 		
@@ -323,11 +323,10 @@ model.addAttribute("count",agree.size());
   @PostMapping("/meetingUpdate")
 	public String updateSubmit(MembershipMeetings meetings, Model model) {
 		
-	  System.out.println("????");
-	  System.out.println(meetings.getMeetCode());
+	
 	  
 	 
-	  
+	  System.out.println("1" + meetings);
 	  
 	  int membershipCode = meetings.getMembershipCode();
 	  
@@ -335,7 +334,7 @@ model.addAttribute("count",agree.size());
 	 
 	  service.meetingUpdate(meetings);
 	  
-	  System.out.println(meetings);
+	  System.out.println("2" + meetings);
 	  
 	  
 		return "redirect:/club/"+membershipCode;
