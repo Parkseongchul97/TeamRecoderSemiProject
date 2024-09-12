@@ -88,7 +88,6 @@ uri="http://www.springframework.org/security/tags"%>
                   />
                 </a>
               </div>
-              <h2>회원님의 등급 : ( 호스트 )</h2>
             </c:if>
             <p>
               탈퇴 후에는
