@@ -244,8 +244,8 @@ model.addAttribute("count",agree.size());
 	@PostMapping("/go")
 	public String participation(MeetingsAgree ma , String yN) {
 		System.out.println("참가 컨트롤러 접속 ");
-		System.out.println(yN);
-	//	service.participation(ma);
+		
+	
 		if(yN.equals("yes")) {
 			service.participation(ma);
 			
@@ -288,15 +288,14 @@ model.addAttribute("count",agree.size());
 		Member mem = (Member) authentication.getPrincipal();
 	
 		  int meetCode = meetings.getMeetCode();
-		System.out.println(meetCode);
+	
 		
 		String id = service.meetSelect(meetCode).getId();
-		System.out.println(id);
+	
+		
 		  model.addAttribute("meetingInfo" ,service.meetSelect(meetCode));
 		  
-		
-		
-		
+	
 
 
 	boolean check =false;
