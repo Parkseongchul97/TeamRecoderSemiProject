@@ -13,7 +13,12 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/updateMembership.css" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+.image{
+background: white;
+}
 
+</style>
 
 </head>
 <body>
@@ -55,11 +60,26 @@
 				</div>
 			</div>
 			<div class="bar" id="bar2">
-					사진첨부 <input type="file" name="file" id="file" accept="image/*">
+			사진첨부: <input type="file" name="file" id="file" accept="image/*" onchange="imgShow(event)"><br>
+				<button type="button" id="deleteImg" onclick="asd()">기본 이미지로 바꾸기 </button>
+				
 				</div>
 				
 			<div id="memberImg">
-				<img src="http://192.168.10.51:8081/membership/${membership.membershipCode}/${membership.membershipImg}">
+				<div id="image_container">
+								<img id="default" alt="" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg"  >
+									<c:if test="${membership.membershipImg != null}">
+									<img 
+										src="http://192.168.10.51:8081/membership/${membership.membershipCode}/${membership.membershipImg}"
+										alt="Profile Image">
+										</c:if>
+										<c:if test="${membership.membershipImg == null}">
+									<img 
+										src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg"
+										alt="Profile Image">
+										</c:if>
+										
+								</div>
 			</div>
 
 			<div id="locLaText">지역을 선택해주세요</div>
@@ -71,7 +91,7 @@
 					<label for="${locLN}" class="locLNCss">${locLN}</label>
 				</c:forEach>
 			</div>
-			<div class="locSbox"></div>
+			<div class="locSbox" style="display: none;"></div>
 			<div id="typeLaText">유형을 선택해주세요</div>
 			<div class="typeLabox">
 				<c:forEach items="${typeLaNameList}" var="typeLN">
@@ -80,7 +100,7 @@
 					<label for="${typeLN}" class="typeLNCss">${typeLN}</label>
 				</c:forEach>
 			</div>
-			<div class="typeSbox"></div>
+			<div class="typeSbox" style="display: none;"></div>
 			<!-- locationSList typeSName -->
 			<!-- 도시별 지역별 태그 선택 ============================================================== -->
 
@@ -123,7 +143,7 @@ $.ajax({
 			</c:forEach>
 			locS += "> <label for='" + i +"' class='locLNCss'>" + i + "</label>";
 		}
-		$(".locSbox").html(locS);
+		$(".locSbox").show().html(locS);
 	},
 })
 
@@ -146,35 +166,12 @@ $.ajax({
 			</c:forEach>
 			typeS += "> <label for='" + i +"' class='typeLNCss'>" + i + "</label>";
 		}
-		$(".typeSbox").html(typeS);
+		$(".typeSbox").show().html(typeS);
 	},
 })
 
 
-	function imgShow(event) {
-		var reader = new FileReader();
 
-		reader.onload = function(event) {
-			var container = document.getElementById('image_container');
-			container.innerHTML = '';
-			var img = document.createElement('img');
-			img.className = 'image'
-
-			img.setAttribute('src', event.target.result);
-			container.appendChild(img);
-
-		};
-
-		if (event.target.files.length > 0) {
-
-			reader.readAsDataURL(event.target.files[0]);
-
-		} else {
-
-			$(".image").remove();
-
-		}
-	}
 </script>
 </body>
 </html>

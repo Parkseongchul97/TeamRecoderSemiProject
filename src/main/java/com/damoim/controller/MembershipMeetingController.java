@@ -50,6 +50,7 @@ public class MembershipMeetingController {
 	private RemoveMemberService removeService;
 	
 	
+	// 멤버쉽 미팅 작성 페이지로 이동 
 	@GetMapping("/write")
 	public String write(int membershipCode, Model model) {
 		System.out.println("모임 컨트롤러 매핑 " + membershipCode);
@@ -78,6 +79,7 @@ public class MembershipMeetingController {
 		return "membershipMeeting/meetingWrite";
 	}
 	
+	// 작성완료 
 	@PostMapping("/write")
 	public String write1(int membershipCode, MembershipMeetings meeting) throws IOException {
 
@@ -100,6 +102,8 @@ public class MembershipMeetingController {
 		return "redirect:/club/"+membershipCode;
 	}
 	
+	
+	// 멤버쉽 미팅 상세 페이지로 이동 
 	@GetMapping("/meetingDetail")
 	public String meetingDetail(int meetCode , Model model) {
 		
@@ -129,7 +133,7 @@ public class MembershipMeetingController {
 		
 		
 		if(meet.getMeetInfo()==null || !check) {
-			System.out.println("97 : ");
+			
 			return "error";
 		}
 		
@@ -140,8 +144,6 @@ public class MembershipMeetingController {
 	//동의 명단을 구하는거 ok 얘네가 listgrade 없음 memebershipUserList로 가져와야함
 List<MembershipUserList> agree = new ArrayList<MembershipUserList>();
 
-System.out.println("미트 멤버 " + service.meetMember(meetCode));
-System.out.println("올레귤러 " + membershipService.MembershipAllRegular(membershipCode));
 for( int i=0; i<service.meetMember(meetCode).size(); i++) {
 	for(int j=0; j<membershipService.MembershipAllRegular(membershipCode).size(); j++) {
 		if(membershipService.MembershipAllRegular(membershipCode).get(j).getMember().getId().equals(service.meetMember(meetCode).get(i).getMember().getId())){
@@ -154,8 +156,8 @@ for( int i=0; i<service.meetMember(meetCode).size(); i++) {
 	
 }
 model.addAttribute("agree", agree);
+model.addAttribute("count",agree.size());
 
-System.out.println("어그리 " + agree);
 	    model.addAttribute("regular", membershipService.MembershipAllRegular(membershipCode));
 		// 캘린더 추가 ? 
 		model.addAttribute("allmeet", service.allMeetings(membershipCode));
@@ -219,7 +221,7 @@ System.out.println("어그리 " + agree);
 		    
 		}
 		}
-		System.out.println("댓글  목록 " + dtoList);
+		
 
 		
 		model.addAttribute("comment", dtoList); 
@@ -232,6 +234,8 @@ System.out.println("어그리 " + agree);
 			
 		return "membershipMeeting/meetingDetail";
 	}
+	
+	
 	
 	@ResponseBody
 	@PostMapping("/go")
@@ -251,41 +255,17 @@ System.out.println("어그리 " + agree);
 		return "redirect:/meetingDetail";
 	}
 		
-	
-	
-	
-	
-  public String fileUpload(MultipartFile file,int membershipCode,int meetCode) throws IllegalStateException, IOException {
-		
-		UUID uuid= UUID.randomUUID();
-		
-		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
-			
-		File copyFile = new File("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\"+ membershipCode+"\\"+meetCode+"\\"+fileName);  
-		
-		file.transferTo(copyFile); 
-		
-	
-		
-	
-		
-		return fileName;
-		
-		
-	}
 		
   @GetMapping("/meetingUpdate")
 	public String update(MembershipMeetings meetings, Model model) {
-		
-	  int meetCode = meetings.getMeetCode();
-	  
-	  model.addAttribute("meetingInfo" ,service.meetSelect(meetCode));
-	  
-	  System.out.println(service.meetSelect(meetCode).getMeetInfo());
-	 
-	  
-	  
-	  
+	  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		//로그인 정보 가져옴
+		Member mem = (Member) authentication.getPrincipal();
+		model.addAttribute("meetingInfo" ,service.meetSelect(meetings.getMeetCode()));
+
+		if(!mem.getId().equals(service.meetSelect(meetings.getMeetCode()).getId()))
+			return "error";
+ 
 		return "membershipMeeting/meetingUpdate";
 	}
   
@@ -293,12 +273,9 @@ System.out.println("어그리 " + agree);
   
   @PostMapping("/meetingUpdate")
 	public String updateSubmit(MembershipMeetings meetings, Model model) {
-		
-	  int meetCode = meetings.getMeetCode();
-	  
-	  int membershipCode = service.meetSelect(meetCode).getMembershipCode();
-	  
-	 
+		System.out.println(meetings);
+	  int meetCode = meetings.getMeetCode();	  
+	  int membershipCode = service.meetSelect(meetCode).getMembershipCode();	 
 	  service.meetingUpdate(meetings);
 	  
 	  
@@ -317,7 +294,6 @@ System.out.println("어그리 " + agree);
 		
 		removeService.deleteMeeting(meetCode);
 		
-		System.out.println("미팅 테스트용 " + meetings);
 		
 		return "redirect:/club/"+membershipCode;
 
@@ -326,19 +302,5 @@ System.out.println("어그리 " + agree);
 	
 	
 	
-	
-	
-	public void fileDelete(String file, int membershipCode, int meetCode) throws IllegalStateException, IOException {
-		if(file == null) {
-			System.out.println("삭제할 파일이 없습니다");
-		}
-		else {
-			System.out.println("삭제될 URL : "  + file);
-		File f = new File("\\\\192.168.10.51\\damoim\\membership\\"+ Integer.toString(membershipCode) + "\\"+Integer.toString(meetCode) + "\\" + file);
-		f.delete();
-		
-		}
-	
-	}
-	
+
 }

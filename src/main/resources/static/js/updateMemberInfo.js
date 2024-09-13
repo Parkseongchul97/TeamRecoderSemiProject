@@ -40,7 +40,7 @@ pwd.addEventListener("input", function () {
     pwdSubmit = false;
   } else {
     pwdSubmit = true;
-    $("#pwdResult").text(" 사용 가능한 비밀번호입니다.").css("color", "green");
+    $("#pwdResult").html('<img src="https://cdn-icons-png.flaticon.com/512/11433/11433360.png" width="13px">');
   }
 });
 pwdc.addEventListener("input", function () {
@@ -48,7 +48,7 @@ pwdc.addEventListener("input", function () {
   const pwdcValue = $(this).val().trim();
 
   if (pwdcValue === $("#pwd").val()) {
-    $("#pwdcResult").text(" 비밀번호가 일치합니다").css("color", "green");
+    $("#pwdcResult").html('<img src="https://cdn-icons-png.flaticon.com/512/11433/11433360.png" width="13px">');
     pwdcSubmit = true;
   } else {
     $("#pwdcResult").text(" 비밀번호가 일치하지 않습니다.").css("color", "red");
@@ -66,15 +66,13 @@ nickname.addEventListener("input", function () {
   } else {
     $.ajax({
       type: "POST",
-      url: "/updateNicknameCheck", // 컨트롤러 URL
+      url: "/nicknameCheck", // 컨트롤러 URL
       data: { nickname: nicknameValue },
       success: function (result) {
         if (result) {
           // 서버 응답을 'true' 또는 'false'로 가정
           console.log(result);
-          $("#nicknameResult")
-            .text(" 사용 가능한 닉네임 입니다")
-            .css("color", "green");
+          $("#nicknameResult").html('<img src="https://cdn-icons-png.flaticon.com/512/11433/11433360.png" width="13px">');
           nicknameSubmit = true;
         } else {
           console.log(result);
@@ -98,14 +96,12 @@ email.addEventListener("input", function () {
   } else {
     $.ajax({
       type: "POST",
-      url: "/emailUpdateCheck", // 컨트롤러 URL
+      url: "/emailCheck", // 컨트롤러 URL
       data: { email: emailValue },
       success: function (result) {
         if (result) {
           console.log(result);
-          $("#emailResult")
-            .text(" 사용 가능한 이메일 입니다")
-            .css("color", "green");
+          $("#emailResult").html('<img src="https://cdn-icons-png.flaticon.com/512/11433/11433360.png" width="13px">');
           emailSubmit = true;
         } else {
           console.log(result);
@@ -125,7 +121,7 @@ age.addEventListener("input", function () {
     ageSubmit = false;
     $("#ageResult").text(" 올바른 나이를 입력해주십시오.").css("color", "red");
   } else {
-    $("#ageResult").text("").css("color", "green");
+    $("#ageResult").html('<img src="https://cdn-icons-png.flaticon.com/512/11433/11433360.png" width="13px">');
     ageSubmit = true;
   }
 });

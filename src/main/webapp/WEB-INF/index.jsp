@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +43,79 @@
 	</div>
 
 
+	</div>
+	<div class= "rank-container" style="display: none;  flex-direction:column; align-items: center;  width:280px; top:91px; left: 15px; position:fixed;">
+	
+		<div class="rank-head" >	
+		<div class="sort">온도 랭킹</div> <button class="select" value="manner-rank"><i class="fa-solid fa-chevron-up fa-2x"></i></button>
+		</div>
+	<div id="manner-rank" class="rank-box" style="display: flex;"  >
+		<button class="toggle-btn"><i class="fa-solid fa-angle-left fa-2x"></i></button>
+			<ul class="rank-body" >
+				
+				<c:forEach items="${mannerRank}" var="rank">
+				<ul class="rankInfo" style="display:  flex;">
+				<c:if test="${rank.rank == 0}">
+					<li><i style="color: gold;" class="fa-solid fa-medal"></i></li>
+				</c:if>
+				<c:if test="${rank.rank == 1}">
+					<li><i style="color: silver;" class="fa-solid fa-medal"></i></li>
+				</c:if>
+				<c:if test="${rank.rank == 2}">
+					<li><i style="color: #EEB999;" class="fa-solid fa-medal"></i></li>
+				</c:if>
+				<c:if test="${rank.rank == 3}">
+					<li>4등</li>
+				</c:if>
+				<c:if test="${rank.rank == 4}">
+					<li>5등</li>
+				</c:if>
+				
+				
+			
+				
+				
+				<li class="nickname"><a href="/userInfo/${rank.nickname}">${rank.nickname}</a></li>
+					<li class="score">${rank.memberManner}°C</li>
+					</ul>
+				</c:forEach>
+			</ul>
+			<button class="toggle-btn"><i class="fa-solid fa-angle-right fa-2x"></i></button>
+	</div>
+	<div id="meet-rank" class="rank-box" style="display: none; "  >
+		<button class="toggle-btn"><i class="fa-solid fa-angle-left fa-2x"></i></button>
+		<ul class="rank-body">
+		
+<c:forEach items="${meetRank}" var="rank">
+				<ul class="rankInfo" style="display:  flex;">
+				<c:if test="${rank.rank == 0}">
+					<li><i style="color: gold;" class="fa-solid fa-medal"></i></li>
+				</c:if>
+				<c:if test="${rank.rank == 1}">
+					<li><i style="color: silver;" class="fa-solid fa-medal"></i></li>
+				</c:if>
+				<c:if test="${rank.rank == 2}">
+					<li><i style="color: #EEB999;" class="fa-solid fa-medal"></i></li>
+				</c:if>
+				<c:if test="${rank.rank == 3}">
+					<li>4등</li>
+				</c:if>
+				<c:if test="${rank.rank == 4}">
+					<li>5등</li>
+				</c:if>
+				
+				
+			
+				
+				
+					<li class="nickname"><a href="/userInfo/${rank.nickname}">${rank.nickname}</a></li>
+					<li class="score">${rank.meetCount}회</li>
+					</ul>
+				</c:forEach>
+		</ul>	
+		<button class="toggle-btn"><i class="fa-solid fa-angle-right fa-2x"></i></button>
+	</div>
+	</div>
 	<!-- 08-20 채승훈 -->
 	<div class="locationTypeBody">
 	<!-- 지역별 -->
@@ -113,10 +187,19 @@
 
 	<br>
 	<div class="membership-list">
+	<c:if test="${fn:length(list) == 0}">
+			<div class="noMember">해당 정보가 없습니다.. 😥</div>
+		</c:if>
+
+	<c:if test="${fn:length(list) != 0}">
 		<c:forEach items="${list}" var="info" varStatus="status">
+
+		
 			<div class="membership-card">
-			<c:if test="${info.membershipDate >  today30 && today > info.membershipDate}">
+				
+			<c:if test="${info.membershipDate >=  today30 &&  today >= info.membershipDate}">
 			<img alt="" src="http://192.168.10.51:8081/sungil/2%ED%8A%B8.png" class="new">
+		
 				</c:if>
 				<div class="membership-img">
 			
@@ -191,8 +274,11 @@
 					</div>
 				</div>
 			</div>
+			
 		</c:forEach>
+		</c:if>
 	</div>
+	
 	<jsp:include page="chatting/chattingIndex.jsp" />
 	<jsp:include page="footer/footerIndex.jsp" />
 	

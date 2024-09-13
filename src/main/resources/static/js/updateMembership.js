@@ -1,5 +1,77 @@
+
+
+let zIndex = -1;
+function imgShow(event) {
+			 var reader = new FileReader();
+			   
+			    reader.onload = function(event) {
+			    	console.log(container)
+			        var container = document.getElementById('image_container');
+			     
+			       var img = document.createElement('img');
+				 
+		
+			       img.className = 'image'
+			        
+			        img.setAttribute('src', event.target.result);
+			    container.appendChild(img);
+			      
+			        
+			    };
+			   
+			   
+			    
+			    if (event.target.files.length > 0) {
+			    
+					$(".image").remove();
+				
+			        reader.readAsDataURL(event.target.files[0]);
+			     	zIndex = -1 ;
+			        $("#default").css('z-index', zIndex)
+					
+			        
+			    } else {
+			    	
+			    	zIndex = -1 ;
+			    	 $("#default").css('z-index', zIndex)
+			    	$(".image").remove();
+			    	
+			    }
+		}
+
+
+		function asd() {
+		 
+		  document.getElementById('file').value = "";
+		 	 zIndex = 10 ;
+		     $('#default').css('z-index', zIndex); 
+		 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $(document).ready(function() {
 	// 클럽명 중복 체크
+
 	let membershipNameCheck = true;
 	membershipName.addEventListener('input', function() {
 		const membershipNameValue = $(this).val().trim();
@@ -7,8 +79,9 @@ $(document).ready(function() {
 		$.ajax({
 			type: 'POST',
 			url: '/membershipNameCheck', // 컨트롤러 URL
-			data: { membershipName: membershipNameValue ,
-					membershipCode : membershipCode
+			data: {
+				membershipName: membershipNameValue,
+				membershipCode: membershipCode
 			},
 			success: function(result) {
 				if (result) {
@@ -34,11 +107,15 @@ $(document).ready(function() {
 	// membershipMax 요소에 입력 이벤트 리스너 추가
 	membershipMax.addEventListener('input', function() {
 		const membershipMaxValue = $(this).val().trim(); // jQuery를 사용하여 현재 값 가져오기
+		let count =  Number($("#count").text());
 		if (membershipMaxValue === '') {
 			$('#max').text(" 필수 입력사항입니다").css('color', 'red');
 			membershipMaxSubmit = false; // 제출 불가 상태로
-		} else if (membershipMaxValue <= $("#count").text() || membershipMaxValue >= 101) {
+		} else if (membershipMaxValue < count || membershipMaxValue >= 101) {
+			$('#max').text("설정 가능한 최소 인원은 " + count + "명 최대 인원수는 100명입니다").css('color', 'red');
+
 			$('#max').text("설정 가능한 최소 인원은 " +$("#count").text()+ "명 최대 인원수는 100명입니다").css('color', 'red');
+
 			membershipMaxSubmit = false;
 		} else {
 			$('#max').text("설정 가능한 인원수 입니다").css('color', 'green');
@@ -47,7 +124,22 @@ $(document).ready(function() {
 	});
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	// 이 밑에만 슥 가져가시면 돼요!
+
+	let beforeSelLoc = ""
+	function locLaFirst() {
+		$('input[name="locationLaName"]').filter(':checked').each(function() {
+			beforeSelLoc = $(this).val();
+		});
+	}
+	locLaFirst();
 	function locLaChoose() {
+		if (beforeSelLoc == $(this).val()) {
+			$(".locSbox").html("");
+			$(".locSbox").css("padding",  "0px");
+			beforeSelLoc = "";
+			return;
+		}
+		beforeSelLoc = $(this).val();
 		const locL = $(this);
 		$('input[name="locationLaName"]').not(locL).prop('checked', false);
 		let locS = "";
@@ -56,7 +148,7 @@ $(document).ready(function() {
 			method: 'GET',
 			data: { laName: locL.val() },
 			success: function(re) {
-				$(".locSbox").html();
+				$(".locSbox").css("padding",  "5px");
 				for (const i of re)
 					locS += `
 				        <input type="checkbox" value="${i}" id="${i}" name="locLN">
@@ -67,11 +159,23 @@ $(document).ready(function() {
 		})
 	}
 	$('input[name="locationLaName"]').on('click', locLaChoose);
-	
-	  
 
-	  
+
+	let beforeSelType = "";
+	function typeLaFirst() {
+		$('input[name="typeLaName"]').filter(':checked').each(function() {
+			beforeSelType = $(this).val();
+		});
+	}
+	typeLaFirst();
 	function typeLaChoose() {
+		if (beforeSelType == $(this).val()) {
+			$(".typeSbox").html("");
+			$(".typeSbox").css("padding",  "0px");
+			beforeSelType = "";
+			return;
+		}
+		beforeSelType = $(this).val();
 		const typeL = $(this);
 		$('input[name="typeLaName"]').not(typeL).prop('checked', false);
 		let typeS = "";
@@ -80,7 +184,8 @@ $(document).ready(function() {
 			method: 'GET',
 			data: { typeLaName: typeL.val() },
 			success: function(re) {
-				$(".typeSbox").html();
+				
+				$(".typeSbox").css("padding",  "5px");
 				for (const i of re)
 					typeS += `
 					        <input type="checkbox" value="${i}" id="${i}" name="typeLN">
@@ -95,7 +200,7 @@ $(document).ready(function() {
 	
 	
 	
-	
+
 	
 	$("#updateClub").on('click', function() {
 			const selLoc = [];
@@ -139,28 +244,27 @@ $(document).ready(function() {
 			formData.append('membershipSimpleText', membershipSimpleText)
 			formData.append('membershipMax', membershipMax)
 			formData.append('membershipCode', $("#membershipCode").val())
+			formData.append('zIndex', zIndex);
 			if(file !== undefined){
 			formData.append('file', file);
+		}
+		formData.append('LB', JSON.stringify(selLoc));
+		formData.append('TB', JSON.stringify(selType));
+
+		$.ajax({
+			type: 'post',
+			url: '/updateMembership',
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(code) {
+				window.location.replace(`/club/${code}`);
 			}
-			formData.append('LB', JSON.stringify(selLoc));
-			formData.append('TB', JSON.stringify(selType));
-			
-	
-			console.log(formData);
-					 $.ajax({
-						type: 'post',
-						url: '/updateMembership',
-						data: formData,
-						processData: false,
-						contentType: false,
-						success: function(code) {
-							window.location.replace(`/club/${code}`);
-						}
-			
-					});
+
 		});
-		});
+		}
+	)});
 	
 	
-	
-	
+
+		

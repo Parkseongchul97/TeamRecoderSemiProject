@@ -72,7 +72,7 @@
                            <li class="member-grade">   관리자 </li>
                             </c:if>
                            </div>
-                           
+                           <a href="/userInfo/${listMember.member.nickname}">
                             <div class="member-img">
                             <c:if test="${list.member.memberImg != null}">
                             <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${list.member.id}/${list.member.memberImg}" ></li>
@@ -81,6 +81,7 @@
                             <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
                             </c:if>
                             </div>
+                            </a>
                             </div>
                           
                           
@@ -180,8 +181,17 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 		
 		<div id="calendar-info">
 		
-		 <p>일정 한눈에 보기</p>
-		<div id="calendar"></div>
+		 <p>자세한 정보<p>
+		 
+		
+		</div>
+		
+		<div id="date">
+
+		</div>
+		<div id="count">
+		
+		참여인원 : ${count}명
 		</div>
 		
 		<div id="buttones">
