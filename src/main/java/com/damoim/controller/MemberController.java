@@ -283,18 +283,17 @@ public class MemberController {
 	public boolean defualtFile() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		service.defualtFile(mem.getId()); // DB 날리고
-		mem.setMemberImg(null); // 로그인 img 정보 날리고
-		SecurityContextHolder.getContext().setAuthentication(authentication);
 		try {
-			fileDelete(mem.getMemberImg(), mem.getId()); // 파일 삭제
+			fileDelete(mem.getMemberImg(), mem.getId());
 		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
 			return false;
 		}
+		service.defualtFile(mem.getId());
+		mem.setMemberImg(null);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return true;
 	}
-
-	
 
 	// 프로필, info 업데이트
 	@ResponseBody
