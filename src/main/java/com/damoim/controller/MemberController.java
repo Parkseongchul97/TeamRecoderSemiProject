@@ -284,13 +284,13 @@ public class MemberController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 		try {
-			fileDelete(mem.getMemberImg(), mem.getId());
+			fileDelete(mem.getMemberImg(), mem.getId()); // 기존 파일 삭제
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 			return false;
 		}
-		service.defualtFile(mem.getId());
-		mem.setMemberImg(null);
+		service.defualtFile(mem.getId()); // DB 날리기
+		mem.setMemberImg(null); // 로그인 멤버이미지 삭제
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return true;
 	}
