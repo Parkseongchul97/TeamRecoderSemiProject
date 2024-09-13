@@ -280,10 +280,12 @@ public class MemberController {
 	// 기본 사진으로 변경
 	@ResponseBody
 	@PostMapping("/defualtFile")
-	public boolean defualtFile() {
+	public boolean defualtFile() throws IllegalStateException, IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
+		fileDelete(mem.getMemberImg(), mem.getId());
 		service.defualtFile(mem.getId());
+		mem.setMemberImg(null);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return true;
 	}
