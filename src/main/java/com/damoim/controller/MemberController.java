@@ -280,19 +280,21 @@ public class MemberController {
 	// 기본 사진으로 변경
 	@ResponseBody
 	@PostMapping("/defualtFile")
-	public boolean defualtFile() throws IllegalStateException, IOException {
+	public boolean defualtFile() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		if (mem.getMemberImg() == null) {
+		service.defualtFile(mem.getId()); // DB 날리고
+		mem.setMemberImg(null); // 로그인 img 정보 날리고
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		try {
+			fileDelete(mem.getMemberImg(), mem.getId()); // 파일 삭제
+		} catch (IllegalStateException | IOException e) {
 			return false;
-		} else {
-			fileDelete(mem.getMemberImg(), mem.getId());
-			service.defualtFile(mem.getId());
-			mem.setMemberImg(null);
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-			return true;
 		}
+		return true;
 	}
+
+	
 
 	// 프로필, info 업데이트
 	@ResponseBody

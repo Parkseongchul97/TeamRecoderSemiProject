@@ -528,7 +528,7 @@
 		                        alert("기본 사진으로 변경되었습니다");
 		                        window.location.href = "/mypage";
 		                    } else {
-		                    	alert("현재 기본 프로필입니다");
+		                    	alert("수정에 실패하였습니다");
 		                    }
 		                }
 				});
