@@ -65,7 +65,7 @@ public class MemberController {
 
 	@Autowired // 회원 탈퇴 댓글 삭제 서비스
 	private RemoveMemberService removeService;
-	
+
 	@Autowired
 	private MembershipMeetingService meetingService;
 
@@ -85,6 +85,7 @@ public class MemberController {
 		return mem == null;
 
 	}
+
 	/*
 	 * 성철 회원가입 할때 닉네임(유니크 제약조건) 중복회원 체크
 	 */
@@ -92,18 +93,18 @@ public class MemberController {
 	@PostMapping("/nicknameCheck") // 회원가입시 닉네임 중복 체크
 	public boolean nicknameCheck(Member member) {
 		Member mem = service.nicknameCheck(member);
-		if(mem == null) { // 중복이 아닐시 
+		if (mem == null) { // 중복이 아닐시
 			return true;
-		}else { // 중복일시  
+		} else { // 중복일시
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			Member loginMember = (Member) authentication.getPrincipal();
-			if(loginMember.getId().equals(mem.getId())) { // 로그인한 회원과 중복인 회원의 id가 일치할시
+			if (loginMember.getId().equals(mem.getId())) { // 로그인한 회원과 중복인 회원의 id가 일치할시
 				return true;
 			}
 			return false;
 		}
-	}	
-	
+	}
+
 	/*
 	 * 성철 회원가입할때 이메일 (유니크) 증복체크
 	 */
@@ -111,12 +112,12 @@ public class MemberController {
 	@PostMapping("/emailCheck") // 회원가입시 닉네임 중복 체크
 	public boolean emailCheck(Member member) {
 		Member mem = service.emailCheck(member);
-		if(mem == null) { // 중복이 아닐시 
+		if (mem == null) { // 중복이 아닐시
 			return true;
-		}else { // 중복일시  
+		} else { // 중복일시
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			Member loginMember = (Member) authentication.getPrincipal();
-			if(loginMember.getId().equals(mem.getId())) { // 로그인한 회원과 중복인 회원의 id가 일치할시
+			if (loginMember.getId().equals(mem.getId())) { // 로그인한 회원과 중복인 회원의 id가 일치할시
 				return true;
 			}
 			return false;
@@ -202,7 +203,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-
 	/*
 	 * 
 	 * 회원 중요정보 수정
@@ -242,39 +242,39 @@ public class MemberController {
 	 */
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response ,String pwdCheck) {
-	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    System.out.println("입력한 비번옴? : " + pwdCheck);
-	    Member mem = (Member) authentication.getPrincipal();
-	    boolean check = false;
-	    for(MemberListDTO dto : mem.getMemberListDTO()) {
-	    	if(dto.getListGrade().equals("host"))
-				   check = true; 
-	    		}
-	    if (check) { // 해당 유저가 가입된 클럽 중  호스트인게 있다면!
-	        return false;
-	    	}
-	    if(!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
-	    	System.out.println("비번틀림!");
-	    	return false;
-	    }
-	    
-	    service.memberStatus(mem); // 멤버 상태 업데이트
-	    removeService.deleteAllComment(mem.getId());
-	    removeService.deleteMembershipUserList(mem.getId());
-	    removeService.deleteAllMeeting(mem.getId());
-	    
-	    try { // 이미지 파일 삭제
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, String pwdCheck) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("입력한 비번옴? : " + pwdCheck);
+		Member mem = (Member) authentication.getPrincipal();
+		boolean check = false;
+		for (MemberListDTO dto : mem.getMemberListDTO()) {
+			if (dto.getListGrade().equals("host"))
+				check = true;
+		}
+		if (check) { // 해당 유저가 가입된 클럽 중 호스트인게 있다면!
+			return false;
+		}
+		if (!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
+			System.out.println("비번틀림!");
+			return false;
+		}
+
+		service.memberStatus(mem); // 멤버 상태 업데이트
+		removeService.deleteAllComment(mem.getId());
+		removeService.deleteMembershipUserList(mem.getId());
+		removeService.deleteAllMeeting(mem.getId());
+
+		try { // 이미지 파일 삭제
 			fileDelete(mem.getMemberImg(), mem.getId());
 		} catch (Exception e) {
 			System.out.println("!!!!!!!!!!!!!파일삭제 오류!!!!!!!!!!!");
 			return false;
 		}
-	    // 로그아웃 처리
-	    SecurityContextHolder.getContext().setAuthentication(authentication);
-	    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-	    logoutHandler.logout(request, response, authentication);
-	    return true;
+		// 로그아웃 처리
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+		logoutHandler.logout(request, response, authentication);
+		return true;
 	}
 
 	// 기본 사진으로 변경
@@ -283,34 +283,39 @@ public class MemberController {
 	public boolean defualtFile() throws IllegalStateException, IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		fileDelete(mem.getMemberImg(), mem.getId());
-		service.defualtFile(mem.getId());
-		mem.setMemberImg(null);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return true;
+		if (mem.getMemberImg() == null) {
+			return false;
+		} else {
+			fileDelete(mem.getMemberImg(), mem.getId());
+			service.defualtFile(mem.getId());
+			mem.setMemberImg(null);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			return true;
+		}
 	}
-	
+
 	// 프로필, info 업데이트
 	@ResponseBody
 	@PostMapping("/updateMember")
-	public boolean updateMember(MultipartFile file,String memberInfo, String memberHobby) throws IllegalStateException, IOException {
+	public boolean updateMember(MultipartFile file, String memberInfo, String memberHobby)
+			throws IllegalStateException, IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 		// 1. file 이 null 인 경우 (사용자가 파일을 선택하지 않고 제출 버튼을 눌렀을 때)
 		// 1-1 !file.isEmpty() (파일이 선택되었고 내용이 있는 경우)
-	    if (file != null && !file.isEmpty()) {
-	        if (mem.getMemberImg() != null) {
-	        	// 2. 멤버가 가지고있는 파일이미지가 null이 아닐경우 기존 파일 삭제
-	            fileDelete(mem.getMemberImg(), mem.getId());
-	        }
-	        // 3. 그 뒤에 url 파일 업로드 후 멤버의 이미지에 추가
-	        String url = fileUpload(file, mem.getId());
-	        mem.setMemberImg(url);
-	    } else if (file == null) {
-	    	// 4. 추가한 파일이 없거나 기존 이미지로 유지할 경우 기존 이미지 유지
-	        mem.setMemberImg(mem.getMemberImg());
-	    }
-	    mem.setMemberHobby(memberHobby);
+		if (file != null && !file.isEmpty()) {
+			if (mem.getMemberImg() != null) {
+				// 2. 멤버가 가지고있는 파일이미지가 null이 아닐경우 기존 파일 삭제
+				fileDelete(mem.getMemberImg(), mem.getId());
+			}
+			// 3. 그 뒤에 url 파일 업로드 후 멤버의 이미지에 추가
+			String url = fileUpload(file, mem.getId());
+			mem.setMemberImg(url);
+		} else if (file == null) {
+			// 4. 추가한 파일이 없거나 기존 이미지로 유지할 경우 기존 이미지 유지
+			mem.setMemberImg(mem.getMemberImg());
+		}
+		mem.setMemberHobby(memberHobby);
 		mem.setMemberInfo(memberInfo);
 		service.updateMember(mem);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -323,9 +328,7 @@ public class MemberController {
 
 	@GetMapping("/userInfo/{nickname}")
 	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {
-		
-	
-		
+
 		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
 		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member)
 				.memberMeetCount(infoService.meetCount(member.getId()))
@@ -342,7 +345,7 @@ public class MemberController {
 			System.out.println("본인 ");
 			return "mypage/mypage";
 		}
-		
+
 		System.out.println("그외 ");
 		return "member/userInfo";
 	}
@@ -350,7 +353,7 @@ public class MemberController {
 	/*
 	 * 성철 유저 1명당 24시간마다 다른 유저에게 추천, 비추천 기능(온도 0.5도씩 업다운)
 	 */
-	
+
 	@ResponseBody
 	@PostMapping("/recommendation")
 	public boolean recommendation(String targetMember, String loginMember, boolean plusMinus) {
@@ -383,8 +386,8 @@ public class MemberController {
 	}
 
 	// 성철 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!! 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
-	public void fileDelete(String file,  String id) throws IllegalStateException, IOException {
-		
+	public void fileDelete(String file, String id) throws IllegalStateException, IOException {
+
 		if (file == null) {
 			System.out.println("삭제할 파일이 없습니다");
 		} else {
@@ -392,20 +395,8 @@ public class MemberController {
 			String decodedString = URLDecoder.decode(file, StandardCharsets.UTF_8.name());
 			File f = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + decodedString);
 			f.delete();
-			
+
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
